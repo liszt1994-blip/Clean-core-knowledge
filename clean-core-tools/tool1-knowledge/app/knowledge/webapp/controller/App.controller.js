@@ -12,10 +12,11 @@ sap.ui.define([
   'sap/m/ObjectStatus',
   'sap/m/MessageStrip',
   'sap/m/Link',
+  'sap/m/Toolbar',
   'sap/ui/core/HTML'
 ], function (
   Controller, JSONModel, MessageBox,
-  VBox, HBox, Text, FormattedText, Title, Button, Panel, ObjectStatus, MessageStrip, Link, HTML
+  VBox, HBox, Text, FormattedText, Title, Button, Panel, ObjectStatus, MessageStrip, Link, Toolbar, HTML
 ) {
   'use strict';
 
@@ -259,7 +260,7 @@ sap.ui.define([
       return new Panel({
         expandable: true,
         expanded: false,
-        headerToolbar: new sap.m.Toolbar({ content: [headerBox] }),
+        headerToolbar: new Toolbar({ content: [headerBox] }),
         content: [new VBox({ items: details }).addStyleClass('sapUiSmallMargin')]
       }).addStyleClass('sapUiSmallMarginBottom');
     },
