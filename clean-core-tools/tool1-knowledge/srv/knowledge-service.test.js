@@ -141,3 +141,51 @@ test('POST /odata/v4/knowledge/analyzeAtc returns 400 without atcOutput', async 
     .send({});
   expect(res.status).toBe(400);
 });
+
+test('POST /odata/v4/knowledge/rewriteCode returns original and rewritten', async () => {
+  const app = cds.app;
+  const res = await supertest(app)
+    .post('/odata/v4/knowledge/rewriteCode')
+    .set('Content-Type', 'application/json')
+    .send({
+      code: `CALL FUNCTION 'BAPI_MATERIAL_SAVEDATA'.`,
+      violations: [{ objectName: 'BAPI_MATERIAL_SAVEDATA', replacement: 'I_MATERIAL', replacementType: 'CDS View' }],
+    });
+  expect(res.status).toBe(200);
+  const body = res.body.value || res.body;
+  expect(body).toHaveProperty('original');
+  expect(body).toHaveProperty('rewritten');
+});
+
+test('POST /odata/v4/knowledge/rewriteCode returns 400 without code', async () => {
+  const app = cds.app;
+  const res = await supertest(app)
+    .post('/odata/v4/knowledge/rewriteCode')
+    .set('Content-Type', 'application/json')
+    .send({ violations: [] });
+  expect(res.status).toBe(400);
+});
+
+test('POST /odata/v4/knowledge/chat returns a ChatReply with correct shape', async () => {
+  const app = cds.app;
+  const res = await supertest(app)
+    .post('/odata/v4/knowledge/chat')
+    .set('Content-Type', 'application/json')
+    .send({ message: 'What is RAP?', mode: 'auto', history: [] });
+  expect(res.status).toBe(200);
+  const body = res.body.value || res.body;
+  expect(body).toHaveProperty('replyType');
+  expect(body).toHaveProperty('text');
+  // violations and notes are JSON strings (CDS flattened return type)
+  expect(typeof body.violations).toBe('string');
+  expect(typeof body.notes).toBe('string');
+});
+
+test('POST /odata/v4/knowledge/chat returns 400 without message', async () => {
+  const app = cds.app;
+  const res = await supertest(app)
+    .post('/odata/v4/knowledge/chat')
+    .set('Content-Type', 'application/json')
+    .send({ mode: 'auto', history: [] });
+  expect(res.status).toBe(400);
+});
