@@ -2,9 +2,28 @@
 jest.mock('../src/aicore-client', () => ({
   CLEAN_CORE_SYSTEM_PROMPT: 'mock-system-prompt',
   AICoreClient: jest.fn().mockImplementation(() => ({
-    // complete() is called for classify, recommend (migrationNote), recommend (full AI), explain, etc.
-    // Return appropriate JSON based on the prompt content so each code path parses cleanly.
     complete: jest.fn().mockImplementation((systemPrompt, userContent) => {
+      if (userContent && userContent.includes('"intent"')) {
+        return Promise.resolve('{"intent":"code"}');
+      }
+      if (userContent && userContent.includes('callType')) {
+        // buildAnalyzeCodePrompt
+        return Promise.resolve(
+          '[{"objectName":"BAPI_MATERIAL_SAVEDATA","line":1,"callType":"CALL FUNCTION"}]'
+        );
+      }
+      if (userContent && userContent.includes('errorCode')) {
+        // buildAnalyzeAtcPrompt
+        return Promise.resolve(
+          '[{"objectName":"SE16","errorCode":"SLIN_OBSOLETE","line":5,"message":"Object not released"}]'
+        );
+      }
+      if (userContent && userContent.includes('original') && userContent.includes('rewritten') && userContent.includes('abap')) {
+        // buildRewriteCodePrompt
+        return Promise.resolve(
+          '{"original":"CALL FUNCTION \'BAPI_MATERIAL_SAVEDATA\'.","rewritten":"* Clean Core: replaced\\nDATA lo_mat TYPE REF TO cl_material."}'
+        );
+      }
       if (userContent && userContent.includes('migrationNote')) {
         // buildMigrationNotePrompt path (recommend with known successors)
         return Promise.resolve(
@@ -80,4 +99,45 @@ test('GET /stream/explain streams SSE chunks', async () => {
   expect(res.status).toBe(200);
   expect(res.headers['content-type']).toMatch(/text\/event-stream/);
   expect(res.text).toContain('data:');
+});
+
+test('POST /odata/v4/knowledge/analyzeCode returns violations array', async () => {
+  const app = cds.app;
+  const code = `CALL FUNCTION 'BAPI_MATERIAL_SAVEDATA'\n  EXPORTING material = lv_matnr.`;
+  const res = await supertest(app)
+    .post('/odata/v4/knowledge/analyzeCode')
+    .set('Content-Type', 'application/json')
+    .send({ code });
+  expect(res.status).toBe(200);
+  const body = res.body.value || res.body;
+  expect(Array.isArray(body)).toBe(true);
+});
+
+test('POST /odata/v4/knowledge/analyzeCode returns 400 without code', async () => {
+  const app = cds.app;
+  const res = await supertest(app)
+    .post('/odata/v4/knowledge/analyzeCode')
+    .set('Content-Type', 'application/json')
+    .send({});
+  expect(res.status).toBe(400);
+});
+
+test('POST /odata/v4/knowledge/analyzeAtc returns violations array', async () => {
+  const app = cds.app;
+  const res = await supertest(app)
+    .post('/odata/v4/knowledge/analyzeAtc')
+    .set('Content-Type', 'application/json')
+    .send({ atcOutput: 'SLIN_OBSOLETE: SE16 at line 5 - Object not released' });
+  expect(res.status).toBe(200);
+  const body = res.body.value || res.body;
+  expect(Array.isArray(body)).toBe(true);
+});
+
+test('POST /odata/v4/knowledge/analyzeAtc returns 400 without atcOutput', async () => {
+  const app = cds.app;
+  const res = await supertest(app)
+    .post('/odata/v4/knowledge/analyzeAtc')
+    .set('Content-Type', 'application/json')
+    .send({});
+  expect(res.status).toBe(400);
 });
