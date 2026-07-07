@@ -6,32 +6,29 @@ service KnowledgeService {
   // Tab 2: Object classification
   action classify(objects : array of String) returns array of {
     objectName       : String;
-    tier             : String;  // A, B, C, or D
-    state            : String;  // released | deprecated | notToBeReleased | classicAPI | noAPI | unknown
+    tier             : String;
+    state            : String;
     explanation      : String;
     recommendation   : String;
     replacement      : String;
     replacementType  : String;
-    allSuccessors    : array of {
-      name : String;
-      type : String;
-    };
+    allSuccessors    : array of { name : String; type : String; };
     note             : String;
     objectType       : String;
     softwareComponent: String;
     appComponent     : String;
-    source           : String;  // official-json | ai-inference | ai-inference-failed | error
+    source           : String;
   };
 
   // Tab 3: Replacement API recommendation
   action recommend(deprecatedObject : String) returns array of {
     replacementName : String;
-    type            : String;  // OData API, RAP BO, CDS View, Released BAdI, Key User Extension, Side-by-Side BTP
+    type            : String;
     migrationNote   : String;
-    source          : String;  // official-json+ai-note | ai-inference
+    source          : String;
   };
 
-  // Tab 4: SAP Note search — real results from SAP Help Portal
+  // Tab 4: SAP Note search
   action searchNote(query : String) returns array of {
     noteNumber       : String;
     title            : String;
@@ -42,6 +39,56 @@ service KnowledgeService {
     contentSource    : String;
     confidence       : String;
     confidenceReason : String;
-    englishQuery     : String;  // AI-translated English search term, same value on all rows
+    englishQuery     : String;
+  };
+
+  // ── Agent chat (unified entry point) ──────────────────────────────────────
+  // violations / notes returned as JSON strings; rewrite fields inlined
+  action chat(
+    message  : String,
+    mode     : String,
+    history  : array of { role : String; text : String; }
+  ) returns {
+    replyType        : String;
+    text             : String;
+    violations       : String;
+    rewriteOriginal  : String;
+    rewriteRewritten : String;
+    notes            : String;
+  };
+
+  // ── Internal helpers exposed for direct testing ───────────────────────────
+  action analyzeCode(code : String) returns array of {
+    objectName      : String;
+    tier            : String;
+    state           : String;
+    line            : Integer;
+    callType        : String;
+    replacement     : String;
+    replacementType : String;
+    note            : String;
+  };
+
+  action analyzeAtc(atcOutput : String) returns array of {
+    objectName      : String;
+    tier            : String;
+    state           : String;
+    line            : Integer;
+    errorCode       : String;
+    replacement     : String;
+    replacementType : String;
+    note            : String;
+  };
+
+  action rewriteCode(
+    code       : String,
+    violations : array of {
+      objectName      : String;
+      replacement     : String;
+      replacementType : String;
+    }
+  ) returns {
+    original  : String;
+    rewritten : String;
   };
 }
