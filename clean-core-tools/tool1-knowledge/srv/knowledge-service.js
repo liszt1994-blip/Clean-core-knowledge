@@ -12,6 +12,8 @@ const {
   buildTranslateQueryPrompt,
   buildRerankPrompt,
   buildNoteSummaryFromContentPrompt,
+  buildAnalyzeCodePrompt,
+  buildAnalyzeAtcPrompt,
 } = require('./prompts');
 
 module.exports = cds.service.impl(async function (srv) {
@@ -171,6 +173,121 @@ module.exports = cds.service.impl(async function (srv) {
       return req.error(502, 'AI Core returned invalid JSON for recommendations');
     }
     return parsed;
+  });
+
+  // ── analyzeCode: extract non-compliant objects from ABAP code ─────────────
+  srv.on('analyzeCode', async (req) => {
+    const { code } = req.data;
+    if (!code || !code.trim()) return req.error(400, 'code is required');
+
+    // Step 1: AI extracts object references + line numbers
+    let rawRefs;
+    try {
+      const raw = await getAI().complete(
+        CLEAN_CORE_SYSTEM_PROMPT,
+        buildAnalyzeCodePrompt(code),
+      );
+      rawRefs = JSON.parse(raw.trim().replace(/^```json\s*/i, '').replace(/\s*```$/i, ''));
+      if (!Array.isArray(rawRefs)) rawRefs = [];
+    } catch {
+      return req.error(502, 'AI failed to analyze code');
+    }
+
+    // Step 2: classify each found object via local JSON first, AI fallback
+    const results = [];
+    for (const ref of rawRefs) {
+      const name = (ref.objectName || '').trim().toUpperCase();
+      if (!name) continue;
+      const info = getClassifier().lookup(name);
+      if (info && info.tier !== 'A') {
+        results.push({
+          objectName:      name,
+          tier:            info.tier,
+          state:           info.state || info.clsState,
+          line:            ref.line || 0,
+          callType:        ref.callType || '',
+          replacement:     info.replacement || '',
+          replacementType: info.replacementType || '',
+          note:            info.note || '',
+        });
+      } else if (!info) {
+        // AI fallback for unknown objects
+        try {
+          const raw = await getAI().complete(
+            CLEAN_CORE_SYSTEM_PROMPT,
+            buildSingleClassifyPrompt(name),
+          );
+          const parsed = JSON.parse(raw.trim());
+          if (Array.isArray(parsed) && parsed.length > 0 && parsed[0].tier !== 'A') {
+            results.push({
+              objectName:      name,
+              tier:            parsed[0].tier || 'unknown',
+              state:           parsed[0].state || 'unknown',
+              line:            ref.line || 0,
+              callType:        ref.callType || '',
+              replacement:     '',
+              replacementType: '',
+              note:            '',
+            });
+          }
+        } catch {
+          // skip objects where AI also fails
+        }
+      }
+      // Tier A objects are compliant — skip them
+    }
+    return results;
+  });
+
+  // ── analyzeAtc: parse ATC output and classify found objects ──────────────
+  srv.on('analyzeAtc', async (req) => {
+    const { atcOutput } = req.data;
+    if (!atcOutput || !atcOutput.trim()) return req.error(400, 'atcOutput is required');
+
+    // Step 1: AI parses ATC text into structured findings
+    let findings;
+    try {
+      const raw = await getAI().complete(
+        CLEAN_CORE_SYSTEM_PROMPT,
+        buildAnalyzeAtcPrompt(atcOutput),
+      );
+      findings = JSON.parse(raw.trim().replace(/^```json\s*/i, '').replace(/\s*```$/i, ''));
+      if (!Array.isArray(findings)) findings = [];
+    } catch {
+      return req.error(502, 'AI failed to parse ATC output');
+    }
+
+    // Step 2: classify each object via local JSON first, fall back to unknown
+    const results = [];
+    for (const finding of findings) {
+      const name = (finding.objectName || '').trim().toUpperCase();
+      if (!name) continue;
+      const info = getClassifier().lookup(name);
+      if (info) {
+        results.push({
+          objectName:      name,
+          tier:            info.tier,
+          state:           info.state || info.clsState,
+          line:            finding.line || 0,
+          errorCode:       finding.errorCode || '',
+          replacement:     info.replacement || '',
+          replacementType: info.replacementType || '',
+          note:            info.note || '',
+        });
+      } else {
+        results.push({
+          objectName:      name,
+          tier:            'unknown',
+          state:           'unknown',
+          line:            finding.line || 0,
+          errorCode:       finding.errorCode || '',
+          replacement:     '',
+          replacementType: '',
+          note:            finding.message || '',
+        });
+      }
+    }
+    return results;
   });
 
   // ── Tab 4: SAP Note Search ─────────────────────────────────────────────────
