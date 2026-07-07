@@ -112,6 +112,77 @@ function buildNoteSummaryFromContentPrompt(noteNumber, rawContent) {
   );
 }
 
+// ── Agent chat: intent detection ──────────────────────────────────────────
+function buildIntentPrompt(message, mode) {
+  return (
+    `Classify the following user message into exactly one intent category.\n\n` +
+    `Categories:\n` +
+    `- "code"     : message contains ABAP source code (CALL FUNCTION, SELECT, CLASS, METHOD, etc.)\n` +
+    `- "atc"      : message contains ATC check output / error messages with error codes\n` +
+    `- "explain"  : message asks for a concept explanation (what is X, explain X)\n` +
+    `- "classify" : message contains only SAP object names to classify (no code, no question)\n` +
+    `- "general"  : anything else\n\n` +
+    `User message (mode hint: ${mode}):\n"""\n${message}\n"""\n\n` +
+    `Return ONLY a JSON object with no markdown fences: { "intent": "<category>" }`
+  );
+}
+
+// ── Agent chat: ABAP code analysis ───────────────────────────────────────
+function buildAnalyzeCodePrompt(code) {
+  return (
+    `Analyze the following ABAP code and identify all SAP object references that may violate ` +
+    `Clean Core principles.\n\n` +
+    `Look for:\n` +
+    `- CALL FUNCTION '...' (function module calls)\n` +
+    `- SELECT ... FROM <table> (direct database table access)\n` +
+    `- Transaction codes called via CALL TRANSACTION\n` +
+    `- Old-style class instantiation or method calls on non-released classes\n` +
+    `- SUBMIT <program> (report calls)\n\n` +
+    `For each object found, return its name, the line number (count from 1), and the call type.\n\n` +
+    `Return ONLY a JSON array with no markdown fences. Each element must have:\n` +
+    `- objectName (string: the SAP object name, e.g. "BAPI_MATERIAL_SAVEDATA", "MARA", "SE16")\n` +
+    `- line       (number: line number in the code where this object is used)\n` +
+    `- callType   (string: "CALL FUNCTION" | "SELECT" | "CALL TRANSACTION" | "CLASS" | "SUBMIT" | "OTHER")\n\n` +
+    `Code to analyze:\n\`\`\`abap\n${code}\n\`\`\``
+  );
+}
+
+// ── Agent chat: ATC output analysis ──────────────────────────────────────
+function buildAnalyzeAtcPrompt(atcOutput) {
+  return (
+    `Parse the following SAP ATC (ABAP Test Cockpit) check output and extract all findings.\n\n` +
+    `The input may be in various formats: SE80 copy-paste, XML export, or plain text.\n` +
+    `For each finding, extract the SAP object name, error/check code, line number, and message.\n\n` +
+    `Return ONLY a JSON array with no markdown fences. Each element must have:\n` +
+    `- objectName (string: the SAP object being called or referenced, e.g. "BAPI_MATERIAL_SAVEDATA")\n` +
+    `- errorCode  (string: ATC check code, e.g. "SLIN_OBSOLETE", "AMDP_CHECK", "SLIN_DESC_USAGE")\n` +
+    `- line       (number: line number if present, 0 if not available)\n` +
+    `- message    (string: the ATC finding message)\n\n` +
+    `ATC output to parse:\n"""\n${atcOutput}\n"""`
+  );
+}
+
+// ── Agent chat: ABAP code rewrite ─────────────────────────────────────────
+function buildRewriteCodePrompt(code, violations) {
+  const violationList = violations
+    .map(v => `- ${v.objectName} → ${v.replacementType ? v.replacementType + ' ' : ''}${v.replacement}`)
+    .join('\n');
+
+  return (
+    `Rewrite the following ABAP code to be SAP Clean Core compliant.\n\n` +
+    `Required replacements:\n${violationList}\n\n` +
+    `Rules:\n` +
+    `1. Preserve all business logic exactly — only replace non-compliant API calls\n` +
+    `2. Replace each listed object with its Clean Core alternative\n` +
+    `3. Add a comment "* Clean Core: replaced X with Y" on the line of each change\n` +
+    `4. If a replacement requires additional DATA declarations, add them near the top\n` +
+    `5. Keep all other code unchanged\n\n` +
+    `Return ONLY a JSON object with no markdown fences:\n` +
+    `{ "original": "<original code unchanged>", "rewritten": "<rewritten code>" }\n\n` +
+    `Original ABAP code:\n\`\`\`abap\n${code}\n\`\`\``
+  );
+}
+
 module.exports = {
   SYSTEM_PROMPT,
   buildExplainPrompt,
@@ -122,4 +193,8 @@ module.exports = {
   buildTranslateQueryPrompt,
   buildRerankPrompt,
   buildNoteSummaryFromContentPrompt,
+  buildIntentPrompt,
+  buildAnalyzeCodePrompt,
+  buildAnalyzeAtcPrompt,
+  buildRewriteCodePrompt,
 };
