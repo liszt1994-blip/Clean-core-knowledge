@@ -1,0 +1,232 @@
+<mvc:View
+  controllerName="atc.controller.App"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:l="sap.ui.layout"
+  displayBlock="true">
+  <Shell>
+    <App>
+      <pages>
+        <Page title="Clean Core ATC Fixer" showNavButton="false">
+          <content>
+            <Wizard id="atcWizard"
+              currentStep="uploadStep"
+              class="sapUiSmallMargin">
+
+              <!-- Step 1: Upload ATC XML -->
+              <steps>
+                <WizardStep id="uploadStep"
+                  title="上传 ATC 违规报告"
+                  icon="sap-icon://upload"
+                  validated="{/uploadValid}">
+                  <VBox class="sapUiMediumMargin">
+                    <Title text="上传 ATC XML 文件" level="H3" class="sapUiSmallMarginBottom"/>
+                    <Text text="从 SAP ATC 导出 XML 报告，然后上传到此处进行自动分析和修复。"
+                      class="sapUiSmallMarginBottom" />
+                    <l:HorizontalLayout class="sapUiSmallMarginBottom">
+                      <FileUploader id="xmlFileUploader"
+                        placeholder="选择 ATC XML 文件..."
+                        fileType="xml"
+                        typeMismatch=".onFileTypeMismatch"
+                        change=".onFileSelected"
+                        width="400px" />
+                      <Button text="开始分析" type="Emphasized"
+                        press=".onUpload"
+                        enabled="{/fileSelected}"
+                        class="sapUiSmallMarginBegin" />
+                    </l:HorizontalLayout>
+                    <BusyIndicator id="uploadBusy" visible="false" />
+                    <MessageStrip id="uploadMsg" visible="false"
+                      text="{/uploadMessage}"
+                      type="{/uploadMsgType}"
+                      showCloseButton="true"
+                      class="sapUiSmallMarginTop" />
+                  </VBox>
+                </WizardStep>
+
+                <!-- Step 2: Agent Analysis Progress -->
+                <WizardStep id="analysisStep"
+                  title="ReAct 代理分析中"
+                  icon="sap-icon://process"
+                  validated="{/analysisComplete}">
+                  <VBox class="sapUiMediumMargin">
+                    <Title text="代理分析进度" level="H3" class="sapUiSmallMarginBottom"/>
+                    <Text id="analysisStatusText"
+                      text="{/analysisStatusMsg}"
+                      class="sapUiSmallMarginBottom" />
+                    <List id="programProgressList"
+                      items="{/programs}"
+                      class="sapUiSmallMarginBottom">
+                      <items>
+                        <CustomListItem>
+                          <l:HorizontalLayout width="100%">
+                            <VBox width="300px">
+                              <Title text="{name}" level="H5" />
+                              <Text text="{statusText}" />
+                            </VBox>
+                            <BusyIndicator visible="{analyzing}" size="Small"
+                              class="sapUiSmallMarginBegin" />
+                            <ObjectStatus
+                              visible="{done}"
+                              text="{resultSummary}"
+                              state="{= ${hasCode} ? 'Success' : 'Warning'}"
+                              class="sapUiSmallMarginBegin" />
+                          </l:HorizontalLayout>
+                        </CustomListItem>
+                      </items>
+                    </List>
+                    <Panel id="agentLogPanel" headerText="代理步骤日志" expandable="true" expanded="false">
+                      <TextArea id="agentLog"
+                        value="{/agentLog}"
+                        editable="false"
+                        rows="10"
+                        width="100%"
+                        growing="true" />
+                    </Panel>
+                  </VBox>
+                </WizardStep>
+
+                <!-- Step 3: Review and Confirm -->
+                <WizardStep id="confirmStep"
+                  title="确认修复方案"
+                  icon="sap-icon://accept"
+                  validated="{/confirmValid}">
+                  <VBox class="sapUiMediumMargin">
+                    <Title text="选择要写回的程序" level="H3" class="sapUiSmallMarginBottom"/>
+                    <Text text="审查每个程序的修复方案，勾选要写回到 S/4HANA 的程序。"
+                      class="sapUiSmallMarginBottom" />
+
+                    <l:HorizontalLayout class="sapUiSmallMarginBottom" allowWrapping="false">
+                      <Label text="Transport Request：" labelFor="transportInput" />
+                      <Input id="transportInput"
+                        placeholder="例如：DEVK900001"
+                        value="{/transportRequest}"
+                        liveChange=".onTransportChange"
+                        width="200px"
+                        class="sapUiSmallMarginBegin" />
+                    </l:HorizontalLayout>
+
+                    <Table id="confirmTable"
+                      items="{/programs}"
+                      mode="MultiSelect"
+                      selectionChange=".onProgramSelectionChange"
+                      class="sapUiSmallMarginTop">
+                      <columns>
+                        <Column width="3rem"><Text text="" /></Column>
+                        <Column width="200px"><Text text="程序名" /></Column>
+                        <Column width="100px"><Text text="违规数" /></Column>
+                        <Column><Text text="修复预览" /></Column>
+                        <Column width="120px"><Text text="状态" /></Column>
+                      </columns>
+                      <items>
+                        <ColumnListItem selected="{selected}" type="Active" press=".onShowDiff">
+                          <cells>
+                            <CheckBox selected="{selected}" select=".onCheckboxChange" />
+                            <ObjectIdentifier title="{name}" />
+                            <Text text="{violationCount}" />
+                            <Text text="{explanation}" wrapping="true" maxLines="3" />
+                            <ObjectStatus
+                              text="{= ${hasCode} ? '有修复方案' : '无法修复'}"
+                              state="{= ${hasCode} ? 'Success' : 'Warning'}" />
+                          </cells>
+                        </ColumnListItem>
+                      </items>
+                    </Table>
+
+                    <Button text="确认并开始写回"
+                      type="Emphasized"
+                      press=".onConfirmFixes"
+                      enabled="{/confirmValid}"
+                      class="sapUiMediumMarginTop" />
+                  </VBox>
+                </WizardStep>
+
+                <!-- Step 4: Write-back and Activation Progress -->
+                <WizardStep id="writebackStep"
+                  title="写回与激活"
+                  icon="sap-icon://push-pin-on">
+                  <VBox class="sapUiMediumMargin">
+                    <Title text="写回与激活进度" level="H3" class="sapUiSmallMarginBottom"/>
+                    <Text id="writebackStatusText"
+                      text="{/writebackStatusMsg}"
+                      class="sapUiSmallMarginBottom" />
+
+                    <List id="writebackResultList"
+                      items="{/writebackResults}"
+                      class="sapUiSmallMarginBottom">
+                      <items>
+                        <CustomListItem>
+                          <l:HorizontalLayout width="100%">
+                            <VBox width="200px">
+                              <Title text="{program}" level="H5" />
+                            </VBox>
+                            <VBox>
+                              <ObjectStatus
+                                text="{writeStatus}"
+                                state="{= ${writeStatus} === 'SUCCESS' ? 'Success' : ${writeStatus} === 'PENDING' ? 'None' : 'Error'}" />
+                              <ObjectStatus
+                                text="{activationStatus}"
+                                state="{= ${activationStatus} === 'SUCCESS' ? 'Success' : ${activationStatus} === 'PENDING' ? 'None' : 'Error'}"
+                                class="sapUiTinyMarginTop" />
+                            </VBox>
+                            <BusyIndicator visible="{inProgress}" size="Small"
+                              class="sapUiSmallMarginBegin" />
+                          </l:HorizontalLayout>
+                        </CustomListItem>
+                      </items>
+                    </List>
+
+                    <Panel id="writebackLogPanel" headerText="操作日志" expandable="true" expanded="false">
+                      <TextArea id="writebackLog"
+                        value="{/writebackLog}"
+                        editable="false"
+                        rows="10"
+                        width="100%"
+                        growing="true" />
+                    </Panel>
+
+                    <MessageStrip id="finalMsg"
+                      visible="{/pipelineComplete}"
+                      text="{/finalMessage}"
+                      type="Success"
+                      class="sapUiMediumMarginTop" />
+
+                    <Button text="重新开始"
+                      type="Default"
+                      press=".onReset"
+                      visible="{/pipelineComplete}"
+                      class="sapUiSmallMarginTop" />
+                  </VBox>
+                </WizardStep>
+
+              </steps>
+            </Wizard>
+
+            <!-- Diff Dialog -->
+            <Dialog id="diffDialog" title="修复代码预览" contentWidth="800px" contentHeight="500px">
+              <content>
+                <VBox class="sapUiSmallMargin">
+                  <Title id="diffProgTitle" text="" level="H4" class="sapUiSmallMarginBottom"/>
+                  <Text text="修复说明：" class="sapUiTinyMarginBottom" />
+                  <Text id="diffExplanation" text="" wrapping="true" class="sapUiSmallMarginBottom" />
+                  <Text text="替换代码：" class="sapUiTinyMarginBottom" />
+                  <TextArea id="diffCode"
+                    value=""
+                    editable="false"
+                    rows="15"
+                    width="100%"
+                    class="sapUiSmallMarginTop"
+                    style="font-family: monospace; font-size: 13px;" />
+                </VBox>
+              </content>
+              <buttons>
+                <Button text="关闭" press=".onCloseDiff" />
+              </buttons>
+            </Dialog>
+
+          </content>
+        </Page>
+      </pages>
+    </App>
+  </Shell>
+</mvc:View>

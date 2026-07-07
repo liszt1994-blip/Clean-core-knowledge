@@ -1,0 +1,83 @@
+// Mock AICoreClient to avoid real SAP AI Core API calls in tests
+jest.mock('../src/aicore-client', () => ({
+  CLEAN_CORE_SYSTEM_PROMPT: 'mock-system-prompt',
+  AICoreClient: jest.fn().mockImplementation(() => ({
+    // complete() is called for classify, recommend (migrationNote), recommend (full AI), explain, etc.
+    // Return appropriate JSON based on the prompt content so each code path parses cleanly.
+    complete: jest.fn().mockImplementation((systemPrompt, userContent) => {
+      if (userContent && userContent.includes('migrationNote')) {
+        // buildMigrationNotePrompt path (recommend with known successors)
+        return Promise.resolve(
+          '[{"replacementName":"I_MATERIAL","type":"CDS View","migrationNote":"Use CDS View I_MATERIAL instead.","source":"official-json+ai-note"}]'
+        );
+      }
+      if (userContent && userContent.includes('replacementName')) {
+        // buildRecommendPrompt path (full AI recommend, no JSON data)
+        return Promise.resolve(
+          '[{"replacementName":"I_MATERIAL","type":"CDS View","migrationNote":"Migrate to I_MATERIAL CDS View.","source":"ai-inference"}]'
+        );
+      }
+      // Default: classify fallback + explain
+      return Promise.resolve(
+        '[{"objectName":"SE16","tier":"C","state":"classicAPI","explanation":"Classic transaction.","recommendation":"Use CDS View instead.","source":"ai-inference"}]'
+      );
+    }),
+  })),
+}));
+
+// Provide minimal VCAP_SERVICES so AICoreClient constructor doesn't throw
+// (the mock above replaces the class, but CDS may still load env at bootstrap)
+process.env.VCAP_SERVICES = JSON.stringify({
+  aicore: [{ credentials: { clientid: 'test', clientsecret: 'test', url: 'https://test.example.com', serviceurls: { AI_API_URL: 'https://api.test.example.com' } } }],
+});
+
+const cds = require('@sap/cds');
+const supertest = require('supertest');
+
+// CAP test helper auto-registers beforeAll/afterAll with Jest
+cds.test('.').in(__dirname + '/..');
+
+test('POST /odata/v4/knowledge/explain returns 400 without term', async () => {
+  const app = cds.app;
+  const res = await supertest(app)
+    .post('/odata/v4/knowledge/explain')
+    .set('Content-Type', 'application/json')
+    .send({});
+  expect(res.status).toBe(400);
+});
+
+test('POST /odata/v4/knowledge/classify returns classification array', async () => {
+  const app = cds.app;
+  const res = await supertest(app)
+    .post('/odata/v4/knowledge/classify')
+    .set('Content-Type', 'application/json')
+    .send({ objects: ['SE16'] });
+  expect(res.status).toBe(200);
+  const body = res.body.value;
+  expect(body[0].objectName).toBe('SE16');
+  expect(body[0].tier).toBe('C');
+});
+
+test('POST /odata/v4/knowledge/recommend returns recommendation array', async () => {
+  const app = cds.app;
+  const res = await supertest(app)
+    .post('/odata/v4/knowledge/recommend')
+    .set('Content-Type', 'application/json')
+    .send({ deprecatedObject: 'BAPI_MATERIAL_SAVEDATA' });
+  expect(res.status).toBe(200);
+  const body = res.body.value || res.body;
+  expect(Array.isArray(body)).toBe(true);
+  expect(body.length).toBeGreaterThan(0);
+  expect(body[0]).toHaveProperty('replacementName');
+  expect(body[0]).toHaveProperty('migrationNote');
+});
+
+test('GET /stream/explain streams SSE chunks', async () => {
+  const app = cds.app;
+  const res = await supertest(app)
+    .get('/stream/explain?term=RAP')
+    .set('Accept', 'text/event-stream');
+  expect(res.status).toBe(200);
+  expect(res.headers['content-type']).toMatch(/text\/event-stream/);
+  expect(res.text).toContain('data:');
+});

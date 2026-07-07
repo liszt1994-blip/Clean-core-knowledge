@@ -1,0 +1,36 @@
+{
+  "_version": "1.65.0",
+  "sap.app": {
+    "id": "knowledge",
+    "type": "application",
+    "title": "Clean Core Knowledge",
+    "description": "Learn SAP Clean Core concepts",
+    "applicationVersion": { "version": "1.0.0" },
+    "dataSources": {
+      "KnowledgeService": {
+        "uri": "/odata/v4/knowledge/",
+        "type": "OData",
+        "settings": { "odataVersion": "4.0" }
+      }
+    }
+  },
+  "sap.ui": { "technology": "UI5" },
+  "sap.ui5": {
+    "rootView": {
+      "viewName": "knowledge.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "app"
+    },
+    "dependencies": {
+      "minUI5Version": "1.120.0",
+      "libs": { "sap.m": {}, "sap.ui.core": {} }
+    },
+    "models": {
+      "": {
+        "type": "sap.ui.model.json.JSONModel"
+      }
+    },
+    "routing": {}
+  }
+}

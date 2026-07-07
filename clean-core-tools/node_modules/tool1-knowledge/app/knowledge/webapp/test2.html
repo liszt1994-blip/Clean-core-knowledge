@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Component Test</title>
+  <script id="sap-ui-bootstrap"
+    src="https://ui5.sap.com/1.120/resources/sap-ui-core.js"
+    data-sap-ui-theme="sap_horizon"
+    data-sap-ui-resourceroots='{"knowledge": "./"}'
+    data-sap-ui-async="true">
+  </script>
+  <script>
+    sap.ui.getCore().attachInit(function () {
+      sap.ui.require(["sap/ui/core/ComponentContainer"], function (ComponentContainer) {
+        var oContainer = new ComponentContainer({
+          name: "knowledge",
+          manifest: true,
+          async: true,
+          height: "100%"
+        });
+        oContainer.placeAt("content");
+
+        oContainer.attachComponentCreated(function(oEvent) {
+          console.log("Component created OK:", oEvent.getParameter("component"));
+        });
+
+        oContainer.attachComponentFailed(function(oEvent) {
+          var err = oEvent.getParameter("reason") || oEvent.getParameter("error") || oEvent;
+          console.error("Component FAILED:", err);
+          document.getElementById("error").innerText = "Component failed: " + (err.message || JSON.stringify(err));
+        });
+      });
+    });
+  </script>
+</head>
+<body class="sapUiBody">
+  <div id="content"></div>
+  <pre id="error" style="color:red;padding:20px;font-size:14px;"></pre>
+</body>
+</html>

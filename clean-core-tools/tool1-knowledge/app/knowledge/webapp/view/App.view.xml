@@ -1,0 +1,127 @@
+<mvc:View
+  controllerName="knowledge.controller.App"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  displayBlock="true">
+  <Shell>
+    <App>
+      <pages>
+        <Page title="Clean Core Knowledge">
+          <content>
+            <IconTabBar id="tabBar" expanded="true">
+
+              <!-- Tab 1: Concept Explanation -->
+              <items>
+                <IconTabFilter text="概念解读" icon="sap-icon://learning-assistant" key="explain">
+                  <content>
+                    <VBox class="sapUiSmallMargin" width="100%">
+                      <SearchField id="explainInput" placeholder="输入 Clean Core 概念，例如：RAP, Tier 1, Stable API"
+                        search=".onExplain" width="100%" />
+                      <BusyIndicator id="explainBusy" visible="false" />
+                      <FormattedText id="explainResult"
+                        htmlText=""
+                        class="sapUiSmallMarginTop"
+                        width="100%" />
+                    </VBox>
+                  </content>
+                </IconTabFilter>
+
+                <!-- Tab 2: Object Classification -->
+                <IconTabFilter text="对象分级" icon="sap-icon://filter" key="classify">
+                  <content>
+                    <VBox class="sapUiSmallMargin" width="100%">
+                      <TextArea id="classifyInput"
+                        placeholder="输入 SAP 对象名，每行一个，例如：&#xa;BAPI_MATERIAL_SAVEDATA&#xa;SE16"
+                        rows="5" width="100%" />
+                      <Button text="开始分级" press=".onClassify" type="Emphasized"
+                        class="sapUiSmallMarginTop" />
+                      <BusyIndicator id="classifyBusy" visible="false" />
+                      <Table id="classifyTable" class="sapUiSmallMarginTop"
+                        items="{/classifyResults}">
+                        <columns>
+                          <Column><Text text="对象名" /></Column>
+                          <Column><Text text="等级" /></Column>
+                          <Column><Text text="说明" /></Column>
+                          <Column><Text text="建议行动" /></Column>
+                        </columns>
+                        <items>
+                          <ColumnListItem>
+                            <cells>
+                              <Text text="{objectName}" />
+                              <ObjectStatus
+                                text="{tier}"
+                                state="{= ${tier} === 'A' ? 'Success' : ${tier} === 'B' ? 'Warning' : 'Error'}" />
+                              <Text text="{explanation}" wrapping="true" />
+                              <Text text="{recommendation}" wrapping="true" />
+                            </cells>
+                          </ColumnListItem>
+                        </items>
+                      </Table>
+                    </VBox>
+                  </content>
+                </IconTabFilter>
+
+                <!-- Tab 3: Replacement API -->
+                <IconTabFilter text="替代 API" icon="sap-icon://activity-2" key="recommend">
+                  <content>
+                    <VBox class="sapUiSmallMargin" width="100%">
+                      <SearchField id="recommendInput"
+                        placeholder="输入废弃对象名，例如：BAPI_MATERIAL_SAVEDATA"
+                        search=".onRecommend" width="100%" />
+                      <BusyIndicator id="recommendBusy" visible="false" />
+                      <VBox id="recommendResults" class="sapUiSmallMarginTop" width="100%" />
+                    </VBox>
+                  </content>
+                </IconTabFilter>
+                <!-- Tab 4: SAP Note Search -->
+                <IconTabFilter text="SAP Note" icon="sap-icon://documents" key="note">
+                  <content>
+                    <VBox class="sapUiSmallMargin" width="100%">
+                      <SearchField id="noteInput"
+                        placeholder="输入关键词搜索相关 SAP Note，例如：READ_TEXT, clean core migration"
+                        search=".onSearchNote" width="100%" />
+                      <BusyIndicator id="noteBusy" visible="false" />
+                      <MessageStrip id="noteLoginHint"
+                        text="以下结果来自 SAP Help Portal（无需登录）。如需查找具体 SAP Note 编号，请使用下方按钮跳转到 SAP Support Portal 搜索（需要 SSO 登录）。"
+                        type="Information"
+                        showIcon="true"
+                        visible="false"
+                        class="sapUiSmallMarginTop" />
+                      <Button id="notePortalBtn"
+                        text="在 SAP Support Portal 中搜索 Note"
+                        icon="sap-icon://search"
+                        type="Emphasized"
+                        visible="false"
+                        press=".onOpenNotePortal"
+                        class="sapUiSmallMarginTop" />
+                      <MessageStrip id="noteCopyHint"
+                        text=""
+                        type="Information"
+                        showIcon="true"
+                        showCloseButton="true"
+                        visible="false"
+                        class="sapUiTinyMarginTop" />
+                      <List id="noteList" class="sapUiSmallMarginTop"
+                        noDataText="请输入关键词后搜索"
+                        items="{/noteResults}">
+                        <items>
+                          <StandardListItem
+                            title="{title}"
+                            description="{summary}"
+                            info="{confidenceReason}"
+                            infoState="None"
+                            type="Active"
+                            press=".onNotePress" />
+                        </items>
+                      </List>
+                    </VBox>
+                  </content>
+                </IconTabFilter>
+              </items>
+            </IconTabBar>
+          </content>
+        </Page>
+      </pages>
+    </App>
+  </Shell>
+</mvc:View>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>UI5 Test</title>
+  <script id="sap-ui-bootstrap"
+    src="https://ui5.sap.com/1.120/resources/sap-ui-core.js"
+    data-sap-ui-theme="sap_horizon"
+    data-sap-ui-async="true">
+  </script>
+  <script>
+    sap.ui.getCore().attachInit(function () {
+      sap.ui.require(["sap/m/Text"], function (Text) {
+        new Text({ text: "UI5 works!" }).placeAt("content");
+      });
+    });
+  </script>
+</head>
+<body class="sapUiBody">
+  <div id="content"></div>
+</body>
+</html>
