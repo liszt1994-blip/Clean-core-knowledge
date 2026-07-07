@@ -1,0 +1,27 @@
+{
+  "name": "tool3-planner",
+  "version": "1.0.0",
+  "dependencies": {
+    "@sap/cds": "^8.0.0",
+    "@clean-core/shared": "*",
+    "exceljs": "^4.4.0",
+    "pdfkit": "^0.15.0"
+  },
+  "devDependencies": {
+    "jest": "^29.0.0",
+    "supertest": "^6.0.0",
+    "@sap/cds-dk": "^8.0.0"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "dev": "cds watch",
+    "test": "jest"
+  },
+  "jest": {
+    "testTimeout": 30000
+  },
+  "cds": {
+    "requires": { "auth": "dummy" },
+    "server": "./server.js"
+  }
+}

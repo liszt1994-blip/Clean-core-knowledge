@@ -1,0 +1,226 @@
+<mvc:View
+  controllerName="planner.controller.App"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:l="sap.ui.layout"
+  displayBlock="true">
+  <Shell>
+    <App>
+      <pages>
+        <Page title="Clean Core Remediation Planner" showNavButton="false">
+          <content>
+            <Wizard id="plannerWizard" currentStep="importStep" class="sapUiSmallMargin">
+              <steps>
+
+                <!-- Step 1: Import ATC Data -->
+                <WizardStep id="importStep"
+                  title="导入 ATC 数据"
+                  icon="sap-icon://upload"
+                  validated="{/importValid}">
+                  <VBox class="sapUiMediumMargin">
+                    <Title text="选择数据来源" level="H3" class="sapUiSmallMarginBottom"/>
+
+                    <RadioButtonGroup id="sourceGroup" selectedIndex="0"
+                      select=".onSourceChange">
+                      <buttons>
+                        <RadioButton text="上传 ATC XML 文件" id="xmlRadio" />
+                        <RadioButton text="使用 Tool 2 分析结果 (JSON)" id="jsonRadio" />
+                      </buttons>
+                    </RadioButtonGroup>
+
+                    <!-- XML Upload Panel -->
+                    <Panel id="xmlPanel" class="sapUiSmallMarginTop" backgroundDesign="Transparent">
+                      <content>
+                        <l:HorizontalLayout>
+                          <FileUploader id="xmlFileUploader"
+                            placeholder="选择 ATC XML 文件..."
+                            fileType="xml"
+                            change=".onXmlFileSelected"
+                            width="400px" />
+                        </l:HorizontalLayout>
+                      </content>
+                    </Panel>
+
+                    <!-- JSON Paste Panel -->
+                    <Panel id="jsonPanel" visible="false" class="sapUiSmallMarginTop"
+                      backgroundDesign="Transparent">
+                      <content>
+                        <VBox>
+                          <Text text="粘贴 Tool 2 的 agentResults JSON："
+                            class="sapUiTinyMarginBottom" />
+                          <TextArea id="jsonInput"
+                            placeholder='{ "ZPROG_A": { "replacementCode": "...", "explanation": "..." }, ... }'
+                            rows="8"
+                            width="100%"
+                            liveChange=".onJsonInputChange" />
+                        </VBox>
+                      </content>
+                    </Panel>
+
+                    <Button text="导入数据"
+                      type="Emphasized"
+                      press=".onImport"
+                      enabled="{/canImport}"
+                      class="sapUiSmallMarginTop" />
+                    <BusyIndicator id="importBusy" visible="false" class="sapUiSmallMarginTop" />
+                    <MessageStrip id="importMsg"
+                      visible="false"
+                      text="{/importMessage}"
+                      type="{/importMsgType}"
+                      showCloseButton="true"
+                      class="sapUiSmallMarginTop" />
+                  </VBox>
+                </WizardStep>
+
+                <!-- Step 2: Team Configuration + Generate Plan -->
+                <WizardStep id="teamStep"
+                  title="团队配置"
+                  icon="sap-icon://group"
+                  validated="{/planGenerated}">
+                  <VBox class="sapUiMediumMargin">
+                    <Title text="配置团队参数" level="H3" class="sapUiSmallMarginBottom"/>
+                    <Text text="{/importSummary}" class="sapUiSmallMarginBottom" />
+
+                    <l:SimpleForm editable="true" layout="ResponsiveGridLayout"
+                      labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12"
+                      columnsXL="2" columnsL="2" columnsM="2">
+                      <l:content>
+                        <Label text="开发人数" labelFor="teamSizeInput" />
+                        <Input id="teamSizeInput" value="{/teamConfig/teamSize}"
+                          type="Number" width="120px" />
+
+                        <Label text="Sprint 工作日" labelFor="sprintDaysInput" />
+                        <Input id="sprintDaysInput" value="{/teamConfig/sprintDuration}"
+                          type="Number" width="120px" />
+
+                        <Label text="每人每 Sprint Story Points" labelFor="velocityInput" />
+                        <Input id="velocityInput" value="{/teamConfig/velocityPerDev}"
+                          type="Number" width="120px" />
+                      </l:content>
+                    </l:SimpleForm>
+
+                    <Button text="生成 Sprint 计划"
+                      type="Emphasized"
+                      press=".onGeneratePlan"
+                      class="sapUiMediumMarginTop" />
+                    <BusyIndicator id="generateBusy" visible="false" class="sapUiSmallMarginTop" />
+                    <MessageStrip id="generateMsg"
+                      visible="false"
+                      text="{/generateMessage}"
+                      type="{/generateMsgType}"
+                      showCloseButton="true"
+                      class="sapUiSmallMarginTop" />
+                  </VBox>
+                </WizardStep>
+
+                <!-- Step 3: View Plan + Drag-Adjust + Export -->
+                <WizardStep id="planStep"
+                  title="Sprint 计划"
+                  icon="sap-icon://calendar">
+                  <VBox class="sapUiMediumMargin">
+                    <l:HorizontalLayout allowWrapping="false" class="sapUiSmallMarginBottom">
+                      <Title text="Sprint 计划" level="H3" />
+                      <ToolbarSpacer />
+                      <Button text="导出 Excel" icon="sap-icon://excel-attachment"
+                        press=".onExportExcel"
+                        type="Ghost"
+                        class="sapUiSmallMarginBegin" />
+                      <Button text="导出 PDF" icon="sap-icon://pdf-attachment"
+                        press=".onExportPdf"
+                        type="Ghost"
+                        class="sapUiSmallMarginBegin" />
+                      <Button text="重新生成" icon="sap-icon://refresh"
+                        press=".onRegenerate"
+                        type="Ghost"
+                        class="sapUiSmallMarginBegin" />
+                    </l:HorizontalLayout>
+
+                    <!-- Plan Summary -->
+                    <ObjectHeader
+                      title="计划概览"
+                      number="{/plan/summary/totalSprints}"
+                      numberUnit="Sprints">
+                      <attributes>
+                        <ObjectAttribute title="总程序数" text="{/plan/summary/totalPrograms}" />
+                        <ObjectAttribute title="预计周数" text="{/plan/summary/estimatedWeeks}" />
+                      </attributes>
+                    </ObjectHeader>
+
+                    <!-- Sprint cards -->
+                    <VBox id="sprintsContainer" items="{/plan/sprints}">
+                      <items>
+                        <Panel
+                          headerText="{= 'Sprint ' + ${sprintNumber} + '  (' + ${items}.length + ' 个程序)'}"
+                          expandable="true"
+                          expanded="true"
+                          class="sapUiSmallMarginTop">
+                          <Table
+                            items="{items}"
+                            mode="SingleSelectLeft">
+                            <columns>
+                              <Column width="200px"><Text text="程序名" /></Column>
+                              <Column width="120px"><Text text="负责人" /></Column>
+                              <Column width="100px"><Text text="Story Points" /></Column>
+                              <Column width="80px"><Text text="违规数" /></Column>
+                              <Column><Text text="备注" /></Column>
+                              <Column width="80px"><Text text="操作" /></Column>
+                            </columns>
+                            <items>
+                              <ColumnListItem>
+                                <cells>
+                                  <ObjectIdentifier title="{program}" />
+                                  <Select selectedKey="{assignee}"
+                                    change=".onAssigneeChange"
+                                    items="{/developerList}">
+                                    <items>
+                                      <core:Item xmlns:core="sap.ui.core"
+                                        key="{dev}" text="{dev}" />
+                                    </items>
+                                  </Select>
+                                  <Text text="{storyPoints}" />
+                                  <Text text="{violationCount}" />
+                                  <Text text="{explanation}" wrapping="true" maxLines="2" />
+                                  <Button icon="sap-icon://move" type="Transparent"
+                                    press=".onMoveItem"
+                                    tooltip="移至其他 Sprint" />
+                                </cells>
+                              </ColumnListItem>
+                            </items>
+                          </Table>
+                        </Panel>
+                      </items>
+                    </VBox>
+                  </VBox>
+                </WizardStep>
+
+              </steps>
+            </Wizard>
+
+            <!-- Move Item Dialog -->
+            <Dialog id="moveDialog" title="移动到 Sprint" contentWidth="300px">
+              <content>
+                <VBox class="sapUiSmallMargin">
+                  <Text text="{/moveTarget/program}" class="sapUiSmallMarginBottom" />
+                  <Label text="目标 Sprint：" />
+                  <Select id="targetSprintSelect" width="100%"
+                    items="{/plan/sprints}">
+                    <items>
+                      <core:Item xmlns:core="sap.ui.core"
+                        key="{sprintNumber}"
+                        text="{= 'Sprint ' + ${sprintNumber}}" />
+                    </items>
+                  </Select>
+                </VBox>
+              </content>
+              <buttons>
+                <Button text="移动" type="Emphasized" press=".onConfirmMove" />
+                <Button text="取消" press=".onCancelMove" />
+              </buttons>
+            </Dialog>
+
+          </content>
+        </Page>
+      </pages>
+    </App>
+  </Shell>
+</mvc:View>

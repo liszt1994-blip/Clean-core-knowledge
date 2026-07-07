@@ -1,0 +1,20 @@
+{
+  "welcomeFile": "/index.html",
+  "routes": [
+    {
+      "source": "^/odata/v4/(.*)$",
+      "destination": "knowledge-srv",
+      "authenticationType": "none"
+    },
+    {
+      "source": "^/stream/(.*)$",
+      "destination": "knowledge-srv",
+      "authenticationType": "none"
+    },
+    {
+      "source": "^(.*)$",
+      "localDir": "webapp",
+      "authenticationType": "none"
+    }
+  ]
+}

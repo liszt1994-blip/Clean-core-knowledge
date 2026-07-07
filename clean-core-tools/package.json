@@ -1,0 +1,8 @@
+{
+  "name": "clean-core-tools",
+  "private": true,
+  "workspaces": ["shared", "tool1-knowledge", "tool2-atc", "tool3-planner"],
+  "scripts": {
+    "test": "npm run test --workspaces --if-present"
+  }
+}
