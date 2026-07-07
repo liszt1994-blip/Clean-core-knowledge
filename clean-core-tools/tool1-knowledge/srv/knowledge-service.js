@@ -14,6 +14,8 @@ const {
   buildNoteSummaryFromContentPrompt,
   buildAnalyzeCodePrompt,
   buildAnalyzeAtcPrompt,
+  buildIntentPrompt,
+  buildRewriteCodePrompt,
 } = require('./prompts');
 
 module.exports = cds.service.impl(async function (srv) {
@@ -288,6 +290,220 @@ module.exports = cds.service.impl(async function (srv) {
       }
     }
     return results;
+  });
+
+  // ── rewriteCode: rewrite ABAP code to Clean Core compliant version ────────
+  srv.on('rewriteCode', async (req) => {
+    const { code, violations } = req.data;
+    if (!code || !code.trim()) return req.error(400, 'code is required');
+    if (!violations || violations.length === 0) {
+      return { original: code, rewritten: code };
+    }
+
+    const raw = await getAI().complete(
+      CLEAN_CORE_SYSTEM_PROMPT,
+      buildRewriteCodePrompt(code, violations),
+      4096,
+    );
+
+    let parsed;
+    try {
+      const text = raw.trim().replace(/^```json\s*/i, '').replace(/\s*```$/i, '');
+      parsed = JSON.parse(text);
+    } catch {
+      return req.error(502, 'AI returned invalid JSON for rewrite');
+    }
+
+    return {
+      original:  parsed.original  || code,
+      rewritten: parsed.rewritten || code,
+    };
+  });
+
+  // ── chat: unified agent entry point ───────────────────────────────────────
+  srv.on('chat', async (req) => {
+    const { message, mode = 'auto', history = [] } = req.data;
+    if (!message || !message.trim()) return req.error(400, 'message is required');
+
+    // Step 1: detect intent (skip if mode is explicit)
+    let intent = mode;
+    if (mode === 'auto') {
+      try {
+        const raw = await getAI().complete(
+          CLEAN_CORE_SYSTEM_PROMPT,
+          buildIntentPrompt(message, mode),
+          64,
+        );
+        const parsed = JSON.parse(raw.trim());
+        intent = parsed.intent || 'general';
+      } catch {
+        intent = 'general';
+      }
+    }
+
+    // Step 2: route to handler
+    if (intent === 'explain') {
+      const text = await getAI().complete(
+        CLEAN_CORE_SYSTEM_PROMPT,
+        buildExplainPrompt(message),
+      );
+      return {
+        replyType: 'explain',
+        text,
+        violations: JSON.stringify([]),
+        rewriteOriginal: '',
+        rewriteRewritten: '',
+        notes: JSON.stringify([]),
+      };
+    }
+
+    if (intent === 'classify') {
+      const objects = message.split(/[\n,\s]+/).map(s => s.trim().toUpperCase()).filter(Boolean);
+      const violations = [];
+      for (const name of objects) {
+        const info = getClassifier().lookup(name);
+        if (info) {
+          violations.push({
+            objectName:      name,
+            tier:            info.tier,
+            state:           info.state || info.clsState,
+            line:            0,
+            callType:        '',
+            replacement:     info.replacement || '',
+            replacementType: info.replacementType || '',
+            note:            info.note || '',
+          });
+        }
+      }
+      return {
+        replyType: 'violations',
+        text: violations.length > 0
+          ? `发现 ${violations.length} 个对象，分级结果如下：`
+          : '在本地数据中未找到这些对象，建议手动核实。',
+        violations: JSON.stringify(violations),
+        rewriteOriginal: '',
+        rewriteRewritten: '',
+        notes: JSON.stringify([]),
+      };
+    }
+
+    if (intent === 'code') {
+      let rawRefs = [];
+      try {
+        const raw = await getAI().complete(
+          CLEAN_CORE_SYSTEM_PROMPT,
+          buildAnalyzeCodePrompt(message),
+        );
+        rawRefs = JSON.parse(raw.trim().replace(/^```json\s*/i, '').replace(/\s*```$/i, ''));
+        if (!Array.isArray(rawRefs)) rawRefs = [];
+      } catch { /* fall through with empty */ }
+
+      const violations = [];
+      for (const ref of rawRefs) {
+        const name = (ref.objectName || '').trim().toUpperCase();
+        if (!name) continue;
+        const info = getClassifier().lookup(name);
+        if (info && info.tier !== 'A') {
+          violations.push({
+            objectName:      name,
+            tier:            info.tier,
+            state:           info.state || info.clsState,
+            line:            ref.line || 0,
+            callType:        ref.callType || '',
+            replacement:     info.replacement || '',
+            replacementType: info.replacementType || '',
+            note:            info.note || '',
+          });
+        }
+      }
+
+      if (violations.length === 0) {
+        return {
+          replyType: 'general',
+          text: '代码中未发现 Clean Core 违规对象，可以安全使用。',
+          violations: JSON.stringify([]),
+          rewriteOriginal: '',
+          rewriteRewritten: '',
+          notes: JSON.stringify([]),
+        };
+      }
+
+      // Generate rewrite
+      let rewriteOriginal = '';
+      let rewriteRewritten = '';
+      try {
+        const raw = await getAI().complete(
+          CLEAN_CORE_SYSTEM_PROMPT,
+          buildRewriteCodePrompt(message, violations),
+          4096,
+        );
+        const text = raw.trim().replace(/^```json\s*/i, '').replace(/\s*```$/i, '');
+        const rw = JSON.parse(text);
+        rewriteOriginal  = rw.original  || '';
+        rewriteRewritten = rw.rewritten || '';
+      } catch { /* leave empty */ }
+
+      return {
+        replyType: 'violations',
+        text: `发现 ${violations.length} 个 Clean Core 违规对象：`,
+        violations: JSON.stringify(violations),
+        rewriteOriginal,
+        rewriteRewritten,
+        notes: JSON.stringify([]),
+      };
+    }
+
+    if (intent === 'atc') {
+      let findings = [];
+      try {
+        const raw = await getAI().complete(
+          CLEAN_CORE_SYSTEM_PROMPT,
+          buildAnalyzeAtcPrompt(message),
+        );
+        findings = JSON.parse(raw.trim().replace(/^```json\s*/i, '').replace(/\s*```$/i, ''));
+        if (!Array.isArray(findings)) findings = [];
+      } catch { /* fall through */ }
+
+      const violations = findings.map(f => {
+        const name = (f.objectName || '').trim().toUpperCase();
+        const info = getClassifier().lookup(name);
+        return {
+          objectName:      name,
+          tier:            info ? info.tier : 'unknown',
+          state:           info ? (info.state || info.clsState) : 'unknown',
+          line:            f.line || 0,
+          callType:        f.errorCode || '',
+          replacement:     info ? (info.replacement || '') : '',
+          replacementType: info ? (info.replacementType || '') : '',
+          note:            f.message || (info ? info.note : '') || '',
+        };
+      });
+
+      return {
+        replyType: violations.length > 0 ? 'violations' : 'general',
+        text: violations.length > 0
+          ? `解析到 ${violations.length} 个 ATC 违规，分级结果如下：`
+          : '未能从 ATC 输出中解析到违规对象，请确认输入格式。',
+        violations: JSON.stringify(violations),
+        rewriteOriginal: '',
+        rewriteRewritten: '',
+        notes: JSON.stringify([]),
+      };
+    }
+
+    // Fallback: general question → explain
+    const text = await getAI().complete(
+      CLEAN_CORE_SYSTEM_PROMPT,
+      buildExplainPrompt(message),
+    );
+    return {
+      replyType: 'general',
+      text,
+      violations: JSON.stringify([]),
+      rewriteOriginal: '',
+      rewriteRewritten: '',
+      notes: JSON.stringify([]),
+    };
   });
 
   // ── Tab 4: SAP Note Search ─────────────────────────────────────────────────
