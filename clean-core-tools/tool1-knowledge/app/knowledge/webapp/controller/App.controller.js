@@ -91,7 +91,7 @@ sap.ui.define([
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: message, mode: mode, history: history })
       })
-        .then(function (r) { return r.json(); })
+        .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
         .then(function (data) {
           model.setProperty('/busy', false);
           var reply = data.value || data;
@@ -246,7 +246,7 @@ sap.ui.define([
       var headerBox = new HBox({
         alignItems: 'Center',
         items: [
-          new ObjectStatus({ text: 'Tier ' + v.tier, state: state }).addStyleClass('sapUiSmallMarginEnd'),
+          new ObjectStatus({ text: 'Tier ' + (v.tier || '?'), state: state }).addStyleClass('sapUiSmallMarginEnd'),
           new Title({ text: v.objectName, level: 'H5' }).addStyleClass('sapUiSmallMarginEnd'),
           v.line ? new Text({ text: '第 ' + v.line + ' 行' }).addStyleClass('sapUiTinyMarginEnd') : new Text({ text: '' })
         ]
