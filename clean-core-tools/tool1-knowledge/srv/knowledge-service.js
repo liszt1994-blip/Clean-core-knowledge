@@ -16,6 +16,7 @@ const {
   buildAnalyzeAtcPrompt,
   buildIntentPrompt,
   buildRewriteCodePrompt,
+  buildExtractObjectsPrompt,
 } = require('./prompts');
 
 module.exports = cds.service.impl(async function (srv) {
@@ -358,32 +359,115 @@ module.exports = cds.service.impl(async function (srv) {
     }
 
     if (intent === 'classify') {
-      const objects = message.split(/[\n,\s]+/).map(s => s.trim().toUpperCase()).filter(Boolean);
+      // Step 1: Use AI to extract SAP object names from natural language
+      let objects = [];
+      try {
+        const raw = await getAI().complete(
+          CLEAN_CORE_SYSTEM_PROMPT,
+          buildExtractObjectsPrompt(message),
+          256,
+        );
+        const parsed = JSON.parse(raw.trim().replace(/^```json\s*/i, '').replace(/\s*```$/i, ''));
+        if (Array.isArray(parsed)) objects = parsed.map(s => String(s).trim().toUpperCase()).filter(Boolean);
+      } catch {
+        // Fallback: split on whitespace/comma, keep tokens that look like SAP object names
+        objects = message.split(/[\n,\s]+/)
+          .map(s => s.trim().toUpperCase())
+          .filter(s => /^[A-Z][A-Z0-9_]{2,}$/.test(s));
+      }
+
+      if (objects.length === 0) {
+        return {
+          replyType: 'general',
+          text: '无法从输入中识别 SAP 对象名，请直接输入对象名（如 READ_TEXT）。',
+          violations: JSON.stringify([]),
+          rewriteOriginal: '', rewriteRewritten: '', notes: JSON.stringify([]),
+        };
+      }
+
+      // Step 2: Look up each object; AI fallback for unknowns
       const violations = [];
       for (const name of objects) {
         const info = getClassifier().lookup(name);
         if (info) {
+          let replacement = info.replacement || '';
+          let replacementType = info.replacementType || '';
+          let note = info.note || '';
+
+          // If no replacement in JSON, ask AI for recommendation
+          if (!replacement && info.tier !== 'A') {
+            try {
+              const raw = await getAI().complete(
+                CLEAN_CORE_SYSTEM_PROMPT,
+                buildRecommendPrompt(name),
+                1024,
+              );
+              const cleaned = raw.trim()
+                .replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '')
+                .trim();
+              const recs = JSON.parse(cleaned);
+              if (Array.isArray(recs) && recs.length > 0) {
+                replacement = recs.map(r => r.replacementName).filter(Boolean).join(', ');
+                replacementType = recs[0].type || '';
+                note = recs.map(r => r.migrationNote).filter(Boolean).join('\n');
+              }
+            } catch (e) {
+              console.error(`[classify] AI replacement failed for ${name}:`, e.message);
+            }
+          }
+
           violations.push({
-            objectName:      name,
-            tier:            info.tier,
-            state:           info.state || info.clsState,
-            line:            0,
-            callType:        '',
-            replacement:     info.replacement || '',
-            replacementType: info.replacementType || '',
-            note:            info.note || '',
+            objectName: name,
+            tier: info.tier,
+            state: info.state || info.clsState,
+            line: 0, callType: '',
+            replacement,
+            replacementType,
+            note,
           });
+        } else {
+          // Not in local JSON — full AI inference
+          try {
+            const raw = await getAI().complete(
+              CLEAN_CORE_SYSTEM_PROMPT,
+              buildSingleClassifyPrompt(name),
+              512,
+            );
+            const parsed = JSON.parse(raw.trim().replace(/^```json\s*/i, '').replace(/\s*```$/i, ''));
+            if (Array.isArray(parsed) && parsed.length > 0) {
+              violations.push({
+                objectName: name,
+                tier: parsed[0].tier || 'unknown',
+                state: parsed[0].state || 'unknown',
+                line: 0, callType: '',
+                replacement: parsed[0].recommendation || '',
+                replacementType: '',
+                note: parsed[0].explanation || '',
+              });
+            } else {
+              violations.push({
+                objectName: name, tier: 'unknown', state: 'unknown',
+                line: 0, callType: '', replacement: '', replacementType: '',
+                note: '未在本地数据中找到，AI 也无法推断，请手动核实。',
+              });
+            }
+          } catch {
+            violations.push({
+              objectName: name, tier: 'unknown', state: 'unknown',
+              line: 0, callType: '', replacement: '', replacementType: '',
+              note: '查询失败，请手动核实。',
+            });
+          }
         }
       }
+
       return {
         replyType: 'violations',
         text: violations.length > 0
           ? `发现 ${violations.length} 个对象，分级结果如下：`
           : '在本地数据中未找到这些对象，建议手动核实。',
         violations: JSON.stringify(violations),
-        rewriteOriginal: '',
-        rewriteRewritten: '',
-        notes: JSON.stringify([]),
+        rewriteOriginal: '', rewriteRewritten: '', notes: JSON.stringify([]),
       };
     }
 
@@ -404,17 +488,68 @@ module.exports = cds.service.impl(async function (srv) {
         if (!name) continue;
         const info = getClassifier().lookup(name);
         if (info && info.tier !== 'A') {
+          let replacement = info.replacement || '';
+          let replacementType = info.replacementType || '';
+          let note = info.note || '';
+
+          // If no replacement in JSON, ask AI for recommendation
+          if (!replacement) {
+            try {
+              const raw = await getAI().complete(
+                CLEAN_CORE_SYSTEM_PROMPT,
+                buildRecommendPrompt(name),
+                1024,
+              );
+              const cleaned = raw.trim()
+                .replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '')
+                .trim();
+              const recs = JSON.parse(cleaned);
+              if (Array.isArray(recs) && recs.length > 0) {
+                replacement = recs.map(r => r.replacementName).filter(Boolean).join(', ');
+                replacementType = recs[0].type || '';
+                note = recs.map(r => r.migrationNote).filter(Boolean).join('\n');
+              }
+            } catch (e) {
+              console.error(`[code] AI replacement failed for ${name}:`, e.message);
+            }
+          }
+
           violations.push({
             objectName:      name,
             tier:            info.tier,
             state:           info.state || info.clsState,
             line:            ref.line || 0,
             callType:        ref.callType || '',
-            replacement:     info.replacement || '',
-            replacementType: info.replacementType || '',
-            note:            info.note || '',
+            replacement,
+            replacementType,
+            note,
           });
+        } else if (!info) {
+          // Not in local JSON — AI fallback for tier + replacement
+          try {
+            const raw = await getAI().complete(
+              CLEAN_CORE_SYSTEM_PROMPT,
+              buildSingleClassifyPrompt(name),
+              512,
+            );
+            const parsed = JSON.parse(raw.trim().replace(/^```json\s*/i, '').replace(/\s*```$/i, ''));
+            if (Array.isArray(parsed) && parsed.length > 0 && parsed[0].tier !== 'A') {
+              violations.push({
+                objectName:      name,
+                tier:            parsed[0].tier || 'unknown',
+                state:           parsed[0].state || 'unknown',
+                line:            ref.line || 0,
+                callType:        ref.callType || '',
+                replacement:     parsed[0].recommendation || '',
+                replacementType: '',
+                note:            parsed[0].explanation || '',
+              });
+            }
+          } catch {
+            // skip objects where AI also fails
+          }
         }
+        // Tier A objects are compliant — skip them
       }
 
       if (violations.length === 0) {
@@ -429,7 +564,7 @@ module.exports = cds.service.impl(async function (srv) {
       }
 
       // Generate rewrite
-      let rewriteOriginal = '';
+      let rewriteOriginal = message;
       let rewriteRewritten = '';
       try {
         const raw = await getAI().complete(
@@ -437,11 +572,50 @@ module.exports = cds.service.impl(async function (srv) {
           buildRewriteCodePrompt(message, violations),
           4096,
         );
-        const text = raw.trim().replace(/^```json\s*/i, '').replace(/\s*```$/i, '');
-        const rw = JSON.parse(text);
-        rewriteOriginal  = rw.original  || '';
-        rewriteRewritten = rw.rewritten || '';
-      } catch { /* leave empty */ }
+        console.log('[rewrite] raw length:', raw ? raw.length : 0);
+        console.log('[rewrite] raw FULL:\n', raw);
+
+        if (!raw || !raw.trim()) {
+          console.error('[rewrite] AI returned empty response');
+        } else {
+          // Strip markdown fences
+          let text = raw.trim()
+            .replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '')
+            .trim();
+
+          // Extract "original" and "rewritten" via regex to avoid JSON parse issues
+          // with literal newlines inside string values
+          const extractField = (src, field) => {
+            // Match: "field": "...value..." where value may contain real newlines
+            const re = new RegExp('"' + field + '"\\s*:\\s*"([\\s\\S]*?)(?<!\\\\)"(?=\\s*[,}])');
+            const m = src.match(re);
+            return m ? m[1].replace(/\\n/g, '\n').replace(/\\"/g, '"').replace(/\\\\/g, '\\') : null;
+          };
+
+          let rw = null;
+          try {
+            rw = JSON.parse(text);
+          } catch (parseErr) {
+            console.error('[rewrite] JSON.parse failed:', parseErr.message, '— trying regex extraction');
+            const orig = extractField(text, 'original');
+            const rewrit = extractField(text, 'rewritten');
+            if (rewrit) {
+              rw = { original: orig || message, rewritten: rewrit };
+              console.log('[rewrite] regex extraction succeeded, rewritten length:', rewrit.length);
+            }
+          }
+
+          if (rw && rw.rewritten) {
+            rewriteOriginal  = rw.original  || message;
+            rewriteRewritten = rw.rewritten;
+            console.log('[rewrite] success, rewritten length:', rewriteRewritten.length);
+          } else {
+            console.error('[rewrite] parsed but rewritten field empty or missing. text:\n', text.slice(0, 500));
+          }
+        }
+      } catch (e) {
+        console.error('[rewrite] outer catch:', e.message);
+      }
 
       return {
         replyType: 'violations',
@@ -594,9 +768,8 @@ function _buildRecommendationText(info) {
   return 'No official successor found. Consider side-by-side extension on BTP.';
 }
 
-// Extract a SAP Note number from a help.sap.com URL, e.g.:
-//   https://help.sap.com/docs/SAP_S4HANA/abc/123456  → ''  (not a note)
-//   https://me.sap.com/notes/2220005                 → '2220005'
+// Extract a SAP Note number only from authoritative me.sap.com/notes/<id> URLs.
+// Do NOT extract from help.sap.com paths — those document IDs are not Note numbers.
 function extractNoteNumber(url) {
   if (!url) return '';
   const m = url.match(/\/notes\/(\d+)/);

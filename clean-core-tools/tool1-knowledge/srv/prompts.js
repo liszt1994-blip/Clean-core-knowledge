@@ -7,8 +7,13 @@ const SYSTEM_PROMPT = CLEAN_CORE_SYSTEM_PROMPT;
 // ── Tab 1: Concept Explanation ─────────────────────────────────────────────
 function buildExplainPrompt(term) {
   return (
-    `请用中文解释以下 SAP Clean Core 概念，面向刚接触 Clean Core 的 SAP 开发者，` +
-    `语言简洁易懂，如有可能请给出实际示例，回答控制在 300 字以内："${term}"。`
+    `请用中文解释以下 SAP Clean Core 概念或对象，面向刚接触 Clean Core 的 SAP 开发者，` +
+    `语言简洁易懂，如有可能请给出实际示例，回答控制在 400 字以内。\n\n` +
+    `重要要求：\n` +
+    `- 如果涉及替代 API 或迁移方案，只给出通用的、跨业务场景的替代方案\n` +
+    `- 不要根据某个特定业务领域（如销售订单、采购单）来推断替代 API\n` +
+    `- 替代方案应适用于所有使用该对象的场景\n\n` +
+    `主题："${term}"。`
   );
 }
 
@@ -46,11 +51,14 @@ function buildMigrationNotePrompt(deprecatedObject, successors) {
     `For the deprecated SAP object "${deprecatedObject}", the official successors are:\n` +
     `${succList}\n\n` +
     `For each successor, provide a short migrationNote (2-3 sentences) explaining how to migrate ` +
-    `from "${deprecatedObject}" to that successor.\n\n` +
+    `from "${deprecatedObject}" to that successor.\n` +
+    `Focus on the GENERIC, domain-agnostic migration path — do not assume any specific business context ` +
+    `(e.g. do not tailor the advice to Sales Orders, Finance, or any specific module unless the object ` +
+    `itself is domain-specific).\n\n` +
     `Return ONLY a JSON array with no markdown fences. Each element must have:\n` +
     `- replacementName (string)\n` +
     `- type            (string: the successor type as listed above)\n` +
-    `- migrationNote   (string: 2-3 sentences on how to migrate)\n` +
+    `- migrationNote   (string: 2-3 sentences on how to migrate, generic context)\n` +
     `- source          (string: "official-json+ai-note")`
   );
 }
@@ -60,10 +68,19 @@ function buildRecommendPrompt(deprecatedObject) {
   return (
     `For the deprecated or non-compliant SAP object "${deprecatedObject}", provide replacement ` +
     `recommendations.\n\n` +
+    `IMPORTANT rules:\n` +
+    `- Recommend GENERIC, universally applicable replacements — do NOT suggest business-domain-specific APIs ` +
+    `(e.g. do not recommend a Sales Order API as a replacement for a general text-reading function module).\n` +
+    `- Focus on the core technical purpose of "${deprecatedObject}" and suggest the standard Clean Core ` +
+    `alternative that serves the same purpose across all business contexts.\n` +
+    `- Prefer: Released ABAP APIs, standard CDS Views, RAP BOs, or BTP side-by-side extensions that are ` +
+    `domain-agnostic.\n` +
+    `- Return 3 to 5 replacement options where available, covering different migration approaches ` +
+    `(e.g. OData API, RAP BO, Released FM, CDS View, BTP side-by-side). More options are better.\n\n` +
     `Return ONLY a JSON array with no markdown fences. Each element must have:\n` +
     `- replacementName (string)\n` +
-    `- type            (string: one of OData API, RAP BO, CDS View, Released BAdI, Key User Extension, Side-by-Side BTP)\n` +
-    `- migrationNote   (string: 2-3 sentences describing how to migrate)\n` +
+    `- type            (string: one of OData API, RAP BO, CDS View, Released FM, Released BAdI, Key User Extension, Side-by-Side BTP)\n` +
+    `- migrationNote   (string: 1-2 concise sentences on how to migrate, generic context)\n` +
     `- source          (string: always "ai-inference" for objects recommended by this prompt)`
   );
 }
@@ -165,7 +182,12 @@ function buildAnalyzeAtcPrompt(atcOutput) {
 // ── Agent chat: ABAP code rewrite ─────────────────────────────────────────
 function buildRewriteCodePrompt(code, violations) {
   const violationList = violations
-    .map(v => `- ${v.objectName} → ${v.replacementType ? v.replacementType + ' ' : ''}${v.replacement}`)
+    .map(v => {
+      const repl = v.replacement
+        ? `→ ${v.replacementType ? v.replacementType + ' ' : ''}${v.replacement}`
+        : `(Tier ${v.tier || '?'} — choose the best Clean Core alternative)`;
+      return `- ${v.objectName} ${repl}`;
+    })
     .join('\n');
 
   return (
@@ -173,13 +195,32 @@ function buildRewriteCodePrompt(code, violations) {
     `Required replacements:\n${violationList}\n\n` +
     `Rules:\n` +
     `1. Preserve all business logic exactly — only replace non-compliant API calls\n` +
-    `2. Replace each listed object with its Clean Core alternative\n` +
-    `3. Add a comment "* Clean Core: replaced X with Y" on the line of each change\n` +
-    `4. If a replacement requires additional DATA declarations, add them near the top\n` +
-    `5. Keep all other code unchanged\n\n` +
-    `Return ONLY a JSON object with no markdown fences:\n` +
-    `{ "original": "<original code unchanged>", "rewritten": "<rewritten code>" }\n\n` +
+    `2. Replace each listed object with its Clean Core alternative. ` +
+    `If no replacement is specified above, use your knowledge to choose the best released API, CDS View, or RAP BO.\n` +
+    `3. CRITICAL: Keep the output in standard ABAP syntax. Do NOT use RAP EML statements ` +
+    `(READ ENTITIES OF, MODIFY ENTITIES OF, etc.) unless the original code is already EML. ` +
+    `Use released ABAP APIs (CALL FUNCTION, CALL METHOD, etc.) in standard ABAP style.\n` +
+    `4. Add a comment "* Clean Core: replaced X with Y" on the line of each change\n` +
+    `5. If a replacement requires additional DATA declarations, add them near the top\n` +
+    `6. Keep all other code unchanged\n\n` +
+    `Return ONLY a valid JSON object with no markdown fences. ` +
+    `IMPORTANT: The "original" and "rewritten" values must be valid JSON strings — ` +
+    `escape all newlines as \\n, all double-quotes as \\", all backslashes as \\\\.\n` +
+    `{ "original": "<original code with \\n for newlines>", "rewritten": "<rewritten code with \\n for newlines>" }\n\n` +
     `Original ABAP code:\n\`\`\`abap\n${code}\n\`\`\``
+  );
+}
+
+function buildExtractObjectsPrompt(message) {
+  return (
+    `From the following user message, extract all SAP object names (function modules, BAPIs, ` +
+    `database tables, transaction codes, classes, etc.) that the user wants to look up.\n\n` +
+    `Rules:\n` +
+    `- SAP object names are typically UPPERCASE, often contain underscores\n` +
+    `- Ignore Chinese/English words that are not object names (e.g. "的分级", "API替代", "查询")\n` +
+    `- Return an empty array if no object names are found\n\n` +
+    `User message:\n"""\n${message}\n"""\n\n` +
+    `Return ONLY a JSON array of strings, no markdown fences. Example: ["READ_TEXT", "BAPI_CONTRACT_CREATEFROMDATA"]`
   );
 }
 
@@ -197,4 +238,5 @@ module.exports = {
   buildAnalyzeCodePrompt,
   buildAnalyzeAtcPrompt,
   buildRewriteCodePrompt,
+  buildExtractObjectsPrompt,
 };
