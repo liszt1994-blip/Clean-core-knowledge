@@ -562,7 +562,7 @@ sap.ui.define([
       var headerBox = new HBox({
         alignItems: 'Center',
         items: [
-          new ObjectStatus({ text: 'Tier ' + (v.tier || '?'), state: state }).addStyleClass('sapUiSmallMarginEnd'),
+          new ObjectStatus({ text: (v.tier || '?') + ' 类', state: state }).addStyleClass('sapUiSmallMarginEnd'),
           new Title({ text: v.objectName, level: 'H5' }).addStyleClass('sapUiSmallMarginEnd'),
           v.line ? new Text({ text: '第 ' + v.line + ' 行' }).addStyleClass('sapUiTinyMarginEnd') : new Text({ text: '' })
         ]
