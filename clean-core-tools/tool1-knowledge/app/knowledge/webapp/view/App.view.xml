@@ -4,64 +4,27 @@
   xmlns="sap.m"
   xmlns:core="sap.ui.core"
   displayBlock="true">
-  <Shell>
-    <App>
-      <pages>
-        <Page id="mainPage" showHeader="true">
-          <customHeader>
-            <Bar>
-              <contentLeft>
-                <Title text="Clean Core Agent" level="H4" />
-              </contentLeft>
-              <contentRight>
-                <Button text="Clear" icon="sap-icon://delete" press=".onClearChat" type="Transparent" />
-              </contentRight>
-            </Bar>
-          </customHeader>
-          <content>
-            <!-- Message history -->
-            <VBox id="chatHistory"
-              class="sapUiSmallMargin"
-              width="100%">
-            </VBox>
-          </content>
-          <footer>
-            <Toolbar>
-              <content>
-                <VBox width="100%">
-                  <!-- Mode toggle -->
-                  <SegmentedButton id="modeToggle"
-                    selectedKey="auto"
-                    selectionChange=".onModeChange">
-                    <items>
-                      <SegmentedButtonItem key="auto"     text="Auto" />
-                      <SegmentedButtonItem key="code"     text="Code" />
-                      <SegmentedButtonItem key="atc"      text="ATC Error" />
-                      <SegmentedButtonItem key="question" text="Question" />
-                    </items>
-                  </SegmentedButton>
-                  <!-- Input row -->
-                  <HBox width="100%" alignItems="End">
-                    <TextArea id="chatInput"
-                      placeholder="Ask a question or paste ABAP code / ATC error..."
-                      rows="3"
-                      growing="true"
-                      growingMaxLines="8"
-                      width="100%"
-                      class="sapUiTinyMarginEnd" />
-                    <Button id="sendBtn"
-                      icon="sap-icon://paper-plane"
-                      type="Emphasized"
-                      press=".onSend"
-                      enabled="{= !${/busy} }" />
-                  </HBox>
-                  <BusyIndicator id="chatBusy" visible="{/busy}" size="Auto" />
-                </VBox>
-              </content>
-            </Toolbar>
-          </footer>
-        </Page>
-      </pages>
-    </App>
-  </Shell>
+
+  <Page id="mainPage"
+    showHeader="true"
+    enableScrolling="false">
+
+    <customHeader>
+      <Bar>
+        <contentLeft>
+          <Title text="Clean Core Agent" level="H4" />
+        </contentLeft>
+        <contentRight>
+          <Button id="historyBtn" icon="sap-icon://history" tooltip="历史记录" press=".onShowHistory" type="Transparent" />
+          <Button text="清空对话" icon="sap-icon://delete" press=".onClearChat" type="Transparent" />
+        </contentRight>
+      </Bar>
+    </customHeader>
+
+    <content>
+      <!-- 外层占位，由 CSS 撑满 Page section -->
+      <core:HTML content="&lt;div id='ccMainWrap' style='position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;overflow:hidden;'&gt;&lt;/div&gt;" />
+    </content>
+
+  </Page>
 </mvc:View>
