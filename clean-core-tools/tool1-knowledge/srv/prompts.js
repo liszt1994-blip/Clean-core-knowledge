@@ -203,10 +203,11 @@ function buildRewriteCodePrompt(code, violations) {
     `4. Add a comment "* Clean Core: replaced X with Y" on the line of each change\n` +
     `5. If a replacement requires additional DATA declarations, add them near the top\n` +
     `6. Keep all other code unchanged\n\n` +
-    `Return ONLY a valid JSON object with no markdown fences. ` +
-    `IMPORTANT: The "original" and "rewritten" values must be valid JSON strings — ` +
+    `Return ONLY a valid JSON object with no markdown fences and no explanation text before or after it. ` +
+    `Your entire response must start with { and end with }. ` +
+    `IMPORTANT: The "rewritten" value must be a valid JSON string — ` +
     `escape all newlines as \\n, all double-quotes as \\", all backslashes as \\\\.\n` +
-    `{ "original": "<original code with \\n for newlines>", "rewritten": "<rewritten code with \\n for newlines>" }\n\n` +
+    `{ "rewritten": "<rewritten code with \\n for newlines>" }\n\n` +
     `Original ABAP code:\n\`\`\`abap\n${code}\n\`\`\``
   );
 }
@@ -221,6 +222,28 @@ function buildExtractObjectsPrompt(message) {
     `- Return an empty array if no object names are found\n\n` +
     `User message:\n"""\n${message}\n"""\n\n` +
     `Return ONLY a JSON array of strings, no markdown fences. Example: ["READ_TEXT", "BAPI_CONTRACT_CREATEFROMDATA"]`
+  );
+}
+
+// ── Feature 6: Migration Path Planning ────────────────────────────────────
+function buildPlanPrompt(objectName) {
+  return (
+    `For the SAP object "${objectName}", generate a detailed Clean Core migration plan.\n\n` +
+    `Return ONLY a valid JSON object with no markdown fences and no extra text. The object must have exactly these fields:\n` +
+    `- objectName      (string: the input object name)\n` +
+    `- replacement     (string: the recommended Clean Core replacement name)\n` +
+    `- replacementType (string: one of OData API, RAP BO, CDS View, Released FM, Released BAdI, Key User Extension, Side-by-Side BTP)\n` +
+    `- riskLevel       (string: "低" | "中" | "高" — migration complexity risk)\n` +
+    `- effortEstimate  (string: estimated effort, e.g. "2-3 天", "1 周")\n` +
+    `- steps           (string: a JSON array string, each element has { "step": number, "description": string })\n` +
+    `- codeExample     (string: ABAP code snippet. CRITICAL: escape ALL double-quotes as \\\\", escape ALL newlines as \\\\n, escape ALL backslashes as \\\\\\\\. The entire value must be a valid JSON string.)\n` +
+    `- summary         (string: one sentence summarizing the migration in Chinese)\n\n` +
+    `Rules:\n` +
+    `- steps must contain 3-5 concrete, actionable migration steps\n` +
+    `- codeExample: use single-line format with \\\\n for line breaks, NO raw newlines inside the JSON string value\n` +
+    `- All text fields (riskLevel, summary, step descriptions) must be in Chinese\n` +
+    `- The steps field value must itself be a valid JSON array serialized as a string\n` +
+    `- Your entire response must start with { and end with } — no other text`
   );
 }
 
@@ -239,4 +262,5 @@ module.exports = {
   buildAnalyzeAtcPrompt,
   buildRewriteCodePrompt,
   buildExtractObjectsPrompt,
+  buildPlanPrompt,
 };

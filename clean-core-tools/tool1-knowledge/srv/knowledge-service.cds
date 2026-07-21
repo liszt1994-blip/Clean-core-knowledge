@@ -91,4 +91,15 @@ service KnowledgeService {
     original  : String;
     rewritten : String;
   };
+
+  action plan(objectName : String) returns {
+    objectName      : String;
+    replacement     : String;
+    replacementType : String;
+    riskLevel       : String;
+    effortEstimate  : String;
+    steps           : String;
+    codeExample     : String;
+    summary         : String;
+  };
 }

@@ -17,6 +17,7 @@ const {
   buildIntentPrompt,
   buildRewriteCodePrompt,
   buildExtractObjectsPrompt,
+  buildPlanPrompt,
 } = require('./prompts');
 
 module.exports = cds.service.impl(async function (srv) {
@@ -25,9 +26,19 @@ module.exports = cds.service.impl(async function (srv) {
   let clf;
   let dest;
 
+  const GROUNDING_COLLECTION_ID = process.env.GROUNDING_COLLECTION_ID || '';
+
   function getAI() {
     if (!ai) ai = new AICoreClient();
     return ai;
+  }
+
+  // Wrapper: use grounding when collection is configured, fall back to plain complete
+  function aiComplete(systemPrompt, userContent, maxTokens = 2048) {
+    if (GROUNDING_COLLECTION_ID) {
+      return getAI().completeWithGrounding(systemPrompt, userContent, GROUNDING_COLLECTION_ID, maxTokens);
+    }
+    return getAI().complete(systemPrompt, userContent, maxTokens);
   }
 
   function getClassifier() {
@@ -52,7 +63,7 @@ module.exports = cds.service.impl(async function (srv) {
     if (!term || !term.trim()) {
       return req.error(400, 'term is required');
     }
-    const result = await getAI().complete(CLEAN_CORE_SYSTEM_PROMPT, buildExplainPrompt(term));
+    const result = await aiComplete(CLEAN_CORE_SYSTEM_PROMPT, buildExplainPrompt(term));
     return result;
   });
 
@@ -142,7 +153,7 @@ module.exports = cds.service.impl(async function (srv) {
 
     if (info && info.allSuccessors.length > 0) {
       // We have official successors — ask AI only for migration notes
-      const raw = await getAI().complete(
+      const raw = await aiComplete(
         CLEAN_CORE_SYSTEM_PROMPT,
         buildMigrationNotePrompt(name, info.allSuccessors),
       );
@@ -165,7 +176,7 @@ module.exports = cds.service.impl(async function (srv) {
     }
 
     // No JSON data — full AI recommendation
-    const raw = await getAI().complete(
+    const raw = await aiComplete(
       CLEAN_CORE_SYSTEM_PROMPT,
       buildRecommendPrompt(name),
     );
@@ -301,7 +312,7 @@ module.exports = cds.service.impl(async function (srv) {
       return { original: code, rewritten: code };
     }
 
-    const raw = await getAI().complete(
+    const raw = await aiComplete(
       CLEAN_CORE_SYSTEM_PROMPT,
       buildRewriteCodePrompt(code, violations),
       4096,
@@ -318,6 +329,48 @@ module.exports = cds.service.impl(async function (srv) {
     return {
       original:  parsed.original  || code,
       rewritten: parsed.rewritten || code,
+    };
+  });
+
+  // ── Feature 6: Migration Path Planning ────────────────────────────────────
+  srv.on('plan', async (req) => {
+    const { objectName } = req.data;
+    if (!objectName || !objectName.trim()) {
+      return req.error(400, 'objectName is required');
+    }
+
+    const raw = await aiComplete(
+      CLEAN_CORE_SYSTEM_PROMPT,
+      buildPlanPrompt(objectName.trim().toUpperCase()),
+      3000
+    );
+
+    let parsed;
+    try {
+      // Strip markdown fences if AI wrapped the JSON in ```json ... ```
+      const cleaned = raw.trim().replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '');
+      parsed = JSON.parse(cleaned);
+    } catch (e) {
+      // Try to extract JSON object from response even if codeExample contains special chars
+      try {
+        const match = raw.match(/\{[\s\S]*"summary"\s*:\s*"[^"]*"\s*\}/);
+        if (match) parsed = JSON.parse(match[0]);
+      } catch (_) {}
+      if (!parsed) {
+        console.error('[plan] AI returned non-JSON:', raw.slice(0, 200));
+        return req.error(500, 'AI returned invalid plan format');
+      }
+    }
+
+    return {
+      objectName:      parsed.objectName      || objectName,
+      replacement:     parsed.replacement     || '',
+      replacementType: parsed.replacementType || '',
+      riskLevel:       parsed.riskLevel       || '未知',
+      effortEstimate:  parsed.effortEstimate  || '未知',
+      steps:           typeof parsed.steps === 'string' ? parsed.steps : JSON.stringify(parsed.steps || []),
+      codeExample:     parsed.codeExample     || '',
+      summary:         parsed.summary         || '',
     };
   });
 
@@ -344,7 +397,7 @@ module.exports = cds.service.impl(async function (srv) {
 
     // Step 2: route to handler
     if (intent === 'explain') {
-      const text = await getAI().complete(
+      const text = await aiComplete(
         CLEAN_CORE_SYSTEM_PROMPT,
         buildExplainPrompt(message),
       );
@@ -564,13 +617,14 @@ module.exports = cds.service.impl(async function (srv) {
       }
 
       // Generate rewrite
+      // rewriteOriginal always comes from message directly (saves tokens, avoids truncation)
       let rewriteOriginal = message;
       let rewriteRewritten = '';
       try {
-        const raw = await getAI().complete(
+        const raw = await aiComplete(
           CLEAN_CORE_SYSTEM_PROMPT,
           buildRewriteCodePrompt(message, violations),
-          4096,
+          8192,
         );
         console.log('[rewrite] raw length:', raw ? raw.length : 0);
         console.log('[rewrite] raw FULL:\n', raw);
@@ -583,34 +637,26 @@ module.exports = cds.service.impl(async function (srv) {
             .replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '')
             .trim();
 
-          // Extract "original" and "rewritten" via regex to avoid JSON parse issues
-          // with literal newlines inside string values
-          const extractField = (src, field) => {
-            // Match: "field": "...value..." where value may contain real newlines
-            const re = new RegExp('"' + field + '"\\s*:\\s*"([\\s\\S]*?)(?<!\\\\)"(?=\\s*[,}])');
-            const m = src.match(re);
-            return m ? m[1].replace(/\\n/g, '\n').replace(/\\"/g, '"').replace(/\\\\/g, '\\') : null;
-          };
-
+          // Try JSON.parse first
           let rw = null;
           try {
             rw = JSON.parse(text);
           } catch (parseErr) {
             console.error('[rewrite] JSON.parse failed:', parseErr.message, '— trying regex extraction');
-            const orig = extractField(text, 'original');
-            const rewrit = extractField(text, 'rewritten');
-            if (rewrit) {
-              rw = { original: orig || message, rewritten: rewrit };
+            // Regex fallback: extract "rewritten" field handling real newlines in value
+            const m = text.match(/"rewritten"\s*:\s*"([\s\S]*?)(?<!\\)"(?=\s*[,}])/);
+            if (m) {
+              const rewrit = m[1].replace(/\\n/g, '\n').replace(/\\"/g, '"').replace(/\\\\/g, '\\');
+              rw = { rewritten: rewrit };
               console.log('[rewrite] regex extraction succeeded, rewritten length:', rewrit.length);
             }
           }
 
           if (rw && rw.rewritten) {
-            rewriteOriginal  = rw.original  || message;
             rewriteRewritten = rw.rewritten;
             console.log('[rewrite] success, rewritten length:', rewriteRewritten.length);
           } else {
-            console.error('[rewrite] parsed but rewritten field empty or missing. text:\n', text.slice(0, 500));
+            console.error('[rewrite] rewritten field empty or missing. text:\n', text.slice(0, 500));
           }
         }
       } catch (e) {
@@ -666,7 +712,7 @@ module.exports = cds.service.impl(async function (srv) {
     }
 
     // Fallback: general question → explain
-    const text = await getAI().complete(
+    const text = await aiComplete(
       CLEAN_CORE_SYSTEM_PROMPT,
       buildExplainPrompt(message),
     );
