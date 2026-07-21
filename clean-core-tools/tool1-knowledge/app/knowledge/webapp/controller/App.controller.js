@@ -399,8 +399,9 @@ sap.ui.define([
           var reply = data.value || data;
           try { reply.violations = JSON.parse(reply.violations || '[]'); } catch (e) { reply.violations = []; }
           try { reply.notes = JSON.parse(reply.notes || '[]'); } catch (e) { reply.notes = []; }
+          console.log('[rewrite] rewriteRewritten length:', reply.rewriteRewritten ? reply.rewriteRewritten.length : 0);
           if (reply.rewriteRewritten) {
-            reply.rewrite = { original: reply.rewriteOriginal || '', rewritten: reply.rewriteRewritten };
+            reply.rewrite = { original: reply.rewriteOriginal || message, rewritten: reply.rewriteRewritten };
           } else {
             reply.rewrite = null;
           }
@@ -471,10 +472,6 @@ sap.ui.define([
         }.bind(this));
       }
 
-      if (reply.rewrite && reply.rewrite.rewritten) {
-        items.push(this._buildCodeDiffPanel(reply.rewrite));
-      }
-
       if (Array.isArray(reply.notes) && reply.notes.length > 0) {
         var notesBox = new VBox({ items: [] }).addStyleClass('sapUiSmallMarginTop');
         notesBox.addItem(new Text({ text: '相关 SAP Note：' }).addStyleClass('sapUiSmallMarginBottom'));
@@ -524,6 +521,13 @@ sap.ui.define([
 
       var bubbleBox = this._buildAgentShell(items);
       this._chatHistories[key].addItem(bubbleBox);
+
+      // 代码对比 Panel 放在气泡外部，加入 VBox
+      if (reply.rewrite && reply.rewrite.rewritten) {
+        var diffPanel = this._buildCodeDiffPanel(reply.rewrite);
+        diffPanel.addStyleClass('sapUiSmallMarginBottom');
+        this._chatHistories[key].addItem(diffPanel);
+      }
 
       var summary = replyType === 'violations'
         ? (reply.text || '') + (reply.violations ? ' [' + reply.violations.length + '个违规]' : '')
@@ -594,6 +598,17 @@ sap.ui.define([
 
       if (v.note) details.push(new Text({ text: v.note, wrapping: true }).addStyleClass('sapUiSmallMarginTop'));
 
+      var that = this;
+      var planBtn = new sap.m.Button({
+        text: '迁移规划',
+        type: 'Transparent',
+        icon: 'sap-icon://map',
+        press: function (evt) {
+          that._onPlanPress(v.objectName, evt.getSource());
+        }
+      }).addStyleClass('sapUiTinyMarginTop');
+      details.push(planBtn);
+
       return new Panel({
         expandable: true,
         expanded: false,
@@ -603,45 +618,229 @@ sap.ui.define([
     },
 
     _buildCodeDiffPanel: function (rewrite) {
-      var that = this;
-      var copyBtn = new Button({
-        text: '复制代码',
-        type: 'Transparent',
-        press: function () {
-          if (navigator.clipboard) {
-            navigator.clipboard.writeText(rewrite.rewritten).catch(function () {});
+      var originalCode = rewrite.original || '';
+      var rewrittenCode = rewrite.rewritten || '';
+
+      var uid = 'ccDiff_' + Date.now();
+      var uidOrig = uid + '_orig';
+      var uidRew  = uid + '_rew';
+
+      var shellHtml = new HTML({
+        content: [
+          '<div style="display:flex;gap:12px;">',
+            '<div style="flex:1;min-width:0;">',
+              '<div style="font-size:12px;font-weight:bold;margin-bottom:4px;color:#333">原代码</div>',
+              '<textarea id="' + uidOrig + '" readonly',
+                ' style="width:100%;height:300px;background:#1e1e1e;color:#f44747;',
+                'font-family:Consolas,Monaco,monospace;font-size:12px;padding:10px;border:none;',
+                'border-radius:4px;resize:vertical;box-sizing:border-box;overflow:auto;white-space:pre-wrap;word-break:break-all;"></textarea>',
+            '</div>',
+            '<div style="flex:1;min-width:0;">',
+              '<div style="font-size:12px;font-weight:bold;margin-bottom:4px;color:#333">改写后</div>',
+              '<textarea id="' + uidRew + '" readonly',
+                ' style="width:100%;height:300px;background:#1e1e1e;color:#4ec9b0;',
+                'font-family:Consolas,Monaco,monospace;font-size:12px;padding:10px;border:none;',
+                'border-radius:4px;resize:vertical;box-sizing:border-box;overflow:auto;white-space:pre-wrap;word-break:break-all;"></textarea>',
+            '</div>',
+          '</div>'
+        ].join('')
+      });
+
+      shellHtml.addEventDelegate({
+        onAfterRendering: function () {
+          var elOrig = document.getElementById(uidOrig);
+          var elRew  = document.getElementById(uidRew);
+          if (elOrig) elOrig.value = originalCode;
+          if (elRew)  elRew.value  = rewrittenCode;
+
+          // Clamp the Panel DOM width to the scroll area width
+          var scrollArea = document.getElementById('ccScrollArea');
+          if (scrollArea && elOrig) {
+            var availW = scrollArea.clientWidth - 48; // subtract padding
+            var panelEl = elOrig.closest('.sapMPanel');
+            if (panelEl) {
+              panelEl.style.maxWidth = availW + 'px';
+              panelEl.style.width = availW + 'px';
+            }
           }
         }
       });
 
-      var diffBox = new HBox({
-        width: '100%',
-        items: [
-          new VBox({
-            width: '50%',
-            items: [
-              new Title({ text: '原代码', level: 'H6' }),
-              new HTML({ content: '<pre style="background:#1e1e1e;color:#f44747;padding:8px;border-radius:4px;font-size:11px;overflow:auto;white-space:pre-wrap">' + that._escapeHtml(rewrite.original || '') + '</pre>' })
-            ]
-          }).addStyleClass('sapUiSmallMarginEnd'),
-          new VBox({
-            width: '50%',
-            items: [
-              new Title({ text: '改写后', level: 'H6' }),
-              new HTML({ content: '<pre style="background:#1e1e1e;color:#4ec9b0;padding:8px;border-radius:4px;font-size:11px;overflow:auto;white-space:pre-wrap">' + that._escapeHtml(rewrite.rewritten || '') + '</pre>' })
-            ]
-          })
-        ]
-      });
+      var copyBtn = new Button({
+        text: '复制改写后代码',
+        type: 'Transparent',
+        press: function () {
+          var el = document.getElementById(uidRew);
+          var text = el ? el.value : rewrittenCode;
+          if (navigator.clipboard) {
+            navigator.clipboard.writeText(text).catch(function () {});
+          }
+        }
+      }).addStyleClass('sapUiSmallMarginTop');
 
       return new Panel({
         expandable: true,
         expanded: false,
         headerText: '代码对比',
+        width: '100%',
         content: [
-          new VBox({ items: [diffBox, copyBtn] }).addStyleClass('sapUiSmallMargin')
+          new VBox({ items: [shellHtml, copyBtn] }).addStyleClass('sapUiSmallMargin')
         ]
       });
+    },
+
+    // ── Feature 6: Migration Path Planning ───────────────────────────────────
+    _onPlanPress: function (objectName, triggerBtn) {
+      var panelId = 'planPanel_' + objectName.replace(/[^a-zA-Z0-9]/g, '_');
+      var existing = sap.ui.getCore().byId(panelId);
+      if (existing) {
+        existing.setVisible(!existing.getVisible());
+        return;
+      }
+
+      var planPanel = new Panel(panelId, {
+        headerText: '迁移规划：' + objectName,
+        expandable: false,
+        visible: true
+      }).addStyleClass('sapUiSmallMarginTop');
+
+      planPanel.addContent(new sap.m.BusyIndicator({ size: '1rem' }));
+
+      var parentVBox = triggerBtn.getParent();
+      parentVBox.addItem(planPanel);
+
+      var that = this;
+      fetch('/odata/v4/knowledge/plan', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ objectName: objectName })
+      })
+        .then(function (r) {
+          if (!r.ok) return r.json().then(function (e) { throw new Error(e.error && e.error.message || 'HTTP ' + r.status); });
+          return r.json();
+        })
+        .then(function (data) {
+          var result = data.value || data;
+          planPanel.removeAllContent();
+          planPanel.addContent(that._buildPlanContent(result));
+        })
+        .catch(function (err) {
+          planPanel.removeAllContent();
+          planPanel.addContent(new Text({ text: '获取迁移规划失败：' + err.message }));
+        });
+    },
+
+    _buildPlanContent: function (plan) {
+      var vbox = new VBox({ renderType: 'Bare' });
+
+      vbox.addItem(new Text({
+        text: '替代方案：' + (plan.replacement || '') + ' (' + (plan.replacementType || '') + ')'
+      }).addStyleClass('sapUiTinyMarginBottom'));
+
+      var metaBox = new HBox({ renderType: 'Bare' });
+      metaBox.addItem(new Text({ text: '风险等级：' + (plan.riskLevel || '') }));
+      metaBox.addItem(new Text({ text: '　预估工作量：' + (plan.effortEstimate || '') }));
+      vbox.addItem(metaBox);
+
+      vbox.addItem(new sap.m.Title({ text: '迁移步骤', level: 'H6' }).addStyleClass('sapUiTinyMarginTop'));
+      var steps = [];
+      try { steps = JSON.parse(plan.steps || '[]'); } catch (e) { steps = []; }
+      steps.forEach(function (s) {
+        vbox.addItem(new Text({ text: s.step + '. ' + s.description, wrapping: true }));
+      });
+
+      if (plan.codeExample) {
+        // AI may return literal \n strings — convert them to real newlines before display
+        var codeText = plan.codeExample.replace(/\\n/g, '\n').replace(/\\t/g, '\t');
+        // Escape HTML special chars so the code renders as-is inside <pre>
+        var codeHtmlEscaped = codeText
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;');
+        // Use sap.ui.core.HTML so the DOM node is always present — avoid UI5 visible:false rendering issues
+        var codeHtmlCtrl = new HTML({
+          content: '<div style="display:none;font-family:monospace;font-size:0.8rem;background:#f5f5f5;'
+            + 'line-height:1.6;padding:0.5rem;white-space:pre-wrap;word-break:break-all;margin:0.25rem 0.5rem;">'
+            + codeHtmlEscaped + '</div>'
+        });
+        var toggleBtn = new Button({
+          text: '查看代码示例 ▼',
+          type: 'Transparent',
+          press: function () {
+            var el = codeHtmlCtrl.getDomRef();
+            if (el) {
+              var inner = el.querySelector ? el.querySelector('div') : el;
+              var div = inner || el;
+              if (div.style.display === 'none') {
+                div.style.display = 'block';
+                toggleBtn.setText('收起代码示例 ▲');
+              } else {
+                div.style.display = 'none';
+                toggleBtn.setText('查看代码示例 ▼');
+              }
+            }
+          }
+        });
+        vbox.addItem(toggleBtn);
+        vbox.addItem(codeHtmlCtrl);
+      }
+
+      var that = this;
+      vbox.addItem(new HBox({ items: [
+        new Button({
+          text: '导出 PDF',
+          icon: 'sap-icon://pdf-attachment',
+          type: 'Transparent',
+          press: function () { that._exportPlanPDF(plan); }
+        })
+      ] }).addStyleClass('sapUiTinyMarginTop'));
+
+      return vbox;
+    },
+
+    _exportPlanPDF: function (plan) {
+      var steps = [];
+      try { steps = JSON.parse(plan.steps || '[]'); } catch (e) { steps = []; }
+
+      var stepsHtml = steps.map(function (s) {
+        return '<li><strong>' + s.step + '.</strong> ' + s.description + '</li>';
+      }).join('');
+
+      var codeHtml = plan.codeExample
+        ? '<h3>代码示例</h3><pre style="background:#f5f5f5;padding:1rem;font-size:0.85rem;white-space:pre-wrap;">'
+          + plan.codeExample.replace(/\\n/g, '\n').replace(/\\t/g, '\t').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+          + '</pre>'
+        : '';
+
+      var html = '<!DOCTYPE html><html><head><meta charset="utf-8"><title>迁移规划 - ' + plan.objectName + '</title>'
+        + '<style>body{font-family:Arial,sans-serif;margin:2rem;color:#333}'
+        + 'h1{color:#0a6ed1;border-bottom:2px solid #0a6ed1;padding-bottom:.5rem}'
+        + 'h2{color:#0a6ed1;margin-top:1.5rem}'
+        + '.meta{display:flex;gap:2rem;margin:1rem 0}'
+        + '.meta span{background:#f0f4ff;padding:.3rem .8rem;border-radius:4px}'
+        + 'ol{padding-left:1.5rem;line-height:2}'
+        + 'pre{background:#f5f5f5;padding:1rem;font-size:.85rem;white-space:pre-wrap}'
+        + '.summary{background:#e8f4e8;padding:.8rem;border-left:4px solid #4CAF50;margin:1rem 0}'
+        + '</style></head><body>'
+        + '<h1>迁移规划：' + plan.objectName + '</h1>'
+        + '<div class="summary">' + (plan.summary || '') + '</div>'
+        + '<h2>替代方案</h2><p>' + (plan.replacement || '') + ' (' + (plan.replacementType || '') + ')</p>'
+        + '<div class="meta"><span>风险等级：' + (plan.riskLevel || '') + '</span>'
+        + '<span>预估工作量：' + (plan.effortEstimate || '') + '</span></div>'
+        + '<h2>迁移步骤</h2><ol>' + stepsHtml + '</ol>'
+        + codeHtml
+        + '</body></html>';
+
+      var iframe = document.createElement('iframe');
+      iframe.style.cssText = 'position:fixed;top:-9999px;left:-9999px;width:0;height:0;border:0;';
+      document.body.appendChild(iframe);
+      iframe.contentDocument.open();
+      iframe.contentDocument.write(html);
+      iframe.contentDocument.close();
+      iframe.onload = function () {
+        iframe.contentWindow.print();
+        setTimeout(function () { document.body.removeChild(iframe); }, 2000);
+      };
     },
 
     // ── 历史记录 ─────────────────────────────────────────────────────────────

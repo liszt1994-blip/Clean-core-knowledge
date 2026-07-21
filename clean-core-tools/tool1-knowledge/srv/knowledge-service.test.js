@@ -1,8 +1,8 @@
 // Mock AICoreClient to avoid real SAP AI Core API calls in tests
 jest.mock('../src/aicore-client', () => ({
   CLEAN_CORE_SYSTEM_PROMPT: 'mock-system-prompt',
-  AICoreClient: jest.fn().mockImplementation(() => ({
-    complete: jest.fn().mockImplementation((systemPrompt, userContent) => {
+  AICoreClient: jest.fn().mockImplementation(() => {
+    const mockComplete = jest.fn().mockImplementation((systemPrompt, userContent) => {
       if (userContent && userContent.includes('"intent"')) {
         return Promise.resolve('{"intent":"code"}');
       }
@@ -36,12 +36,37 @@ jest.mock('../src/aicore-client', () => ({
           '[{"replacementName":"I_MATERIAL","type":"CDS View","migrationNote":"Migrate to I_MATERIAL CDS View.","source":"ai-inference"}]'
         );
       }
+      if (userContent && userContent.includes('effortEstimate')) {
+        // buildPlanPrompt
+        return Promise.resolve(
+          JSON.stringify({
+            objectName: 'BAPI_MATERIAL_SAVEDATA',
+            replacement: 'I_MaterialDocument',
+            replacementType: 'OData API',
+            riskLevel: '中',
+            effortEstimate: '3-5 天',
+            steps: JSON.stringify([
+              { step: 1, description: '识别所有调用点，使用 where-used list 查找所有 CALL FUNCTION 语句' },
+              { step: 2, description: '替换为 OData API I_MaterialDocument，调整字段映射' },
+              { step: 3, description: '执行回归测试，验证业务逻辑一致性' },
+            ]),
+            codeExample: "\" 旧代码\nCALL FUNCTION 'BAPI_MATERIAL_SAVEDATA'\n  EXPORTING material = lv_matnr.\n\n\" 新代码（OData API）\n\" 通过 HTTP Client 调用 I_MaterialDocument OData API",
+            summary: '将 BAPI_MATERIAL_SAVEDATA 迁移至 OData API I_MaterialDocument，降低 Clean Core 违规风险。',
+          })
+        );
+      }
       // Default: classify fallback + explain
       return Promise.resolve(
         '[{"objectName":"SE16","tier":"C","state":"classicAPI","explanation":"Classic transaction.","recommendation":"Use CDS View instead.","source":"ai-inference"}]'
       );
-    }),
-  })),
+    });
+    return {
+      complete: mockComplete,
+      // completeWithGrounding(systemPrompt, userContent, collectionId, maxTokens)
+      // delegate to same mock — collectionId arg is ignored
+      completeWithGrounding: (systemPrompt, userContent) => mockComplete(systemPrompt, userContent),
+    };
+  }),
 }));
 
 // Provide minimal VCAP_SERVICES so AICoreClient constructor doesn't throw
@@ -187,5 +212,30 @@ test('POST /odata/v4/knowledge/chat returns 400 without message', async () => {
     .post('/odata/v4/knowledge/chat')
     .set('Content-Type', 'application/json')
     .send({ mode: 'auto', history: [] });
+  expect(res.status).toBe(400);
+});
+
+test('POST /odata/v4/knowledge/plan returns plan with correct shape', async () => {
+  const app = cds.app;
+  const res = await supertest(app)
+    .post('/odata/v4/knowledge/plan')
+    .set('Content-Type', 'application/json')
+    .send({ objectName: 'BAPI_MATERIAL_SAVEDATA' });
+  expect(res.status).toBe(200);
+  const body = res.body.value || res.body;
+  expect(body).toHaveProperty('replacement');
+  expect(body).toHaveProperty('riskLevel');
+  expect(body).toHaveProperty('effortEstimate');
+  expect(body).toHaveProperty('steps');
+  expect(body).toHaveProperty('codeExample');
+  expect(body).toHaveProperty('summary');
+});
+
+test('POST /odata/v4/knowledge/plan returns 400 without objectName', async () => {
+  const app = cds.app;
+  const res = await supertest(app)
+    .post('/odata/v4/knowledge/plan')
+    .set('Content-Type', 'application/json')
+    .send({});
   expect(res.status).toBe(400);
 });
