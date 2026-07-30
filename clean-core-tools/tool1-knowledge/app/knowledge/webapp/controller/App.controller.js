@@ -267,6 +267,58 @@ sap.ui.define([
       });
     },
 
+    // ── 代码分析子模式切换 ────────────────────────────────────────────
+    _onCodeSubModeChange: function (subMode) {
+      if (this._codeSubMode === subMode) return;
+      this._codeSubMode = subMode;
+
+      // 切换历史容器显示
+      var subCodeDiv = document.getElementById('ccCodeSub_code');
+      var subAtcDiv  = document.getElementById('ccCodeSub_atc');
+      if (subCodeDiv) subCodeDiv.style.display = subMode === 'code' ? 'block' : 'none';
+      if (subAtcDiv)  subAtcDiv.style.display  = subMode === 'atc'  ? 'block' : 'none';
+
+      // 懒挂载 ATC 历史 VBox（首次切换到 ATC 时挂载）
+      if (subMode === 'atc' && subAtcDiv && !subAtcDiv.dataset.mounted) {
+        this._atcChatHistory.placeAt(subAtcDiv);
+        subAtcDiv.dataset.mounted = 'true';
+        this._addCodeSubWelcome('atc');
+      }
+
+      // 切换按钮样式
+      var btnCode = document.getElementById('ccSubBtn_code');
+      var btnAtc  = document.getElementById('ccSubBtn_atc');
+      if (btnCode) {
+        btnCode.style.background = subMode === 'code' ? '#0a6ed1' : '#fff';
+        btnCode.style.color      = subMode === 'code' ? '#fff'    : '#0a6ed1';
+        btnCode.style.fontWeight = subMode === 'code' ? 'bold'    : 'normal';
+      }
+      if (btnAtc) {
+        btnAtc.style.background = subMode === 'atc' ? '#0a6ed1' : '#fff';
+        btnAtc.style.color      = subMode === 'atc' ? '#fff'    : '#0a6ed1';
+        btnAtc.style.fontWeight = subMode === 'atc' ? 'bold'    : 'normal';
+      }
+
+      // 更新输入框 Placeholder
+      var cfg = this._CODE_SUB_CONFIG[subMode];
+      if (cfg) this._chatInput.setPlaceholder(cfg.placeholder);
+
+      this._scrollToBottom();
+    },
+
+    // 为代码子模式添加欢迎语（懒初始化，避免重复添加）
+    _addCodeSubWelcome: function (subMode) {
+      var cfg = this._CODE_SUB_CONFIG[subMode];
+      if (!cfg) return;
+      var history = subMode === 'code' ? this._chatHistories['codeanalysis'] : this._atcChatHistory;
+      history.addItem(
+        new VBox({
+          width: '100%',
+          items: [new MessageStrip({ text: cfg.welcome, type: 'Information', showIcon: true })]
+        }).addStyleClass('sapUiSmallMarginBottom')
+      );
+    },
+
     // ── Tab 切换 ─────────────────────────────────────────────────────────────
     onTabSelect: function (oEvent) {
       var key = oEvent.getParameter('key');
@@ -300,6 +352,7 @@ sap.ui.define([
       var key = tabKey || this._currentTab;
       var welcomeText = this._TAB_CONFIG[key].welcome;
       if (!welcomeText) return;
+      if (key === 'codeanalysis') return; // 由子模式懒初始化欢迎语
 
       var welcomeBox = new VBox({
         width: '100%',
