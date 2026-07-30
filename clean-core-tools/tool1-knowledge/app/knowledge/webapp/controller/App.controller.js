@@ -49,18 +49,24 @@ sap.ui.define([
       this._inputHistory = [];
 
       // Tab 独立历史
-      this._TAB_KEYS = ['concept', 'code', 'atc', 'search'];
+      this._TAB_KEYS = ['concept', 'codeanalysis', 'search'];
       this._currentTab = 'concept';
+      this._codeSubMode = 'code'; // 'code' | 'atc'
       this._chatHistories = {};
-      this._messages = { concept: [], code: [], atc: [], search: [] };
+      this._messages = { concept: [], codeanalysis: [], search: [] };
 
       var TAB_CONFIG = {
-        concept: { icon: 'sap-icon://hint',        text: '概念 & 分级', placeholder: '输入 Clean Core 概念或 SAP 对象名...',                          welcome: '你好！请输入 Clean Core 概念或 SAP 对象名，我会解释概念或给出分级和替代 API。' },
-        code:    { icon: 'sap-icon://source-code',  text: '代码分析',   placeholder: '粘贴 ABAP 代码片段...',                                          welcome: '请粘贴 ABAP 代码，我会识别所有不合规对象并给出改写对比。' },
-        atc:     { icon: 'sap-icon://alert',         text: 'ATC Check',  placeholder: '粘贴 ATC check 报错信息（SE80 或 ABAP Test Cockpit 格式）...',  welcome: '请粘贴 ATC check 报错内容，我会解析违规并给出修复建议。' },
-        search:  { icon: 'sap-icon://search',        text: 'SAP 搜索',   placeholder: '搜索 SAP Note 或文档...',                                       welcome: '用于直接在 SAP 门户网站搜索相关内容及 Note。' }
+        concept:      { icon: 'sap-icon://hint',       text: '概念 & 分级', placeholder: '输入 Clean Core 概念或 SAP 对象名...',                         welcome: '你好！请输入 Clean Core 概念或 SAP 对象名，我会解释概念或给出分级和替代 API。' },
+        codeanalysis: { icon: 'sap-icon://source-code', text: '代码分析',   placeholder: '粘贴 ABAP 代码片段...',                                         welcome: '请粘贴 ABAP 代码，我会识别所有不合规对象并给出改写对比。' },
+        search:       { icon: 'sap-icon://search',      text: 'SAP 搜索',   placeholder: '搜索 SAP Note 或文档...',                                      welcome: '用于直接在 SAP 门户网站搜索相关内容及 Note。' }
       };
       this._TAB_CONFIG = TAB_CONFIG;
+      // 子模式独立配置（代码分析 Tab 内部）
+      var CODE_SUB_CONFIG = {
+        code: { placeholder: '粘贴 ABAP 代码片段...',                                         welcome: '请粘贴 ABAP 代码，我会识别所有不合规对象并给出改写对比。' },
+        atc:  { placeholder: '粘贴 ATC check 报错信息（SE80 或 ABAP Test Cockpit 格式）...', welcome: '请粘贴 ATC check 报错内容，我会解析违规并给出修复建议。' }
+      };
+      this._CODE_SUB_CONFIG = CODE_SUB_CONFIG;
 
       var that = this;
       var oView = this.getView();
@@ -757,32 +763,19 @@ sap.ui.define([
           .replace(/&/g, '&amp;')
           .replace(/</g, '&lt;')
           .replace(/>/g, '&gt;');
-        // Use sap.ui.core.HTML so the DOM node is always present — avoid UI5 visible:false rendering issues
         var codeHtmlCtrl = new HTML({
-          content: '<div style="display:none;font-family:monospace;font-size:0.8rem;background:#f5f5f5;'
-            + 'line-height:1.6;padding:0.5rem;white-space:pre-wrap;word-break:break-all;margin:0.25rem 0.5rem;">'
-            + codeHtmlEscaped + '</div>'
+          content: '<pre style="font-family:monospace;font-size:0.8rem;background:#f5f5f5;'
+            + 'line-height:1.6;padding:0.5rem;white-space:pre-wrap;word-break:break-all;margin:0;">'
+            + codeHtmlEscaped + '</pre>',
+          sanitizeContent: false
         });
-        var toggleBtn = new Button({
-          text: '查看代码示例 ▼',
-          type: 'Transparent',
-          press: function () {
-            var el = codeHtmlCtrl.getDomRef();
-            if (el) {
-              var inner = el.querySelector ? el.querySelector('div') : el;
-              var div = inner || el;
-              if (div.style.display === 'none') {
-                div.style.display = 'block';
-                toggleBtn.setText('收起代码示例 ▲');
-              } else {
-                div.style.display = 'none';
-                toggleBtn.setText('查看代码示例 ▼');
-              }
-            }
-          }
-        });
-        vbox.addItem(toggleBtn);
-        vbox.addItem(codeHtmlCtrl);
+        var codePanel = new Panel({
+          headerText: '代码示例',
+          expandable: true,
+          expanded: false,
+          content: [codeHtmlCtrl]
+        }).addStyleClass('sapUiTinyMarginTop');
+        vbox.addItem(codePanel);
       }
 
       var that = this;
