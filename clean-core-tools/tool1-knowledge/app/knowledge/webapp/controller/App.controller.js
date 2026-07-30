@@ -109,6 +109,11 @@ sap.ui.define([
           .addStyleClass('sapUiSmallMarginBeginEnd sapUiSmallMarginTop');
       });
 
+      // ATC 子模式独立历史容器（DOM 挂载在 onAfterRendering 中完成）
+      that._atcChatHistory = new VBox({ width: '100%' })
+        .addStyleClass('sapUiSmallMarginBeginEnd sapUiSmallMarginTop');
+      that._messages['atc_sub'] = []; // ATC 子模式独立消息历史
+
       // IconTabBar
       this._tabBar = new IconTabBar({
         expandable: false,
@@ -150,7 +155,44 @@ sap.ui.define([
             containerDiv.id = containerId;
             containerDiv.style.cssText = key === 'concept' ? 'display:block' : 'display:none';
             scrollDiv.appendChild(containerDiv);
-            that._chatHistories[key].placeAt(containerId);
+
+            if (key === 'codeanalysis') {
+              // ── 子模式切换条 ────────────────────────────────────────────
+              var subToggleDiv = document.createElement('div');
+              subToggleDiv.id = 'ccCodeSubToggle';
+              subToggleDiv.style.cssText = 'display:flex;gap:0;margin:8px 16px 4px;border:1.5px solid #0a6ed1;border-radius:6px;overflow:hidden;width:fit-content;';
+              containerDiv.appendChild(subToggleDiv);
+
+              var btnCode = document.createElement('button');
+              btnCode.id = 'ccSubBtn_code';
+              btnCode.textContent = '📝 代码输入';
+              btnCode.style.cssText = 'background:#0a6ed1;color:#fff;padding:5px 16px;font-size:13px;border:none;cursor:pointer;font-weight:bold;';
+              btnCode.onclick = function () { that._onCodeSubModeChange('code'); };
+              subToggleDiv.appendChild(btnCode);
+
+              var btnAtc = document.createElement('button');
+              btnAtc.id = 'ccSubBtn_atc';
+              btnAtc.textContent = '⚠️ ATC 输出';
+              btnAtc.style.cssText = 'background:#fff;color:#0a6ed1;padding:5px 16px;font-size:13px;border:none;border-left:1.5px solid #0a6ed1;cursor:pointer;';
+              btnAtc.onclick = function () { that._onCodeSubModeChange('atc'); };
+              subToggleDiv.appendChild(btnAtc);
+
+              // ── 两个子模式历史容器 ────────────────────────────────────────
+              var subCode = document.createElement('div');
+              subCode.id = 'ccCodeSub_code';
+              subCode.style.cssText = 'display:block;';
+              containerDiv.appendChild(subCode);
+              that._chatHistories['codeanalysis'].placeAt(subCode);
+              that._addCodeSubWelcome('code'); // 初始欢迎语（代码模式）
+
+              var subAtc = document.createElement('div');
+              subAtc.id = 'ccCodeSub_atc';
+              subAtc.style.cssText = 'display:none;';
+              containerDiv.appendChild(subAtc);
+              // ATC 历史容器先空着，_onCodeSubModeChange 里懒挂载
+            } else {
+              that._chatHistories[key].placeAt(containerId);
+            }
           });
 
           // Tab 4 搜索结果表格容器
