@@ -1002,6 +1002,12 @@ sap.ui.define([
         this.onTabSelect({ getParameter: function () { return 'search'; } });
         this._noteSearchInput.setValue(h.text);
         this._noteSearchInput.focus();
+      } else if (h.mode === 'code' || h.mode === 'atc') {
+        this._tabBar.setSelectedKey('codeanalysis');
+        this.onTabSelect({ getParameter: function () { return 'codeanalysis'; } });
+        this._onCodeSubModeChange(h.mode);
+        this._chatInput.setValue(h.text);
+        this._chatInput.focus();
       } else {
         this._chatInput.setValue(h.text);
         this._chatInput.focus();
