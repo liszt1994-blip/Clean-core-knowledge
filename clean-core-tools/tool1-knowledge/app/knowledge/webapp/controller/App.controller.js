@@ -341,7 +341,11 @@ sap.ui.define([
         if (inputArea) inputArea.style.display = 'block';
         if (searchInputArea) searchInputArea.style.display = 'none';
         if (searchResult) searchResult.style.display = 'none';
-        this._chatInput.setPlaceholder(this._TAB_CONFIG[key].placeholder);
+        if (key === 'codeanalysis') {
+          this._chatInput.setPlaceholder(this._CODE_SUB_CONFIG[this._codeSubMode].placeholder);
+        } else {
+          this._chatInput.setPlaceholder(this._TAB_CONFIG[key].placeholder);
+        }
       }
 
       this._scrollToBottom();
@@ -467,17 +471,29 @@ sap.ui.define([
       var model = this.getView().getModel();
       if (model.getProperty('/busy')) return;
 
-      var TAB_MODE = { concept: 'auto', code: 'code', atc: 'atc' };
-      var mode = TAB_MODE[this._currentTab] || 'auto';
+      var mode;
+      if (this._currentTab === 'codeanalysis') {
+        mode = this._codeSubMode; // 'code' 或 'atc'
+      } else {
+        var TAB_MODE = { concept: 'auto' };
+        mode = TAB_MODE[this._currentTab] || 'auto';
+      }
 
-      var history = (this._messages[this._currentTab] || [])
+      var msgKey = (this._currentTab === 'codeanalysis' && this._codeSubMode === 'atc')
+        ? 'atc_sub'
+        : this._currentTab;
+
+      var history = (this._messages[msgKey] || [])
         .slice(-6)
         .map(function (m) { return { role: m.role, text: m.textSummary || m.text || '' }; });
 
       this._addUserBubble(message, this._currentTab);
       this._chatInput.setValue('');
 
-      this._inputHistory.unshift({ mode: mode, modeLabel: this._TAB_CONFIG[this._currentTab].text, text: message });
+      var modeLabel = this._currentTab === 'codeanalysis'
+        ? (this._codeSubMode === 'code' ? '代码分析' : 'ATC 分析')
+        : this._TAB_CONFIG[this._currentTab].text;
+      this._inputHistory.unshift({ mode: mode, modeLabel: modeLabel, text: message });
       if (this._inputHistory.length > 50) this._inputHistory.pop();
 
       model.setProperty('/busy', true);
@@ -517,9 +533,17 @@ sap.ui.define([
     },
 
     // ── 气泡渲染 ─────────────────────────────────────────────────────────────
+    _getHistoryVBox: function (tabKey) {
+      if (tabKey === 'codeanalysis' && this._codeSubMode === 'atc') {
+        return this._atcChatHistory;
+      }
+      return this._chatHistories[tabKey];
+    },
+
     _addUserBubble: function (message, tabKey) {
       var key = tabKey || this._currentTab;
-      this._messages[key].push({ role: 'user', text: message, textSummary: message.slice(0, 120) });
+      var msgKey = (key === 'codeanalysis' && this._codeSubMode === 'atc') ? 'atc_sub' : key;
+      this._messages[msgKey].push({ role: 'user', text: message, textSummary: message.slice(0, 120) });
 
       var isCode = /CALL FUNCTION|SELECT\s+\*|CLASS\s+|FUNCTION\s+|METHOD\s+|ENDMETHOD|ENDCLASS/i.test(message);
       var content = isCode
@@ -551,7 +575,7 @@ sap.ui.define([
         }
       });
 
-      this._chatHistories[key].addItem(bubble);
+      this._getHistoryVBox(key).addItem(bubble);
       this._scrollToBottom();
     },
 
@@ -621,19 +645,21 @@ sap.ui.define([
       }
 
       var bubbleBox = this._buildAgentShell(items);
-      this._chatHistories[key].addItem(bubbleBox);
+      var histVBox = this._getHistoryVBox(key);
+      histVBox.addItem(bubbleBox);
 
       // 代码对比 Panel 放在气泡外部，加入 VBox
       if (reply.rewrite && reply.rewrite.rewritten) {
         var diffPanel = this._buildCodeDiffPanel(reply.rewrite);
         diffPanel.addStyleClass('sapUiSmallMarginBottom');
-        this._chatHistories[key].addItem(diffPanel);
+        histVBox.addItem(diffPanel);
       }
 
       var summary = replyType === 'violations'
         ? (reply.text || '') + (reply.violations ? ' [' + reply.violations.length + '个违规]' : '')
         : (reply.text || '').slice(0, 120);
-      this._messages[key].push({ role: 'agent', replyType: replyType, text: reply.text || '', textSummary: summary });
+      var msgKey2 = (key === 'codeanalysis' && this._codeSubMode === 'atc') ? 'atc_sub' : key;
+      this._messages[msgKey2].push({ role: 'agent', replyType: replyType, text: reply.text || '', textSummary: summary });
 
       this._scrollToBottom();
     },
@@ -979,9 +1005,21 @@ sap.ui.define([
 
     onClearChat: function () {
       var key = this._currentTab;
-      this._chatHistories[key].destroyItems();
-      this._messages[key] = [];
-      this._addWelcomeMessage(key);
+      if (key === 'codeanalysis') {
+        this._chatHistories['codeanalysis'].destroyItems();
+        this._atcChatHistory.destroyItems();
+        this._messages['codeanalysis'] = [];
+        this._messages['atc_sub'] = [];
+        this._addCodeSubWelcome('code');
+        var atcDiv = document.getElementById('ccCodeSub_atc');
+        if (atcDiv && atcDiv.dataset.mounted) {
+          this._addCodeSubWelcome('atc');
+        }
+      } else {
+        this._chatHistories[key].destroyItems();
+        this._messages[key] = [];
+        this._addWelcomeMessage(key);
+      }
     },
 
     _scrollToBottom: function () {
