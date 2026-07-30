@@ -472,27 +472,27 @@ sap.ui.define([
       if (model.getProperty('/busy')) return;
 
       var mode;
-      if (this._currentTab === 'codeanalysis') {
-        mode = this._codeSubMode; // 'code' 或 'atc'
+      var tabKey = this._currentTab;
+      var subMode = this._codeSubMode; // 冻结子模式，防止异步回调竞态
+      if (tabKey === 'codeanalysis') {
+        mode = subMode; // 'code' 或 'atc'
       } else {
         var TAB_MODE = { concept: 'auto' };
-        mode = TAB_MODE[this._currentTab] || 'auto';
+        mode = TAB_MODE[tabKey] || 'auto';
       }
 
-      var msgKey = (this._currentTab === 'codeanalysis' && this._codeSubMode === 'atc')
-        ? 'atc_sub'
-        : this._currentTab;
+      var msgKey = this._getMsgKey(tabKey, subMode);
 
       var history = (this._messages[msgKey] || [])
         .slice(-6)
         .map(function (m) { return { role: m.role, text: m.textSummary || m.text || '' }; });
 
-      this._addUserBubble(message, this._currentTab);
+      this._addUserBubble(message, tabKey);
       this._chatInput.setValue('');
 
-      var modeLabel = this._currentTab === 'codeanalysis'
-        ? (this._codeSubMode === 'code' ? '代码分析' : 'ATC 分析')
-        : this._TAB_CONFIG[this._currentTab].text;
+      var modeLabel = tabKey === 'codeanalysis'
+        ? (subMode === 'code' ? '代码分析' : 'ATC 分析')
+        : this._TAB_CONFIG[tabKey].text;
       this._inputHistory.unshift({ mode: mode, modeLabel: modeLabel, text: message });
       if (this._inputHistory.length > 50) this._inputHistory.pop();
 
@@ -501,7 +501,6 @@ sap.ui.define([
       this._sendBtn.setEnabled(false);
 
       var that = this;
-      var tabKey = this._currentTab;
 
       fetch('/odata/v4/knowledge/chat', {
         method: 'POST',
@@ -522,7 +521,7 @@ sap.ui.define([
           } else {
             reply.rewrite = null;
           }
-          that._addAgentBubble(reply, tabKey);
+          that._addAgentBubble(reply, tabKey, subMode);
         })
         .catch(function (err) {
           model.setProperty('/busy', false);
@@ -540,9 +539,15 @@ sap.ui.define([
       return this._chatHistories[tabKey];
     },
 
+    _getMsgKey: function (tabKey, subMode) {
+      var key = tabKey || this._currentTab;
+      var mode = subMode !== undefined ? subMode : this._codeSubMode;
+      return (key === 'codeanalysis' && mode === 'atc') ? 'atc_sub' : key;
+    },
+
     _addUserBubble: function (message, tabKey) {
       var key = tabKey || this._currentTab;
-      var msgKey = (key === 'codeanalysis' && this._codeSubMode === 'atc') ? 'atc_sub' : key;
+      var msgKey = this._getMsgKey(key);
       this._messages[msgKey].push({ role: 'user', text: message, textSummary: message.slice(0, 120) });
 
       var isCode = /CALL FUNCTION|SELECT\s+\*|CLASS\s+|FUNCTION\s+|METHOD\s+|ENDMETHOD|ENDCLASS/i.test(message);
@@ -579,7 +584,7 @@ sap.ui.define([
       this._scrollToBottom();
     },
 
-    _addAgentBubble: function (reply, tabKey) {
+    _addAgentBubble: function (reply, tabKey, subMode) {
       var key = tabKey || this._currentTab;
       var items = [];
       var replyType = reply.replyType || 'general';
@@ -658,7 +663,7 @@ sap.ui.define([
       var summary = replyType === 'violations'
         ? (reply.text || '') + (reply.violations ? ' [' + reply.violations.length + '个违规]' : '')
         : (reply.text || '').slice(0, 120);
-      var msgKey2 = (key === 'codeanalysis' && this._codeSubMode === 'atc') ? 'atc_sub' : key;
+      var msgKey2 = this._getMsgKey(key, subMode);
       this._messages[msgKey2].push({ role: 'agent', replyType: replyType, text: reply.text || '', textSummary: summary });
 
       this._scrollToBottom();
