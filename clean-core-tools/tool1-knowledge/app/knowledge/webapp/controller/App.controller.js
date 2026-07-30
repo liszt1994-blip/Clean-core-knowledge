@@ -487,7 +487,7 @@ sap.ui.define([
         .slice(-6)
         .map(function (m) { return { role: m.role, text: m.textSummary || m.text || '' }; });
 
-      this._addUserBubble(message, tabKey);
+      this._addUserBubble(message, tabKey, subMode);
       this._chatInput.setValue('');
 
       var modeLabel = tabKey === 'codeanalysis'
@@ -545,9 +545,9 @@ sap.ui.define([
       return (key === 'codeanalysis' && mode === 'atc') ? 'atc_sub' : key;
     },
 
-    _addUserBubble: function (message, tabKey) {
+    _addUserBubble: function (message, tabKey, subMode) {
       var key = tabKey || this._currentTab;
-      var msgKey = this._getMsgKey(key);
+      var msgKey = this._getMsgKey(key, subMode);
       this._messages[msgKey].push({ role: 'user', text: message, textSummary: message.slice(0, 120) });
 
       var isCode = /CALL FUNCTION|SELECT\s+\*|CLASS\s+|FUNCTION\s+|METHOD\s+|ENDMETHOD|ENDCLASS/i.test(message);
