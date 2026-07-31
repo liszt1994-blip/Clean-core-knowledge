@@ -388,6 +388,121 @@ sap.ui.define([
       );
     },
 
+    // ── API Hub 搜索 ─────────────────────────────────────────────────────────
+    onSearchApiHub: function () {
+      var query = this._apiHubInput.getValue().trim();
+      if (!query) return;
+      this._doApiHubSearch({ query: query, module: '' });
+    },
+
+    onApiHubModuleSelect: function (mod) {
+      this._doApiHubSearch({ query: '', module: mod });
+    },
+
+    _doApiHubSearch: function (params) {
+      var model = this.getView().getModel();
+      if (model.getProperty('/busy')) return;
+
+      model.setProperty('/busy', true);
+      this._apiHubSearchBtn.setEnabled(false);
+      this._busyIndicator.setVisible(true);
+
+      var that = this;
+      fetch('/odata/v4/knowledge/searchApiHub', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(params),
+      })
+        .then(function (res) { return res.json(); })
+        .then(function (json) {
+          model.setProperty('/busy', false);
+          that._apiHubSearchBtn.setEnabled(true);
+          that._busyIndicator.setVisible(false);
+          var results = json.value || [];
+          that._renderApiHubResults(results, params.module || params.query);
+        })
+        .catch(function () {
+          model.setProperty('/busy', false);
+          that._apiHubSearchBtn.setEnabled(true);
+          that._busyIndicator.setVisible(false);
+          var resultDiv = document.getElementById('ccApiHubResult');
+          if (resultDiv) resultDiv.innerHTML = '<p style="color:#c00;padding:16px;font-size:13px">请求失败，请检查网络或 API Key 配置。</p>';
+        });
+    },
+
+    _renderApiHubResults: function (results, label) {
+      var resultDiv = document.getElementById('ccApiHubResult');
+      if (!resultDiv) return;
+
+      if (this._apiHubList) {
+        this._apiHubList.destroy();
+        this._apiHubList = null;
+      }
+      resultDiv.innerHTML = '';
+
+      if (results.length === 0) {
+        resultDiv.innerHTML = '<p style="color:#888;padding:16px;font-size:13px">未找到相关 API，请换个关键词或选择其他模块。</p>';
+        return;
+      }
+
+      var countText = document.createElement('p');
+      countText.style.cssText = 'font-size:12px;color:#666;margin:8px 0 4px;';
+      countText.textContent = '找到 ' + results.length + ' 个 API（' + label + '）';
+      resultDiv.appendChild(countText);
+
+      var that = this;
+      var expandedIndex = -1;
+
+      this._apiHubList = new List({ mode: 'None' });
+
+      results.forEach(function (item, idx) {
+        var typeTag = item.apiType ? '[' + item.apiType + '] ' : '';
+
+        // 主行：类型标签 + 显示名
+        var titleHBox = new HBox({
+          alignItems: 'Center',
+          items: [
+            new Text({ text: typeTag, wrapping: false }).addStyleClass('sapUiTinyMarginEnd'),
+            new Text({ text: item.displayName || '', wrapping: true })
+          ]
+        });
+
+        // 详情区（初始隐藏）
+        var detailVBox = new VBox({
+          visible: false,
+          items: [
+            new Text({ text: '技术名：' + (item.name || '—') }),
+            new Text({ text: '类型：' + (item.apiType || '—') }),
+            new Text({ text: '描述：' + (item.description || '（暂无描述）') })
+          ]
+        }).addStyleClass('sapUiSmallMarginTop sapUiSmallMarginBegin');
+
+        var itemVBox = new VBox({ items: [titleHBox, detailVBox] });
+
+        var listItem = new sap.m.CustomListItem({
+          content: [itemVBox],
+          press: function () {
+            var isOpen = detailVBox.getVisible();
+            // 收起上一条展开的
+            if (expandedIndex >= 0 && expandedIndex !== idx) {
+              var prevItem = that._apiHubList.getItems()[expandedIndex];
+              if (prevItem) {
+                var prevDetail = prevItem.getContent()[0].getItems()[1];
+                if (prevDetail) prevDetail.setVisible(false);
+              }
+            }
+            detailVBox.setVisible(!isOpen);
+            expandedIndex = isOpen ? -1 : idx;
+          }
+        });
+
+        that._apiHubList.addItem(listItem);
+      });
+
+      this._apiHubList.placeAt(resultDiv);
+      this._scrollToBottom();
+    },
+
     // ── Tab 切换 ─────────────────────────────────────────────────────────────
     onTabSelect: function (oEvent) {
       var key = oEvent.getParameter('key');
@@ -399,17 +514,30 @@ sap.ui.define([
         if (el) el.style.display = k === key ? 'block' : 'none';
       });
 
-      var inputArea = document.getElementById('ccInputArea');
+      var inputArea       = document.getElementById('ccInputArea');
       var searchInputArea = document.getElementById('ccSearchInputArea');
-      var searchResult = document.getElementById('ccSearchResult');
+      var searchResult    = document.getElementById('ccSearchResult');
+      var apiHubInputArea = document.getElementById('ccApiHubInputArea');
+      var apiHubResult    = document.getElementById('ccApiHubResult');
+
       if (key === 'search') {
-        if (inputArea) inputArea.style.display = 'none';
+        if (inputArea)       inputArea.style.display       = 'none';
         if (searchInputArea) searchInputArea.style.display = 'block';
-        if (searchResult) searchResult.style.display = 'block';
-      } else {
-        if (inputArea) inputArea.style.display = 'block';
+        if (searchResult)    searchResult.style.display    = 'block';
+        if (apiHubInputArea) apiHubInputArea.style.display = 'none';
+        if (apiHubResult)    apiHubResult.style.display    = 'none';
+      } else if (key === 'apihub') {
+        if (inputArea)       inputArea.style.display       = 'none';
         if (searchInputArea) searchInputArea.style.display = 'none';
-        if (searchResult) searchResult.style.display = 'none';
+        if (searchResult)    searchResult.style.display    = 'none';
+        if (apiHubInputArea) apiHubInputArea.style.display = 'block';
+        if (apiHubResult)    apiHubResult.style.display    = 'block';
+      } else {
+        if (inputArea)       inputArea.style.display       = 'block';
+        if (searchInputArea) searchInputArea.style.display = 'none';
+        if (searchResult)    searchResult.style.display    = 'none';
+        if (apiHubInputArea) apiHubInputArea.style.display = 'none';
+        if (apiHubResult)    apiHubResult.style.display    = 'none';
         if (key === 'codeanalysis') {
           this._chatInput.setPlaceholder(this._CODE_SUB_CONFIG[this._codeSubMode].placeholder);
         } else {
