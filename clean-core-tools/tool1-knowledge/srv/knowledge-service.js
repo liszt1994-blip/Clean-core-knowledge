@@ -4,6 +4,7 @@ const { AICoreClient, CLEAN_CORE_SYSTEM_PROMPT } = require('../src/aicore-client
 const { ClassificationClient } = require('../src/classification-client');
 const { DestinationClient } = require('../src/destination-client');
 const { searchHelpPortal } = require('../src/sap-help-search');
+const { searchApis, listByModule } = require('../src/apihub-client');
 const {
   buildExplainPrompt,
   buildSingleClassifyPrompt,
@@ -339,27 +340,58 @@ module.exports = cds.service.impl(async function (srv) {
       return req.error(400, 'objectName is required');
     }
 
-    const raw = await aiComplete(
+    // plan must NOT use grounding — the strict JSON format gets broken by the grounding template
+    const raw = await getAI().complete(
       CLEAN_CORE_SYSTEM_PROMPT,
       buildPlanPrompt(objectName.trim().toUpperCase()),
-      3000
+      4000
     );
+
+    // AI sometimes emits real newlines inside the codeExample JSON string value, breaking JSON.parse.
+    // Walk the string char-by-char to find the codeExample value boundaries and fix only real newlines,
+    // leaving all existing escape sequences (\\n, \\", etc.) untouched.
+    function fixRawPlanJson(str) {
+      const keyIdx = str.indexOf('"codeExample"');
+      if (keyIdx === -1) return str;
+
+      let i = keyIdx + '"codeExample"'.length;
+      while (i < str.length && str[i] !== '"') i++;
+      if (i >= str.length) return str;
+
+      const valueStart = i + 1;
+      let j = valueStart;
+      let hasRealNewline = false;
+      while (j < str.length) {
+        if (str[j] === '\\') { j += 2; continue; }
+        if (str[j] === '\n' || str[j] === '\r') { hasRealNewline = true; j++; continue; }
+        if (str[j] === '"') break;
+        j++;
+      }
+
+      if (!hasRealNewline) return str; // already valid, nothing to fix
+
+      let safeValue = '';
+      let k = valueStart;
+      while (k < j) {
+        if (str[k] === '\\') { safeValue += str[k] + (str[k + 1] || ''); k += 2; continue; }
+        if (str[k] === '\r' && str[k + 1] === '\n') { safeValue += '\\n'; k += 2; continue; }
+        if (str[k] === '\r' || str[k] === '\n') { safeValue += '\\n'; k++; continue; }
+        if (str[k] === '\t') { safeValue += '\\t'; k++; continue; }
+        safeValue += str[k++];
+      }
+      return str.slice(0, valueStart) + safeValue + str.slice(j);
+    }
+
+    let cleaned = raw.trim().replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '');
+    cleaned = fixRawPlanJson(cleaned);
 
     let parsed;
     try {
-      // Strip markdown fences if AI wrapped the JSON in ```json ... ```
-      const cleaned = raw.trim().replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '');
       parsed = JSON.parse(cleaned);
     } catch (e) {
-      // Try to extract JSON object from response even if codeExample contains special chars
-      try {
-        const match = raw.match(/\{[\s\S]*"summary"\s*:\s*"[^"]*"\s*\}/);
-        if (match) parsed = JSON.parse(match[0]);
-      } catch (_) {}
-      if (!parsed) {
-        console.error('[plan] AI returned non-JSON:', raw.slice(0, 200));
-        return req.error(500, 'AI returned invalid plan format');
-      }
+      console.error('[plan] JSON.parse failed:', e.message);
+      console.error('[plan] raw first 300:', raw.slice(0, 300));
+      return req.error(500, 'AI returned invalid plan format');
     }
 
     return {
@@ -799,6 +831,32 @@ module.exports = cds.service.impl(async function (srv) {
       confidenceReason: item.product || 'SAP Help Portal',
       englishQuery:     englishQuery,
     }));
+  });
+
+  // ── Tab 4: API Hub 搜索 ──────────────────────────────────────────────────
+  srv.on('searchApiHub', async (req) => {
+    const { query, module } = req.data;
+    const q = (query || '').trim();
+    const m = (module || '').trim().toUpperCase();
+
+    if (!q && !m) {
+      return req.error(400, 'query 或 module 至少填写一个');
+    }
+
+    try {
+      if (m) {
+        return await listByModule(m);
+      }
+      return await searchApis(q);
+    } catch (err) {
+      if (err.message && err.message.includes('API_HUB_KEY')) {
+        return req.error(500, '配置错误：API_HUB_KEY 未设置，请联系管理员。');
+      }
+      if (err.message && err.message.includes('不支持模块')) {
+        return req.error(400, err.message);
+      }
+      return req.error(502, 'API Hub 请求失败，请稍后重试。');
+    }
   });
 });
 

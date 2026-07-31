@@ -102,4 +102,14 @@ service KnowledgeService {
     codeExample     : String;
     summary         : String;
   };
+
+  action searchApiHub(
+    query  : String,
+    module : String
+  ) returns array of {
+    name        : String;
+    displayName : String;
+    apiType     : String;
+    description : String;
+  };
 }

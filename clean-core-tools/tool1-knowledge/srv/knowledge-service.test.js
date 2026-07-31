@@ -69,6 +69,15 @@ jest.mock('../src/aicore-client', () => ({
   }),
 }));
 
+jest.mock('../src/apihub-client', () => ({
+  searchApis: jest.fn().mockResolvedValue([
+    { name: 'API_PURCHASEORDER_PROCESS_SRV', displayName: 'Purchase Order', apiType: 'OData', description: 'Process PO' }
+  ]),
+  listByModule: jest.fn().mockResolvedValue([
+    { name: 'API_JOURNALENTRY_SRV', displayName: 'Journal Entry', apiType: 'OData', description: 'Post JE' }
+  ]),
+}));
+
 // Provide minimal VCAP_SERVICES so AICoreClient constructor doesn't throw
 // (the mock above replaces the class, but CDS may still load env at bootstrap)
 process.env.VCAP_SERVICES = JSON.stringify({
@@ -238,4 +247,37 @@ test('POST /odata/v4/knowledge/plan returns 400 without objectName', async () =>
     .set('Content-Type', 'application/json')
     .send({});
   expect(res.status).toBe(400);
+});
+
+describe('searchApiHub', () => {
+  test('keyword search returns results', async () => {
+    const app = cds.app;
+    const res = await supertest(app)
+      .post('/odata/v4/knowledge/searchApiHub')
+      .set('Content-Type', 'application/json')
+      .send({ query: 'Purchase', module: '' });
+    expect(res.status).toBe(200);
+    const body = res.body.value || res.body;
+    expect(body[0].displayName).toBe('Purchase Order');
+  });
+
+  test('module browse returns results', async () => {
+    const app = cds.app;
+    const res = await supertest(app)
+      .post('/odata/v4/knowledge/searchApiHub')
+      .set('Content-Type', 'application/json')
+      .send({ query: '', module: 'FI' });
+    expect(res.status).toBe(200);
+    const body = res.body.value || res.body;
+    expect(body[0].displayName).toBe('Journal Entry');
+  });
+
+  test('returns 400 when both query and module empty', async () => {
+    const app = cds.app;
+    const res = await supertest(app)
+      .post('/odata/v4/knowledge/searchApiHub')
+      .set('Content-Type', 'application/json')
+      .send({ query: '', module: '' });
+    expect(res.status).toBe(400);
+  });
 });
