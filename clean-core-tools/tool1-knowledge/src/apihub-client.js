@@ -2,6 +2,7 @@
 'use strict';
 
 const fetch = require('node-fetch');
+// node-fetch v2 required (CommonJS + timeout option support)
 
 const PACKAGE_ID = 'S4HANAOPAPI';
 const BASE_URL   = 'https://api.sap.com/odata/1.0/catalog.svc';
@@ -88,8 +89,7 @@ async function listByModule(module, limit = 30) {
 
 async function getDetails(apiName) {
   _getApiKey();
-  const keywords = apiName.trim().split(/\s+/);
-  const matched = await _searchAll(keywords);
+  const matched = await _searchAll([apiName.trim()]);
   const exact = matched.find(r => (r.DisplayName || '').toLowerCase() === apiName.toLowerCase());
   const target = exact || matched[0];
   if (!target) throw new Error(`未找到 API "${apiName}"`);

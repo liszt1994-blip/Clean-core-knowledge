@@ -90,3 +90,10 @@ test('getDetails throws when not found', async () => {
   fetch.mockResolvedValue(new Response(JSON.stringify({ d: { results: [] } }), { status: 200 }));
   await expect(getDetails('Nonexistent API')).rejects.toThrow('未找到');
 });
+
+// ── HTTP error handling ────────────────────────────────────────────────────
+
+test('searchApis throws on HTTP 401', async () => {
+  fetch.mockResolvedValue(new Response('Unauthorized', { status: 401 }));
+  await expect(searchApis('Purchase')).rejects.toThrow('API Hub HTTP 401');
+});
