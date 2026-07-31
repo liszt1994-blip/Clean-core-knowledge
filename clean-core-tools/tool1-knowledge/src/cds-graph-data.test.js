@@ -66,3 +66,17 @@ test('buildGraph includes non-cleanCore node (VBAK) from C_SalesOrderTP', () => 
   expect(vbak).toBeDefined();
   expect(vbak.cleanCore).toBe(false);
 });
+
+test('buildGraph does not duplicate edges for multi-path nodes', () => {
+  const result = buildGraph('I_PurchaseOrder');
+  // I_Material 被 I_PurchaseOrderItem 指向，不应有重复 edge
+  const matEdges = result.edges.filter(e => e.target === 'I_Material');
+  expect(matEdges.length).toBe(1);
+});
+
+test('buildGraph maxDepth=0 returns only root node with no edges', () => {
+  const result = buildGraph('I_SalesOrder', 0);
+  expect(result.nodes).toHaveLength(1);
+  expect(result.nodes[0].id).toBe('I_SalesOrder');
+  expect(result.edges).toHaveLength(0);
+});
