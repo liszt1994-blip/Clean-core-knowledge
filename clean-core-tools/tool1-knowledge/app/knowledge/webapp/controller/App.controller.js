@@ -497,6 +497,12 @@ sap.ui.define([
     },
 
     _renderGraph: function (graphData) {
+      // 停止旧 simulation 防止 CPU 泄漏
+      if (this._graphSimulation) {
+        this._graphSimulation.stop();
+        this._graphSimulation = null;
+      }
+
       var canvas = document.getElementById('ccGraphCanvas');
       if (!canvas) return;
 
@@ -526,10 +532,10 @@ sap.ui.define([
           g.attr('transform', event.transform);
         }));
 
-      var g = svg.append('g');
-
       // ── SVG filter: 发光效果（仅合规节点使用）────────────────────────
       var defs = svg.append('defs');
+
+      var g = svg.append('g');
       var filter = defs.append('filter').attr('id', 'glow');
       filter.append('feGaussianBlur').attr('stdDeviation', '3').attr('result', 'coloredBlur');
       var feMerge = filter.append('feMerge');
@@ -556,6 +562,7 @@ sap.ui.define([
         .force('link', d3.forceLink(edges).id(function (d) { return d.id; }).distance(120))
         .force('charge', d3.forceManyBody().strength(-300))
         .force('center', d3.forceCenter(width / 2, height / 2));
+      this._graphSimulation = simulation;
 
       // ── 连线 ──────────────────────────────────────────────────────────
       var link = g.append('g')
