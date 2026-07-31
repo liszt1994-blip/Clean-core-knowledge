@@ -444,6 +444,58 @@ sap.ui.define([
       );
     },
 
+    // ── CDS 关系图谱 ──────────────────────────────────────────────────────────
+    onAnalyzeCds: function () {
+      var viewName = this._graphInput.getValue().trim();
+      if (!viewName) return;
+      this._doAnalyzeCds(viewName);
+    },
+
+    _doAnalyzeCds: function (viewName) {
+      var model = this.getView().getModel();
+      if (model.getProperty('/busy')) return;
+
+      model.setProperty('/busy', true);
+      this._graphAnalyzeBtn.setEnabled(false);
+      this._busyIndicator.setVisible(true);
+
+      var that = this;
+      fetch('/odata/v4/knowledge/analyzeCds', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ viewName: viewName }),
+      })
+        .then(function (res) {
+          if (!res.ok) return res.json().then(function (e) { throw new Error(e.error && e.error.message || 'error'); });
+          return res.json();
+        })
+        .then(function (data) {
+          model.setProperty('/busy', false);
+          that._graphAnalyzeBtn.setEnabled(true);
+          that._busyIndicator.setVisible(false);
+          that._loadD3(function () { that._renderGraph(data); });
+        })
+        .catch(function (err) {
+          model.setProperty('/busy', false);
+          that._graphAnalyzeBtn.setEnabled(true);
+          that._busyIndicator.setVisible(false);
+          var canvas = document.getElementById('ccGraphCanvas');
+          if (canvas) {
+            canvas.innerHTML = '<p style="color:#e53935;padding:24px;font-size:13px;">' +
+              (err.message || '请求失败，请重试。') +
+              '<br><span style="color:#888;font-size:12px;">可用示例：I_SalesOrder · I_PurchaseOrder · I_JournalEntry · C_SalesOrderTP</span></p>';
+          }
+        });
+    },
+
+    _loadD3: function (callback) {
+      if (window.d3) { callback(); return; }
+      var script = document.createElement('script');
+      script.src = 'https://d3js.org/d3.v7.min.js';
+      script.onload = callback;
+      document.head.appendChild(script);
+    },
+
     // ── API Hub 搜索 ─────────────────────────────────────────────────────────
     onSearchApiHub: function () {
       var query = this._apiHubInput.getValue().trim();
@@ -578,6 +630,8 @@ sap.ui.define([
       var searchResult    = document.getElementById('ccSearchResult');
       var apiHubInputArea = document.getElementById('ccApiHubInputArea');
       var apiHubResult    = document.getElementById('ccApiHubResult');
+      var graphInputArea  = document.getElementById('ccGraphInputArea');
+      var graphCanvas     = document.getElementById('ccGraphCanvas');
 
       if (key === 'search') {
         if (inputArea)       inputArea.style.display       = 'none';
@@ -585,18 +639,32 @@ sap.ui.define([
         if (searchResult)    searchResult.style.display    = 'block';
         if (apiHubInputArea) apiHubInputArea.style.display = 'none';
         if (apiHubResult)    apiHubResult.style.display    = 'none';
+        if (graphInputArea)  graphInputArea.style.display  = 'none';
+        if (graphCanvas)     graphCanvas.style.display     = 'none';
       } else if (key === 'apihub') {
         if (inputArea)       inputArea.style.display       = 'none';
         if (searchInputArea) searchInputArea.style.display = 'none';
         if (searchResult)    searchResult.style.display    = 'none';
         if (apiHubInputArea) apiHubInputArea.style.display = 'block';
         if (apiHubResult)    apiHubResult.style.display    = 'block';
+        if (graphInputArea)  graphInputArea.style.display  = 'none';
+        if (graphCanvas)     graphCanvas.style.display     = 'none';
+      } else if (key === 'graph') {
+        if (inputArea)       inputArea.style.display       = 'none';
+        if (searchInputArea) searchInputArea.style.display = 'none';
+        if (searchResult)    searchResult.style.display    = 'none';
+        if (apiHubInputArea) apiHubInputArea.style.display = 'none';
+        if (apiHubResult)    apiHubResult.style.display    = 'none';
+        if (graphInputArea)  graphInputArea.style.display  = 'block';
+        if (graphCanvas)     graphCanvas.style.display     = 'block';
       } else {
         if (inputArea)       inputArea.style.display       = 'block';
         if (searchInputArea) searchInputArea.style.display = 'none';
         if (searchResult)    searchResult.style.display    = 'none';
         if (apiHubInputArea) apiHubInputArea.style.display = 'none';
         if (apiHubResult)    apiHubResult.style.display    = 'none';
+        if (graphInputArea)  graphInputArea.style.display  = 'none';
+        if (graphCanvas)     graphCanvas.style.display     = 'none';
         if (key === 'codeanalysis') {
           this._chatInput.setPlaceholder(this._CODE_SUB_CONFIG[this._codeSubMode].placeholder);
         } else {
