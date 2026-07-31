@@ -49,16 +49,17 @@ sap.ui.define([
       this._inputHistory = [];
 
       // Tab 独立历史
-      this._TAB_KEYS = ['concept', 'codeanalysis', 'search'];
+      this._TAB_KEYS = ['concept', 'codeanalysis', 'search', 'apihub'];
       this._currentTab = 'concept';
       this._codeSubMode = 'code'; // 'code' | 'atc'
       this._chatHistories = {};
-      this._messages = { concept: [], codeanalysis: [], search: [] };
+      this._messages = { concept: [], codeanalysis: [], search: [], apihub: [] };
 
       var TAB_CONFIG = {
         concept:      { icon: 'sap-icon://hint',       text: '概念 & 分级', placeholder: '输入 Clean Core 概念或 SAP 对象名...',                         welcome: '你好！请输入 Clean Core 概念或 SAP 对象名，我会解释概念或给出分级和替代 API。' },
         codeanalysis: { icon: 'sap-icon://source-code', text: '代码分析',   placeholder: '粘贴 ABAP 代码片段...',                                         welcome: '请粘贴 ABAP 代码，我会识别所有不合规对象并给出改写对比。' },
-        search:       { icon: 'sap-icon://search',      text: 'SAP 搜索',   placeholder: '搜索 SAP Note 或文档...',                                      welcome: '用于直接在 SAP 门户网站搜索相关内容及 Note。' }
+        search:       { icon: 'sap-icon://search',      text: 'SAP 搜索',   placeholder: '搜索 SAP Note 或文档...',                                      welcome: '用于直接在 SAP 门户网站搜索相关内容及 Note。' },
+        apihub:       { icon: 'sap-icon://api',         text: 'API Hub',    placeholder: '',                                                              welcome: '' }
       };
       this._TAB_CONFIG = TAB_CONFIG;
       // 子模式独立配置（代码分析 Tab 内部）
@@ -88,6 +89,19 @@ sap.ui.define([
         text: '发送',
         type: 'Emphasized',
         press: [this.onSend, this]
+      });
+
+      // Tab 5（API Hub）专用控件
+      this._apiHubInput = new TextArea({
+        placeholder: '输入 API 关键词，例如 Purchase Order...',
+        rows: 2,
+        growing: false,
+        width: '100%'
+      });
+      this._apiHubSearchBtn = new Button({
+        text: '搜索',
+        type: 'Emphasized',
+        press: [this.onSearchApiHub, this]
       });
 
       // Tab 4 搜索控件
@@ -195,6 +209,12 @@ sap.ui.define([
             }
           });
 
+          // API Hub 结果容器
+          var apiHubResultDiv = document.createElement('div');
+          apiHubResultDiv.id = 'ccApiHubResult';
+          apiHubResultDiv.style.cssText = 'display:none;padding:8px 16px;';
+          scrollDiv.appendChild(apiHubResultDiv);
+
           // Tab 4 搜索结果表格容器
           var searchResultDiv = document.createElement('div');
           searchResultDiv.id = 'ccSearchResult';
@@ -248,6 +268,55 @@ sap.ui.define([
 
           that._noteSearchInput.placeAt(noteInputWrap);
           that._noteSearchBtn.placeAt(noteBtnWrap);
+
+          // ── API Hub 输入区 ───────────────────────────────────────────
+          var apiHubInputDiv = document.createElement('div');
+          apiHubInputDiv.id = 'ccApiHubInputArea';
+          apiHubInputDiv.style.cssText = 'display:none;flex-shrink:0;border-top:1px solid #e8e8e8;background:#fff;padding:8px 16px;';
+          wrap.appendChild(apiHubInputDiv);
+
+          // 搜索行：输入框 + 搜索按钮
+          var apiHubRow = document.createElement('div');
+          apiHubRow.style.cssText = 'display:flex;align-items:flex-end;gap:8px;margin-bottom:8px;';
+          apiHubInputDiv.appendChild(apiHubRow);
+
+          var apiHubTextWrap = document.createElement('div');
+          apiHubTextWrap.style.cssText = 'flex:1;min-width:0;';
+          apiHubRow.appendChild(apiHubTextWrap);
+
+          var apiHubBtnWrap = document.createElement('div');
+          apiHubBtnWrap.style.cssText = 'flex-shrink:0;';
+          apiHubRow.appendChild(apiHubBtnWrap);
+
+          that._apiHubInput.placeAt(apiHubTextWrap);
+          that._apiHubSearchBtn.placeAt(apiHubBtnWrap);
+
+          // 模块按钮组
+          var moduleRow = document.createElement('div');
+          moduleRow.style.cssText = 'display:flex;gap:6px;flex-wrap:wrap;';
+          apiHubInputDiv.appendChild(moduleRow);
+
+          ['FI', 'MM', 'SD', 'PP', 'HR', 'PM'].forEach(function (mod) {
+            var modLabels = { FI: '财务 FI', MM: '物料 MM', SD: '销售 SD', PP: '生产 PP', HR: '人力 HR', PM: '工厂 PM' };
+            var modBtn = document.createElement('button');
+            modBtn.textContent = modLabels[mod];
+            modBtn.dataset.mod = mod;
+            modBtn.style.cssText = 'background:#f5f5f5;color:#0a6ed1;border:1px solid #0a6ed1;border-radius:4px;padding:4px 12px;font-size:12px;cursor:pointer;';
+            modBtn.onmouseover = function () { this.style.background = '#e8f4ff'; };
+            modBtn.onmouseout  = function () { this.style.background = '#f5f5f5'; };
+            modBtn.onclick = function () { that.onApiHubModuleSelect(this.dataset.mod); };
+            moduleRow.appendChild(modBtn);
+          });
+
+          // Enter 键触发搜索
+          that._apiHubInput.addEventDelegate({
+            onkeydown: function (oEvent) {
+              if (oEvent.key === 'Enter' && !oEvent.shiftKey) {
+                oEvent.preventDefault();
+                that.onSearchApiHub();
+              }
+            }
+          });
 
           // TextArea 没有 attachSubmit，监听 DOM keydown 触发搜索（Shift+Enter 换行，Enter 搜索）
           that._noteSearchInput.addEventDelegate({
