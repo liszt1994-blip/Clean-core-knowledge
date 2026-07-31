@@ -60,7 +60,7 @@ sap.ui.define([
         codeanalysis: { icon: 'sap-icon://source-code', text: '代码分析',   placeholder: '粘贴 ABAP 代码片段...',                                         welcome: '请粘贴 ABAP 代码，我会识别所有不合规对象并给出改写对比。' },
         search:       { icon: 'sap-icon://search',      text: 'SAP 搜索',   placeholder: '搜索 SAP Note 或文档...',                                      welcome: '用于直接在 SAP 门户网站搜索相关内容及 Note。' },
         apihub:       { icon: 'sap-icon://product',       text: 'API Hub',    placeholder: '',                                                              welcome: '浏览 SAP S/4HANA PCE 官方 API 列表。输入关键词搜索，或点击模块按钮按业务范围浏览。' },
-        graph:        { icon: 'sap-icon://org-chart',     text: '关系图谱',    placeholder: '',                                                              welcome: '' }
+        graph:        { icon: 'sap-icon://org-chart',     text: '关系图谱',    placeholder: '',                                                              welcome: '输入 CDS View 名称，查看该 View 与关联对象的力导向关系图谱。节点颜色区分 Clean Core 合规性，支持悬停查看详情、拖拽和缩放。' }
       };
       this._TAB_CONFIG = TAB_CONFIG;
       // 子模式独立配置（代码分析 Tab 内部）
@@ -228,6 +228,18 @@ sap.ui.define([
           apiHubResultDiv.id = 'ccApiHubResult';
           apiHubResultDiv.style.cssText = 'display:none;padding:8px 16px;';
           scrollDiv.appendChild(apiHubResultDiv);
+
+          // 关系图谱欢迎提示（浅色背景，与其他 Tab MessageStrip 风格一致）
+          var graphWelcomeDiv = document.createElement('div');
+          graphWelcomeDiv.id = 'ccGraphWelcome';
+          graphWelcomeDiv.style.cssText = 'display:none;padding:8px 16px;';
+          scrollDiv.appendChild(graphWelcomeDiv);
+          var graphWelcomeStrip = new sap.m.MessageStrip({
+            text: that._TAB_CONFIG['graph'].welcome,
+            type: 'Information',
+            showIcon: true
+          }).addStyleClass('sapUiSmallMarginBottom');
+          new sap.m.VBox({ width: '100%', items: [graphWelcomeStrip] }).placeAt(graphWelcomeDiv);
 
           // 关系图谱画布容器
           var graphCanvasDiv = document.createElement('div');
@@ -806,6 +818,7 @@ sap.ui.define([
       var apiHubResult    = document.getElementById('ccApiHubResult');
       var graphInputArea  = document.getElementById('ccGraphInputArea');
       var graphCanvas     = document.getElementById('ccGraphCanvas');
+      var graphWelcome    = document.getElementById('ccGraphWelcome');
 
       if (key === 'search') {
         if (inputArea)       inputArea.style.display       = 'none';
@@ -815,6 +828,7 @@ sap.ui.define([
         if (apiHubResult)    apiHubResult.style.display    = 'none';
         if (graphInputArea)  graphInputArea.style.display  = 'none';
         if (graphCanvas)     graphCanvas.style.display     = 'none';
+        if (graphWelcome)    graphWelcome.style.display    = 'none';
       } else if (key === 'apihub') {
         if (inputArea)       inputArea.style.display       = 'none';
         if (searchInputArea) searchInputArea.style.display = 'none';
@@ -823,12 +837,14 @@ sap.ui.define([
         if (apiHubResult)    apiHubResult.style.display    = 'block';
         if (graphInputArea)  graphInputArea.style.display  = 'none';
         if (graphCanvas)     graphCanvas.style.display     = 'none';
+        if (graphWelcome)    graphWelcome.style.display    = 'none';
       } else if (key === 'graph') {
         if (inputArea)       inputArea.style.display       = 'none';
         if (searchInputArea) searchInputArea.style.display = 'none';
         if (searchResult)    searchResult.style.display    = 'none';
         if (apiHubInputArea) apiHubInputArea.style.display = 'none';
         if (apiHubResult)    apiHubResult.style.display    = 'none';
+        if (graphWelcome)    graphWelcome.style.display    = 'block';
         if (graphInputArea)  graphInputArea.style.display  = 'block';
         if (graphCanvas)     graphCanvas.style.display     = 'block';
       } else {
@@ -839,6 +855,7 @@ sap.ui.define([
         if (apiHubResult)    apiHubResult.style.display    = 'none';
         if (graphInputArea)  graphInputArea.style.display  = 'none';
         if (graphCanvas)     graphCanvas.style.display     = 'none';
+        if (graphWelcome)    graphWelcome.style.display    = 'none';
         if (key === 'codeanalysis') {
           this._chatInput.setPlaceholder(this._CODE_SUB_CONFIG[this._codeSubMode].placeholder);
         } else {
@@ -855,6 +872,7 @@ sap.ui.define([
       var welcomeText = this._TAB_CONFIG[key].welcome;
       if (!welcomeText) return;
       if (key === 'codeanalysis') return; // 由子模式懒初始化欢迎语
+      if (key === 'graph') return;        // graph Tab 欢迎语由 onAfterRendering 直接写入 canvas
 
       var welcomeBox = new VBox({
         width: '100%',
