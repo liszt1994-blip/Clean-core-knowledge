@@ -49,17 +49,18 @@ sap.ui.define([
       this._inputHistory = [];
 
       // Tab 独立历史
-      this._TAB_KEYS = ['concept', 'codeanalysis', 'search', 'apihub'];
+      this._TAB_KEYS = ['concept', 'codeanalysis', 'search', 'apihub', 'graph'];
       this._currentTab = 'concept';
       this._codeSubMode = 'code'; // 'code' | 'atc'
       this._chatHistories = {};
-      this._messages = { concept: [], codeanalysis: [], search: [], apihub: [] };
+      this._messages = { concept: [], codeanalysis: [], search: [], apihub: [], graph: [] };
 
       var TAB_CONFIG = {
         concept:      { icon: 'sap-icon://hint',       text: '概念 & 分级', placeholder: '输入 Clean Core 概念或 SAP 对象名...',                         welcome: '你好！请输入 Clean Core 概念或 SAP 对象名，我会解释概念或给出分级和替代 API。' },
         codeanalysis: { icon: 'sap-icon://source-code', text: '代码分析',   placeholder: '粘贴 ABAP 代码片段...',                                         welcome: '请粘贴 ABAP 代码，我会识别所有不合规对象并给出改写对比。' },
         search:       { icon: 'sap-icon://search',      text: 'SAP 搜索',   placeholder: '搜索 SAP Note 或文档...',                                      welcome: '用于直接在 SAP 门户网站搜索相关内容及 Note。' },
-        apihub:       { icon: 'sap-icon://product',       text: 'API Hub',    placeholder: '',                                                              welcome: '浏览 SAP S/4HANA PCE 官方 API 列表。输入关键词搜索，或点击模块按钮按业务范围浏览。' }
+        apihub:       { icon: 'sap-icon://product',       text: 'API Hub',    placeholder: '',                                                              welcome: '浏览 SAP S/4HANA PCE 官方 API 列表。输入关键词搜索，或点击模块按钮按业务范围浏览。' },
+        graph:        { icon: 'sap-icon://org-chart',     text: '关系图谱',    placeholder: '',                                                              welcome: '' }
       };
       this._TAB_CONFIG = TAB_CONFIG;
       // 子模式独立配置（代码分析 Tab 内部）
@@ -102,6 +103,19 @@ sap.ui.define([
         text: '搜索',
         type: 'Emphasized',
         press: [this.onSearchApiHub, this]
+      });
+
+      // Tab 5（关系图谱）专用控件
+      this._graphInput = new TextArea({
+        placeholder: '输入 CDS View 名称，例如 I_SalesOrder...',
+        rows: 1,
+        growing: false,
+        width: '100%'
+      });
+      this._graphAnalyzeBtn = new Button({
+        text: '分析',
+        type: 'Emphasized',
+        press: [this.onAnalyzeCds, this]
       });
 
       // Tab 4 搜索控件
@@ -215,6 +229,12 @@ sap.ui.define([
           apiHubResultDiv.style.cssText = 'display:none;padding:8px 16px;';
           scrollDiv.appendChild(apiHubResultDiv);
 
+          // 关系图谱画布容器
+          var graphCanvasDiv = document.createElement('div');
+          graphCanvasDiv.id = 'ccGraphCanvas';
+          graphCanvasDiv.style.cssText = 'display:none;flex:1;background:#1a1a2e;min-height:600px;position:relative;';
+          scrollDiv.appendChild(graphCanvasDiv);
+
           // Tab 4 搜索结果表格容器
           var searchResultDiv = document.createElement('div');
           searchResultDiv.id = 'ccSearchResult';
@@ -314,6 +334,42 @@ sap.ui.define([
               if (oEvent.key === 'Enter' && !oEvent.shiftKey) {
                 oEvent.preventDefault();
                 that.onSearchApiHub();
+              }
+            }
+          });
+
+          // ── 关系图谱输入区 ────────────────────────────────────────────
+          var graphInputDiv = document.createElement('div');
+          graphInputDiv.id = 'ccGraphInputArea';
+          graphInputDiv.style.cssText = 'display:none;flex-shrink:0;border-top:1px solid #e8e8e8;background:#fff;padding:8px 16px;';
+          wrap.appendChild(graphInputDiv);
+
+          var graphRow = document.createElement('div');
+          graphRow.style.cssText = 'display:flex;align-items:flex-end;gap:8px;margin-bottom:4px;';
+          graphInputDiv.appendChild(graphRow);
+
+          var graphTextWrap = document.createElement('div');
+          graphTextWrap.style.cssText = 'flex:1;min-width:0;';
+          graphRow.appendChild(graphTextWrap);
+
+          var graphBtnWrap = document.createElement('div');
+          graphBtnWrap.style.cssText = 'flex-shrink:0;';
+          graphRow.appendChild(graphBtnWrap);
+
+          that._graphInput.placeAt(graphTextWrap);
+          that._graphAnalyzeBtn.placeAt(graphBtnWrap);
+
+          var graphHint = document.createElement('p');
+          graphHint.style.cssText = 'font-size:11px;color:#999;margin:2px 0 0;';
+          graphHint.textContent = '示例：I_SalesOrder · I_PurchaseOrder · I_JournalEntry · C_SalesOrderTP';
+          graphInputDiv.appendChild(graphHint);
+
+          // Enter 键触发分析
+          that._graphInput.addEventDelegate({
+            onkeydown: function (oEvent) {
+              if (oEvent.key === 'Enter' && !oEvent.shiftKey) {
+                oEvent.preventDefault();
+                that.onAnalyzeCds();
               }
             }
           });
