@@ -106,6 +106,7 @@ function buildGraph(viewName, maxDepth = 2) {
 
   const nodes = new Map(); // id → node（保证唯一，取最小 depth）
   const edges = [];
+  const visited = new Set(); // 已展开过关联关系的节点
   const queue = [{ id: viewName, depth: 0 }];
 
   while (queue.length > 0) {
@@ -124,7 +125,9 @@ function buildGraph(viewName, maxDepth = 2) {
       depth,
     });
 
-    if (!data || depth >= maxDepth) continue;
+    // 只有未展开过的节点才添加其子关联（防止 edges 重复）
+    if (!data || depth >= maxDepth || visited.has(id)) continue;
+    visited.add(id);
 
     for (const assoc of data.associations) {
       edges.push({ source: id, target: assoc.target, relation: assoc.relation });
