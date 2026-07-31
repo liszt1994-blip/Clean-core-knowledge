@@ -496,6 +496,173 @@ sap.ui.define([
       document.head.appendChild(script);
     },
 
+    _renderGraph: function (graphData) {
+      var canvas = document.getElementById('ccGraphCanvas');
+      if (!canvas) return;
+
+      // 清除旧内容
+      canvas.innerHTML = '';
+
+      var width  = canvas.clientWidth  || 800;
+      var height = canvas.clientHeight || 600;
+
+      // ── Tooltip div ──────────────────────────────────────────────────
+      var tooltip = document.createElement('div');
+      tooltip.id = 'ccGraphTooltip';
+      tooltip.style.cssText = 'position:absolute;display:none;background:rgba(0,0,0,0.85);color:#fff;' +
+        'border:1px solid #0a6ed1;border-radius:6px;padding:10px 14px;font-size:12px;' +
+        'pointer-events:none;max-width:260px;z-index:100;line-height:1.7;';
+      canvas.appendChild(tooltip);
+
+      var d3 = window.d3;
+
+      // ── SVG ──────────────────────────────────────────────────────────
+      var svg = d3.select(canvas)
+        .append('svg')
+        .attr('width', '100%')
+        .attr('height', height)
+        .style('background', '#1a1a2e')
+        .call(d3.zoom().scaleExtent([0.3, 3]).on('zoom', function (event) {
+          g.attr('transform', event.transform);
+        }));
+
+      var g = svg.append('g');
+
+      // ── SVG filter: 发光效果（仅合规节点使用）────────────────────────
+      var defs = svg.append('defs');
+      var filter = defs.append('filter').attr('id', 'glow');
+      filter.append('feGaussianBlur').attr('stdDeviation', '3').attr('result', 'coloredBlur');
+      var feMerge = filter.append('feMerge');
+      feMerge.append('feMergeNode').attr('in', 'coloredBlur');
+      feMerge.append('feMergeNode').attr('in', 'SourceGraphic');
+
+      // ── 颜色和大小工具函数 ────────────────────────────────────────────
+      function nodeColor(d) {
+        if (d.cleanCore === true)  return '#0a6ed1';
+        if (d.cleanCore === false) return '#e53935';
+        return '#666';
+      }
+      function nodeRadius(d) {
+        if (d.depth === 0) return 28;
+        if (d.depth === 1) return 18;
+        return 12;
+      }
+
+      var nodes = graphData.nodes.map(function (d) { return Object.assign({}, d); });
+      var edges = graphData.edges.map(function (d) { return Object.assign({}, d); });
+
+      // ── 力导向仿真 ────────────────────────────────────────────────────
+      var simulation = d3.forceSimulation(nodes)
+        .force('link', d3.forceLink(edges).id(function (d) { return d.id; }).distance(120))
+        .force('charge', d3.forceManyBody().strength(-300))
+        .force('center', d3.forceCenter(width / 2, height / 2));
+
+      // ── 连线 ──────────────────────────────────────────────────────────
+      var link = g.append('g')
+        .selectAll('line')
+        .data(edges)
+        .join('line')
+        .attr('stroke', function (d) {
+          return d.relation === 'association' ? '#42a5f5' : 'rgba(255,255,255,0.5)';
+        })
+        .attr('stroke-dasharray', function (d) {
+          return d.relation === 'association' ? '5,3' : null;
+        })
+        .attr('stroke-opacity', function (d) {
+          return d.relation === 'association' ? 0.7 : 0.5;
+        })
+        .attr('stroke-width', 1.5);
+
+      // ── 连线标签（relation 类型）──────────────────────────────────────
+      var linkLabel = g.append('g')
+        .selectAll('text')
+        .data(edges)
+        .join('text')
+        .attr('fill', '#888')
+        .attr('font-size', '9px')
+        .attr('text-anchor', 'middle')
+        .text(function (d) { return d.relation; });
+
+      // ── 节点圆圈 ──────────────────────────────────────────────────────
+      var node = g.append('g')
+        .selectAll('circle')
+        .data(nodes)
+        .join('circle')
+        .attr('r', nodeRadius)
+        .attr('fill', nodeColor)
+        .attr('filter', function (d) {
+          return d.cleanCore === true ? 'url(#glow)' : null;
+        })
+        .attr('stroke', '#fff')
+        .attr('stroke-width', function (d) { return d.depth === 0 ? 2.5 : 1; })
+        .style('cursor', 'pointer')
+        .call(d3.drag()
+          .on('start', function (event, d) {
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x; d.fy = d.y;
+          })
+          .on('drag', function (event, d) {
+            d.fx = event.x; d.fy = event.y;
+          })
+          .on('end', function (event, d) {
+            if (!event.active) simulation.alphaTarget(0);
+            d.fx = null; d.fy = null;
+          })
+        )
+        .on('mouseover', function (event, d) {
+          var cleanText = d.cleanCore === true ? '✅ 合规' : d.cleanCore === false ? '❌ 不合规' : '—';
+          tooltip.innerHTML =
+            '<strong style="font-size:13px;">' + d.id + '</strong><br>' +
+            '类型：' + (d.type || '—') + '<br>' +
+            'Release：' + (d.releaseState || '—') + '<br>' +
+            'Clean Core：' + cleanText + '<br>' +
+            '分级：' + (d.classification || '—');
+          tooltip.style.display = 'block';
+          tooltip.style.left = (event.offsetX + 12) + 'px';
+          tooltip.style.top  = (event.offsetY - 10) + 'px';
+        })
+        .on('mousemove', function (event) {
+          tooltip.style.left = (event.offsetX + 12) + 'px';
+          tooltip.style.top  = (event.offsetY - 10) + 'px';
+        })
+        .on('mouseout', function () {
+          tooltip.style.display = 'none';
+        });
+
+      // ── 节点标签 ──────────────────────────────────────────────────────
+      var label = g.append('g')
+        .selectAll('text')
+        .data(nodes)
+        .join('text')
+        .attr('fill', '#fff')
+        .attr('font-size', function (d) { return d.depth === 0 ? '13px' : '11px'; })
+        .attr('text-anchor', 'middle')
+        .attr('dy', function (d) { return nodeRadius(d) + 14; })
+        .style('pointer-events', 'none')
+        .text(function (d) { return d.id; });
+
+      // ── 每帧更新位置 ──────────────────────────────────────────────────
+      simulation.on('tick', function () {
+        link
+          .attr('x1', function (d) { return d.source.x; })
+          .attr('y1', function (d) { return d.source.y; })
+          .attr('x2', function (d) { return d.target.x; })
+          .attr('y2', function (d) { return d.target.y; });
+
+        linkLabel
+          .attr('x', function (d) { return (d.source.x + d.target.x) / 2; })
+          .attr('y', function (d) { return (d.source.y + d.target.y) / 2; });
+
+        node
+          .attr('cx', function (d) { return d.x; })
+          .attr('cy', function (d) { return d.y; });
+
+        label
+          .attr('x', function (d) { return d.x; })
+          .attr('y', function (d) { return d.y; });
+      });
+    },
+
     // ── API Hub 搜索 ─────────────────────────────────────────────────────────
     onSearchApiHub: function () {
       var query = this._apiHubInput.getValue().trim();
