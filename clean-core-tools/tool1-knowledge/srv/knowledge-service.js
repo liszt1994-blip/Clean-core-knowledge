@@ -5,6 +5,7 @@ const { ClassificationClient } = require('../src/classification-client');
 const { DestinationClient } = require('../src/destination-client');
 const { searchHelpPortal } = require('../src/sap-help-search');
 const { searchApis, listByModule } = require('../src/apihub-client');
+const { buildGraph } = require('../src/cds-graph-data');
 const {
   buildExplainPrompt,
   buildSingleClassifyPrompt,
@@ -857,6 +858,19 @@ module.exports = cds.service.impl(async function (srv) {
       }
       return req.error(502, 'API Hub 请求失败，请稍后重试。');
     }
+  });
+
+  // ── Tab 5: CDS 关系图谱 ──────────────────────────────────────────────────
+  srv.on('analyzeCds', async (req) => {
+    const { viewName } = req.data;
+    if (!viewName?.trim()) {
+      return req.error(400, '请输入 CDS View 名称');
+    }
+    const graph = buildGraph(viewName.trim());
+    if (!graph) {
+      return req.error(404, `未找到 CDS View "${viewName.trim()}"。可用示例：I_SalesOrder、I_PurchaseOrder、I_JournalEntry、C_SalesOrderTP`);
+    }
+    return graph;
   });
 });
 

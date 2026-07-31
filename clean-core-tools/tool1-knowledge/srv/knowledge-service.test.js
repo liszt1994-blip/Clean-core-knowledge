@@ -281,3 +281,55 @@ describe('searchApiHub', () => {
     expect(res.status).toBe(400);
   });
 });
+
+// ── analyzeCds ─────────────────────────────────────────────────────────────
+
+jest.mock('../src/cds-graph-data', () => ({
+  buildGraph: jest.fn((viewName) => {
+    if (viewName === 'I_SalesOrder') {
+      return {
+        nodes: [
+          { id: 'I_SalesOrder', type: 'CDS View', releaseState: 'Released', cleanCore: true, classification: 'C1', depth: 0 },
+          { id: 'I_SalesOrderItem', type: 'CDS View', releaseState: 'Released', cleanCore: true, classification: 'C1', depth: 1 },
+        ],
+        edges: [
+          { source: 'I_SalesOrder', target: 'I_SalesOrderItem', relation: 'association' },
+        ],
+      };
+    }
+    return null;
+  }),
+}));
+
+describe('analyzeCds', () => {
+  test('returns graph data for known view', async () => {
+    const app = cds.app;
+    const res = await supertest(app)
+      .post('/odata/v4/knowledge/analyzeCds')
+      .set('Content-Type', 'application/json')
+      .send({ viewName: 'I_SalesOrder' });
+    expect(res.status).toBe(200);
+    const body = res.body.value || res.body;
+    expect(body.nodes).toHaveLength(2);
+    expect(body.edges).toHaveLength(1);
+    expect(body.nodes[0].id).toBe('I_SalesOrder');
+  });
+
+  test('returns 404 for unknown view', async () => {
+    const app = cds.app;
+    const res = await supertest(app)
+      .post('/odata/v4/knowledge/analyzeCds')
+      .set('Content-Type', 'application/json')
+      .send({ viewName: 'UNKNOWN_VIEW' });
+    expect(res.status).toBe(404);
+  });
+
+  test('returns 400 for empty viewName', async () => {
+    const app = cds.app;
+    const res = await supertest(app)
+      .post('/odata/v4/knowledge/analyzeCds')
+      .set('Content-Type', 'application/json')
+      .send({ viewName: '' });
+    expect(res.status).toBe(400);
+  });
+});
