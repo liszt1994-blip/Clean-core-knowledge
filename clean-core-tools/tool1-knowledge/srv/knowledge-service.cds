@@ -112,4 +112,20 @@ service KnowledgeService {
     apiType     : String;
     description : String;
   };
+
+  action analyzeCds(viewName : String) returns {
+    nodes : array of {
+      id             : String;
+      type           : String;
+      releaseState   : String;
+      cleanCore      : Boolean;
+      classification : String;
+      depth          : Integer;
+    };
+    edges : array of {
+      source   : String;
+      target   : String;
+      relation : String;
+    };
+  };
 }
