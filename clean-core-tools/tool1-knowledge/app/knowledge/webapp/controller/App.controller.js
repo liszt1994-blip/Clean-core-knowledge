@@ -635,7 +635,7 @@ sap.ui.define([
         .data(nodes)
         .join('text')
         .attr('fill', '#fff')
-        .attr('font-size', function (d) { return d.depth === 0 ? '13px' : '11px'; })
+        .attr('font-size', function (d) { return d.depth === 0 ? '13px' : '12px'; })
         .attr('text-anchor', 'middle')
         .attr('dy', function (d) { return nodeRadius(d) + 14; })
         .style('pointer-events', 'none')
