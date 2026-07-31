@@ -59,7 +59,7 @@ sap.ui.define([
         concept:      { icon: 'sap-icon://hint',       text: '概念 & 分级', placeholder: '输入 Clean Core 概念或 SAP 对象名...',                         welcome: '你好！请输入 Clean Core 概念或 SAP 对象名，我会解释概念或给出分级和替代 API。' },
         codeanalysis: { icon: 'sap-icon://source-code', text: '代码分析',   placeholder: '粘贴 ABAP 代码片段...',                                         welcome: '请粘贴 ABAP 代码，我会识别所有不合规对象并给出改写对比。' },
         search:       { icon: 'sap-icon://search',      text: 'SAP 搜索',   placeholder: '搜索 SAP Note 或文档...',                                      welcome: '用于直接在 SAP 门户网站搜索相关内容及 Note。' },
-        apihub:       { icon: 'sap-icon://api',         text: 'API Hub',    placeholder: '',                                                              welcome: '' }
+        apihub:       { icon: 'sap-icon://product',       text: 'API Hub',    placeholder: '',                                                              welcome: '浏览 SAP S/4HANA PCE 官方 API 列表。输入关键词搜索，或点击模块按钮按业务范围浏览。' }
       };
       this._TAB_CONFIG = TAB_CONFIG;
       // 子模式独立配置（代码分析 Tab 内部）
@@ -458,12 +458,17 @@ sap.ui.define([
       results.forEach(function (item, idx) {
         var typeTag = item.apiType ? '[' + item.apiType + '] ' : '';
 
-        // 主行：类型标签 + 显示名
-        var titleHBox = new HBox({
-          alignItems: 'Center',
+        // 主行：类型标签 + 显示名，第二行：技术名（小字）
+        var titleVBox = new VBox({
           items: [
-            new Text({ text: typeTag, wrapping: false }).addStyleClass('sapUiTinyMarginEnd'),
-            new Text({ text: item.displayName || '', wrapping: true })
+            new HBox({
+              alignItems: 'Center',
+              items: [
+                new Text({ text: typeTag, wrapping: false }).addStyleClass('sapUiTinyMarginEnd'),
+                new Text({ text: item.displayName || '', wrapping: true })
+              ]
+            }),
+            new Text({ text: item.name || '', wrapping: false }).addStyleClass('sapUiTinyMarginTop')
           ]
         });
 
@@ -471,13 +476,11 @@ sap.ui.define([
         var detailVBox = new VBox({
           visible: false,
           items: [
-            new Text({ text: '技术名：' + (item.name || '—') }),
-            new Text({ text: '类型：' + (item.apiType || '—') }),
             new Text({ text: '描述：' + (item.description || '（暂无描述）') })
           ]
         }).addStyleClass('sapUiSmallMarginTop sapUiSmallMarginBegin');
 
-        var itemVBox = new VBox({ items: [titleHBox, detailVBox] });
+        var itemVBox = new VBox({ items: [titleVBox, detailVBox] });
 
         var listItem = new sap.m.CustomListItem({
           content: [itemVBox],
