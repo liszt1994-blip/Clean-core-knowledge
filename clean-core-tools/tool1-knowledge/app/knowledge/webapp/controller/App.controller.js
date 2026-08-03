@@ -785,7 +785,8 @@ sap.ui.define([
             if (expandedIndex >= 0 && expandedIndex !== idx) {
               var prevItem = that._apiHubList.getItems()[expandedIndex];
               if (prevItem) {
-                var prevDetail = prevItem.getContent()[0].getItems()[1];
+                var prevContentRoot = prevItem.getContent()[0];
+                var prevDetail = prevContentRoot && prevContentRoot.getItems()[1];
                 if (prevDetail) prevDetail.setVisible(false);
               }
             }
