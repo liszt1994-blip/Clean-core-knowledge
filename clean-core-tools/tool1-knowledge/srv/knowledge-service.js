@@ -837,27 +837,13 @@ module.exports = cds.service.impl(async function (srv) {
   // ── Tab 4: API Hub 搜索 ──────────────────────────────────────────────────
   srv.on('searchApiHub', async (req) => {
     const { query, module } = req.data;
-    const q = (query || '').trim();
-    const m = (module || '').trim().toUpperCase();
-
-    if (!q && !m) {
+    if (!query?.trim() && !module?.trim()) {
       return req.error(400, 'query 或 module 至少填写一个');
     }
-
-    try {
-      if (m) {
-        return await listByModule(m);
-      }
-      return await searchApis(q);
-    } catch (err) {
-      if (err.message && err.message.includes('API_HUB_KEY')) {
-        return req.error(500, '配置错误：API_HUB_KEY 未设置，请联系管理员。');
-      }
-      if (err.message && err.message.includes('不支持模块')) {
-        return req.error(400, err.message);
-      }
-      return req.error(502, 'API Hub 请求失败，请稍后重试。');
+    if (module?.trim()) {
+      return await listByModule(module.trim().toUpperCase());
     }
+    return await searchApis(query.trim());
   });
 
   // ── Tab 5: CDS 关系图谱 ──────────────────────────────────────────────────
