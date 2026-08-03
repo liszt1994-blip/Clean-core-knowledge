@@ -19,6 +19,7 @@ sap.ui.define([
   'sap/m/Popover',
   'sap/m/List',
   'sap/m/StandardListItem',
+  'sap/m/CustomListItem',
   'sap/m/IconTabBar',
   'sap/m/IconTabFilter',
   'sap/m/Table',
@@ -29,7 +30,7 @@ sap.ui.define([
   Controller, JSONModel, MessageBox,
   VBox, HBox, Text, FormattedText, Title, Button, Panel, ObjectStatus, MessageStrip, Link,
   TextArea, Input, BusyIndicator, Toolbar,
-  Popover, List, StandardListItem,
+  Popover, List, StandardListItem, CustomListItem,
   IconTabBar, IconTabFilter, Table, Column, ColumnListItem,
   HTML
 ) {
@@ -778,7 +779,7 @@ sap.ui.define([
 
         var itemVBox = new VBox({ items: [titleVBox, detailVBox] });
 
-        var listItem = new sap.m.CustomListItem({
+        var listItem = new CustomListItem({
           content: [itemVBox],
           press: function () {
             var isOpen = detailVBox.getVisible();

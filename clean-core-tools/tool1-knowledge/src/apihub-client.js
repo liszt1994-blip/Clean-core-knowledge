@@ -2,10 +2,28 @@
 'use strict';
 
 const fetch = require('node-fetch');
+const path  = require('path');
+const fs    = require('fs');
 // node-fetch v2 required (CommonJS + timeout option support)
 
 const BASE_URL  = 'https://api.sap.com/odata/1.0/catalog.svc';
 const PAGE_SIZE = 50;
+
+// Pre-built mapping: API Name → { title, type, serviceGroupName }
+// Built from browser-crawled data; update docs/apihub-sgn-map.json to refresh
+const SGN_MAP_PATH = path.join(__dirname, '..', 'docs', 'apihub-sgn-map.json');
+let _sgnMap = null;
+
+function _getSgnMap() {
+  if (!_sgnMap) {
+    try {
+      _sgnMap = JSON.parse(fs.readFileSync(SGN_MAP_PATH, 'utf8'));
+    } catch (_) {
+      _sgnMap = {};
+    }
+  }
+  return _sgnMap;
+}
 
 const MODULE_KEYWORDS = {
   FI: ['Journal','Ledger','Account','Payment','Invoice','Tax','Asset','Budget',
@@ -42,44 +60,17 @@ async function _fetchApisPage(skip) {
   return (json.d && json.d.results) ? json.d.results : [];
 }
 
-// 从 /$value spec 中提取 Service Group Name，失败时返回空字符串
-async function _getServiceGroupName(id) {
-  try {
-    const url = `${BASE_URL}/APIContent.APIs('${encodeURIComponent(id)}')/$value?type=json`;
-    const resp = await fetch(url, {
-      headers: { APIKey: _getApiKey() },
-      timeout: 15000,
-    });
-    if (!resp.ok) return '';
-    const spec = await resp.json();
-    const overview = spec['x-sap-ext-overview'];
-    if (!Array.isArray(overview)) return '';
-    const entry = overview.find(e => e.name === 'Service Group Name');
-    return (entry && entry.values && entry.values[0] && entry.values[0].text) || '';
-  } catch (_) {
-    return '';
-  }
-}
-
-// 将原始 API 记录转换为内部格式（不含 serviceGroupName）
+// 将原始 API 记录转换为内部格式，从本地映射表读取 serviceGroupName
 function _toRecord(r) {
+  const map = _getSgnMap();
+  const entry = map[r.Name] || {};
   return {
-    id:        r.Name        || '',
-    title:     r.Title       || '',
-    apiType:   r.ServiceCode || '',
-    shortText: r.ShortText   || '',
+    id:              r.Name         || '',
+    title:           r.Title        || '',
+    apiType:         r.ServiceCode  || '',
+    shortText:       r.ShortText    || '',
+    serviceGroupName: entry.serviceGroupName || '',
   };
-}
-
-// 并发为每条记录补充 serviceGroupName
-async function _enrichWithServiceGroupNames(records) {
-  const results = await Promise.allSettled(
-    records.map(r => _getServiceGroupName(r.id))
-  );
-  return records.map((r, i) => ({
-    ...r,
-    serviceGroupName: results[i].status === 'fulfilled' ? results[i].value : '',
-  }));
 }
 
 // 逐页扫描所有 API，按关键词匹配 Title 字段
@@ -105,8 +96,7 @@ async function searchApis(query, limit = 20) {
   _getApiKey(); // validate early
   const keywords = query.trim().split(/\s+/);
   const matched = await _searchAll(keywords);
-  const records = matched.slice(0, limit).map(_toRecord);
-  return _enrichWithServiceGroupNames(records);
+  return matched.slice(0, limit).map(_toRecord);
 }
 
 async function listByModule(module, limit = 30) {
@@ -117,8 +107,7 @@ async function listByModule(module, limit = 30) {
     throw new Error(`不支持模块 "${mod}"。可用：${Object.keys(MODULE_KEYWORDS).join('、')}`);
   }
   const matched = await _searchAll(keywords);
-  const records = matched.slice(0, limit).map(_toRecord);
-  return _enrichWithServiceGroupNames(records);
+  return matched.slice(0, limit).map(_toRecord);
 }
 
 async function getDetails(apiName) {
@@ -127,9 +116,7 @@ async function getDetails(apiName) {
   const exact = matched.find(r => (r.Title || '').toLowerCase() === apiName.toLowerCase());
   const target = exact || matched[0];
   if (!target) throw new Error(`未找到 API "${apiName}"`);
-  const records = [_toRecord(target)];
-  const enriched = await _enrichWithServiceGroupNames(records);
-  return enriched[0];
+  return _toRecord(target);
 }
 
-module.exports = { searchApis, listByModule, getDetails };
+module.exports = { searchApis, listByModule, getDetails, _resetSgnMapCache: () => { _sgnMap = null; } };
