@@ -107,10 +107,11 @@ service KnowledgeService {
     query  : String,
     module : String
   ) returns array of {
-    name        : String;
-    displayName : String;
-    apiType     : String;
-    description : String;
+    id              : String;
+    serviceGroupName: String;
+    title           : String;
+    apiType         : String;
+    shortText       : String;
   };
 
   action analyzeCds(viewName : String) returns {
