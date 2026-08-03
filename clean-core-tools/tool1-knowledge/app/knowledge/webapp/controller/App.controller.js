@@ -750,19 +750,21 @@ sap.ui.define([
       this._apiHubList = new List({ mode: 'None' });
 
       results.forEach(function (item, idx) {
-        var typeTag = item.apiType ? '[' + item.apiType + '] ' : '';
+        var typeTag   = item.apiType ? '[' + item.apiType + '] ' : '';
+        var firstName = item.serviceGroupName || item.id || '';
 
-        // 主行：类型标签 + 显示名，第二行：技术名（小字）
+        // 主行：类型标签 + Service Group Name，第二行：Title（小字）
         var titleVBox = new VBox({
           items: [
             new HBox({
               alignItems: 'Center',
               items: [
                 new Text({ text: typeTag, wrapping: false }).addStyleClass('sapUiTinyMarginEnd'),
-                new Text({ text: item.displayName || '', wrapping: true })
+                new Text({ text: firstName, wrapping: true })
               ]
             }),
-            new Text({ text: item.name || '', wrapping: false }).addStyleClass('sapUiTinyMarginTop')
+            new Text({ text: item.title || '', wrapping: false })
+              .addStyleClass('sapUiTinyMarginTop')
           ]
         });
 
@@ -770,7 +772,7 @@ sap.ui.define([
         var detailVBox = new VBox({
           visible: false,
           items: [
-            new Text({ text: '描述：' + (item.description || '（暂无描述）') })
+            new Text({ text: '描述：' + (item.shortText || '（暂无描述）') })
           ]
         }).addStyleClass('sapUiSmallMarginTop sapUiSmallMarginBegin');
 
@@ -780,7 +782,6 @@ sap.ui.define([
           content: [itemVBox],
           press: function () {
             var isOpen = detailVBox.getVisible();
-            // 收起上一条展开的
             if (expandedIndex >= 0 && expandedIndex !== idx) {
               var prevItem = that._apiHubList.getItems()[expandedIndex];
               if (prevItem) {
