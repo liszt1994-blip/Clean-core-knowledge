@@ -1,0 +1,4487 @@
+{
+  "OP_CO_LOBM_ESR_BAT_BLK_RN_INF_OUT": {
+    "title": "Batch - Outbound Integration",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CMMDTYHDGMIGRATIONREQUEST_0001": {
+    "title": "Commodity Migration Request",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CMMDTYHDGMIGRATIONREQ"
+  },
+  "OP_CNSLDTNFSITEMHIERARCHY_0001": {
+    "title": "Consolidation FS Item Hierarchy",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNFSITEMHIERARCHY"
+  },
+  "OP_SERVICECONFIRMATIONREQUEST_IN": {
+    "title": "Service Confirmation - Create, Change (Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_SERVICEORDERBULKCONFIRMATION_OUT": {
+    "title": "Service Order (Bulk) - Confirm Processing (Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_SERVICEORDERBULKREQUEST_IN": {
+    "title": "Service Order (Bulk) - Create, Change (Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_SERVICECONFIRMATIONNOTIFICATION_OUT": {
+    "title": "Service Confirmation - Notification Processing (Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_SERVICE_CONFIRMATION_SRV_0001": {
+    "title": "Service Confirmation (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CO_MDM_PRD_BULK_REPL_REQ_OUT": {
+    "title": "Product Master - Replicate from SAP S/4HANA to Client",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_JOURNALENTRYBULKLEDGERCREATERE-v1": {
+    "title": "Journal Entry by Ledger - Post(Synchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_SERVICEORDERREQUEST_IN": {
+    "title": "Service Order - Create, Change (Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_SUBSCRIPTIONORDER_0002": {
+    "title": "Subscription Order",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SUBSCRIPTIONORDER"
+  },
+  "OP_SERVICEORDERNOTIFICATION_OUT": {
+    "title": "Service Order - Notification Processing (Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_SUBSCRIPTIONCONTRACT_0001": {
+    "title": "Subscription Contract - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_PURCHASEORDER_0001": {
+    "title": "Purchase Order",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PURCHASEORDER_2"
+  },
+  "OP_CTRSERVICE_0001": {
+    "title": "CTR Complementary Table Data Maintenance",
+    "type": "ODATAV4",
+    "serviceGroupName": "BR_CTR_SERVICE_O4"
+  },
+  "OP_POS_SALES_TRANS_CREATE_REQ_IN": {
+    "title": "POS Sales Transactions - Create",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_SHIPMENTCONTAINERUNIT_0001": {
+    "title": "Pack Containers",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SHIPMENTCONTAINERPACKG"
+  },
+  "OP_WAREHOUSEINBOUNDDELIVERY_0001": {
+    "title": "Warehouse Inbound Delivery - Read, Update (A2X)",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_WHSE_INB_DELIVERY_2"
+  },
+  "sap-s4-OP_SALESORDER_0001-v1": {
+    "title": "Sales Order (A2X)",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SALESORDER"
+  },
+  "OP_SERVICECONFIRMATIONBULKREQUEST_IN": {
+    "title": "Service Confirmation (Bulk) - Create, Change (Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_DEALERSTOCK_SAPAPO-v1": {
+    "title": "OEM-MI Dealer Stock (Inbound, B2B)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_MEASURINGPOINT_0001": {
+    "title": "Measuring Point",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_MEASURINGPOINT"
+  },
+  "OP_APIFLEXIBLECONSTRAINTS_0001": {
+    "title": "Flexible Constraint for PP/DS",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SCM_FLEX_CONSTR_V4"
+  },
+  "OP_API_STOREPICKUPORDER_0001": {
+    "title": "Store Pickup Order (A2X)",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_STOREPICKUPORDER"
+  },
+  "OP_WAREHOUSEORDER_0001": {
+    "title": "Warehouse Order and Task (A2X)",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_WAREHOUSE_ORDER_TASK_2"
+  },
+  "OP_API_MASTER_RECIPE_0001": {
+    "title": "Master Recipe",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_API_CNSLDTNRLBSDGRPJRNLITM_0001-v1": {
+    "title": "Consolidation Group Journal Entry for Reporting Rule",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_LSTMIVSTLISTSCHED_0001-v1": {
+    "title": "Visit List Schedule",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_LSTMIVSTLISTSCHEDULE"
+  },
+  "sap-s4-OP_SRVCPARTSSTOAPPROVAL_0001-v1": {
+    "title": "Stock Transfer Order Approval",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SRVCPARTSSTOAPPROVAL"
+  },
+  "OP_JOURNALENTRYBULKCREATIONREQUEST_IN": {
+    "title": "Journal Entry - Post (Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_BUDGETREQUESTDOCUMENT_0001-v1": {
+    "title": "Manage Budget Request Documents",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_FNDSMGMTBUDGETREQUEST"
+  },
+  "OP_API_PROD_ORDER_CONFIRMATIO_2_SRV_0001": {
+    "title": "Production Order Confirmation",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_WAREHOUSEOUTBDELIVERYORDER_0001": {
+    "title": "Warehouse Outbound Delivery Order - Read, Update (A2X)",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_WAREHOUSE_ODO_2"
+  },
+  "sap-s4-OP_SPPTIMESERIES_SAPAPO-v1": {
+    "title": "External Time Series Upload",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_MAINTENANCEPLAN_0001": {
+    "title": "Maintenance Plan",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_PRODUCTMDMBULKREPLICATEREQUEST": {
+    "title": "Product Master - Replicate from Client to SAP S/4HANA",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_FLDLOGSSHIPMENTCONTAINER_0001": {
+    "title": "Field Logistics - Shipment Container",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_FLDLOGSSHIPMENTCONTAINER"
+  },
+  "OP_JOURNALENTRYBULKLEDGERCREATIONREQ_IN": {
+    "title": "Journal Entry by Ledger - Post (Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_SERVICE_QUOTATION_SRV_0002": {
+    "title": "Service Quotation (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_MAINTENANCEITEM_0001": {
+    "title": "Maintenance Item",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_PRODUCT_0002": {
+    "title": "Product",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRODUCT"
+  },
+  "OP_SERVICECONFIRMATIONBULKCONFIRMAT_OUT": {
+    "title": "Service Confirmation (Bulk) - Confirm Processing (Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_SRVCPARTSSTKAPPROVE_0001-v1": {
+    "title": "Stocking Destocking Approval",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SRVCPARTSSTKAPPROVE"
+  },
+  "sap-s4-OP_SRVCPRTSMDSUBSTN_0001-v1": {
+    "title": "ESPP Product Substitution",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SRVCPRTSMDSUBSTN"
+  },
+  "OP_SERVICECONFIRMATIONCONFIRMATION_OUT": {
+    "title": "Service Confirmation - Confirm Processing (Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_SETTLMT_PROC_TYPE_0001": {
+    "title": "Settlement Process Type - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SETTLMT_PROC_TYPE"
+  },
+  "sap-s4-OP_TASKPLANNINGELEMENT_0001-v1": {
+    "title": "Task Planning Element",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_TASKPLANNINGELEMENT"
+  },
+  "OP_API_FUNCTIONALLOCATION": {
+    "title": "Functional Location",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_SERVICECONTRACT_0001": {
+    "title": "Service Contract (A2X)",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SERVICECONTRACT"
+  },
+  "sap-s4-OP_SCMTMS_CO_CPX_TRNSP_DSP_NOTIF-v1": {
+    "title": "Dispute Case - Send",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_MAINTNOTIFICATION": {
+    "title": "Maintenance Notification",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_CO_RTCO_APPLICATION_VARIANT_CO-v1": {
+    "title": "Application Variant Confirmation (Outbound)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_EQUIPMENT": {
+    "title": "Equipment",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_MAINTENANCEORDER_0002": {
+    "title": "Maintenance Order",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_A_EWA_WASTEDISPOSALORDERTP_0001-v1": {
+    "title": "Waste Disposal Order and Item",
+    "type": "ODATAV4",
+    "serviceGroupName": "A_EWA_WASTEDISPOSALORDERTP"
+  },
+  "OP_WAREHOUSEAVAILABLESTOCK_0001": {
+    "title": "Warehouse Available Stock - Read (A2X)",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_WHSE_AVAILABLESTOCK"
+  },
+  "OP_CO_SDSLS_ESR_SALES_ORDER_NOTIF": {
+    "title": "Sales Order - Send Processing Notification (A2A)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_FKCMANAGEPROVIDERCONTRACT2-v2": {
+    "title": "Contract Accounting Provider Contract - Version 2",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_SERVICEQUOTATION_0001-v1": {
+    "title": "Service Quotation",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SERVICEQUOTATION"
+  },
+  "OP_CO_SDSLS_ESR_SALES_ORDER_REPL": {
+    "title": "Sales Order - Replicate (A2A)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_SERVICEORDER_0001-v1": {
+    "title": "Service Order",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SERVICEORDER"
+  },
+  "sap-s4-OP_SERVICECONFIRMATION_0001-v1": {
+    "title": "Service Confirmation",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SERVICECONFIRMATION"
+  },
+  "sap-s4-OP_FOREIGNEXCHANGEEXPOSURE_0001-v1": {
+    "title": "Foreign Exchange Exposure",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_FXEM_FXEXPOSURE"
+  },
+  "sap-s4-OP_FLDLOGSRESTRICTEDITEM_0001-v1": {
+    "title": "Field Logistics Restricted Item",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_FLDLOGSRESTRICTEDITEM"
+  },
+  "sap-s4-OP_COLLATERALREALESTATE_0001-v1": {
+    "title": "Collateral Real Estate",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_COLLATERALREALESTATE"
+  },
+  "sap-s4-OP_PROJECTPORTFOLIO_0001-v1": {
+    "title": "Project Portfolio",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PROJECTPORTFOLIO"
+  },
+  "sap-s4-OP_SALESDEMANDHIST_SAPAPO-v1": {
+    "title": "Sales Demand History Inbound",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_SRVCPARTSEXCESSSTOCK_0001-v1": {
+    "title": "Manage Excess Stock",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SRVCPARTSEXCESSSTOCK"
+  },
+  "sap-s4-OP_MAINTENANCEPLANNINGBUCKET_0001-v1": {
+    "title": "Maintenance Planning Bucket",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_MAINTENANCEPLANNINGBUCKET"
+  },
+  "OP_SUPPLIERINVOICES4REQUEST_IN": {
+    "title": "Supplier Invoice - Create (A2A, Inbound, Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_SCMTMS_TRANSPDISPUTECASENO-v1": {
+    "title": "Dispute Case - Create, Update",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_MEASUREMENTDOCUMENT_0001": {
+    "title": "Measurement Document",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_MEASUREMENTDOCUMENT"
+  },
+  "OP_API_BUSINESS_PARTNER_SRV": {
+    "title": "Business Partner (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_SERVICEORDERCONFIRMATION_OUT": {
+    "title": "Service Order - Confirm Processing (Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_SALES_ORDER_SRV_0001": {
+    "title": "Sales Order (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_BULKTRANSPORTDRIVER_0001-v1": {
+    "title": "Bulk Transport Driver",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_OIL_BULKTRANSPORTDRIVER"
+  },
+  "sap-s4-OP_FLDLOGSSHIPMENTKITS_0001-v1": {
+    "title": "Shipment Kits",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_FLDLOGSMANAGEKITS"
+  },
+  "sap-s4-OP_BUDGETREQUESTTEMPLATE_0001-v1": {
+    "title": "Manage Budget Request Templates",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_FNDSMGMTBDGTREQTEMPLATE"
+  },
+  "sap-s4-OP_SRVCPARTSSTKDSTKNGAUDTRAIL_0001-v1": {
+    "title": "Stocking Destocking Audit Trail",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SRVCPARTSSTKAUDTRAIL"
+  },
+  "sap-s4-OP_BULKTRANSPORTVEHICLE_0001-v1": {
+    "title": "Bulk Transport Vehicle",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_OIL_BULKTRANSPORTVEHICLE"
+  },
+  "sap-s4-OP_APPLICATIONVARIANTCONFIRMATION-v1": {
+    "title": "Application Variant Confirmation (Inbound)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_EXTERNALTAXHEADER_0001-v1": {
+    "title": "Manage External Tax Items API",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_EXTERNAL_TAX"
+  },
+  "sap-s4-OP_QUANTITYCONVERSIONDEFAULTS_0001-v1": {
+    "title": "Quantity Conversion Defaults",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_OIL_DFLTINDEXGOODSMOVEMENT"
+  },
+  "sap-s4-OP_SALESCONTRACT_0001-v1": {
+    "title": "Sales Contract (A2X)",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SALESCONTRACT"
+  },
+  "sap-s4-OP_APPLICATIONVARIANTREQUEST_IN-v1": {
+    "title": "Application Variant Request (Inbound)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_SRVCDOCITEMREJECTIONREASON_0001-v1": {
+    "title": "Service Document Rejection Reason Assignment",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SRVCDOCITEMREJECTIONREASON"
+  },
+  "sap-s4-OP_TASKPLANNINGDESIGN_0001-v1": {
+    "title": "Task Planning Design",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_TASKPLANNINGDESIGN"
+  },
+  "sap-s4-OP_LOANSMANAGEMENTCONTRACT_0001-v1": {
+    "title": "Loans Management Contract",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_LOANSMANAGEMENTCONTRACT"
+  },
+  "sap-s4-OP_API_TREASURYTRADEREQUEST_0001-v1": {
+    "title": "Treasury Trade Request - Read, Create",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_TREASURYTRADEREQUEST"
+  },
+  "sap-s4-OP_CONSTRUCTIONMEASURE_0001-v1": {
+    "title": "Construction Measure",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CONSTRUCTIONMEASURE"
+  },
+  "sap-s4-OP_SRVCPARTSSTOAUDITTRAIL_0001-v1": {
+    "title": "Stock Transfer Order Audit Trail",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SRVCPARTSSTOAUDITTRAIL"
+  },
+  "sap-s4-OP_CO_RTCO_APPLICATION_VARIANT_RE-v1": {
+    "title": "Application Variant Request (Outbound)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_PARTNERROLE_0001-v1": {
+    "title": "Partner Role",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_OIL_PARTNERROLE"
+  },
+  "sap-s4-OP_OIL_TRANSPORTSYSTEM_0001-v1": {
+    "title": "Transport System",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_OIL_TRANSPORTSYSTEM"
+  },
+  "sap-s4-OP_API_PLANTSUBSTITUTIONCONTROL_0002-v2": {
+    "title": "Plant Substitution Control",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PLANTSUBSTNCTRL"
+  },
+  "sap-s4-OP_SRVCPARTSDEALERPRODUCT_0001-v1": {
+    "title": "Dealer Product",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SRVCPARTSDEALERPRODUCT"
+  },
+  "sap-s4-OP_BULKTRANSPORTUNIT_0001-v1": {
+    "title": "Bulk Transport Unit",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_OIL_BULKTRANSPORTUNIT"
+  },
+  "sap-s4-OP_CUSTOMERRETURN_0001-v1": {
+    "title": "Customer Return (A2X)",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CUSTOMERRETURN"
+  },
+  "sap-s4-OP_ECOLOGICALPROPERTY_0001-v1": {
+    "title": "Ecological Information",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_ECOLOGICALPROPERTY"
+  },
+  "OP_API_OUTBOUND_DELIVERY_SRV_0002": {
+    "title": "Outbound Delivery (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_COMPANYSUBSTANCE_0001": {
+    "title": "Company Substance",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_COMPANYSUBSTANCE"
+  },
+  "OP_WHSEPHYSICALINVENTORYDOC_0001": {
+    "title": "Warehouse Physical Inventory (A2X)",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_WHSE_PHYSINVTRYITEM_2"
+  },
+  "OP_API_PURESUBSTANCE_0001": {
+    "title": "Pure Substance - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_PPMDEVELOPMENTPROJECT_0001": {
+    "title": "Development Project – Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_DEVELOPMENTPROJECT"
+  },
+  "OP_API_MAINTENANCEORDER_0001": {
+    "title": "Maintenance Order",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_SRCGPROJMILESTONETYPE_0001": {
+    "title": "Sourcing Project Milestone Type – Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SRCGPROJMILESTONETYPE"
+  },
+  "OP_CO_MDG_BP_RPLCTRQ": {
+    "title": "Business Partner - Replicate from SAP S/4HANA to Client",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CONTRACTACCOUNT_0001": {
+    "title": "Contract Account",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CONTRACTACCOUNT"
+  },
+  "OP_PLANNEDORDER_0001": {
+    "title": "Planned Order",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PLANNEDORDER"
+  },
+  "OP_API_RECIPE_0001": {
+    "title": "Recipe Header, Formula, and Process",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_PROJECTNETWORK_0001": {
+    "title": "Project Network",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PROJECTNETWORK"
+  },
+  "OP_API_PRODUCTSUBSTITUTION_0001": {
+    "title": "Product Substitution",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRODUCTSUBSTITUTION"
+  },
+  "OP_FIXEDASSETCREATEMAIN_CONF_OUT": {
+    "title": "Fixed Asset - Create Main Asset (Asynchronous) Confirmation",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_BUS_SITN_MSTRDATA_SRV_0001": {
+    "title": "Business Situation Type - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CO_SDBIL_ESR_BD_PRCG_CONF_OUT": {
+    "title": "Billing Document - Send Confirmation of Simulated Pricing",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_BANK_0002": {
+    "title": "Bank",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_BANK"
+  },
+  "OP_API_PROFITCENTER_SRV_0001": {
+    "title": "Profit Center - Read (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_PRODUCTION_ORDER_2_SRV_0001": {
+    "title": "Production Order (Version 2)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_CNSLDTNDISTRCHANNELHIERARCHY_0001-v1": {
+    "title": "Consolidation Distribution Channel Hierarchy",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNDISTRCHNLHIER"
+  },
+  "sap-s4-OP_SERVICEENTRYSHEETCHANGEREQUEST-v1": {
+    "title": "Service Entry Sheet - Change (Lean Services)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_SERVICE_ORDER_TEMPLATE_SRV_0001": {
+    "title": "Service Order Template",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_QUERYBUSINESSUSERIN": {
+    "title": "Business User - Read",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_BANK_0003": {
+    "title": "Bank",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_BANK"
+  },
+  "OP_CENTRALREQUESTFORQUOTATION_0001": {
+    "title": "Central Request for Quotation",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNTRLREQFORQUOTATION"
+  },
+  "OP_PROMISETOPAYIDQR": {
+    "title": "Promise to Pay – Request Information",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_CHANGE_RECORD_0001": {
+    "title": "Change Record",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_LASTMILEVISITLIST_0001": {
+    "title": "Visit List",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_LASTMILEVISITLIST"
+  },
+  "OP_CO_MMIM_SOA_MATDOC_NOTIF": {
+    "title": "Material Document - Receive Notification",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_BANKDETAIL_SRV_0001": {
+    "title": "Bank - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_INBOUND_DELIVERY_SRV_0002": {
+    "title": "Inbound Delivery (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_STATISTICALKEYFIGURE_SRV_0001": {
+    "title": "Statistical Key Figure (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_SALESORGANIZATION_SRV_0001": {
+    "title": "Sales Organization - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_BUS_SOLUTION_QUOTATION_SRV_0001": {
+    "title": "Solution Quotation (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_COMMITMENTITEM_0001": {
+    "title": "Commitment Item",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_PLANTSUBSTITUTION_0002": {
+    "title": "Plant Substitution",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PLANTSUBSTN"
+  },
+  "OP_CUSTOMERRETURNBULKREQUEST_IN": {
+    "title": "Customer Return (A2A)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_BUFFER_PROFILE_SRV_0001": {
+    "title": "Buffer Profile - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_MERCHANDISECATEGORY_0002-v2": {
+    "title": "Merchandise Category (A2X)",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_MERCHANDISECATEGORY"
+  },
+  "sap-s4-OP_CO_LEIDW_SPLIT_OUTBOUND_DELIVE-v1": {
+    "title": "Split Outbound Delivery Confirmation – Send to Warehouse (B2B)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CONTRACTACCOUNTBULKREPLICATERE": {
+    "title": "Contract Account – Bulk Replicate from Client System",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CO_FINCS_RFD_BULK_OUT": {
+    "title": "Reported Financial Data for Group Reporting – Confirmation",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_LEGAL_CATEGORY_SRV_0001": {
+    "title": "Legal Categories - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_QUALITYINFORECORD_SRV_0001": {
+    "title": "Quality Info Record",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_PRACHECKINPUTCDEXEXEC_0001-v1": {
+    "title": "Production Revenue Accounting Check Input CDEX Execute",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRACHECKINPUTCDEXEXEC"
+  },
+  "OP_RESPACEGRPUSETYPE_0001": {
+    "title": "Real Estate Usage Enablement Group Type",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_RE_SPACEGRPUSETYPE"
+  },
+  "OP_API_COMMITMENTITEMHIER_0001": {
+    "title": "Commitment Item Hierarchy",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_PRAMAINTVENTURE_0001": {
+    "title": "PRA Maintain Venture",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRAMAINTVENTURE_O4"
+  },
+  "OP_REPETITIVEMFGCONFIRMATION_0001": {
+    "title": "Repetitive Manufacturing Confirmation",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_RPTVMFGCONFIRMATION"
+  },
+  "sap-s4-OP_FIXEDASSETREVALUATION_0001-v1": {
+    "title": "Fixed Asset - Post Asset Revaluation",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_FIXEDASSETREVALUATION"
+  },
+  "OP_API_FUND_0001": {
+    "title": "Fund",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CO_MDG_BP_RPLCTCO": {
+    "title": "Business Partner - Send Confirmation from SAP S/4HANA to Client",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_BILLING_DOCUMENT_SRV_0001": {
+    "title": "Billing Document - Read, Cancel, Get PDF, Complete Pro Forma Invoice",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_SALES_CONTRACT_SRV_0001": {
+    "title": "Sales Contract (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_CN_VAT_INVOICE_SRV": {
+    "title": "Incoming VAT Invoice",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_PRATHRTCLCALCMETH_0001-v1": {
+    "title": "Production Revenue Accounting Theoretical Calculation Method",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRATHRTCLCALCMETH"
+  },
+  "OP_MATERIALDOCUMENTCREATEREQUEST1": {
+    "title": "Material Document - Create",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CNSLDTNCUSTOMERGROUP_0001": {
+    "title": "Consolidation Customer Group",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNCUSTOMERGROUP"
+  },
+  "OP_API_KANBAN_CONTROL_CYCLE_SRV_0002": {
+    "title": "Kanban Control Cycle",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_SALES_QUOTATION_SRV_0001": {
+    "title": "Sales Quotation (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_PRAFUNDSTRANSFER_0001": {
+    "title": "PRA Funds Transfer",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRAFUNDSTRANSFER"
+  },
+  "OP_PRAMAINTUNITVNTRCTRL_0001": {
+    "title": "PRA Maintain Unit Tract Control",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRAMAINTUNITVNTCTRL_O4"
+  },
+  "OP_SRVCTRANSMASTERAGREEMENT_0001": {
+    "title": "Master Agreement",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SRVCTRANSMASTERAGRMT"
+  },
+  "OP_SOURCINGPROJECTNEGOTIATION_0001": {
+    "title": "Negotiation",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SRCGPROJECTNEGOTIATION"
+  },
+  "OP_SUPLRCOSTBRKDWNTMPL_0001": {
+    "title": "Cost Breakdown Template - Read Attachment Types",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SUPLRCBDTEMPLATE"
+  },
+  "OP_RFQCONFIRMATIONS4REQUEST_IN": {
+    "title": "Request for Quotation - Receive Confirmation (Inbound)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_UKM_CREDITCOMMITMENTNO": {
+    "title": "Credit Commitment Notification – Create, Update",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CO_LOG_MDR_PURCHASING_ORG": {
+    "title": "Purchasing Organizations – Replicate",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CO_FKK_COMMSNDOUTSTGCOLUPDRQ": {
+    "title": "Collection Agency – Submit Bulk Request",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_GRMASTERDATA_SRV_0001": {
+    "title": "Master Data for Group Reporting – Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_STORAGECLASSASSESSMENT_0001-v1": {
+    "title": "Storage Class Assessment",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_STORAGECLASS"
+  },
+  "OP_API_MAINTENANCE_BOM_0001": {
+    "title": "Maintenance Bill of Material",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_RESPACEGROUPTYPE_0001": {
+    "title": "Real Estate Usage Enablement and Occupancy Group Type",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_RE_SPACEGROUPTYPE"
+  },
+  "OP_CMMDTYHDGDDSGNTNCATEGORY_0001": {
+    "title": "Commodity Dedesignation Category - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CMHDGDDSGNTNCATEGORY"
+  },
+  "OP_API_CABUSPARTPAYMENT_0002": {
+    "title": "Contract Accounting Business Partner Payment",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CABUSPARTPAYMENT"
+  },
+  "OP_API_PRODUCTSUBSTITUTIONGROUP_0001": {
+    "title": "Product Substitution Group",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRODSUBSTNGRP"
+  },
+  "OP_JITCALLPROCESSACTION_IN": {
+    "title": "JIT Call Process Action",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_FUNDEDPROGRAMHIERARCHY_0001": {
+    "title": "Funded Program Hierarchy",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_CO_CINV_BILLABLE_ITEMS_CREATE-v1": {
+    "title": "Convergent Invoicing Billable Items - Create Response (Outbound)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_GRANT_0001": {
+    "title": "Grant",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CONTRACTACCOUNTBULKREPLICATECO": {
+    "title": "Contract Account – Bulk Confirmation from Client System",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_SCMTMS_CO_CPX_TORB_REQ-v1": {
+    "title": "Freight Booking ‒ Subcontract",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CO_SDCM_ESR_SALES_PRICING_COND": {
+    "title": "Condition Record for Pricing in Sales - Replicate",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_SERVICEENTRYSHEETS4APPROVALDEC": {
+    "title": "Service Entry Sheet – Approve, Reject (Lean Services)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_PRODUCTGROUP_SRV_0001": {
+    "title": "Product Group - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_WAREHOUSE_0001": {
+    "title": "Warehouse - Read (A2X)",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_WAREHOUSE_2"
+  },
+  "OP_CO_MMIM_SOA_MATDOC_CONF": {
+    "title": "Material Document - Receive Confirmation",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_PPS_PURCHASECONTRACT_0001-v1": {
+    "title": "Purchase Contract",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PPS_PURCHASECONTRACT"
+  },
+  "OP_APIAVAILTOPROMISECHECK_0001": {
+    "title": "Advanced ATP Check",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_AVAIL_TO_PROMISE_CHECK"
+  },
+  "OP_ODATA_MM_PUR_QTN_API_0001": {
+    "title": "Supplier Quotation - Create with Reference, Update, Delete",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_PROJECT_V3_0001": {
+    "title": "Project",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PROJECT_V3"
+  },
+  "OP_SERVICECONTRACTREQUEST_IN": {
+    "title": "Service Contract - Create, Change (Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_PRAWELLCOMPLETIONDOWNTIME_0001": {
+    "title": "PRA Well Completion Downtime",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRAWELLCOMPLETIONDOWNTIME"
+  },
+  "OP_API_DISTRIBUTIONCHANNEL_SRV_0001": {
+    "title": "Distribution Channel - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_SOURCINGPROJECTQUOTATION_0001": {
+    "title": "Supplier Quotation for Sourcing Project",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SRCGPROJQUOTATION"
+  },
+  "OP_SUPPLYASSGMTTRANSFER_0001": {
+    "title": "Supply Assignment Transfer",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SUPPLYASSGMT_TRANSFER"
+  },
+  "OP_CLASSBULKRPLCTREQ_IN": {
+    "title": "Class Data for Classification ‒ Replicate (Asynchronous, Inbound)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_PRODUCT_0001": {
+    "title": "Product",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRODUCT"
+  },
+  "OP_ECC_OUTBOUNDDELIVERYCNCRC": {
+    "title": "Outbound Delivery – Cancel (A2X)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_CLFN_PRODUCT_SRV": {
+    "title": "Product Master Data Including Classification – Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CO_EDI_ORDER_CONF_REQUEST": {
+    "title": "Sales Order/Customer Return - Confirm Processing (B2B)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CABILLINGDOCUMENT_0001": {
+    "title": "Convergent Invoicing Billing Document - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CABILLINGDOCUMENT"
+  },
+  "OP_CO_SDBIL_ESR_BDR_CONF_OUT": {
+    "title": "Billing Document Request - Send Creation Confirmation",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_CONDITION_CONTRACT_0001": {
+    "title": "Condition Contract",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CONDITION_CONTRACT"
+  },
+  "OP_SRCGPROJLFCYCSTS_0001": {
+    "title": "Sourcing Project Lifecycle Status – Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SRCGPROJLFCYCSTS"
+  },
+  "OP_API_CONTROLLINGDEBITCREDITCODE_0001": {
+    "title": "Debit/Credit Indicator - Read (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_INFORECORD_PROCESS_SRV_0001": {
+    "title": "Purchasing Info Record",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_CNSLDTNSEGMENTHIERARCHY_0001-v1": {
+    "title": "Consolidation Segment Hierarchy",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNSEGMENTHIER"
+  },
+  "OP_BD_UPDATE_SBI_REQUEST_IN": {
+    "title": "Billing Document - Update Fields for Self-Billing",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_MANUALENTRYSALESVOLUME_0001-v1": {
+    "title": "Production Revenue Accounting Manual Entry Sales Volume",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRAMANUALENTRYSALESVOLUME"
+  },
+  "OP_CMMDTYHDGHEDGINGAREA_0001": {
+    "title": "Commodity Hedging Area",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CMMDTYHDGHEDGINGAREA"
+  },
+  "OP_A_TRSYPOSTGJRNLENTRITM_CDS_0001": {
+    "title": "Line Item of Treasury Posting Journal Entry - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_JOURNALENTRYBULKCHANGEREQUEST_IN": {
+    "title": "Journal Entry - Change (Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CO_SDBIL_ESR_BD_REF_CONF_OUT": {
+    "title": "Billing Document - Send Confirmation of Creation with SD Document Reference",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_FIXEDASSETCHANGE_CONF_OUT": {
+    "title": "Fixed Asset - Change (Asynchronous) Confirmation",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CO_FNDEI_CURRENCY_RL": {
+    "title": "Currency - Replicate (A2X)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_SERVICE_ORDER_SRV_0001": {
+    "title": "Service Order (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_CUSTOMER_RETURN_SRV_0001": {
+    "title": "Customer Return (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_PROCUREMENTPROJECT_0001": {
+    "title": "Procurement Project",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PROCUREMENTPROJECT"
+  },
+  "OP_API_ALLERGEN_0001": {
+    "title": "Allergen - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_RESPYM_TEAM_CONFIG_SRV_0002": {
+    "title": "Responsibility Management Team Configurations - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_RESPYMGMT_CONFIG_SRV"
+  },
+  "OP_API_GLACCOUNTINCHARTOFACCOUNTS_SRV": {
+    "title": "G/L Account - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_COSTCENTERACTIVITYTYPE_SRV_0001": {
+    "title": "Activity Type - Read (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_VMSVEHICLESHARINGLEVEL_0001": {
+    "title": "Vehicle Management System Vehicle Sharing Level - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_VMSVEHICLESHARINGLEVEL"
+  },
+  "OP_WHSEFIXEDBINASSIGNMENT_0001": {
+    "title": "Warehouse Fixed Bin Assignment (A2X)",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_WHSE_FIXBIN_ASSGNMNT"
+  },
+  "OP_PRODUCTIONVERSION_0001": {
+    "title": "Production Version",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRODUCTION_VERSION"
+  },
+  "OP_API_PRODUCTEXCLUSION_0003": {
+    "title": "Product Substitution Exclusion",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRODSUBSTNEXCLSN"
+  },
+  "OP_SUPPLIERQUOTATIONS4REQUEST_IN": {
+    "title": "Supplier Quotation - Create",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CO_EDI_INVOICE_REQUEST_OUT": {
+    "title": "Customer Invoice - Send (B2B)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_SERVICEENTRYSHEETS4REVOKEREQUE": {
+    "title": "Service Entry Sheet ‒ Revoke (Lean Services)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_PRODSPECPRPTYCONFIGN_0001": {
+    "title": "Product Specification Property Configuration - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_VARCONFIGNTABLECONTENT_0001": {
+    "title": "Variant Table Content",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_VARCONFIGNTABLECONTENT"
+  },
+  "OP_API_CABUSPARTINVOICE_0002": {
+    "title": "Contract Accounting Business Partner Invoice - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CABUSPARTINVOICE"
+  },
+  "OP_CNSLDTNGROUPJOURNALENTRY_0001": {
+    "title": "Journal Entry for Group Reporting - Post",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNGRPJRNLENTR"
+  },
+  "OP_PRAMAINTDOI_0001": {
+    "title": "PRA Maintain Division of Interest",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRAMAINTDOI_O4"
+  },
+  "OP_API_SUPPLIERINVOICE_PROCESS_SRV": {
+    "title": "Supplier Invoice",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_PRODUCT_AVAILY_INFO_0001": {
+    "title": "Product Availability Info",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRODUCT_AVAILY_INFO"
+  },
+  "OP_API_CHARTOFACCOUNTS_SRV": {
+    "title": "Chart of Accounts - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_API_PLANTEXCLUSION_0003-v3": {
+    "title": "Plant Substitution Exclusion",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PLANTSUBSTNEXCLSN"
+  },
+  "OP_WORKCENTER_0001": {
+    "title": "Work Center",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_WORK_CENTER"
+  },
+  "OP_CO_SDSLS_ESR_CUST_RETURN_REPL": {
+    "title": "Customer Return - Replicate (A2A)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_PHYSICAL_INVENTORY_DOC_SRV": {
+    "title": "Physical Inventory Documents - Read, Create",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_WARRANTYCLAIM_0001": {
+    "title": "Warranty Claim",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_WARRANTYCLAIM"
+  },
+  "OP_CO_SDBIL_ESR_CDM_SBI_OUT": {
+    "title": "Credit/Debit Memo - Send Confirmation of Creation for Self-Billing",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_ORDERREQUEST_IN": {
+    "title": "Sales Order/Customer Return - Create, Update, Cancel (B2B)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_VMSVEHICLEUSAGESTATUS_0001": {
+    "title": "Vehicle Management System Vehicle Usage Status - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_VMSVEHICLEUSAGESTATUS"
+  },
+  "OP_CHGRECORDUSERSTATUS_0001": {
+    "title": "Change Record User Status",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CHGRECORDUSERSTATUS"
+  },
+  "OP_CMMDTYHDGCNTRDEALREQUEST_0001": {
+    "title": "Commodity Counterdeal Request",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CMMDTYHDGCNTRDEALREQ"
+  },
+  "OP_API_PRODUCTSPECIFICATION_0001": {
+    "title": "Product Specification",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_CV_ATTACHMENT_SRV_0001": {
+    "title": "Attachments",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_LEAD_BULK_CONFIRMATION_OUT": {
+    "title": "Lead (Bulk, Asynchronous) - Confirm Processing",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CREDITWORTHINESSQUERY_IN": {
+    "title": "Credit Worthiness Information – Read",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CHARCBULKRPLCTCONF_IN": {
+    "title": "Characteristic Data for Classification ‒ Confirmation (Asynchronous, Inbound)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_FCO_ICO_RESTRICTION_0001": {
+    "title": "Allowlist Intercompany Postings - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CO_FKK_MDG_CONTRACT_ACCOUNT_BU": {
+    "title": "Contract Account – Bulk Replicate from SAP S/4HANA to Client",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_SLSPRCGACCESSSEQUENCE_0001": {
+    "title": "Access Sequence for Pricing in Sales – Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SLSPRCGACCESSSEQUENCE"
+  },
+  "OP_API_CSTCTRACTIVITYTYPE_CRUD_SRV_0001": {
+    "title": "Activity Type (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_CNSLDTNBILLINGDOCTYPEHIERARCHY_0001-v1": {
+    "title": "Consolidation Billing Document Type Hierarchy",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNBLGDOCTYPEHIER"
+  },
+  "OP_API_MANAGE_EXCESS_REQS_SRV_0001": {
+    "title": "Manage Excess Requirements",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_WAREHOUSESTORAGEBIN_0001": {
+    "title": "Warehouse Storage Bin - Read (A2X)",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_WHSE_STORAGE_BIN_2"
+  },
+  "OP_P2PALLWDPRFLQR": {
+    "title": "Promise to Pay – Request Profiles",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_SUPPLIERLIST_0001": {
+    "title": "Preferred Supplier List",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SUPPLIERLIST"
+  },
+  "OP_CNSLDTNGLACCOUNT_0001": {
+    "title": "Consolidation G/L Account",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNGLACCOUNT"
+  },
+  "OP_CMMDTYHDGCNSTLTNTASKLIST_0001": {
+    "title": "Commodity Hedge Constellation Task List",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CMHDGCNSTLTNTASKLIST"
+  },
+  "OP_API_PROCESS_ORDER_2_SRV_0001": {
+    "title": "Process Order (Version 2)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_PROJECTCLAIM_0001": {
+    "title": "Project Claim",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PROJECTCLAIM"
+  },
+  "OP_BUSINESSPARTNERRELATIONSHIPSU1": {
+    "title": "Business Partner Relationship - Receive Confirmation from Client to SAP S/4HANA",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_TASK_BULK_REQUEST_IN": {
+    "title": "Task Activity (Bulk, Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_FKCBULKCREATEREQUESTCADOC_IN": {
+    "title": "Contract Account Document (Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_WELLCOMPLETION_0001-v1": {
+    "title": "Production Revenue Accounting Well Completion",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_WELLCOMPLETION"
+  },
+  "OP_API_FNDSMGMTFUNCTIONALAREA_0001": {
+    "title": "Funds Management Functional Area",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_PRAWELL_0001-v1": {
+    "title": "Production Revenue Accounting Well",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRAWELL"
+  },
+  "OP_RETURNSINSPECTION_0001": {
+    "title": "Returns Inspection (A2X)",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_RETURNSINSPECTION_2"
+  },
+  "OP_HANDLINGUNIT_0001": {
+    "title": "Handling Unit",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_HANDLINGUNIT"
+  },
+  "OP_CO_NGC_SOAP_CHARCBULKREPCONOUT": {
+    "title": "Characteristic Data for Classification ‒ Confirmation (Asynchronous, Outbound)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_BATCHBULKRPLCTNINFORMATION-v1": {
+    "title": "Batch – Inbound Integration",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_CNSLDTNPRODUCTGROUPHIERARCHY_0001-v1": {
+    "title": "Consolidation Product Group Hierarchy",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNPRODGROUPHIER"
+  },
+  "OP_API_COMPANYCODE_SRV": {
+    "title": "Company Code - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_SLSPRCGCONDITIONFIELD_0001": {
+    "title": "Field Catalog for Pricing in Sales – Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SLSPRCGCONDITIONFIELD"
+  },
+  "OP_DIRECTACTIVITYALLOCATION_0001": {
+    "title": "Accounting Activity Allocation – Read, Create",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_DRCTACTIVITYALLOCATION"
+  },
+  "OP_SOURCINGPROJECTTYPE_0001": {
+    "title": "Sourcing Project Type – Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SOURCINGPROJECTTYPE"
+  },
+  "OP_APPOINTMENT_ACTIVITY_BULK_REQUEST_IN": {
+    "title": "Appointment Activity (Bulk, Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_CONSOLIDATIONUNIT_0001": {
+    "title": "Consolidation Unit",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_SERVICECONTRACTNOTIFICATION_OUT": {
+    "title": "Service Contract - Notification Processing (Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_PURCHASECONTRACT_PROCESS_SRV": {
+    "title": "Purchase Contracts",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_SCMTMS_CO_CPX_TPNOR_CNC-v1": {
+    "title": "Freight Order ‒ Cancel",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_SUPPLY_ASSIGNMENT_PRIORITY_0001": {
+    "title": "Supply Assignment Priority",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_CNSLDTNFINANCIALSERVICESBRANCH_0001-v1": {
+    "title": "Consolidation Financial Services Branch",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNFINSRVCSBRANCH"
+  },
+  "OP_CMHDGHDGGARDDSGNTNMETHOD_0001": {
+    "title": "Commodity Hedging Area Dedesignation Method - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CMHDGHDGGARDDSGNTNMETH"
+  },
+  "OP_API_PRODSPECTYPE_0001": {
+    "title": "Product Specification Type - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_LEAD_SRV_0001": {
+    "title": "Lead (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_PRODUCT_ALLOC_SEQUENCE_SRV_0001": {
+    "title": "Product Allocation Sequence",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_ECC_OUTBOUNDDELIVERYCWRRC": {
+    "title": "Outbound Delivery with Reference to a Sales Order – Create (A2X)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_VMSVEHICLECAMPAIGN_0001": {
+    "title": "Vehicle Management System Vehicle Campaign - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_VMSVEHICLECAMPAIGN"
+  },
+  "sap-s4-OP_WAREHOUSESTOCKTRANSFERRECEIPT1-v1": {
+    "title": "Warehouse Stock Transfer Receipt Advice Cancel Request – From Warehouse (B2B)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_BUDGETPERIODHIERARCHY_0001": {
+    "title": "Budget Period Hierarchy",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_PURCHASEORDER_PROCESS_SRV_0001": {
+    "title": "Purchase Order",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CABILLINGPLAN_0001": {
+    "title": "Convergent Invoicing Billing Plan",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CABILLINGPLAN"
+  },
+  "sap-s4-OP_JNTINTRSTBILLINGCLASSMAPPING_0001-v1": {
+    "title": "Joint Interest Billing Class Mapping",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_JNTINTRSTBILLINGCLASSMAP"
+  },
+  "sap-s4-OP_CO_LEIDW_WHSE_INTERM_UPD_CONF-v1": {
+    "title": "Warehouse Intermediate Update Confirmation – Send to Warehouse (B2B)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_APPOINTMENT_ACTIVTY_BULK_CONF_OUT": {
+    "title": "Appointment Activity (Bulk, Asynchronous) - Confirm Processing",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CMMDTYHDGRCLASSFCTNREQCAT_0001": {
+    "title": "Commodity Reclassification Category - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CMMDTYHDGRCLASSFCTNREQCAT"
+  },
+  "OP_CNSLDTNPRODUCTGROUP_0001": {
+    "title": "Consolidation Product Group",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNPRODUCTGROUP"
+  },
+  "OP_CMMDTYHDGPLANNINGDATA_0001": {
+    "title": "Commodity Planning Data",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CMMDTYHDGPLANNINGDATA"
+  },
+  "OP_CO_SDMD_ESR_SALES_OFFICE": {
+    "title": "Sales Office - Replicate",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_CNSLDTNFUNCNLAREAHIERARCHY_0001-v1": {
+    "title": "Consolidation Functional Area Hierarchy",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNFUNCNLAREAHIER"
+  },
+  "OP_BUSINESSPARTNERSUITEBULKREPLIC": {
+    "title": "Business Partner - Replicate from Client to SAP S/4HANA",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_SERVICE_REQUEST_SRV_0001": {
+    "title": "Service Request (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_OPLACCTGDOCITEMCUBE_SRV_0001": {
+    "title": "Accounting Document - Read (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_SCMTMS_CO_CPX_FORWARDING_AGR1-v1": {
+    "title": "Forwarding Agreement ‒ Send",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_SALESDISTRICT_SRV_0001": {
+    "title": "Sales District - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_PRODUCT_AVAILY_INFO_BASIC_0001": {
+    "title": "Basic Product Availability Info",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_PARTNERCOMPANY_SRV": {
+    "title": "Trading Partner - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CABILLABLEITEM_0001": {
+    "title": "Convergent Invoicing Billable Item",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CABILLABLEITEM"
+  },
+  "sap-s4-OP_TOXICOLOGICALPROPERTY_0001-v1": {
+    "title": "Toxicological Information",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_TOXICOLOGICALPROPERTY"
+  },
+  "OP_CONTRACTACCOUNTINGFACTORINGANS": {
+    "title": "Factoring – Answer Data",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_WHSEPHYSICALSTOCKPRODUCTS_0001": {
+    "title": "Warehouse Physical Stock by Product ‒ Read, Update (A2X)",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_WHSE_PHYSSTOCKPROD"
+  },
+  "OP_API_PLANTSUBSTITUTIONGROUP_0001": {
+    "title": "Plant Substitution Group",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PLANTSUBSTNGRP"
+  },
+  "OP_CNSLDTNGLCHARTOFACCOUNTS_0001": {
+    "title": "Consolidation G/L Chart of Accounts",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNGLCHARTOFACCTS"
+  },
+  "OP_API_BUSINESS_SITUATION_SRV_0001": {
+    "title": "Business Situation - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CO_PPINT_MFG_MASTER_RECIPE": {
+    "title": "Master Recipe - Replicate",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CO_PPINT_MRPCHANGE_REQUEST_CON": {
+    "title": "MRP Change Request Confirmation - Send",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_C_BEHQUEUEDATA_CDS_0001": {
+    "title": "Business Events Queue - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_POISONCENTERNOTIFICATION_0001": {
+    "title": "Poison Center Notification",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_POISONCENTERNOTIFICATION"
+  },
+  "OP_API_LOGBR_NOTAFISCAL_SRV_0001": {
+    "title": "Nota Fiscal – Create, Update",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_VMSVEHICLELOCATION_0001": {
+    "title": "Vehicle Management System for Vehicle Location - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_JOURNALENTRYITEMBASIC_SRV_0001": {
+    "title": "Journal Entry Item - Read (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_CNSLDTNFINSRVCSPRODGROUPHIER_0001-v1": {
+    "title": "Consolidation Financial Services Product Group Hierarchy",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNFINSPRODGRPHIER"
+  },
+  "OP_API_LOCKBOXPOST_IN_0001": {
+    "title": "Post Lockbox",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CO_MMPUR_SES_STATUS_NOTIF_OUT": {
+    "title": "Service Entry Sheet ‒ Send Status Update Notification (Lean Services)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_PAYMENTADVICENOTIFICATION_IN": {
+    "title": "Payment Advice - Create",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_BDCREATESELFBILLINGREQUEST_IN": {
+    "title": "Self-Billing Invoice - Create",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_JITCOLLECTIVEDELIVERYCONFIRMAT": {
+    "title": "JIT Delivery Confirmation",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_PURGPRICINGCONDITIONTYPE_SRV_0001": {
+    "title": "Condition Type for Pricing in Purchasing – Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_SOURCINGSUPPLIERLIST_0001": {
+    "title": "Supplier List for Sourcing - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SOURCINGSUPPLIERLIST"
+  },
+  "OP_CO_FKK_CAFULLPAYMENT_REQ_OUT": {
+    "title": "Full Payment - Bulk Send",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_PRODUCTIONSUPPLYAREA_SRV_0001": {
+    "title": "Production Supply Area",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CO_MMPUR_RFQ_S4_REQUEST_OUT": {
+    "title": "Request for Quotation - Send (Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_GRTRANSACTIONDATA_SRV": {
+    "title": "Transaction Data for Group Reporting - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_RECONTRACT_0001": {
+    "title": "Real Estate Contract (Synchronous A2X)",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_REAL_ESTATE_CONTRACT"
+  },
+  "sap-s4-OP_PRACHECKINPUTCDEX_0001-v1": {
+    "title": "Production Revenue Accounting Check Input CDEX",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRACHECKINPUTCDEX"
+  },
+  "OP_API_PRODUCT_ALLOCATION_OBJECT_SRV0001": {
+    "title": "Product Allocation Object",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CO_FKK_CA_FACTORINGBUYBACK_REQ": {
+    "title": "Factoring - Buyback Data",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_FINANCIALTRANSACTIONNPV_0001": {
+    "title": "Financial Transaction Net Present Value",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_FINTRANSACTIONNPV"
+  },
+  "OP_API_ALLERGENSTATEMENT_0001": {
+    "title": "Allergen Statement - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_PPDSPRODTDSTLV_0001-v1": {
+    "title": "PPDS Product Time Dependent Stock Level",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PPDSPRODTDSTLV"
+  },
+  "OP_API_PRODSPECAUTHZNGROUP_0001": {
+    "title": "Product Specification Authorization Group - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_COSTCENTREGROUPHIERARCHYREPLRQ_IN": {
+    "title": "Cost Center Group Hierarchy - Send",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_DEBIT_MEMO_REQ_SIMLN_SRV_0001": {
+    "title": "Debit Memo Request - Simulate (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_SUPAVAILPROTPLN_1": {
+    "title": "Supply Availability Protection Plan",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SUPAVAILYPROTPLAN"
+  },
+  "OP_CMMDTYHEDGEPLNEXPOSURE_0001": {
+    "title": "Commodity Plan Exposure",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CMMDTYHDGPLNEXPOSURE"
+  },
+  "OP_ECC_CASHPOINTCLOSINGDOCCNCNO": {
+    "title": "External Cash Point – Inbound Closing Reversal Notification",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_SUPPLIERLIST_0002": {
+    "title": "Preferred Supplier List",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SUPPLIERLIST"
+  },
+  "OP_CO_PPINT_MRPCHANGE_REQUEST_OUT": {
+    "title": "MRP Change Request - Send",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_BUSINESSPARTNERRELATIONSHIPSUI": {
+    "title": "Business Partner Relationship - Replicate from Client to SAP S/4HANA",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CNSLDTNCUSTOMER_0001": {
+    "title": "Consolidation Customer",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNCUSTOMER"
+  },
+  "OP_SUBSCRIPTIONCONTCHANGEPROCIN": {
+    "title": "Subscription Contract Change Process (Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CNSLDTNSALESDISTRICT_0001": {
+    "title": "Consolidation Sales District",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNSALESDISTRICT"
+  },
+  "OP_API_PACKINGINSTRUCTION_0001": {
+    "title": "Packing Instruction – Read, Create (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_PAYMENTADVICECANCELLATIONNOTIF": {
+    "title": "Payment Advice - Create Cancellation",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_PURCHASING_SOURCE_SRV_0001": {
+    "title": "Purchasing Source List",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_SUPPLIERITEM_0001": {
+    "title": "Supplier Item - Create, Read, Update",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SUPPLIERITEM"
+  },
+  "OP_ECC_SUPLRINVCERPCRTRC": {
+    "title": "Supplier Invoice - Create (A2X, Inbound, Synchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_FUNDSCENTERHIERARCHY_0001": {
+    "title": "Funds Center Hierarchy",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_VMSVEHICLEACTION_0001": {
+    "title": "Vehicle Management System Vehicle Action - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_VMSVEHICLEACTION"
+  },
+  "OP_CHEMICALCOMPLIANCEINFO_0001": {
+    "title": "Chemical Compliance Info",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CHEMICALCOMPLIANCEINFO"
+  },
+  "sap-s4-OP_SPLITOUTBOUNDDELIVERY_IN-v1": {
+    "title": "Split Outbound Delivery – Receive from Warehouse (B2B)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_SALES_SCHEDULING_AGREEMENT_0001": {
+    "title": "Sales Scheduling Agreement (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_REOCCUPANCY_0001": {
+    "title": "Real Estate Occupancy",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_RE_OCCUPANCY"
+  },
+  "OP_REVENUEACCOUNTINGCONTRACTBYCOS": {
+    "title": "Revenue Accounting Contract - Process Cost Items",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CNSLDTNFSITEM_0001": {
+    "title": "Consolidation Financial Statement Item",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNFSITEM"
+  },
+  "OP_API_SERVICE_ENTRY_SHEET_SRV_0001": {
+    "title": "Service Entry Sheet",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CNSLDTNSALESORGANIZATION_0001": {
+    "title": "Consolidation Sales Organization",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNSALESORG"
+  },
+  "OP_QUALITYCERTIFICATEINFO_IN": {
+    "title": "Quality Certificate Receipt – Create, Update (A2X)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CNSLDTNPLANT_0001": {
+    "title": "Consolidation Plant",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNPLANT"
+  },
+  "OP_API_PURCHASEREQ_PROCESS_SRV_0001": {
+    "title": "Purchase Requisition",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_SERVICEENTRYSHEETREQUEST_IN": {
+    "title": "Service Entry Sheet ‒ Create, Delete (Lean Services)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_WASTETRANSPDOCS_0001": {
+    "title": "Waste Transportation Documents",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_TRANSPDOC"
+  },
+  "OP_API_INSPECTIONMETHOD_SRV_0001": {
+    "title": "Inspection Method - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_API_PRODUCTEXCLUSION_0004-v4": {
+    "title": "Product Substitution Exclusion",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRODSUBSTNEXCLSN"
+  },
+  "OP_PRACONTRACTMARKETING_0001": {
+    "title": "PRA Contract Marketing Cost",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRACONTRACTMARKETING"
+  },
+  "OP_API_INSPECTIONLOT_SRV_0001": {
+    "title": "Inspection Lot",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_PURGPRCGCONDITIONRECORD_SRV_0001": {
+    "title": "Condition Record for Pricing in Purchasing",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_DEFECTCLASS_SRV_0001": {
+    "title": "Defect Class - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_CADISPUTECASE_0002-v2": {
+    "title": "Contract Accounting Dispute Case",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CADISPUTECASE"
+  },
+  "OP_API_CLFN_CHARACTERISTIC_SRV": {
+    "title": "Characteristic Data for Classification",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_PURCHASECONTRACT_PROCESS_SRV_0002": {
+    "title": "Purchase Contracts (Version 2)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_INSPECTIONPLAN_SRV_0001": {
+    "title": "Inspection Plan",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_RESPYM_TEAM_SRV_0001": {
+    "title": "Responsibility Management Teams - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_RESPYMGMT_TEAM_SRV"
+  },
+  "OP_CAINVOICINGDOCUMENT_0001": {
+    "title": "Convergent Invoicing Invoicing Document - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CAINVOICINGDOCUMENT"
+  },
+  "OP_API_SUBSQNT_BILLG_DOC_SBI_SRV_0001": {
+    "title": "Billing Document - Read Subsequent Billing Documents",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_SALES_INQUIRY_SRV_0001": {
+    "title": "Sales Inquiry - Read (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_BILLOFMATERIAL_COMPARISON_SRV": {
+    "title": "Bills of Material Comparison",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_HANDLINGANDSTORAGEASSESSMENT_0001-v1": {
+    "title": "Handling And Storage Assessment",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_HANDLINGANDSTORAGE"
+  },
+  "OP_STATRYRPTRPTDEFINITION_0001": {
+    "title": "Statutory Reporting Report Definition ‒ Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_STATRYRPTRPTDEFINITION"
+  },
+  "OP_CHANGERECORDHISTORY_IWSV_0001": {
+    "title": "Change Record History",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CHANGERECORDHISTORY"
+  },
+  "OP_API_PROC_ORDER_CONFIRMATIO_2_SRV_0001": {
+    "title": "Process Order Confirmation",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_CNSLDTNMATERIALGROUP_0001-v1": {
+    "title": "Consolidation Material Group",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNMATERIALGROUP"
+  },
+  "OP_API_DEFECT_SRV_0001": {
+    "title": "Defect",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_DEFECT_0001": {
+    "title": "Defect - Read, Create, Update",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_DEFECT"
+  },
+  "sap-s4-OP_CNSLDTNPROFITCENTERHIERARCHY_0001-v1": {
+    "title": "Consolidation Profit Center Hierarchy",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNPRFTCTRHIER"
+  },
+  "OP_API_COUNTRY_SRV": {
+    "title": "Country/Region - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_SCHEDULINGAGREEMENTCONSIGNMENT": {
+    "title": "Consignment Issue for Sales Scheduling Agreement - Create (B2B)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CA_BEH_SUBSCRIPTION_SRV": {
+    "title": "Business Events Subscription",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_BUDGETPERIOD_0001": {
+    "title": "Budget Period",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CO_NGC_SOAP_CHARCBULKREPREQOUT": {
+    "title": "Characteristic Data for Classification ‒ Replicate (Asynchronous, Outbound)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_CNSLDTNFUND_0001-v1": {
+    "title": "Consolidation Fund",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNFUND"
+  },
+  "OP_API_FINPLANNINGDATA_SRV_0001": {
+    "title": "Financial Planning Data - Write",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_FLDLOGSSHIPMENTVOYAGE_0001": {
+    "title": "Field Logistics - Shipment Voyage",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_FLDLOGSSHIPMENTVOYAGE"
+  },
+  "OP_KEYMAPPINGBULKREPLICATEREQUEST": {
+    "title": "Key Mapping - Replicate from Client to SAP S/4HANA",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CATAXDETERMINATIONCODE_0001": {
+    "title": "Contract Accounting Tax Determination Code - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CATAXDETERMINATIONCODE"
+  },
+  "sap-s4-OP_CHANGERECORDITEMRELEVANCE_0002-v2": {
+    "title": "Change Record Possible Item Relevance",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CHANGERECORDITEMRELEVANCE"
+  },
+  "OP_API_LEGAL_DOCUMENT_SRV_0001": {
+    "title": "Legal Documents - Create, Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_SETTLMT_DOC_TYPE_0001": {
+    "title": "Settlement Document Type - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SETTLMT_DOC_TYPE"
+  },
+  "sap-s4-OP_CO_LEIDW_WAREHOUSE_SHIPPING_AD-v1": {
+    "title": "Warehouse Shipping Advice Cancel Confirm – Send to Warehouse (B2B)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CO_FNDEI_EXCHANGERATE_RL": {
+    "title": "Exchange Rates - Replicate (A2X)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_PRODSPECCMPSTNCONFIGN_0001": {
+    "title": "Product Specification Composition Configuration - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CO_MMIM_SOA_MATDOC_CONF_V2": {
+    "title": "Material Document - Receive Confirmation",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_MAINTENANCETASKLIST_0001": {
+    "title": "Maintenance Task List",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_MAINTENANCETASKLIST"
+  },
+  "OP_QUALITYNOTIFICATION_0001": {
+    "title": "Quality Notification - Read, Create",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_QUALITYNOTIFICATION"
+  },
+  "OP_API_EQUIPMENTSTRUCLIST": {
+    "title": "Equipment Hierarchy – Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_EQUIPMENT_STRUCLIST"
+  },
+  "OP_PRAWELLCOMPLETIONVOLUME_0001": {
+    "title": "PRA WellCompletion Volumes",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRAWELLCOMPLETIONVOL"
+  },
+  "OP_PRAMEASUREMENTPOINTVOL_0001": {
+    "title": "PRA Measurement Point Volume",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRAMEASUREMENTPOINTVOL"
+  },
+  "OP_API_CNSLDTNGRPJRNLITEM_0001": {
+    "title": "Transaction Data for Group Reporting - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CMMDTYHDGHDGGINSTR_0001": {
+    "title": "Commodity Hedging Area Hedging Instrument - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CMMDTYHDGHDGGINSTR"
+  },
+  "OP_CHANGERECORDITEMRELEVANCE_0001": {
+    "title": "Change Record Possible Item Relevance",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CHANGERECORDITEMRELEVANCE"
+  },
+  "OP_CMMDTYHDGDELIVERYCATEGORY_0001": {
+    "title": "Commodity Hedge Delivery Category - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CMHDGDELIVERYCATEGORY"
+  },
+  "OP_API_PRODSUBSTNEXCLSN_0002": {
+    "title": "Product Substitution Exclusion",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRODSUBSTNEXCLSN"
+  },
+  "OP_API_STORAGELOCATIONEXCLUSION_0001": {
+    "title": "Storage Location Substitution Exclusion",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_STORLOCSUBSTNEXCLSN"
+  },
+  "OP_APIRESERVATIONDOCUMENT_0001": {
+    "title": "Reservation Document (A2X)",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_RESERVATION_DOCUMENT"
+  },
+  "OP_ECC_CASHPOINTPAYMENTCRTNO": {
+    "title": "External Cash Point – Inbound Payment Notification",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CO_SDBIL_ESR_SBSCR_BDR_OUT": {
+    "title": "Subscription Billing Document Request - Send Creation Confirmation",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_CONTRVOLBYSLSPOINT_0001-v1": {
+    "title": "Production Revenue Accounting Contract Volume by Sales Point",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRACONTRVOLBYSLSPOINT"
+  },
+  "OP_CO_PPINT_MFGORD_EXE_REQ_OUT_V2": {
+    "title": "Manufacturing Order - Send, Version 2",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_PRARESERVOIR_0001-v1": {
+    "title": "Production Revenue Accounting Reservoir",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRARESERVOIR"
+  },
+  "OP_API_BUSINESSAREA_SRV": {
+    "title": "Business Area - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_OPPORTUNITY_BULK_CONFIRMATION_OUT": {
+    "title": "Opportunity (Bulk, Asynchronous) - Confirm Processing",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_SALES_ORDER_WTHOUT_CHRG_SRV_0001": {
+    "title": "Sales Order Without Charge (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_FINPLANNINGENTRYITEM_SRV_0001": {
+    "title": "Financial Planning Entry Item - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_SUPPLIERCONFIRMATION_0001": {
+    "title": "Supplier Confirmation",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SUPPLIERCONFIRMATION"
+  },
+  "OP_API_CREDIT_MEMO_REQ_SIMLN_SRV_0001": {
+    "title": "Credit Memo Request - Simulate (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_BILLABLEITEMSCREATEREQUEST_IN": {
+    "title": "Convergent Invoicing Billable Items - Create Request (Inbound)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_BUS_SITN_MSTRDATA_SRV_0002": {
+    "title": "Business Situation Type - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_QUALITYTASK_0001": {
+    "title": "Quality Task",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_QUALITYTASK"
+  },
+  "OP_BILLINGDOCUMENTREQUEST_IN": {
+    "title": "Billing Document - Create",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_LASTMILERELOADREQUEST_0001": {
+    "title": "Reload Request",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_LASTMILERELOADREQUEST"
+  },
+  "OP_WORKCENTERPOOLEDCAPACITY_0001": {
+    "title": "Work Center Pooled Capacity",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_WRKCTRPOOLEDCAPACITY"
+  },
+  "OP_COSTCENTREGROUPHIERREPLREUESTOUT": {
+    "title": "Cost Center Group Hierarchy - Send",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_CMTMTCARRYFWDDOCUMENT_0001": {
+    "title": "Commitment Carry Forward Document (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_DIVISION_SRV_0001": {
+    "title": "Division - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_SEASON_PROCESS_SRV_0001": {
+    "title": "Season Process Maintenance",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_COSTCENTER_SRV_0001": {
+    "title": "Cost Center - Read (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_A_SUPPLIEROPLSCORESAV_CDS_0001": {
+    "title": "Supplier Evaluation Operational Score - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_LEGALCONTEXT_0001": {
+    "title": "Legal Context - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_LEGALCONTEXT"
+  },
+  "OP_API_MAINTORDERCONFIRMATION_0001": {
+    "title": "Maintenance Order Operation Confirmation",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CREDITDEBITMEMOREQUEST_IN": {
+    "title": "Credit/Debit Memo - Create for Self-Billing",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CO_PPINT_MFG_PRODN_VERS_V2": {
+    "title": "Production Version - Replicate",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_API_EARMARKEDFUNDS_SRV_0001-v1": {
+    "title": "Earmarked Funds",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_EARMARKEDFUNDSDOCUMENT"
+  },
+  "sap-s4-OP_CNSLDTNCOSTCENTERHIERARCHY_0001-v1": {
+    "title": "Consolidation Cost Center Hierarchy",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNCOSTCENTERHIER"
+  },
+  "OP_FIXEDASSETCREATEMAIN_IN": {
+    "title": "Fixed Asset - Create Main Asset (Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_COMMISSIONEDOUTSTANDINGCOLLECT": {
+    "title": "Collection Agency – Confirmation",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_SOURCINGPROJECTREASON_0001": {
+    "title": "Reason Codes for Product Sourcing - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SOURCINGPROJECTREASON"
+  },
+  "OP_API_GRANTHIERARCHY_0001": {
+    "title": "Grant Hierarchy",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_PREDICTIVEJOURNALENTRYMANAGERE": {
+    "title": "Predictive Journal Entry – Manage (Synchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CAINVCGCLRFCTNCASE_0001": {
+    "title": "Convergent Invoicing Clarification Case",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CAINVCGCLRFCTNCASE"
+  },
+  "OP_SLSPRCGCNDNEXCLUSION_0001": {
+    "title": "Condition Exclusion for Pricing in Sales – Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SLSPRCGCNDNEXCLUSION"
+  },
+  "OP_PRAREVENUEACCTDOCUMENT_0001": {
+    "title": "PRA Revenue Accounting Document - Post/Simulate/Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRAREVENUEACCTDOCUMENT"
+  },
+  "OP_API_MATERIALSERIALNUMBER_0001": {
+    "title": "Material Serial Number",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_MATERIALSERIALNUMBER"
+  },
+  "OP_API_ALIGN_PURREQN_SRV_0001": {
+    "title": "Alignment - Purchase Requisition to Purchase Order",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_FUNCNLLOCSTRUCLIST": {
+    "title": "Functional Location Hierarchy – Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_FUNCNLLOC_STRUCLIST"
+  },
+  "OP_CENTRALSUPPLIERQUOTATION_0001": {
+    "title": "Central Supplier Quotation",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNTRLSUPPLIERQUOTATION"
+  },
+  "OP_REVENUEACCOUNTINGCONTRACTBYORD": {
+    "title": "Revenue Accounting Contract - Process Order Items",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_ACTIVITY_APPOINTMENT_SRV_0001": {
+    "title": "Appointment Activity (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CNSLDTNORDER_0001": {
+    "title": "Consolidation Order",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNORDER"
+  },
+  "OP_REQUESTFORQUOTATION_0001": {
+    "title": "Request for Quotation",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_REQUESTFORQUOTATION_2"
+  },
+  "sap-s4-OP_JOINTVENTUREPARTNER_0001-v1": {
+    "title": "Joint Venture Business Partner",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_JOINTVENTUREPARTNER"
+  },
+  "OP_API_CLFN_CLASS_SRV": {
+    "title": "Class Data for Classification",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_STATISTICALKEYFIGPOSTINGREQUEST_IN": {
+    "title": "Statistical Key Figure - Post",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CADOCUMENTMANAGE_0001": {
+    "title": "Contract Accounting Document",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CADOCUMENTMANAGE"
+  },
+  "OP_CO_FKC_CA_RECON_PRPSL_BULK_OUT": {
+    "title": "Reconnection Requests – Bulk Send",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_OPPORTUNITY_SRV_0001": {
+    "title": "Opportunity (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_PERS_SETTLMT_DOC_0001": {
+    "title": "Personnel Settlement Document - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CONSOLIDATIONUNITTASKRUN_0002": {
+    "title": "Consolidation Unit Task Run",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CONSOLIDATIONUNITTASKRUN"
+  },
+  "OP_APPOINTMENT_ACTIVTY_REQUEST_IN": {
+    "title": "Appointment Activity (Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_SALESORDERBULKREQUEST_IN": {
+    "title": "Sales Order (A2A)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_PRAPRICEQUOTATION_0001-v1": {
+    "title": "Production Revenue Accounting Pricing Quotation",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRAPRICEQUOTATION"
+  },
+  "OP_API_PAYMENT_ADVICE_SRV_0001": {
+    "title": "Payment Advice (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CO_MMIM_MATSTOCK_REPLICATION": {
+    "title": "Material Stock - Replicate",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_INHOUSEREPAIR_0001": {
+    "title": "In-House Service",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_INHOUSEREPAIR"
+  },
+  "OP_CONTRACTACCOUNTINGFACTORINGBUY": {
+    "title": "Factoring - Buyback Answer Data",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_MATERIAL_VALUATION_SRV_0001": {
+    "title": "Material Price - Update",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_BDR_REQUEST_IN": {
+    "title": "Billing Document Request - Create",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_WAREHOUSERESOURCE_0001": {
+    "title": "Warehouse Resource (A2X)",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_WAREHOUSE_RESOURCE_2"
+  },
+  "OP_FKCMANAGEINSTALLMENTPLAN": {
+    "title": "Contract Accounting Installment Plan",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_CATALOGPROFILE": {
+    "title": "Catalog Profile - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CATALOGPROFILE"
+  },
+  "sap-s4-OP_WAREHOUSESHIPPINGADVICECANCELR-v1": {
+    "title": "Warehouse Shipping Advice Cancel Request ‒ Receive from Warehouse (B2B)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_CO_LEIDW_WAREHOUSE_STOCK_TRANS-v1": {
+    "title": "Warehouse Stock Transfer Shipment Advice – Send to Warehouse (B2B)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CO_EDI_DELIVERY_REQUEST_OUT": {
+    "title": "Outbound Delivery - Notify (B2B)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_WAREHOUSESHIPPINGADVICE_IN-v1": {
+    "title": "Warehouse Shipping Advice – Receive from Warehouse (B2B)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_CRDTMBUSINESSPARTNER_0001": {
+    "title": "Credit Management Master Data Integration",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_PURESUBSTCOMPONENTTYPE_0001": {
+    "title": "Pure Substance Component Type - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CHANGERECDLIFECYCLESTATUS_0001": {
+    "title": "Change Record Lifecycle Status",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CHANGERECDLIFECYCLESTATUS"
+  },
+  "OP_API_MANUALACCRUALS_0001": {
+    "title": "Manual Accruals",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_DNGRSGDSBSCCLASSIFICATION_0001": {
+    "title": "Dangerous Goods Basic Classification",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_DNGRSGDSBASICCLASSFCTN"
+  },
+  "OP_API_OVWDAMAGE": {
+    "title": "Catalog Type Overview of Damage - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_OVWDAMAGE"
+  },
+  "OP_API_CHANGEMASTER_0002": {
+    "title": "Change Master",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_OPPORTUNITY_CONFIRMATION_OUT": {
+    "title": "Opportunity (Asynchronous) - Confirm Processing",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CO_SDMD_ESR_DISTRIBUTION_CHAIN": {
+    "title": "Distribution Chain - Replicate",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_TASK_REQUEST_IN": {
+    "title": "Task Activity (Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_SLSPRCGCONDITIONRECORD_SRV_0001": {
+    "title": "Condition Record for Pricing in Sales",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CO_FKK_MDG_CONTRACT_ACCOUNT_B1": {
+    "title": "Contract Account – Return Status of Bulk Replication to Client System",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_PRODUCTTYPE_0001": {
+    "title": "Product Type - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRODUCTTYPE"
+  },
+  "OP_API_COSTREVNREASSIGNMENT_0001": {
+    "title": "Journal Entry (Cost Controlling) – Read, Create",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CO_WPOS_POS_SALES_TRANS_OUT": {
+    "title": "POS Sales Transaction - Receive Confirmation",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_VMSVEHICLE_0001": {
+    "title": "Vehicle Management System for Vehicle - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CASECURITYDEPOSIT_0002": {
+    "title": "Cash Security Deposit",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CASECURITYDEPOSIT"
+  },
+  "OP_BUSINESSPARTNERSUITEBULKREPLI1": {
+    "title": "Business Partner - Receive Confirmation from Client to SAP S/4HANA",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CHARCBULKRPLCTREQ_IN": {
+    "title": "Characteristic Data for Classification ‒ Replicate (Asynchronous, Inbound)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CMMDTYHEDGEDELIVERYPERIOD_0001": {
+    "title": "Commodity Hedge Delivery Period - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CMMDTYHEDGEDELIVERYPERIOD"
+  },
+  "OP_CO_SDSLS_ESR_SO_BULK_CONF_O_V2": {
+    "title": "Sales Order - Confirm Processing (A2A)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_QUERYBUSINESSUSERMETADATAIN": {
+    "title": "Business User - Read Metadata",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_ACTIVITY_PHONECALL_SRV_0001": {
+    "title": "Phone Call Activity (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_GLACCOUNTLINEITEM": {
+    "title": "G/L Account Line Item - Read (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_STORAGELOCATIONSUBSTNGROUP_0001": {
+    "title": "Storage Location Substitution Group",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_STORLOCSUBSTNGRP"
+  },
+  "sap-s4-OP_SERVICEDOCUMENTITEMGTSSTATUS_0001-v1": {
+    "title": "Service Transaction Item GTS Status - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SRVCTRANSACITEMGTSSTATUS"
+  },
+  "OP_CO_FKK_CAFACTOFFREVBLKINFO_OUT": {
+    "title": "Factoring - Offer Reversal Data",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_DEBIT_MEMO_REQUEST_SRV_0001": {
+    "title": "Debit Memo Request (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_TASKCODE_0001": {
+    "title": "Task Code - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_TASKCODE"
+  },
+  "OP_CACREDITWORTHINESS_0001": {
+    "title": "Contract Accounting Creditworthiness – Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CACREDITWORTHINESS"
+  },
+  "OP_FIXEDASSETCREATESUB_IN": {
+    "title": "Fixed Asset - Create Sub Asset (Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_CUSTOMERSUPPLIERINDUSTRY_SRV_0001": {
+    "title": "Customer and Supplier Industry - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_BILL_OF_MATERIAL_SRV_0002": {
+    "title": "Bills of Material",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_LEGAL_TRANSACTION_0001-v1": {
+    "title": "Legal Transaction",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_LEGAL_TRANSACTION_2"
+  },
+  "OP_API_PMRPFLEXIBLECONSTRAINT_0001": {
+    "title": "Flexible Constraint",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PMRPFLEXIBLECONSTRAINT"
+  },
+  "sap-s4-OP_WAREHOUSEINTERMEDIATEUPDATE_IN-v1": {
+    "title": "Warehouse Intermediate Update – Receive from Warehouse (B2B)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_SALES_ORDER_SIMULATION_SRV_0001": {
+    "title": "Sales Order - Simulate (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CNSLDTNSUPPLIER_0001": {
+    "title": "Consolidation Supplier",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNSUPPLIER"
+  },
+  "OP_API_RFM_ASSTMT_MDL_0002": {
+    "title": "Assortment Module (A2X)",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_RFM_ASSORTMENT_MODULE"
+  },
+  "OP_COMMODITYHEDGETARGETQUOTA_0001": {
+    "title": "Commodity Hedge Target Quota",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CMMDTYHDGTARGETQUOTA"
+  },
+  "OP_CO_SDSLS_ESR_CUST_RETURN_CONF": {
+    "title": "Customer Return - Confirm Processing (A2A)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_CN_PAYMENTRELEASELIST_SRV_0001": {
+    "title": "Payment Item - Read, Update",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_POLYMERCOMPOSITION_0001": {
+    "title": "Polymer Composition",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_POLYMERCOMPOSITION"
+  },
+  "OP_CNSLDTNGROUPSTRUCTURE_0001": {
+    "title": "Consolidation Group Structure",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNGROUPSTRUCTURE"
+  },
+  "OP_API_PRODUCTSUBSTITUTION_0003": {
+    "title": "Product Substitution",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRODUCTSUBSTITUTION"
+  },
+  "OP_API_SD_SA_SOLDTOPARTYDETN_0001": {
+    "title": "Sold-to Party Assignment of Sales Scheduling Agreement - Read (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_VARCONFIGNTABLE_0001": {
+    "title": "Variant Table",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_VARCONFIGNTABLE"
+  },
+  "OP_API_PLANTEXCLUSION_0002": {
+    "title": "Plant Substitution Exclusion",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PLANTSUBSTNEXCLSN"
+  },
+  "OP_API_SETTLMT_DOC_0001": {
+    "title": "Settlement Document",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SETTLMT_DOC"
+  },
+  "OP_API_LEGALDOCUMENTSTATUS_0001": {
+    "title": "Legal Document Status - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_CNSLDTNGRANTHIERARCHY_0001-v1": {
+    "title": "Consolidation Grant Hierarchy",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNGRANTHIERARCHY"
+  },
+  "OP_SUPPLYASSGMTRELEASE_0001": {
+    "title": "Supply Assignment Release",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SUPPLYASSGMT_RELEASE"
+  },
+  "OP_CO_SDMD_ESR_SALES_AREA": {
+    "title": "Sales Area - Replicate",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_LMD_MA_0001": {
+    "title": "Mobile Data for Last Mile Distribution",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_PLANTEXCLUSION_0001": {
+    "title": "Plant Substitution Exclusion",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PLANTSUBSTNEXCLSN"
+  },
+  "sap-s4-OP_PPMDEVELOPMENTPROJECT_0002-v2": {
+    "title": "Development Project - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_DEVELOPMENTPROJECT"
+  },
+  "OP_CO_FAP_POS_POSITIVE_PAY_OUT": {
+    "title": "Positive Pay File – Send",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CONSOLIDATIONTASK_0001": {
+    "title": "Consolidation Task - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CONSOLIDATIONTASK"
+  },
+  "OP_CO_SDMD_ESR_SALES_GROUP": {
+    "title": "Sales Group - Replicate",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_PHONE_CALL_ACTIVITY_BULK_CONF_OUT": {
+    "title": "Phone Call Activity (Bulk, Asynchronous)- Confirm Processing",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_FIXEDASSETACQUISITION_0001": {
+    "title": "Fixed Asset – Post Asset Acquisition",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_FIXEDASSETACQUISITION"
+  },
+  "OP_CO_FKC_CA_DISCO_PRPSL_BULK_OUT": {
+    "title": "Disconnection Requests – Bulk Send",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_RECONTRACTTYPE_0001": {
+    "title": "Real Estate Contract Type",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_RE_CONTRACTTYPE"
+  },
+  "sap-s4-OP_CONSOLIDATIONTASKLOG_0001-v1": {
+    "title": "Consolidation Task Log - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CONSOLIDATIONTASKLOG"
+  },
+  "sap-s4-OP_CNSLDTNMATERIAL_0001-v1": {
+    "title": "Consolidation Material",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNMATERIAL"
+  },
+  "OP_PHYSICALCHEMICALPROPERTY_0001": {
+    "title": "Physical-Chemical Properties",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PHYSICALCHEMICALPRPTY"
+  },
+  "OP_CNSLDTNBILLINGDOCUMENTTYPE_0001": {
+    "title": "Consolidation Billing Document Type",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNBILLINGDOCTYPE"
+  },
+  "sap-s4-OP_CO_LEIDW_WAREHOUSE_SHIP_ORDER-v1": {
+    "title": "Warehouse Shipping Order – Send to Warehouse (B2B)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_OBJECTPART": {
+    "title": "Catalog Type Object Parts – Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_OBJECTPART"
+  },
+  "OP_API_LEGAL_TRANSACTION_SRV_0001": {
+    "title": "Legal Transactions",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_DEFECTCATEGORY_SRV_0001": {
+    "title": "Defect Category - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_FIXEDASSETUSAGEOBJECT_0001": {
+    "title": "Fixed Asset: Usage Object for UoP Depreciation",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_FIXEDASSETUSAGEOBJECT"
+  },
+  "OP_TASK_BULK_CONFIRMATION_OUT": {
+    "title": "Task Activity (Bulk, Asynchronous) - Confirm Processing",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_INVOICEREQUEST_IN": {
+    "title": "Supplier Invoice - Create (B2B, Inbound, Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_SUPPLIERQUOTATION_0001": {
+    "title": "Supplier Quotation",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SUPPLIERQUOTATION_2"
+  },
+  "OP_PRAWELLTEST_0001": {
+    "title": "PRA Well Test",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRAWELLTEST"
+  },
+  "sap-s4-OP_API_PLANTSUBSTITUTION_0003-v3": {
+    "title": "Plant Substitution",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PLANTSUBSTN"
+  },
+  "OP_API_CENTRAL_PURCHASECONTRACT_SRV": {
+    "title": "Central Purchase Contract",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_SUPPLYASSGMTBLOCK_0001": {
+    "title": "Supply Assignment Block",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SUPPLYASSGMT_BLOCK"
+  },
+  "OP_API_PRODUCTSUBSTITUTIONCTRL_0001": {
+    "title": "Product Substitution Control",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRODSUBSTNCTRL"
+  },
+  "OP_CONFIGURABLECODESCATALOG_0001": {
+    "title": "Customer-Specific Catalog",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CONFIGBLCODESCATALOG"
+  },
+  "sap-s4-OP_LEGAL_DOCUMENT_0001-v1": {
+    "title": "Legal Document",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_LEGAL_DOCUMENT_2"
+  },
+  "OP_SUBSCRIPTIONORDER_0001": {
+    "title": "Subscription Order",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SUBSCRIPTIONORDER"
+  },
+  "OP_API_MATERIAL_STOCK_SRV": {
+    "title": "Material Stock - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CO_PPKAB_ESR_JITCALL_NOTIF_OUT": {
+    "title": "Kanban Summarized JIT Call Outbound Notification",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_API_OBJVALDETNACC_0001-v1": {
+    "title": "Object and Value Determination Access",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_OBJVALDETNACCESS"
+  },
+  "OP_CONSUMPTIONITEMSCREATEREQUEST_": {
+    "title": "Convergent Invoicing Consumption Items - Create Request (Inbound)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_EXTERNALEVENTS_0001": {
+    "title": "External Events - Read, Create (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_DFLTSEGMTNMAINTENANCE_0001": {
+    "title": "Default Segment Value Maintenance",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CMMDTYHDGSPECPERDCATEGORY_0001": {
+    "title": "Commodity Hedge Specification Period Category - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CMMDTYHDGSPECPERDCAT"
+  },
+  "OP_CO_PPINT_MFG_ROUTING_V2": {
+    "title": "Production Routing - Replicate",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_SUPLRINVCCANCLNS4REQUEST_IN": {
+    "title": "Supplier Invoice - Reverse (A2A, Inbound, Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CNSLDTNDIVISION_0001": {
+    "title": "Consolidation Division",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNDIVISION"
+  },
+  "OP_API_SLSPRICINGCONDITIONTYPE_SRV_0001": {
+    "title": "Condition Type for Pricing in Sales – Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_CNSLDTNUNITDATACOLLECTION_0001-v1": {
+    "title": "Consolidation Unit Data Collection",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNUNITDATACOLL"
+  },
+  "OP_REVENUEACCOUNTINGCONTRACTBYFUL": {
+    "title": "Revenue Accounting Contract - Process Fulfillment Items",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_SCMTMS_TORCI-v1": {
+    "title": "Freight Order ‒ Confirm",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_OPPORTUNITY_BULK_REQUEST_IN": {
+    "title": "Opportunity (Bulk, Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_CONDITION_CONTRACT_TYPE_0001": {
+    "title": "Condition Contract Type - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_VMSVEHICLESEARCHAREA_0001": {
+    "title": "Vehicle Management System Vehicle Search Area - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_VMSVEHICLESEARCHAREA"
+  },
+  "OP_API_MATERIAL_DOCUMENT_SRV": {
+    "title": "Material Documents - Read, Create",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CADISPUTECASE_0001": {
+    "title": "Contract Accounting Dispute Case – Manage",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CADISPUTECASE"
+  },
+  "OP_API_RFM_PROD_DC_LISTING_0001": {
+    "title": "Product Assignment to Distribution Center (A2X)",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_RFM_PROD_DC_LISTING"
+  },
+  "sap-s4-OP_SCMTMS_TORBOOKINGCI-v1": {
+    "title": "Freight Booking ‒ Confirm",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_PHONE_CALL_ACTIVITY_REQUEST_IN": {
+    "title": "Phone Call Activity (Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CO_MDG_BP_RELATIONSHIP_OUT": {
+    "title": "Business Partner Relationship - Replicate from SAP S/4HANA to Client",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_ECC_OUTBDELIVREQ003QR": {
+    "title": "Outbound Delivery Request – Find by Elements (A2X)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_MASTERINSPCHARACTERISTIC_SRV_0001": {
+    "title": "Master Inspection Characteristic - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CNSLDTNCOSTCENTER_0001": {
+    "title": "Consolidation Cost Center",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNCOSTCENTER"
+  },
+  "OP_API_PLANNED_ORDERS_SRV_0001": {
+    "title": "Planned Order",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_SCMTMS_CO_CPX_TORBCNC_REQ-v1": {
+    "title": "Freight Booking ‒ Cancel",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_BOM_WHERE_USED_SRV": {
+    "title": "Bills of Material Where-Used List",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_WAREHOUSESTOCKTRANSFERRECEIPTA-v1": {
+    "title": "Warehouse Stock Transfer Receipt Advice – Receive from Warehouse (B2B)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_A_TRSYPOSFLOW_CDS_0001": {
+    "title": "Treasury Position Flow - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_TASK_SRV_0001": {
+    "title": "Task Activity (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_CUSTOMER_MATERIAL_SRV_0001": {
+    "title": "Customer Material (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CO_PPINT_WORK_CENTER_INFO_OUT": {
+    "title": "Work Center - Replicate",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_CNSLDTNINDUSTRYHIERARCHY_0001-v1": {
+    "title": "Consolidation Industry Hierarchy",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNINDUSTRYHIER"
+  },
+  "sap-s4-OP_SERVICEDOCUMENTGTSSTATUS_0001-v1": {
+    "title": "Service Transaction GTS Status  - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SRVCTRANSACTIONGTSSTATUS"
+  },
+  "OP_CNSLDTNFINTRANSACTIONTYPE_0001": {
+    "title": "Consolidation Financial Transaction Type",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNFINTRANSTYPE"
+  },
+  "OP_PROFITCENTREGROUPHIERARCHY_IN": {
+    "title": "Profit Center Group Hierarchy",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_CHARCATTRIBUTECATALOG_SRV_0001": {
+    "title": "Characteristic Attribute Catalog - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_GHSCLASSIFICATIONASSESSMENT_0001-v1": {
+    "title": "GHS Classification Assessment",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_GHSCLASSFCTNASSESSMENT"
+  },
+  "OP_PROOFOFDELIVERYREQUEST_IN": {
+    "title": "Proof of Delivery ‒ Update (B2B)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CO_SDMD_ESR_SALES_ORGANIZATION": {
+    "title": "Sales Organization - Replicate",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_SRCGPROJAWARDINGSCENARIO_0001": {
+    "title": "Awarding Scenario",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SRCGPROJAWARDINGSCEN"
+  },
+  "OP_CO_LOG_MDR_ACCT_ASS_CATEGORY": {
+    "title": "Account Assignment Categories – Replicate",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_SPECIFICATIONPHRASE_0001": {
+    "title": "Specification Phrase - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_API_PRODUCTSUBSTITUTION_0004-v4": {
+    "title": "Product Substitution",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRODUCTSUBSTITUTION"
+  },
+  "OP_SRCGPROJITEMDEMANDCONFCODE_0001": {
+    "title": "Sourcing Project Demand Confirmation Code – Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SRCGPRJITMDMNDCONFCODE"
+  },
+  "OP_API_BILLING_DOCUMENT_REQUEST_SRV_0001": {
+    "title": "Billing Document Request - Read, Reject, Delete",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CO_MDM_PRD_BULK_REP_CONF_OUT": {
+    "title": "Product Master - Confirmation from SAP S/4HANA to Client",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_JIT_CALL_PROCESS_SRV_0001": {
+    "title": "Just In Time Calls (This API has been deprecated in SAP S/4HANA 2023)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_PROFITCENTREREPLICATIONBULKREQ_IN": {
+    "title": "Profit Center – Create, Delete",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_SUBSCRIPTIONBDRREQUEST_IN": {
+    "title": "Subscription Billing Document Request - Create",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CNSLDTNCOUNTRY_0001": {
+    "title": "Consolidation Country/Region",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNCOUNTRY"
+  },
+  "sap-s4-OP_API_STORLOCSUBSTITUTION_0003-v3": {
+    "title": "Storage Location Substitution",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_STORLOCSUBSTN"
+  },
+  "OP_API_RFQ_PROCESS_SRV_0001": {
+    "title": "Request for Quotation",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CO_FKC_CNVCHRG_PRVCTR_BLK_OUT": {
+    "title": "Contract Accounting Provider Contract (Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CO_FKK_CASHPOINT_OPENITEM_PUSH": {
+    "title": "External Cash Point – Open Item Summary",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_DANGEROUSGDSCLASSFCTN_0001": {
+    "title": "Dangerous Goods Classification",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_DANGEROUSGDSCLASSFCTN"
+  },
+  "OP_API_EHS_REPORT_INCIDENT_SRV_0001": {
+    "title": "Environment, Health and Safety Incident - Create, Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_MERCHANDISECATEGORY_0001": {
+    "title": "Merchandise Category (A2X)",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_MERCHANDISECATEGORY"
+  },
+  "OP_SCHEDGAGRMTDLIVSCHEDULE_IN": {
+    "title": "Delivery Schedule of Sales Scheduling Agreement – Receive, Update (B2B)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_SAFETYRELATEDPROPERTY_0001": {
+    "title": "Safety-Related Properties",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SAFETYRELATEDPROPERTY"
+  },
+  "OP_DELIVERYREQUEST_IN": {
+    "title": "Inbound Delivery - Create (B2B)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_PROJECT_V2_0001": {
+    "title": "Project - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_WORK_CENTERS_0001": {
+    "title": "Work Center",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_ECC_OUTBDELIVBYID100QR": {
+    "title": "Outbound Delivery – Read (A2X)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CO_PPINT_WORK_CTR_GROUPS_OUT": {
+    "title": "WorkCenter Group - Replicate",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_PRODUCTCOMPLIANCEUSE_0001-v1": {
+    "title": "Product Compliance Use",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRODUCTCOMPLIANCEUSE"
+  },
+  "OP_API_STORLOCSUBSTITUTION_0001": {
+    "title": "Storage Location Substitution",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_STORLOCSUBSTN"
+  },
+  "OP_FINCS_RPTDFINDATABULKIN": {
+    "title": "Reported Financial Data for Group Reporting – Bulk Import",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_MANAGEBUSINESSUSERIN": {
+    "title": "Business User",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CMMDTYHDGDDSGNTNREQUEST_0001": {
+    "title": "Commodity Dedesignation Request",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CMMDTYHDGDDSGNTNREQ"
+  },
+  "OP_PURCHASINGGROUP_0001": {
+    "title": "Purchasing Group - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PURCHASINGGROUP"
+  },
+  "OP_API_BATCH_SRV_0001": {
+    "title": "Batch Master Record",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_ALLOCATIONPOSTINGCREATEREQUEST_IN": {
+    "title": "Allocation Posting – Create (Synchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_MFGSTANDARDTEXT_0001": {
+    "title": "Manufacturing Standard Texts (A2X)",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_MPE_MFGSTDTXT_U_O4"
+  },
+  "OP_API_MM_PUR_QA_MAINTAIN_SRV_0001": {
+    "title": "Quota Arrangement",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_SCHED_AGRMT_PROCESS_SRV_0001": {
+    "title": "Scheduling Agreements",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CMHDGCNSTLTNINCONSISTENCY_0001": {
+    "title": "Commodity Hedge Constellation Inconsistency - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CMHDGCNSTLTNINCONSTCY"
+  },
+  "OP_CNSLDTNINDUSTRY_0001": {
+    "title": "Consolidation Industry",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNINDUSTRY"
+  },
+  "OP_API_O2C_FICA_SEPA_MANDATE_SRV_0001": {
+    "title": "SEPA Mandate – Manage in Contract Accounting",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_FUNDSCENTER_0001": {
+    "title": "Funds Center",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CADUNNING_0001": {
+    "title": "Contract Accounting Dunning - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CADUNNING"
+  },
+  "OP_CO_LOG_MDR_PURCHASING_GROUP": {
+    "title": "Purchasing Groups – Replicate",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_SUPPLYASSGMTDEMAND_0001": {
+    "title": "Demand Documents Assignment",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SUPPLYASSGMT_DEMAND"
+  },
+  "OP_CACONSUMPTIONITEM_0001": {
+    "title": "Contract Accounting Consumption Item - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CACONSUMPTIONITEM"
+  },
+  "OP_API_SLSPRICINGPROCEDURE_SRV_0001": {
+    "title": "Pricing Procedure in Sales - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_OWNERTRANSFERREQUEST_0001-v1": {
+    "title": "Production Revenue Accounting Owner Transfer",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRAOWNERTRANSFER"
+  },
+  "OP_API_CREDIT_MEMO_REQUEST_SRV_0001": {
+    "title": "Credit Memo Request (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CO_SDSLS_ESR_SO_BULK_ERR_LOG_O": {
+    "title": "Sales Order - Send Error Log (A2A)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_BDSIMULATEPRICINGREQUEST_IN": {
+    "title": "Billing Document - Simulate Pricing",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_REVENUEACCOUNTINGCONTRACTBYINV": {
+    "title": "Revenue Accounting Contract - Process Invoice Items",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_PHONE_CALL_ACTIVITY_BULK_REQUEST_IN": {
+    "title": "Phone Call Activity (Bulk, Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CO_FNDEI_INCOTERMS_RL": {
+    "title": "Incoterms - Replicate (A2X)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_FUNDHIERARCHY_0001": {
+    "title": "Fund Hierarchy",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_FNDSMGMTCMTMTACTLITEM_0001": {
+    "title": "Funds Management Commitment and Actual items",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_API_PRODCMPLNCLBLFLDCTLG_0001-v1": {
+    "title": "Label Field Catalog ‒ Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRODCMPLNCLBLFLDCTLG"
+  },
+  "sap-s4-OP_PRAFIELD_0001-v1": {
+    "title": "Production Revenue Accounting Field",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRAFIELD"
+  },
+  "OP_CO_NGC_SOAP_CLASSBULKREPCONOUT": {
+    "title": "Class Data for Classification ‒ Confirmation (Asynchronous, Outbound)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CLASSBULKRPLCTCONF_IN": {
+    "title": "Class Data for Classification ‒ Confirmation (Asynchronous, Inbound)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_STDWRKFMLAPARAM_GROUP_0001": {
+    "title": "Standard Work Formula Parameter Group ‒ Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_PRODUCTGROUP_0001": {
+    "title": "Product Group Data - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRODUCTGROUP_2"
+  },
+  "OP_BANKSTATEMENTPOST_IN": {
+    "title": "Bank Statement - Post",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_CAUSE": {
+    "title": "Catalog Type Cause - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CAUSE"
+  },
+  "sap-s4-OP_CNSLDTNFINANCIALDATASOURCE_0001-v1": {
+    "title": "Consolidation Financial Data Source",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNFINDATASOURCE"
+  },
+  "OP_CO_PPINT_WRK_CTR_INFO_OUT_V2": {
+    "title": "Work Center - Replicate",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_PRODUCTSUBSTITUTION_0002": {
+    "title": "Product Substitution",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRODUCTSUBSTITUTION"
+  },
+  "sap-s4-OP_FIXEDASSETRETIREMENT_0001-v1": {
+    "title": "Fixed Asset – Post Asset Retirement",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_FIXEDASSETRETIREMENT"
+  },
+  "OP_CO_BNSPRFT_CENTER_MASTER_DATA_OUT": {
+    "title": "Profit Center - Send",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_DEL_DOC_WITH_CREDIT_BLOCK_0001": {
+    "title": "Delivery Document with Credit Block - Read, Check, Release, Reject (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CONSOLIDATIONTASKGROUP_0001": {
+    "title": "Consolidation Task Group - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CONSOLIDATIONTASKGROUP"
+  },
+  "sap-s4-OP_MAINTENANCECHECKLISTTYPE_0001-v1": {
+    "title": "Maintenance Checklist Type",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_MAINTENANCECHECKLISTTYPE"
+  },
+  "sap-s4-OP_CO_CINV_CONSUMPTION_ITEMS_CREA-v1": {
+    "title": "Convergent Invoicing Consumption Items - Create Response (Outbound)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CNSLDTNPRODUCT_0001": {
+    "title": "Consolidation Product",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNPRODUCT"
+  },
+  "sap-s4-OP_JVACARRIEDINTERESTGRP_0001-v1": {
+    "title": "Carried Interest Group",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_JVACARRIEDINTERESTGRP"
+  },
+  "OP_PRODANALYTICALCOMPOSITION_0001": {
+    "title": "Product Analytical Composition",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRODANALYTICALCMPSTN"
+  },
+  "OP_LEAD_BULK_REQUEST_IN": {
+    "title": "Lead (Bulk, Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_PURGPRICINGPROCEDURE_SRV_0001": {
+    "title": "Pricing Procedure in Purchasing – Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CO_PSWBSELEMENT_MASTER_DATA_RE": {
+    "title": "WBS Element - Replicate Data",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_API_GHSLABELINGASSESSMENT_0001-v1": {
+    "title": "GHS Labeling Assessment",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_GHSLABELINGASSESSMENT"
+  },
+  "OP_CO_FNDEI_REGION_RL": {
+    "title": "Region - Replicate (A2X)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_RESPYM_TEAM_CONFIG_SRV_0001": {
+    "title": "Responsibility Management Team Configurations - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_RESPYMGMT_CONFIG_SRV"
+  },
+  "OP_VMSVEHICLESTATUS_0001": {
+    "title": "Vehicle Management System Vehicle Status - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_VMSVEHICLESTATUS"
+  },
+  "OP_CO_LOG_MDR_PLANT_PURCH_ORG": {
+    "title": "Assignment of Plant to Purchasing Organization – Replicate",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CO_PPINT_SHIFT_GROUP_INFO_OUT": {
+    "title": "Shift Group Configuration - Replicate",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_NUTRIENTSTATEMENT_0001": {
+    "title": "Nutrient Statement - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CO_MMCM_ESR_PURG_PRICING_COND": {
+    "title": "Condition Record for Pricing in Purchasing - Replicate",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_PLND_INDEP_RQMT_SRV_0001": {
+    "title": "Planned Independent Requirement",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_FKCMANAGEPROVIDERCONTRACT": {
+    "title": "Contract Accounting Provider Contract",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CO_NGC_SOAP_CLASSBULKREPREQOUT": {
+    "title": "Class Data for Classification ‒ Replicate (Asynchronous, Outbound)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_LABELTEMPLATEMETADATA_0001-v1": {
+    "title": "Label Template Metadata",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PCLBLTEMPLATEMETADATA"
+  },
+  "OP_SUBSCRIPTIONORDERREQUEST_IN": {
+    "title": "Subscription Order Create (Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CO_KEY_MAP_RPLCTRQ": {
+    "title": "Key Mapping - Replicate from SAP S/4HANA to Client",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CMMDTYHDGHDGGARAUTHZNGROUP_0001": {
+    "title": "Commodity Hedging Area Authorization Group - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CMHDGHDGGARAUTHZNGROUP"
+  },
+  "sap-s4-OP_CNSLDTNFINSERVICESPRODUCTGROUP_0001-v1": {
+    "title": "Consolidation Financial Services Product Group",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNFINSRVCSPRODGRP"
+  },
+  "OP_API_GLO_BUSINESSPLACE_SRV": {
+    "title": "Business Place (Synchronous)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_CMTMTCARRYFWDLOTITEM_0001": {
+    "title": "Commitment Carry Forward Lot  (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_CNSLDTNGRANT_0001-v1": {
+    "title": "Consolidation Grant",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNGRANT"
+  },
+  "sap-s4-OP_CNSLDTNFUNDHIERARCHY_0001-v1": {
+    "title": "Consolidation Fund Hierarchy",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNFUNDHIERARCHY"
+  },
+  "OP_CNSLDTNFUNCTIONALAREA_0001": {
+    "title": "Consolidation Functional Area",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNFUNCTIONALAREA"
+  },
+  "OP_KEYMAPPINGBULKREPLICATECONFIRM": {
+    "title": "Key Mapping - Confirmation from Client to SAP S/4HANA",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CABUSINESSTRANSACTION_0001": {
+    "title": "Contract Accounting Business Transaction - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CABUSINESSTRANSACTION"
+  },
+  "OP_API_DETECTIONMETHOD": {
+    "title": "Detection Method - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_DETECTIONMETHOD"
+  },
+  "OP_API_CONTROLLINGAREA_SRV_0001": {
+    "title": "Controlling Area - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CO_PPINT_MANUFACTURING_ROUTING": {
+    "title": "Production Routing - Replicate",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_MRP_MATERIALS_SRV_01_0001": {
+    "title": "Material Planning Data - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_STATRYRPTCATDEFINITION_0001": {
+    "title": "Statutory Reporting Category Definition ‒ Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_STATRYRPTCATDEFINITION"
+  },
+  "OP_CO_SDMD_ESR_DIV_SALES_ORG": {
+    "title": "Divisions Per Sales Organization - Replicate",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_SLSPRCGCONDITIONTABLE_0001": {
+    "title": "Condition Table for Pricing in Sales – Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SLSPRCGCONDITIONTABLE"
+  },
+  "OP_TASK_CONFIRMATION_OUT": {
+    "title": "Task Activity (Asynchronous) - Confirm Processing",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_BUDGETSTRUCTURE_0001": {
+    "title": "Funds Management Budget Structure (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_A_LGLCNTNTMACCESSLVL_CDS_0001": {
+    "title": "Legal Document Access Levels - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_API_PRODUCTMARKETASSESSMENT_0001-v1": {
+    "title": "Product Market Assessment",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRODUCTMARKETASSESSMENT"
+  },
+  "OP_COMMODITYHEDGEDIRECTION_0001": {
+    "title": "Commodity Hedge - Buy or Sell - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_COMMODITYHEDGEDIRECTION"
+  },
+  "sap-s4-OP_CONSOLIDATIONGROUP_0001-v1": {
+    "title": "Consolidation Group",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CONSOLIDATIONGROUP"
+  },
+  "OP_PRODUCTMDMBULKREPLICATECONFIRM": {
+    "title": "Product Master - Confirmation from Client to SAP S/4HANA",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CA_RSM_TEAM_MANAGE_0001": {
+    "title": "Responsibility Management Teams",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_ECC_CASHPOINTCLOSINGDOCNO": {
+    "title": "External Cash Point – Inbound Closing Notification",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_SCMTMS_CO_CPX_TORBKG_WB_NOTIF-v1": {
+    "title": "Freight Booking ‒ Send Waybill",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CMHDGCNSTLTNTRANSOVW_0001": {
+    "title": "Commodity Hedge Constellation",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CMHDGCNSTLTNTRANSOVW"
+  },
+  "OP_API_RETURNSINSPECTION_0001": {
+    "title": "Returns Inspection (A2X)",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_RETURNS_INSPECTION"
+  },
+  "OP_API_ORDER_BILL_OF_MATERIAL_SRV_0001": {
+    "title": "Order Bills of Material",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_API_PRODUCTION_ROUTING_0003-v3": {
+    "title": "Production Routing",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_ABOPRUN_0001": {
+    "title": "Advanced Backorder Processing Run",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_ABOPRUN"
+  },
+  "sap-s4-OP_SIMPLEPLANTVOLUME_0001-v1": {
+    "title": "Production Revenue Accounting Simple Plant Volume",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRASIMPLEPLANTVOLUME"
+  },
+  "OP_PHONE_CALL_ACTIVITY_CONFIRMATION_OUT": {
+    "title": "Phone Call Activity (Asynchronous) - Confirm Processing",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_STORAGELOCATIONEXCLUSION_0002": {
+    "title": "Storage Location Substitution Exclusion",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_STORLOCSUBSTNEXCLSN"
+  },
+  "sap-s4-OP_FLDLOGSMATERIALTRACKINGITEM_0001-v1": {
+    "title": "Field Logistics - Lead Time Calculation",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_FLDLOGSMATLTRACKINGITEM"
+  },
+  "sap-s4-OP_OWNERAVAILABILITY_0001-v1": {
+    "title": "Production Revenue Accounting Owner Availability",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRAOWNERAVAILABILITY"
+  },
+  "OP_SRCGPROJCONTACTCAT_0001": {
+    "title": "Contact Category for Sourcing Project – Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SRCGPROJCONTACTCAT"
+  },
+  "OP_CMMDTYHDGRCLASSFCTNREQUEST_0001": {
+    "title": "Commodity Reclassification Request",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CMMDTYHDGRCLASSFCTNREQ"
+  },
+  "OP_PURCHASINGORGANIZATION_0001": {
+    "title": "Purchasing Organization - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PURCHASINGORGANIZATION"
+  },
+  "sap-s4-OP_NONSALESADDLDISPOSITIONVOLUME_0001-v1": {
+    "title": "Non Sales Additional Disposition Volumes",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRANONSLSADDLDSPOSVOLUME"
+  },
+  "OP_MATCHINGITEMBULKCREATEREQUEST_IN": {
+    "title": "Matching Items - Bulk Import",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_SCMTMS_CO_CPX_TPNOR_REQ-v1": {
+    "title": "Freight Order ‒ Subcontract",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CO_MMPUR_QTNCONFIRMATION_S4REQ": {
+    "title": "Supplier Quotation - Send Confirmation (Outbound)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CASHFLOW_IN": {
+    "title": "Cash Flow",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_FUNCTIONALAREA_SRV_0001": {
+    "title": "Functional Area - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_RACONTRSETFREEZEPERDSIN": {
+    "title": "Revenue Accounting Contract - Apply Freeze Periods",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CNSLDTNSEGMENT_0001": {
+    "title": "Consolidation Segment",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNSEGMENT"
+  },
+  "OP_API_CUSTOMERGROUP_SRV_0001": {
+    "title": "Customer Group - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CO_FKC_DOC_BLK_CREATE_CONF_OUT": {
+    "title": "Contract Accounting Document - Confirmation (Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_API_PRODUCTSUBSTITUTIONCTRL_0002-v2": {
+    "title": "Product Substitution Control",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRODSUBSTNCTRL"
+  },
+  "sap-s4-OP_API_SUPAVAILYPROTPLAN_0002-v2": {
+    "title": "Supply Availability Protection Plan",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SUPAVAILYPROTPLAN"
+  },
+  "OP_API_SEGMENT_SRV": {
+    "title": "Segment - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_SUPPLIERINVOICEUPLOADREQUEST_I": {
+    "title": "Supplier Invoice - Upload (A2A, Inbound, Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_PRODMATERIALBSDCOMPOSITION_0001": {
+    "title": "Product Material-Based Composition",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRODMATLBSDCOMPOSITION"
+  },
+  "OP_VARCONFIGURATIONPROFILE_0001": {
+    "title": "Variant Configuration Profile",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_VARCNFPROFILE"
+  },
+  "OP_MRCHDSCATHIERARCHYNODE_0001": {
+    "title": "Merchandise Category Hierarchy Node (A2X)",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_MRCHDSCATHIERNODE"
+  },
+  "OP_API_STORLOCSUBSTITUTION_0002": {
+    "title": "Storage Location Substitution",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_STORLOCSUBSTN"
+  },
+  "OP_API_CUSTOMER_RETURN_SIMLN_SRV_0001": {
+    "title": "Customer Return - Simulate (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_PRAWELLCOMPLETIONDATED_0001-v1": {
+    "title": "Production Revenue Accounting Well Completion Variable Data",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRAWELLCOMPLETIONDATED"
+  },
+  "OP_API_STORAGELOCATIONSUBSTNCTRL_0001": {
+    "title": "Storage Location Substitution Control",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_STORLOCSUBSTNCTRL"
+  },
+  "OP_CNSLDTNPROFITCENTER_0001": {
+    "title": "Consolidation Profit Center",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNPROFITCENTER"
+  },
+  "OP_FKCCNVCHRGPRVDRCONTRBULK_IN": {
+    "title": "Contract Accounting Provider Contract (Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_FIXEDASSETCREATESUB_CONF_OUT": {
+    "title": "Fixed Asset - Create Sub Asset (Asynchronous) Confirmation",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_OPPORTUNITY_REQUEST_IN": {
+    "title": "Opportunity (Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_MSTRRCPPHSE_RELSHPTYPE_0001": {
+    "title": "Phase Relationship Type",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_PROFITCENTREGROUPHIERARCHY_OUT": {
+    "title": "Profit Center Group Hierarchy - Send",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_DMS_PROCESS_SRV_0001": {
+    "title": "Document Info Record",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CO_KEY_MAP_RPLCTCO": {
+    "title": "Key Mapping - Confirmation from SAP S/4HANA to Client",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_USAGEDECISIONSELDCODESET_0001": {
+    "title": "Selected Set of Codes for Usage Decision – Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_USAGEDCSNSELDCODESET"
+  },
+  "sap-s4-OP_VARCONFIGNCONSTRAINTNET_0001-v1": {
+    "title": "Constraint Net",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_VARCONFIGNCONSTRAINTNET"
+  },
+  "OP_BDWREFERENCEREQUEST_IN": {
+    "title": "Billing Document - Create with SD Document Reference",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_PRACHECKINPUTPPD_0001-v1": {
+    "title": "Production Revenue Accounting Check Input Payment Posting Desktop",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRACHKINPTHEADER"
+  },
+  "OP_CNSLDTNCONTROLLINGAREA_0001": {
+    "title": "Consolidation Controlling Area",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNCONTROLLINGAREA"
+  },
+  "OP_API_INTELLIGENTPRODUCTPROPOSAL_0001": {
+    "title": "Intelligent Product Proposal - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_SCMTMS_FREIGHTAGREEMENTREQUES-v1": {
+    "title": "Freight Agreement ‒ Create",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_PRAWELLCOMPLTNPRSSR_0001": {
+    "title": "PRA Well Completion Daily Pressure",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRAWELLCOMPLTNPRSSR"
+  },
+  "OP_DOCUMENTEDCREDITDECISIONERPBUS": {
+    "title": "Documented Credit Decision – Create, Update",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CO_FNDEI_MATERIALGROUP_RL": {
+    "title": "Material Group - Replicate (A2X)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_DEFECTCODE_SRV_0001": {
+    "title": "Defect Code and Code Group - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_PRODCMPLNCLOGISTICSDOCUMENT_0001-v1": {
+    "title": "Product Compliance Logistics Document",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRODCMPLNCLOGSDOCUMENT"
+  },
+  "OP_API_SALES_DOCUMENT_REASON_SRV_0001": {
+    "title": "SD Document Order Reason - Read (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CABILLINGREQUEST_0001": {
+    "title": "Convergent Invoicing Billing Request",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CABILLINGREQUEST"
+  },
+  "OP_API_ARUN_SUPPLY_ASSIGNMENT_SRV_0001": {
+    "title": "Supply Assignment",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_UKM_CREDITPAYMBEHAVSUMNO": {
+    "title": "Payment Behavior – Update",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_COSTCENTREREPLICATIONBULKREQUESTOUT": {
+    "title": "Cost Center - Send",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CO_EDI_PAYM_ADV_NOTIFIC_OUT": {
+    "title": "Payment Advice - Send",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_COSTCENTREREPLICATIONBULKREQUESTIN": {
+    "title": "Cost Center",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CMMDTYHEDGEBOOK_0001": {
+    "title": "Commodity Hedge Book",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CMMDTYHEDGEBOOK"
+  },
+  "sap-s4-OP_MRCHDSCATHIERARCHYNODE_0002-v2": {
+    "title": "Merchandise Category Hierarchy Node (A2X)",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_MRCHDSCATHIERNODE"
+  },
+  "OP_CO_SDMD_ESR_SALES_DIVISION": {
+    "title": "Sales Division - Replicate",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CO_WPOS_POS_FINANCIAL_TRANS_OUT": {
+    "title": "POS Financial Transaction - Receive Confirmation",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_SALESAREA_0001": {
+    "title": "Sales Area - Read (A2X)",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SALESAREA"
+  },
+  "OP_API_PRODUCT_SRV_0001": {
+    "title": "Product Master (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_FKCMANAGECONTRACTACCOUNT": {
+    "title": "Contract Account",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_API_JOINTVENTURE_0001-v1": {
+    "title": "Joint Venture",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_JOINTVENTURE"
+  },
+  "OP_STATUTORYREPORTINGTASK_0001": {
+    "title": "Statutory Reporting Task",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_STATUTORYREPORTINGTASK"
+  },
+  "OP_API_LEGAL_CONTENT_TYPE_SRV_0001": {
+    "title": "Legal Document Content Types - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_JOURNALENTRYBULKCLEARINGREQUEST_IN": {
+    "title": "Journal Entry - Clearing (Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_CNSLDTNSALESDISTRICTHIERARCHY_0001-v1": {
+    "title": "Consolidation Sales District Hierarchy",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNSALESDSTRCTHIER"
+  },
+  "OP_MRPCHANGEREQUESTPRIORITY_0001": {
+    "title": "MRP Change Request Priority – Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_MRPCR_PRIORITY_CODE"
+  },
+  "OP_LEAD_REQUEST_IN": {
+    "title": "Lead (Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_CRMS4_BUS_SOLN_QTN_SIMLN_0001-v1": {
+    "title": "Solution Quotation – Simulate (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_NUTRIENT_0001": {
+    "title": "Nutrient - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_POS_FINANCIAL_TRANS_CREATE_REQ_IN": {
+    "title": "POS Financial Transactions - Create",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CO_SDBIL_ESR_BDUPDSBI_CONF_OUT": {
+    "title": "Billing Document - Send Confirmation of Fields Updated for Self-Billing",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_SCMTMS_FORWARDINGAGREEMENTREQ-v1": {
+    "title": "Forwarding Agreement ‒ Create",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_SCMTMS_CO_CPX_FR_AGRMT_REQ-v1": {
+    "title": "Freight Agreement ‒ Send",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_API_STORAGELOCATIONEXCLUSION_0003-v3": {
+    "title": "Storage Location Substitution Exclusion",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_STORLOCSUBSTNEXCLSN"
+  },
+  "OP_API_PLANTSUBSTITUTIONCONTROL_0001": {
+    "title": "Plant Substitution Control",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PLANTSUBSTNCTRL"
+  },
+  "OP_CO_PPINT_MFG_PRODN_VERS": {
+    "title": "Production Version - Replicate",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CRMS4_SUBSPRD_REPL_REQ_OUT": {
+    "title": "Subscription Product Specific Data – Replicate (A2X)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_PRODCMPLNCLOGISTICSDOCUMENT_0002-v2": {
+    "title": "Product Compliance Logistics Document",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRODCMPLNCLOGSDOCUMENT"
+  },
+  "sap-s4-OP_CONSOLIDATIONGLOBALPARAMETER_0001-v1": {
+    "title": "Consolidation Global Parameter",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNGLOBALPARAMETER"
+  },
+  "sap-s4-OP_CNSLDTNFINANCIALMANAGEMENTAREA_0001-v1": {
+    "title": "Consolidation Financial Management Area",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNFINMGMTAREA"
+  },
+  "OP_API_PLANTSUBSTITUTION_0001": {
+    "title": "Plant Substitution",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PLANTSUBSTN"
+  },
+  "sap-s4-OP_API_JNTOPGAGRMT_0001-v1": {
+    "title": "Joint Operating Agreement",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_JNTOPGAGRMT"
+  },
+  "OP_LEAD_CONFIRMATION_OUT": {
+    "title": "Lead (Asynchronous) - Confirm Processing",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_SD_INCOTERMS_SRV_0001": {
+    "title": "Incoterms - Read (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_ECC_CASHPOINTPAYMENTREVNO": {
+    "title": "External Cash Point – Inbound Reversal Notification",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_SLS_DOC_WITH_CREDIT_BLOCK_0001": {
+    "title": "Sales Document with Credit Block - Read, Check, Release, Reject (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CNSLDTNDISTRIBUTIONCHANNEL_0001": {
+    "title": "Consolidation Distribution Channel",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNDISTRCHANNEL"
+  },
+  "OP_CREDITMANAGEMENTACCOUNTBYIDQU1": {
+    "title": "Credit Management Account – Read",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CHGPROCESSGROUP_0001": {
+    "title": "Change Process Group - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CHANGEPROCESSGROUP"
+  },
+  "OP_FIXEDASSETCHANGE_IN": {
+    "title": "Fixed Asset - Change (Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CO_SDBIL_ESR_BD_CONF_OUT": {
+    "title": "Billing Document - Send Creation Confirmation",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CO_MDG_BP_RELATIONSHIP_CNF_OUT": {
+    "title": "Business Partner Relationship - Send Confirmation from SAP S/4HANA to Client",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CO_SDBIL_ESR_BDCR_SBI_CONF_OUT": {
+    "title": "Self-Billing Invoice - Send Creation Confirmation",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_LEDGER_SRV": {
+    "title": "Ledger - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CO_FKK_CA_FACTOROFFERBULK_OUT": {
+    "title": "Factoring – Offer Data",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CMMDTYHDGSPECPERIODICITY_0001": {
+    "title": "Commodity Hedge Specification Periodicity - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CMHDGSPECPERIODICITY"
+  },
+  "sap-s4-OP_CO_LEIDW_WAREHOUSE_STOCK_TRAN1-v1": {
+    "title": "Warehouse Stock Transfer Receipt Advice Cancel Confirm – To Warehouse (B2B)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_SERVICEENTRYSHEET_0001-v1": {
+    "title": "Service Entry Sheet (Lean Services)",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SERVICEENTRYSHEET"
+  },
+  "OP_CMHDGFXHDGGINSTR_0001": {
+    "title": "Commodity Hedging Area FX Hedging Instrument - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CMHDGFXHDGGINSTR"
+  },
+  "OP_SAFETYDATASHEETASSESSMENT_0001": {
+    "title": "Safety Data Sheet Assessment",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SAFETYDATASHEETASSESSMENT"
+  },
+  "OP_PRODTIMEDPDNTSTCK_0001": {
+    "title": "Time Dependent Stock Levels",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PROD_TIMEDPDNTSTCK_SRV"
+  },
+  "OP_FKCMANAGECADOCUMENT": {
+    "title": "Contract Accounting Document",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_RESPYM_TEAM_SRV_0002": {
+    "title": "Responsibility Management Teams - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_RESPYMGMT_TEAM_SRV"
+  },
+  "sap-s4-OP_CNSLDTNDIVISIONHIERARCHY_0001-v1": {
+    "title": "Consolidation Division Hierarchy",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNDIVISIONHIER"
+  },
+  "OP_JITCALLREQUEST_IN": {
+    "title": "Manage Just-In-Time Calls",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CO_FKK_CA_FACTORINGCLEARING_O": {
+    "title": "Factoring – Clearing Data",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CO_EDI_PAYM_ADV_CANCEL_OUT": {
+    "title": "Payment Advice - Send Cancellation",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_PPS_PURCHASEREQUISITION_0001-v1": {
+    "title": "Purchase Requisition",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PPS_PURCHASEREQUISITION"
+  },
+  "sap-s4-OP_PPS_PURCHASEORDER_0001-v1": {
+    "title": "PPS Purchase Order",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PPS_PURCHASEORDER"
+  },
+  "OP_MRPCHANGEREQUESTREASON_0001": {
+    "title": "MRP Change Request Reason – Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_MRPCR_REASON_CODE"
+  },
+  "OP_API_FUNDEDPROGRAM_0001": {
+    "title": "Funded Program",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_FNDSMGMTBDGTDOCITEM_0001": {
+    "title": "Funds Management Budget Document Item (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_BUFFERSIZING_SRV_0001": {
+    "title": "Buffer Sizing",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CO_FNDEI_UNITOFMEASUREMENT_RL": {
+    "title": "Unit of Measurement - Replicate (A2X)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_REINTEGRATIONOBJECT_0001": {
+    "title": "Real Estate Integration Object",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_RE_INTEGRATIONOBJECT"
+  },
+  "OP_COMPANYCODEMASTERDATA_OUT": {
+    "title": "Company Code - Send",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "sap-s4-OP_SCMTMS_TPEVTBNTFI-v1": {
+    "title": "Freight Order Management ‒ Report Events",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_VARCNFCHARCGROUP_0001": {
+    "title": "Variant Configuration Characteristic Group",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_VARCNFCHARCGROUP"
+  },
+  "OP_API_SEGMENTATIONSTRUCTURE_0001": {
+    "title": "Segmentation Structure and Strategy Maintenance",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_JOURNALENTRYCREATEREQUESTCONF_IN": {
+    "title": "Journal Entry - Post (Synchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_PRAINTERNALMARKETING_0001": {
+    "title": "PRA Marketing Internal Rate",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRAINTERNALMARKETING"
+  },
+  "OP_CO_PPINT_MFG_MASTER_RECIPE_V2": {
+    "title": "Master Recipe - Replicate",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CNSLDTNTASKGROUPASSIGNMENT_0001": {
+    "title": "Consolidation Task Group Assignment - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNTASKGROUPASSIGNMENT"
+  },
+  "OP_CO_SDMD_ESR_DISTR_CHANNEL": {
+    "title": "Distribution Channel - Replicate",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_SERVICECONTRACTCONFIRMATION_OUT": {
+    "title": "Service Contract - Confirm Processing (Asynchronous)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_RESERVATION_DOCUMENT_SRV_0001": {
+    "title": "Reservation Document",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CO_FNDEI_ITEMCATEGORY_RL": {
+    "title": "Item Category - Replicate (A2X)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_SOURCINGPROJECT_0001": {
+    "title": "Sourcing Project",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_SOURCINGPROJECT"
+  },
+  "OP_API_CODING": {
+    "title": "Catalog Type Coding - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CODING"
+  },
+  "OP_APPOINTMENT_ACTIVITY_CONFIRMATION_OUT": {
+    "title": "Appointment Activity (Asynchronous) - Confirm Processing",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_API_PRODUCTION_ROUTING_0001": {
+    "title": "Production Routing",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_CNSLDTNBUSINESSAREA_0001": {
+    "title": "Consolidation Business Area",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNBUSINESSAREA"
+  },
+  "OP_VARCONFIGNOBJECTDEPENDENCY_0001": {
+    "title": "Object Dependency",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_VARCNFOBJECTDEPENDENCY"
+  },
+  "OP_CNSLDTNCHARTOFACCOUNTS_0001": {
+    "title": "Consolidation Chart of Accounts",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNCHARTOFACCOUNTS"
+  },
+  "sap-s4-OP_CNSLDTNPLANTHIERARCHY_0001-v1": {
+    "title": "Consolidation Plant Hierarchy",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CNSLDTNPLANTHIERARCHY"
+  },
+  "OP_MRPCHANGEREQUESTRESPONSE_IN": {
+    "title": "MRP Change Request Response",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CMMDTYHDGBOOKAUTHZNGROUP_0001": {
+    "title": "Commodity Hedge Book Authorization Group - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CMMDTYHDGBOOKAUTHZNGRP"
+  },
+  "OP_API_PRODSUBSTNEXCLSN_0001": {
+    "title": "Product Substitution Exclusion",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PRODSUBSTNEXCLSN"
+  },
+  "OP_API_CUSTOMER_RETURN_DELIVERY_SRV_0002": {
+    "title": "Customer Returns Delivery (A2X)",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_API_PLANNINGCATEGORY_SRV_0001": {
+    "title": "Plan Category - Read",
+    "type": "ODATA",
+    "serviceGroupName": ""
+  },
+  "OP_PURCHASEREQUISITION_0001": {
+    "title": "Purchase Requisition",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PURCHASEREQUISITION_2"
+  },
+  "OP_PURGDOCPRICINGSIMULATION_0001": {
+    "title": "Price Simulation - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_PURGDOCPRCGSIMULATION"
+  },
+  "OP_CMMDTYHEDGESPECIFICATION_0001": {
+    "title": "Commodity Hedge Specification",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_CMMDTYHDGSPECIFICATION"
+  },
+  "OP_MRPCHANGEREQUESTREJECTION_0001": {
+    "title": "MRP Change Request Rejection – Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_MRPCR_REJECTION_CODE"
+  },
+  "OP_VMSVEHICLEAVAILABILITY_0001": {
+    "title": "Vehicle Management System Vehicle Availability - Read",
+    "type": "ODATAV4",
+    "serviceGroupName": "API_VMSVEHICLEAVAILABILITY"
+  },
+  "OP_CO_WART_PRMRCHV_REPLBLKRQ_OUT": {
+    "title": "Product Merchandise Data – Replicate (Asynchronous A2A)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CO_EDI_SETTLMTDOC_REQUEST_OUT": {
+    "title": "Settlement Document - Send (B2B)",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  },
+  "OP_CO_LOG_MDR_PLANT": {
+    "title": "Plants – Replicate",
+    "type": "SOAP",
+    "serviceGroupName": ""
+  }
+}
