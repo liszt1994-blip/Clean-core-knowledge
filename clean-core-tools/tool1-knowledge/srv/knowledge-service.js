@@ -1176,12 +1176,33 @@ module.exports = cds.service.impl(async function (srv) {
 
   // ── Tab 6: CDS 关系图谱 ──────────────────────────────────────────────────
   srv.on('analyzeCds', async (req) => {
-    const { viewName } = req.data;
+    const { viewName, parentViewName } = req.data;
     if (!viewName?.trim()) {
       return req.error(400, '请输入 CDS View 名称');
     }
+
+    // depth to fetch: incremental mode = 1 level only, full mode = 2 levels
+    const maxDepth = parentViewName ? 1 : 2;
+
     try {
-      const graph = await buildGraphFromAdt(viewName.trim());
+      const graph = await buildGraphFromAdt(viewName.trim(), maxDepth);
+
+      // Enrich nodes with Clean Core classification via AI (same logic as Tab 1)
+      // A/B = clean core compliant; C/D = not compliant
+      await Promise.all(graph.nodes.map(async (node) => {
+        try {
+          const result = await classifyWithGrounding(node.id);
+          if (result) {
+            const tier = (result.tier || '').toUpperCase();
+            node.cleanCore      = tier === 'A' || tier === 'B';
+            node.classification = tier === 'A' ? 'C1' : tier === 'B' ? 'C2' : 'Not Classified';
+            node.releaseState   = tier === 'A' ? 'Released' : tier === 'B' ? 'Restricted' : 'Internal';
+          }
+        } catch (_err) {
+          // Classification failed for this node — keep ADT-parsed defaults
+        }
+      }));
+
       return graph;
     } catch (err) {
       return req.error(404, err.message);
