@@ -652,7 +652,8 @@ sap.ui.define([
           if (!edgeKeys.has(key)) {
             edgeKeys.add(key);
             edges.push({ source: src, target: tgt, relation: e.relation });
-            if (childrenOf[src]) childrenOf[src].push(tgt);
+            if (!childrenOf[src]) childrenOf[src] = [];
+            childrenOf[src].push(tgt);
           }
         });
         // 重建 D3 选择集和 simulation
