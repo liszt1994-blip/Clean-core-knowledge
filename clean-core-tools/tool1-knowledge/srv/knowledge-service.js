@@ -49,8 +49,24 @@ module.exports = cds.service.impl(async function (srv) {
     return clf;
   }
 
-  // Classify a single SAP object using Grounding (preferred) or plain AI fallback
+  // Classify a single SAP object: local JSON first, then Grounding, then plain AI fallback
   async function classifyWithGrounding(objectName) {
+    // Step 1: local JSON lookup (highest accuracy, no AI cost)
+    const localResult = getClassifier().lookup(objectName);
+    if (localResult) {
+      return {
+        objectName,
+        tier:           localResult.tier,
+        state:          localResult.state || localResult.clsState,
+        explanation:    localResult.tierDescription,
+        recommendation: localResult.replacement
+          ? `Use successor: ${localResult.replacement} (${localResult.replacementType})`
+          : localResult.tierDescription,
+        source: 'local-json',
+      };
+    }
+
+    // Step 2: AI Grounding (knowledge base documents)
     const collectionId = process.env.AICORE_GROUNDING_COLLECTION_ID;
     if (collectionId && getAI()) {
       try {
@@ -72,7 +88,8 @@ module.exports = cds.service.impl(async function (srv) {
         console.warn('[classifyWithGrounding] grounding failed, falling back to AI:', err.message);
       }
     }
-    // Fallback: plain AI completion
+
+    // Step 3: plain AI inference (last resort)
     if (!getAI()) return null;
     const raw = await getAI().complete(CLEAN_CORE_SYSTEM_PROMPT, buildSingleClassifyPrompt(objectName));
     const parsed = JSON.parse(raw.trim());
