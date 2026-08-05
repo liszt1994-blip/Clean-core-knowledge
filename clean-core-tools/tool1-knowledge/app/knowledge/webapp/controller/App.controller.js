@@ -516,6 +516,11 @@ sap.ui.define([
         this._graphSimulation.stop();
         this._graphSimulation = null;
       }
+      // 取消上一次未触发的初始化 timer，防止旧闭包操作已卸载的 D3 选择集
+      if (this._graphInitTimer) {
+        clearTimeout(this._graphInitTimer);
+        this._graphInitTimer = null;
+      }
 
       var canvas = document.getElementById('ccGraphCanvas');
       if (!canvas) return;
@@ -794,7 +799,7 @@ sap.ui.define([
         updateVisibility();
       });
       // 也在第一帧就更新一次（alpha 初始较高，确保立即生效）
-      setTimeout(function () { updateVisibility(); }, 50);
+      this._graphInitTimer = setTimeout(function () { updateVisibility(); }, 50);
     },
 
     // ── API Hub 搜索 ─────────────────────────────────────────────────────────
