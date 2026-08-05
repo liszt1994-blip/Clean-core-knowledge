@@ -5,7 +5,9 @@ const { ClassificationClient } = require('../src/classification-client');
 const { DestinationClient } = require('../src/destination-client');
 const { searchHelpPortal } = require('../src/sap-help-search');
 const { searchApis, listByModule } = require('../src/apihub-client');
-const { buildGraph } = require('../src/cds-graph-data');
+const { buildGraphFromAdt } = require('../src/adt-client');
+const { searchSapApis } = require('../src/sap-api-search');
+const { searchDiscoveryCenter, getServiceDetails, searchSapDocs } = require('../src/mcp-client');
 const {
   buildExplainPrompt,
   buildSingleClassifyPrompt,
@@ -20,6 +22,11 @@ const {
   buildRewriteCodePrompt,
   buildExtractObjectsPrompt,
   buildPlanPrompt,
+  buildBtpAnswerPrompt,
+  buildBtpGuidePrompt,
+  buildBtpIntentPrompt,
+  buildBtpServicePrompt,
+  buildBtpMcpAnswerPrompt,
 } = require('./prompts');
 
 module.exports = cds.service.impl(async function (srv) {
@@ -28,24 +35,51 @@ module.exports = cds.service.impl(async function (srv) {
   let clf;
   let dest;
 
-  const GROUNDING_COLLECTION_ID = process.env.GROUNDING_COLLECTION_ID || '';
-
   function getAI() {
-    if (!ai) ai = new AICoreClient();
-    return ai;
-  }
-
-  // Wrapper: use grounding when collection is configured, fall back to plain complete
-  function aiComplete(systemPrompt, userContent, maxTokens = 2048) {
-    if (GROUNDING_COLLECTION_ID) {
-      return getAI().completeWithGrounding(systemPrompt, userContent, GROUNDING_COLLECTION_ID, maxTokens);
+    if (!ai) {
+      const vcapRaw = process.env.VCAP_SERVICES;
+      if (!vcapRaw || vcapRaw.includes('<YOUR_')) return null;
+      ai = new AICoreClient();
     }
-    return getAI().complete(systemPrompt, userContent, maxTokens);
+    return ai;
   }
 
   function getClassifier() {
     if (!clf) clf = new ClassificationClient();
     return clf;
+  }
+
+  // Classify a single SAP object using Grounding (preferred) or plain AI fallback
+  async function classifyWithGrounding(objectName) {
+    const collectionId = process.env.AICORE_GROUNDING_COLLECTION_ID;
+    if (collectionId && getAI()) {
+      try {
+        const answer = await getAI().chatWithGrounding(
+          `What is the SAP Clean Core classification level (A, B, C, or D) for the SAP object "${objectName}"? ` +
+          `Reply ONLY with a JSON array containing one object with fields: ` +
+          `objectName, tier (A/B/C/D), state (released/classicAPI/notToBeReleased/noAPI/unknown), ` +
+          `explanation (1-2 sentences), recommendation (what developer should do). No markdown fences.`,
+          collectionId,
+          512,
+          true,
+        );
+        const cleaned = answer.trim().replace(/^```json\s*/i, '').replace(/\s*```$/i, '');
+        const parsed = JSON.parse(cleaned);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return { ...parsed[0], objectName, source: 'grounding' };
+        }
+      } catch (err) {
+        console.warn('[classifyWithGrounding] grounding failed, falling back to AI:', err.message);
+      }
+    }
+    // Fallback: plain AI completion
+    if (!getAI()) return null;
+    const raw = await getAI().complete(CLEAN_CORE_SYSTEM_PROMPT, buildSingleClassifyPrompt(objectName));
+    const parsed = JSON.parse(raw.trim());
+    if (Array.isArray(parsed) && parsed.length > 0) {
+      return { ...parsed[0], objectName, source: 'ai-inference' };
+    }
+    return null;
   }
 
   function getDestination() {
@@ -65,7 +99,8 @@ module.exports = cds.service.impl(async function (srv) {
     if (!term || !term.trim()) {
       return req.error(400, 'term is required');
     }
-    const result = await aiComplete(CLEAN_CORE_SYSTEM_PROMPT, buildExplainPrompt(term));
+    if (!getAI()) return 'AI Core 未配置，请在 .env 文件中填入真实的 VCAP_SERVICES 凭据。';
+    const result = await getAI().complete(CLEAN_CORE_SYSTEM_PROMPT, buildExplainPrompt(term));
     return result;
   });
 
@@ -101,26 +136,17 @@ module.exports = cds.service.impl(async function (srv) {
           source:         'official-json',
         });
       } else {
-        // ── Miss: ask AI Core to infer the tier ───────────────────────
+        // ── Miss: use Grounding first, fallback to plain AI ────────────
         try {
-          const raw = await getAI().complete(
-            CLEAN_CORE_SYSTEM_PROMPT,
-            buildSingleClassifyPrompt(name),
-          );
-          let parsed;
-          try {
-            parsed = JSON.parse(raw.trim());
-          } catch {
-            parsed = null;
-          }
-          if (Array.isArray(parsed) && parsed.length > 0) {
-            results.push({ ...parsed[0], objectName: name });
+          const result = await classifyWithGrounding(name);
+          if (result) {
+            results.push(result);
           } else {
             results.push({
               objectName: name,
               tier: 'unknown',
               state: 'unknown',
-              explanation: 'Object not found in SAP release data; AI inference also failed.',
+              explanation: 'Object not found in SAP release data; Grounding and AI inference also failed.',
               recommendation: 'Verify the object name and check the SAP API Business Hub.',
               source: 'ai-inference-failed',
             });
@@ -155,7 +181,7 @@ module.exports = cds.service.impl(async function (srv) {
 
     if (info && info.allSuccessors.length > 0) {
       // We have official successors — ask AI only for migration notes
-      const raw = await aiComplete(
+      const raw = await getAI().complete(
         CLEAN_CORE_SYSTEM_PROMPT,
         buildMigrationNotePrompt(name, info.allSuccessors),
       );
@@ -178,7 +204,7 @@ module.exports = cds.service.impl(async function (srv) {
     }
 
     // No JSON data — full AI recommendation
-    const raw = await aiComplete(
+    const raw = await getAI().complete(
       CLEAN_CORE_SYSTEM_PROMPT,
       buildRecommendPrompt(name),
     );
@@ -216,14 +242,16 @@ module.exports = cds.service.impl(async function (srv) {
       if (!name) continue;
       const info = getClassifier().lookup(name);
       if (info && info.tier !== 'A') {
+        // A and B tiers: do not show replacement suggestions
+        const isCompliant = info.tier === 'A' || info.tier === 'B';
         results.push({
           objectName:      name,
           tier:            info.tier,
           state:           info.state || info.clsState,
           line:            ref.line || 0,
           callType:        ref.callType || '',
-          replacement:     info.replacement || '',
-          replacementType: info.replacementType || '',
+          replacement:     isCompliant ? '' : (info.replacement || ''),
+          replacementType: isCompliant ? '' : (info.replacementType || ''),
           note:            info.note || '',
         });
       } else if (!info) {
@@ -314,7 +342,7 @@ module.exports = cds.service.impl(async function (srv) {
       return { original: code, rewritten: code };
     }
 
-    const raw = await aiComplete(
+    const raw = await getAI().complete(
       CLEAN_CORE_SYSTEM_PROMPT,
       buildRewriteCodePrompt(code, violations),
       4096,
@@ -412,6 +440,18 @@ module.exports = cds.service.impl(async function (srv) {
     const { message, mode = 'auto', history = [] } = req.data;
     if (!message || !message.trim()) return req.error(400, 'message is required');
 
+    if (!getAI()) {
+      return {
+        replyType: 'general',
+        text: 'AI Core 未配置，请在 .env 文件中填入真实的 VCAP_SERVICES 凭据后重启服务。\n\n本地可用功能：Tab 2（对象分级，直接查本地 JSON）和 Tab 3（SAP 搜索）。',
+        violations: JSON.stringify([]),
+        rewriteOriginal: '',
+        rewriteRewritten: '',
+        notes: JSON.stringify([]),
+        sourceType: 'no-ai',
+      };
+    }
+
     // Step 1: detect intent (skip if mode is explicit)
     let intent = mode;
     if (mode === 'auto') {
@@ -430,10 +470,20 @@ module.exports = cds.service.impl(async function (srv) {
 
     // Step 2: route to handler
     if (intent === 'explain') {
-      const text = await aiComplete(
-        CLEAN_CORE_SYSTEM_PROMPT,
-        buildExplainPrompt(message),
-      );
+      const collectionId = process.env.AICORE_GROUNDING_COLLECTION_ID;
+      let text;
+      let sourceType = 'ai-core';
+      if (collectionId && getAI()) {
+        try {
+          text = await getAI().chatWithGrounding(message, collectionId);
+          sourceType = 'grounding';
+        } catch (err) {
+          console.warn('[chat/explain] Grounding failed, falling back:', err.message);
+        }
+      }
+      if (!text) {
+        text = await getAI().complete(CLEAN_CORE_SYSTEM_PROMPT, buildExplainPrompt(message));
+      }
       return {
         replyType: 'explain',
         text,
@@ -441,6 +491,7 @@ module.exports = cds.service.impl(async function (srv) {
         rewriteOriginal: '',
         rewriteRewritten: '',
         notes: JSON.stringify([]),
+        sourceType,
       };
     }
 
@@ -468,6 +519,7 @@ module.exports = cds.service.impl(async function (srv) {
           text: '无法从输入中识别 SAP 对象名，请直接输入对象名（如 READ_TEXT）。',
           violations: JSON.stringify([]),
           rewriteOriginal: '', rewriteRewritten: '', notes: JSON.stringify([]),
+          sourceType: 'ai-core',
         };
       }
 
@@ -476,12 +528,14 @@ module.exports = cds.service.impl(async function (srv) {
       for (const name of objects) {
         const info = getClassifier().lookup(name);
         if (info) {
-          let replacement = info.replacement || '';
-          let replacementType = info.replacementType || '';
+          // A and B tiers: do not suggest replacements
+          const isCompliant = info.tier === 'A' || info.tier === 'B';
+          let replacement = isCompliant ? '' : (info.replacement || '');
+          let replacementType = isCompliant ? '' : (info.replacementType || '');
           let note = info.note || '';
 
-          // If no replacement in JSON, ask AI for recommendation
-          if (!replacement && info.tier !== 'A') {
+          // If no replacement in JSON and tier is not A/B, ask AI for recommendation
+          if (!replacement && !isCompliant) {
             try {
               const raw = await getAI().complete(
                 CLEAN_CORE_SYSTEM_PROMPT,
@@ -512,29 +566,24 @@ module.exports = cds.service.impl(async function (srv) {
             note,
           });
         } else {
-          // Not in local JSON — full AI inference
+          // Not in local JSON — Grounding + AI fallback
           try {
-            const raw = await getAI().complete(
-              CLEAN_CORE_SYSTEM_PROMPT,
-              buildSingleClassifyPrompt(name),
-              512,
-            );
-            const parsed = JSON.parse(raw.trim().replace(/^```json\s*/i, '').replace(/\s*```$/i, ''));
-            if (Array.isArray(parsed) && parsed.length > 0) {
+            const result = await classifyWithGrounding(name);
+            if (result) {
               violations.push({
                 objectName: name,
-                tier: parsed[0].tier || 'unknown',
-                state: parsed[0].state || 'unknown',
+                tier: result.tier || 'unknown',
+                state: result.state || 'unknown',
                 line: 0, callType: '',
-                replacement: parsed[0].recommendation || '',
+                replacement: result.recommendation || '',
                 replacementType: '',
-                note: parsed[0].explanation || '',
+                note: result.explanation || '',
               });
             } else {
               violations.push({
                 objectName: name, tier: 'unknown', state: 'unknown',
                 line: 0, callType: '', replacement: '', replacementType: '',
-                note: '未在本地数据中找到，AI 也无法推断，请手动核实。',
+                note: '未在本地数据中找到，Grounding 和 AI 也无法推断，请手动核实。',
               });
             }
           } catch {
@@ -547,6 +596,7 @@ module.exports = cds.service.impl(async function (srv) {
         }
       }
 
+      const classifyCollectionId = process.env.AICORE_GROUNDING_COLLECTION_ID;
       return {
         replyType: 'violations',
         text: violations.length > 0
@@ -554,6 +604,7 @@ module.exports = cds.service.impl(async function (srv) {
           : '在本地数据中未找到这些对象，建议手动核实。',
         violations: JSON.stringify(violations),
         rewriteOriginal: '', rewriteRewritten: '', notes: JSON.stringify([]),
+        sourceType: classifyCollectionId ? 'grounding' : 'ai-core',
       };
     }
 
@@ -574,12 +625,14 @@ module.exports = cds.service.impl(async function (srv) {
         if (!name) continue;
         const info = getClassifier().lookup(name);
         if (info && info.tier !== 'A') {
-          let replacement = info.replacement || '';
-          let replacementType = info.replacementType || '';
+          // A and B tiers: do not suggest replacements
+          const isCompliant = info.tier === 'A' || info.tier === 'B';
+          let replacement = isCompliant ? '' : (info.replacement || '');
+          let replacementType = isCompliant ? '' : (info.replacementType || '');
           let note = info.note || '';
 
-          // If no replacement in JSON, ask AI for recommendation
-          if (!replacement) {
+          // If no replacement in JSON and tier is not A/B, ask AI for recommendation
+          if (!replacement && !isCompliant) {
             try {
               const raw = await getAI().complete(
                 CLEAN_CORE_SYSTEM_PROMPT,
@@ -646,54 +699,58 @@ module.exports = cds.service.impl(async function (srv) {
           rewriteOriginal: '',
           rewriteRewritten: '',
           notes: JSON.stringify([]),
+          sourceType: 'ai-core',
         };
       }
 
-      // Generate rewrite
+      // Generate rewrite — skip if all violations are A/B tier (no replacements to apply)
+      const needsRewrite = violations.some(v => v.tier !== 'A' && v.tier !== 'B');
       // rewriteOriginal always comes from message directly (saves tokens, avoids truncation)
       let rewriteOriginal = message;
       let rewriteRewritten = '';
-      try {
-        const raw = await aiComplete(
-          CLEAN_CORE_SYSTEM_PROMPT,
-          buildRewriteCodePrompt(message, violations),
-          8192,
-        );
-        console.log('[rewrite] raw length:', raw ? raw.length : 0);
-        console.log('[rewrite] raw FULL:\n', raw);
+      if (needsRewrite) {
+        try {
+          const raw = await aiComplete(
+            CLEAN_CORE_SYSTEM_PROMPT,
+            buildRewriteCodePrompt(message, violations),
+            8192,
+          );
+          console.log('[rewrite] raw length:', raw ? raw.length : 0);
+          console.log('[rewrite] raw FULL:\n', raw);
 
-        if (!raw || !raw.trim()) {
-          console.error('[rewrite] AI returned empty response');
-        } else {
-          // Strip markdown fences
-          let text = raw.trim()
-            .replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '')
-            .trim();
+          if (!raw || !raw.trim()) {
+            console.error('[rewrite] AI returned empty response');
+          } else {
+            // Strip markdown fences
+            let text = raw.trim()
+              .replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '')
+              .trim();
 
-          // Try JSON.parse first
-          let rw = null;
-          try {
-            rw = JSON.parse(text);
-          } catch (parseErr) {
-            console.error('[rewrite] JSON.parse failed:', parseErr.message, '— trying regex extraction');
-            // Regex fallback: extract "rewritten" field handling real newlines in value
-            const m = text.match(/"rewritten"\s*:\s*"([\s\S]*?)(?<!\\)"(?=\s*[,}])/);
-            if (m) {
-              const rewrit = m[1].replace(/\\n/g, '\n').replace(/\\"/g, '"').replace(/\\\\/g, '\\');
-              rw = { rewritten: rewrit };
-              console.log('[rewrite] regex extraction succeeded, rewritten length:', rewrit.length);
+            // Try JSON.parse first
+            let rw = null;
+            try {
+              rw = JSON.parse(text);
+            } catch (parseErr) {
+              console.error('[rewrite] JSON.parse failed:', parseErr.message, '— trying regex extraction');
+              // Regex fallback: extract "rewritten" field handling real newlines in value
+              const m = text.match(/"rewritten"\s*:\s*"([\s\S]*?)(?<!\\)"(?=\s*[,}])/);
+              if (m) {
+                const rewrit = m[1].replace(/\\n/g, '\n').replace(/\\"/g, '"').replace(/\\\\/g, '\\');
+                rw = { rewritten: rewrit };
+                console.log('[rewrite] regex extraction succeeded, rewritten length:', rewrit.length);
+              }
+            }
+
+            if (rw && rw.rewritten) {
+              rewriteRewritten = rw.rewritten;
+              console.log('[rewrite] success, rewritten length:', rewriteRewritten.length);
+            } else {
+              console.error('[rewrite] rewritten field empty or missing. text:\n', text.slice(0, 500));
             }
           }
-
-          if (rw && rw.rewritten) {
-            rewriteRewritten = rw.rewritten;
-            console.log('[rewrite] success, rewritten length:', rewriteRewritten.length);
-          } else {
-            console.error('[rewrite] rewritten field empty or missing. text:\n', text.slice(0, 500));
-          }
+        } catch (e) {
+          console.error('[rewrite] outer catch:', e.message);
         }
-      } catch (e) {
-        console.error('[rewrite] outer catch:', e.message);
       }
 
       return {
@@ -703,6 +760,7 @@ module.exports = cds.service.impl(async function (srv) {
         rewriteOriginal,
         rewriteRewritten,
         notes: JSON.stringify([]),
+        sourceType: 'ai-core',
       };
     }
 
@@ -741,21 +799,33 @@ module.exports = cds.service.impl(async function (srv) {
         rewriteOriginal: '',
         rewriteRewritten: '',
         notes: JSON.stringify([]),
+        sourceType: 'ai-core',
       };
     }
 
-    // Fallback: general question → explain
-    const text = await aiComplete(
-      CLEAN_CORE_SYSTEM_PROMPT,
-      buildExplainPrompt(message),
-    );
+    // Fallback: general question → explain (with Grounding if available)
+    const fallbackCollectionId = process.env.AICORE_GROUNDING_COLLECTION_ID;
+    let fallbackText;
+    let fallbackSourceType = 'ai-core';
+    if (fallbackCollectionId && getAI()) {
+      try {
+        fallbackText = await getAI().chatWithGrounding(message, fallbackCollectionId);
+        fallbackSourceType = 'grounding';
+      } catch (err) {
+        console.warn('[chat/fallback] Grounding failed, falling back:', err.message);
+      }
+    }
+    if (!fallbackText) {
+      fallbackText = await getAI().complete(CLEAN_CORE_SYSTEM_PROMPT, buildExplainPrompt(message));
+    }
     return {
       replyType: 'general',
-      text,
+      text: fallbackText,
       violations: JSON.stringify([]),
       rewriteOriginal: '',
       rewriteRewritten: '',
       notes: JSON.stringify([]),
+      sourceType: fallbackSourceType,
     };
   });
 
@@ -834,29 +904,288 @@ module.exports = cds.service.impl(async function (srv) {
     }));
   });
 
-  // ── Tab 4: API Hub 搜索 ──────────────────────────────────────────────────
+  // ── Tab 4: BTP Unified (intent-routed) ────────────────────────────────────
+  srv.on('btpUnified', async (req) => {
+    const { query } = req.data;
+    if (!query || !query.trim()) return req.error(400, 'query is required');
+
+    if (!getAI()) {
+      return {
+        replyType:  'general',
+        answer:     'AI Core 未配置，请在 .env 文件中填入真实的 VCAP_SERVICES 凭据后重启服务。',
+        sources:    JSON.stringify([]),
+        apis:       JSON.stringify([]),
+        sourceType: 'no-ai',
+      };
+    }
+
+    // Step 1: detect intent (fast, low token)
+    let intent = 'general';
+    let domain = 'procurement';
+    let scenario = query.trim();
+    let serviceQuery = query.trim();
+    try {
+      const raw = await getAI().complete(
+        CLEAN_CORE_SYSTEM_PROMPT,
+        buildBtpIntentPrompt(query),
+        96,
+      );
+      const parsed = JSON.parse(raw.trim().replace(/^```json\s*/i, '').replace(/\s*```$/i, ''));
+      intent       = parsed.intent       || 'general';
+      domain       = parsed.domain       || 'procurement';
+      scenario     = parsed.scenario     || query.trim();
+      serviceQuery = parsed.serviceQuery || query.trim();
+      console.log(`[btpUnified] intent=${intent} serviceQuery="${serviceQuery}"`);
+    } catch {
+      intent = 'general';
+    }
+
+    // ── Service path: Discovery Center via MCP ──────────────────────────────
+    if (intent === 'service') {
+      try {
+        const isBroadListing = /有哪些|有什么|列举|服务列表|服务目录|都有|哪些服务|什么服务|all services|list.*service|service.*list|service catalog|services overview/i.test(query);
+
+        let services = [];
+        if (isBroadListing) {
+          const categories = [
+            'AI',
+            'Application Development and Automation',
+            'Data and Analytics',
+            'Developer Productivity',
+            'Extension Suite - Development Efficiency',
+            'Foundation / Cross Services ',
+            'Integration',
+            'Services',
+            'Process Automation',
+            'Data Privacy & Security',
+          ];
+          const seen = new Set();
+          for (const cat of categories) {
+            try {
+              const catServices = await searchDiscoveryCenter(cat, 25, cat);
+              for (const s of catServices) {
+                if (!seen.has(s.id)) { seen.add(s.id); services.push(s); }
+              }
+            } catch (e) {
+              console.warn(`[btpUnified/service] category "${cat}" failed:`, e.message);
+            }
+          }
+          for (const kw of ['SAP', 'service', 'platform', 'cloud', 'data', 'integration', 'security', 'analytics', 'build', 'mobile', 'database', 'identity', 'frontend', 'workflow', 'notification']) {
+            try {
+              const r = await searchDiscoveryCenter(kw, 25);
+              for (const s of r) {
+                if (!seen.has(s.id)) { seen.add(s.id); services.push(s); }
+              }
+            } catch (e) { /* ignore */ }
+          }
+        } else {
+          services = await searchDiscoveryCenter(serviceQuery, 25);
+        }
+
+        const detailsMap = {};
+        if (!isBroadListing && services.length > 0) {
+          try {
+            detailsMap[services[0].id] = await getServiceDetails(services[0].id);
+          } catch (e) {
+            console.warn('[btpUnified/service] getServiceDetails failed:', e.message);
+          }
+        }
+
+        if (isBroadListing) {
+          const grouped = {};
+          for (const s of services) {
+            const cat = s.category || '其他';
+            if (!grouped[cat]) grouped[cat] = [];
+            grouped[cat].push(s);
+          }
+
+          const allDesc = services.map((s, i) => `${i}|${s.name}|${s.description || ''}`).join('\n');
+          let translations = {};
+          try {
+            const raw = await getAI().complete(
+              'You are a precise technical translator for SAP product documentation. ' +
+              'Translate each service description from English to Chinese accurately (max 15 Chinese chars). ' +
+              'The format is: index|serviceName|englishDescription. ' +
+              'Return ONLY a JSON object mapping index to accurate Chinese translation. ' +
+              'Do NOT guess — base the translation strictly on the English description provided. ' +
+              'Example: {"0":"身份认证与SSO管理","1":"容器应用运行时"}. No markdown fences.',
+              allDesc,
+              2048,
+            );
+            translations = JSON.parse(raw.trim().replace(/^```json\s*/i, '').replace(/\s*```$/i, ''));
+          } catch (e) {
+            console.warn('[btpUnified/service] translation failed:', e.message);
+          }
+
+          const lines = [`# SAP BTP 服务完整列表（共 ${services.length} 项）\n`];
+          let idx = 0;
+          for (const [cat, list] of Object.entries(grouped)) {
+            lines.push(`## ${cat}（${list.length} 项）\n`);
+            for (const s of list) {
+              const zhDesc = translations[String(idx)] || '';
+              const enDesc = s.description || '';
+              const desc = zhDesc ? `${zhDesc} / ${enDesc}` : enDesc;
+              lines.push(`- **${s.name}**：${desc}`);
+              idx++;
+            }
+            lines.push('');
+          }
+          return {
+            replyType:  'general',
+            answer:     lines.join('\n'),
+            sources:    JSON.stringify([]),
+            apis:       JSON.stringify([]),
+            sourceType: 'mcp',
+          };
+        }
+
+        // Specific service query — use AI to format the detailed answer
+        const answer = await getAI().complete(
+          CLEAN_CORE_SYSTEM_PROMPT,
+          buildBtpServicePrompt(query, services, detailsMap),
+          2048,
+        );
+        return {
+          replyType:  'general',
+          answer,
+          sources:    JSON.stringify([]),
+          apis:       JSON.stringify([]),
+          sourceType: 'mcp',
+        };
+      } catch (err) {
+        console.warn('[btpUnified/service] MCP failed, falling back to general:', err.message);
+        intent = 'general';
+      }
+    }
+
+    // ── Guide path ──────────────────────────────────────────────────────────
+    if (intent === 'guide') {
+      let apiResults = [];
+      try {
+        apiResults = await searchSapApis(domain, scenario, 8);
+      } catch (err) {
+        console.warn('[btpUnified] API search failed:', err.message);
+      }
+
+      let groundingContext = '';
+      const btpCollectionId = process.env.AICORE_GROUNDING_COLLECTION_ID;
+      if (btpCollectionId && getAI()) {
+        try {
+          const { DocumentGroundingClient } = require('../src/document-grounding-client');
+          const grounder = new DocumentGroundingClient();
+          const chunks = await grounder.search(btpCollectionId, scenario, 5);
+          if (chunks.length > 0) {
+            groundingContext = chunks
+              .map((c, i) => `[${i + 1}] ${c.content || c.text || JSON.stringify(c)}`)
+              .join('\n\n');
+          }
+        } catch (err) {
+          console.warn('[btpUnified/guide] Grounding failed:', err.message);
+        }
+      }
+
+      const guide = await getAI().complete(
+        CLEAN_CORE_SYSTEM_PROMPT,
+        buildBtpGuidePrompt(domain, scenario, apiResults, groundingContext),
+        4096,
+      );
+
+      return {
+        replyType:  'guide',
+        answer:     guide,
+        sources:    JSON.stringify([]),
+        apis:       JSON.stringify(apiResults),
+        sourceType: groundingContext ? 'grounding' : 'ai-core',
+      };
+    }
+
+    // ── General Q&A path: S3 grounding first, MCP fallback ─────────────────
+    const btpGeneralCollectionId = process.env.AICORE_GROUNDING_COLLECTION_ID;
+
+    if (btpGeneralCollectionId && getAI()) {
+      try {
+        const { DocumentGroundingClient } = require('../src/document-grounding-client');
+        const grounder = new DocumentGroundingClient();
+        const chunks = await grounder.search(btpGeneralCollectionId, query, 5);
+
+        if (chunks.length > 0) {
+          const answer = await getAI().chatWithGrounding(query, btpGeneralCollectionId);
+          return {
+            replyType:  'general',
+            answer,
+            sources:    JSON.stringify([]),
+            apis:       JSON.stringify([]),
+            sourceType: 'grounding',
+          };
+        }
+        console.log('[btpUnified/general] S3 returned 0 chunks, falling back to MCP');
+      } catch (err) {
+        console.warn('[btpUnified/general] Grounding failed, falling back to MCP:', err.message);
+      }
+    }
+
+    // MCP fallback for general questions
+    try {
+      const mcpResults = await searchSapDocs(query, 5);
+      if (mcpResults.length > 0) {
+        const answer = await getAI().complete(
+          CLEAN_CORE_SYSTEM_PROMPT,
+          buildBtpMcpAnswerPrompt(query, mcpResults),
+          1024,
+        );
+        return {
+          replyType:  'general',
+          answer,
+          sources:    JSON.stringify(mcpResults.map(r => ({ title: r.title, url: r.url, summary: r.snippet || '' }))),
+          apis:       JSON.stringify([]),
+          sourceType: 'mcp',
+        };
+      }
+    } catch (err) {
+      console.warn('[btpUnified/general] MCP search failed:', err.message);
+    }
+
+    // Final fallback: pure AI
+    const btpAnswer = await getAI().complete(
+      CLEAN_CORE_SYSTEM_PROMPT,
+      buildBtpAnswerPrompt(query, []),
+      1024,
+    );
+
+    return {
+      replyType:  'general',
+      answer:     btpAnswer,
+      sources:    JSON.stringify([]),
+      apis:       JSON.stringify([]),
+      sourceType: 'ai-core',
+    };
+  });
+
+  // ── Tab 5: API Hub 搜索 ──────────────────────────────────────────────────
   srv.on('searchApiHub', async (req) => {
-    const { query, module } = req.data;
+    const { query, module, offset = 0 } = req.data;
     if (!query?.trim() && !module?.trim()) {
       return req.error(400, 'query 或 module 至少填写一个');
     }
+    const opts = { offset, limit: 500 };
     if (module?.trim()) {
-      return await listByModule(module.trim().toUpperCase());
+      return await listByModule(module.trim().toUpperCase(), opts);
     }
-    return await searchApis(query.trim());
+    return await searchApis(query.trim(), opts);
   });
 
-  // ── Tab 5: CDS 关系图谱 ──────────────────────────────────────────────────
+  // ── Tab 6: CDS 关系图谱 ──────────────────────────────────────────────────
   srv.on('analyzeCds', async (req) => {
     const { viewName } = req.data;
     if (!viewName?.trim()) {
       return req.error(400, '请输入 CDS View 名称');
     }
-    const graph = buildGraph(viewName.trim());
-    if (!graph) {
-      return req.error(404, `未找到 CDS View "${viewName.trim()}"。可用示例：I_SalesOrder、I_PurchaseOrder、I_JournalEntry、C_SalesOrderTP`);
+    try {
+      const graph = await buildGraphFromAdt(viewName.trim());
+      return graph;
+    } catch (err) {
+      return req.error(404, err.message);
     }
-    return graph;
   });
 });
 
