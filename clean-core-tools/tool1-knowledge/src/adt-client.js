@@ -139,6 +139,7 @@ async function fetchDdl(viewName) {
 async function buildGraphFromAdt(viewName, maxDepth = 2) {
   const nodes   = new Map();   // id → node (keeps lowest depth)
   const edges   = [];
+  const edgeKeys = new Set();   // dedup: 'source|target|relation'
   const visited = new Set();   // nodes whose neighbors have been queued
 
   // Process root node first (throws user-facing error if not found)
@@ -159,7 +160,8 @@ async function buildGraphFromAdt(viewName, maxDepth = 2) {
   let currentQueue = rootMeta.neighbors
     .filter(n => n.name !== viewName)
     .map(n => {
-      edges.push({ source: viewName, target: n.name, relation: n.relation });
+      const ek0 = `${viewName}|${n.name}|${n.relation}`;
+      if (!edgeKeys.has(ek0)) { edgeKeys.add(ek0); edges.push({ source: viewName, target: n.name, relation: n.relation }); }
       return { id: n.name, depth: 1 };
     });
 
@@ -205,7 +207,8 @@ async function buildGraphFromAdt(viewName, maxDepth = 2) {
         visited.add(id);
         for (const n of meta.neighbors) {
           if (n.name !== id) {
-            edges.push({ source: id, target: n.name, relation: n.relation });
+            const ek = `${id}|${n.name}|${n.relation}`;
+            if (!edgeKeys.has(ek)) { edgeKeys.add(ek); edges.push({ source: id, target: n.name, relation: n.relation }); }
             nextQueue.push({ id: n.name, depth: d + 1 });
           }
         }
