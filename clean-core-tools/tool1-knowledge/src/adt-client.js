@@ -1,6 +1,6 @@
 'use strict';
 
-const https  = require('https');
+const https  = require('https');   // used by fetchDdl() added in next task
 const axios  = require('axios');
 
 // ── DDL Parsing ──────────────────────────────────────────────────────────────
@@ -30,11 +30,11 @@ const RELEASE_MAP = {
  */
 function parseDdl(ddl) {
   // @VDM.viewType: #BASIC  (or #COMPOSITE etc.)
-  const vmMatch = ddl.match(/@VDM\.viewType\s*:\s*(#\w+)/i);
-  const type = (vmMatch && VDM_TYPE_MAP[vmMatch[1]]) || 'CDS View';
+  const vdmMatch = ddl.match(/@VDM\.viewType\s*:\s*(#\w+)/);
+  const type = (vdmMatch && VDM_TYPE_MAP[vdmMatch[1]]) || 'CDS View';
 
   // @VDM.lifecycle.contract.type: #PUBLIC_LOCAL_API
-  const lcMatch = ddl.match(/@VDM\.lifecycle\.contract\.type\s*:\s*(#\w+)/i);
+  const lcMatch = ddl.match(/@VDM\.lifecycle\.contract\.type\s*:\s*(#\w+)/);
   const releaseState = (lcMatch && RELEASE_MAP[lcMatch[1]]) || 'Internal';
 
   const cleanCore     = releaseState === 'Released';
@@ -44,14 +44,20 @@ function parseDdl(ddl) {
 
   const neighbors = [];
 
-  // as select from <Name> [as alias]  → join
-  const joinMatch = ddl.match(/as\s+select\s+from\s+(\w+)/i);
-  if (joinMatch) {
-    neighbors.push({ name: joinMatch[1], relation: 'join' });
+  // primary from source + any additional join targets → join
+  const fromRe = /\bfrom\s+(\w+)/gi;
+  let fm;
+  while ((fm = fromRe.exec(ddl)) !== null) {
+    neighbors.push({ name: fm[1], relation: 'join' });
+  }
+  const joinRe = /\bjoin\s+(\w+)/gi;
+  let jm;
+  while ((jm = joinRe.exec(ddl)) !== null) {
+    neighbors.push({ name: jm[1], relation: 'join' });
   }
 
-  // association [card] to <Name> [as alias]  → association
-  const assocRe = /association\b[^t\n]*?\bto\s+(\w+)/gi;
+  // association [card] to [one|many] <Name>  → association
+  const assocRe = /association\s*(?:\[[^\]]*\])?\s*to\s+(?:one\s+|many\s+)?(\w+)/gi;
   let m;
   while ((m = assocRe.exec(ddl)) !== null) {
     neighbors.push({ name: m[1], relation: 'association' });
