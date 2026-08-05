@@ -88,7 +88,8 @@ async function fetchDdl(viewName) {
   // TODO: CF deployment — detect VCAP_SERVICES.destination binding and
   // route through BTP Connectivity proxy with S4T_100_LST destination instead.
 
-  const url = `${ADT_URL}/sap/bc/adt/ddic/ddl/sources/${encodeURIComponent(viewName)}/source/main`;
+  const baseUrl = ADT_URL.replace(/\/$/, '');
+  const url = `${baseUrl}/sap/bc/adt/ddic/ddl/sources/${encodeURIComponent(viewName)}/source/main`;
 
   try {
     const resp = await axios.get(url, {
@@ -100,23 +101,26 @@ async function fetchDdl(viewName) {
       },
       responseType: 'text',
       timeout: 15000,
-      validateStatus: null,   // handle all status codes manually
+      validateStatus: null,
+    }).catch(e => {
+      if (e.config && e.config.headers) delete e.config.headers['Authorization'];
+      throw e;
     });
 
     if (resp.status === 404) {
       const err = new Error(`CDS View "${viewName}" 在 S4T 系统中不存在`);
-      err.isNotFound = true;
+      err.isUserFacing = true;
       throw err;
     }
     if (resp.status !== 200) {
-      throw new Error(`ADT 请求失败：HTTP ${resp.status}`);
+      const err = new Error(`ADT 请求失败：HTTP ${resp.status}`);
+      err.isUserFacing = true;
+      throw err;
     }
 
     return resp.data;
   } catch (err) {
-    if (err.isNotFound || err.message.startsWith('ADT ') || err.message.startsWith('CDS View')) {
-      throw err;   // already user-facing
-    }
+    if (err.isUserFacing) throw err;
     // Network error (ECONNREFUSED, ETIMEDOUT, etc.)
     throw new Error('无法连接 S4T 系统，请检查网络或 ADT 配置');
   }
