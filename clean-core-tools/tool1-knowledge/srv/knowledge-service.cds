@@ -55,6 +55,7 @@ service KnowledgeService {
     rewriteOriginal  : String;
     rewriteRewritten : String;
     notes            : String;
+    sourceType       : String;   // 'ai-core' | 'no-ai'
   };
 
   // ── Internal helpers exposed for direct testing ───────────────────────────
@@ -104,17 +105,19 @@ service KnowledgeService {
   };
 
   action searchApiHub(
-    query  : String,
-    module : String
+    query   : String,
+    module  : String,
+    offset  : Integer
   ) returns array of {
     id              : String;
     serviceGroupName: String;
     title           : String;
     apiType         : String;
     shortText       : String;
+    cleanCore       : Boolean;
   };
 
-  action analyzeCds(viewName : String) returns {
+  action analyzeCds(viewName : String, parentViewName : String) returns {
     nodes : array of {
       id             : String;
       type           : String;
@@ -128,5 +131,14 @@ service KnowledgeService {
       target   : String;
       relation : String;
     };
+  };
+
+  // Tab 4: BTP Unified Q&A + Guide (intent-routed)
+  action btpUnified(query : String) returns {
+    replyType  : String;   // 'general' | 'guide'
+    answer     : String;   // for general: answer text; for guide: guide markdown
+    sources    : String;   // JSON array of {title, url, summary} — general only
+    apis       : String;   // JSON array of API objects — guide only
+    sourceType : String;   // 'grounding' | 'search' | 'ai-core'
   };
 }
