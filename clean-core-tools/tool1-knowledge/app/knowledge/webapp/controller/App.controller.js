@@ -655,7 +655,8 @@ sap.ui.define([
         .text(function (d) { return d.relation; });
 
       // ── 节点圆圈 ──────────────────────────────────────────────────────
-      var dragMoved = false;
+      // D3 drag 会阻止 click 事件，因此在 drag.end 中判断是否为点击（位移 < 4px）
+      var dragStartX, dragStartY;
 
       var node = g.append('g')
         .selectAll('circle')
@@ -674,33 +675,33 @@ sap.ui.define([
         })
         .call(d3.drag()
           .on('start', function (event, d) {
-            dragMoved = false;
+            dragStartX = event.x; dragStartY = event.y;
             if (!event.active) simulation.alphaTarget(0.3).restart();
             d.fx = d.x; d.fy = d.y;
           })
           .on('drag', function (event, d) {
-            dragMoved = true;
             d.fx = event.x; d.fy = event.y;
           })
           .on('end', function (event, d) {
             if (!event.active) simulation.alphaTarget(0);
             d.fx = null; d.fy = null;
+            // 位移 < 4px 视为点击，触发展开/收起
+            var dx = event.x - dragStartX;
+            var dy = event.y - dragStartY;
+            if (Math.sqrt(dx * dx + dy * dy) < 4) {
+              if (d.depth === 0) return;
+              var children = childrenOf[d.id] || [];
+              if (children.length === 0) return;
+              if (expandedSet.has(d.id)) {
+                collapseNode(d.id);
+              } else {
+                expandedSet.add(d.id);
+              }
+              updateVisibility();
+              simulation.alpha(0.1).restart();
+            }
           })
         )
-        .on('click', function (event, d) {
-          event.stopPropagation();
-          if (dragMoved) return;
-          if (d.depth === 0) return;
-          var children = childrenOf[d.id] || [];
-          if (children.length === 0) return;
-          if (expandedSet.has(d.id)) {
-            collapseNode(d.id);
-          } else {
-            expandedSet.add(d.id);
-          }
-          updateVisibility();
-          simulation.alpha(0.1).restart();
-        })
         .on('mouseover', function (event, d) {
           var cleanText = d.cleanCore === true ? '✅ 合规' : d.cleanCore === false ? '❌ 不合规' : '—';
           tooltip.innerHTML =
