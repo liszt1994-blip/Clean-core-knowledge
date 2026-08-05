@@ -68,6 +68,7 @@ service KnowledgeService {
     replacement     : String;
     replacementType : String;
     note            : String;
+    source          : String;
   };
 
   action analyzeAtc(atcOutput : String) returns array of {
@@ -79,6 +80,7 @@ service KnowledgeService {
     replacement     : String;
     replacementType : String;
     note            : String;
+    source          : String;
   };
 
   action rewriteCode(
@@ -125,6 +127,7 @@ service KnowledgeService {
       cleanCore      : Boolean;
       classification : String;
       depth          : Integer;
+      classifySource : String;
     };
     edges : array of {
       source   : String;

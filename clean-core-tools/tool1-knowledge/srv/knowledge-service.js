@@ -583,6 +583,7 @@ module.exports = cds.service.impl(async function (srv) {
             replacement,
             replacementType,
             note,
+            source: info.source || 'local-json',
           });
         } else {
           // Not in local JSON — Grounding + AI fallback
@@ -597,6 +598,7 @@ module.exports = cds.service.impl(async function (srv) {
                 replacement: result.recommendation || '',
                 replacementType: '',
                 note: result.explanation || '',
+                source: result.source || 'ai-inference',
               });
             } else {
               violations.push({
@@ -1216,6 +1218,7 @@ module.exports = cds.service.impl(async function (srv) {
             node.cleanCore      = tier === 'A' || tier === 'B';
             node.classification = tier === 'A' ? 'C1' : tier === 'B' ? 'C2' : 'Not Classified';
             node.releaseState   = tier === 'A' ? 'Released' : tier === 'B' ? 'Restricted' : 'Internal';
+            node.classifySource = result.source || 'ai-inference';
           }
         } catch (_err) {
           // Classification failed for this node — keep ADT-parsed defaults

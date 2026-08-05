@@ -792,12 +792,15 @@ sap.ui.define([
           )
           .on('mouseover', function (event, d) {
             var cleanText = d.cleanCore === true ? '✅ 合规' : d.cleanCore === false ? '❌ 不合规' : '—';
+            var aiTag = d.classifySource === 'ai-inference'
+              ? ' <span style="background:#fff3e0;border:1px solid #ffb300;color:#e65100;border-radius:3px;padding:1px 5px;font-size:10px;font-weight:bold;">AI 推断</span>'
+              : '';
             tooltip.innerHTML =
               '<strong style="font-size:13px;">' + d.id + '</strong><br>' +
               '类型：' + (d.type || '—') + '<br>' +
               'Release：' + (d.releaseState || '—') + '<br>' +
               'Clean Core：' + cleanText + '<br>' +
-              '分级：' + (d.classification || '—');
+              '分级：' + (d.classification || '—') + aiTag;
             tooltip.style.display = 'block';
             tooltip.style.left = (event.offsetX + 12) + 'px';
             tooltip.style.top  = (event.offsetY - 10) + 'px';
@@ -1614,7 +1617,8 @@ sap.ui.define([
         items: [
           new ObjectStatus({ text: (v.tier || '?') + ' 类', state: state }).addStyleClass('sapUiSmallMarginEnd'),
           new Title({ text: v.objectName, level: 'H5' }).addStyleClass('sapUiSmallMarginEnd'),
-          v.line ? new Text({ text: '第 ' + v.line + ' 行' }).addStyleClass('sapUiTinyMarginEnd') : new Text({ text: '' })
+          v.line ? new Text({ text: '第 ' + v.line + ' 行' }).addStyleClass('sapUiTinyMarginEnd') : new Text({ text: '' }),
+          v.source === 'ai-inference' ? new HTML({ content: '<span style="display:inline-block;background:#fff3e0;border:1px solid #ffb300;color:#e65100;border-radius:3px;padding:1px 6px;font-size:11px;font-weight:bold;margin-left:4px;">AI 推断</span>' }) : new Text({ text: '' })
         ]
       });
 
