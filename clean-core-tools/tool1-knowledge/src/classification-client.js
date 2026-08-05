@@ -2,6 +2,27 @@
 // Mirrors Python ClassificationClient from Agent-main/atc-agent/tools/classification.py
 const fs = require('fs');
 const path = require('path');
+const https = require('https');
+
+const REMOTE_RELEASE_URL      = 'https://raw.githubusercontent.com/SAP/abap-atc-cr-cv-s4hc/main/src/objectReleaseInfoLatest.json';
+const REMOTE_CLASSIFICATIONS_URL = 'https://raw.githubusercontent.com/SAP/abap-atc-cr-cv-s4hc/refs/heads/main/src/objectClassifications_SAP.json';
+
+function fetchJson(url) {
+  return new Promise((resolve, reject) => {
+    https.get(url, (res) => {
+      if (res.statusCode !== 200) {
+        res.resume();
+        return reject(new Error(`HTTP ${res.statusCode} for ${url}`));
+      }
+      let data = '';
+      res.on('data', chunk => { data += chunk; });
+      res.on('end', () => {
+        try { resolve(JSON.parse(data)); }
+        catch (e) { reject(e); }
+      });
+    }).on('error', reject);
+  });
+}
 
 const P2_STATES = new Set(['notToBeReleased', 'classicAPI', 'noAPI']);
 const DOCS_DIR = path.join(__dirname, '..', 'docs');
@@ -32,10 +53,45 @@ class ClassificationClient {
   constructor() {
     this._releaseIndex = null;
     this._classifications = null;
+    this._remoteLoaded = false;
+    // kick off remote fetch immediately; errors are caught internally
+    this._remotePromise = this._loadRemote();
+  }
+
+  async _loadRemote() {
+    try {
+      const [releaseRaw, classRaw] = await Promise.all([
+        fetchJson(REMOTE_RELEASE_URL),
+        fetchJson(REMOTE_CLASSIFICATIONS_URL),
+      ]);
+
+      const releaseItems = Array.isArray(releaseRaw) ? releaseRaw : (releaseRaw.objectReleaseInfo || []);
+      const remoteRelease = {};
+      for (const item of releaseItems) {
+        const key = item.objectKey || item.tadirObjName;
+        if (key) remoteRelease[key] = item;
+      }
+
+      const classItems = Array.isArray(classRaw) ? classRaw : (classRaw.objectClassifications || []);
+      const remoteClass = {};
+      for (const item of classItems) {
+        if (item.objectKey) remoteClass[item.objectKey] = item;
+      }
+
+      // Override local data with remote (remote is authoritative)
+      this._releaseIndex = remoteRelease;
+      this._classifications = remoteClass;
+      this._remoteLoaded = true;
+      console.log('[ClassificationClient] Remote JSON loaded:', Object.keys(remoteRelease).length, 'release entries,', Object.keys(remoteClass).length, 'classification entries');
+    } catch (err) {
+      console.warn('[ClassificationClient] Remote fetch failed, using local JSON:', err.message);
+      // local JSON will be loaded lazily on first lookup()
+    }
   }
 
   _loadReleaseIndex() {
     if (this._releaseIndex) return this._releaseIndex;
+    // Remote not loaded yet — fall back to local JSON
     const filePath = path.join(DOCS_DIR, 'objectReleaseInfoLatest.json');
     const raw = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
     const items = Array.isArray(raw) ? raw : (raw.objectReleaseInfo || []);
@@ -49,6 +105,7 @@ class ClassificationClient {
 
   _loadClassifications() {
     if (this._classifications) return this._classifications;
+    // Remote not loaded yet — fall back to local JSON
     const filePath = path.join(DOCS_DIR, 'objectClassifications_SAP.json');
     const raw = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
     const items = Array.isArray(raw) ? raw : (raw.objectClassifications || []);
@@ -57,6 +114,11 @@ class ClassificationClient {
       if (item.objectKey) this._classifications[item.objectKey] = item;
     }
     return this._classifications;
+  }
+
+  // Wait for remote data to be ready (call this before first lookup for best accuracy)
+  async ready() {
+    await this._remotePromise;
   }
 
   /**
@@ -84,8 +146,9 @@ class ClassificationClient {
     const index = this._loadReleaseIndex();
     const classes = this._loadClassifications();
 
-    const item = index[deprecatedName];
-    const classification = classes[deprecatedName] || null;
+    const key = deprecatedName.toUpperCase();
+    const item = index[key];
+    const classification = classes[key] || null;
 
     // Return null only if the object is in neither JSON file
     if (!item && !classification) return null;

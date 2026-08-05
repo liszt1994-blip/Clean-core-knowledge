@@ -52,6 +52,8 @@ module.exports = cds.service.impl(async function (srv) {
   // Classify a single SAP object: local JSON first, then Grounding, then plain AI fallback
   async function classifyWithGrounding(objectName) {
     // Step 1: local JSON lookup (highest accuracy, no AI cost)
+    // Wait for remote JSON to finish loading (it was kicked off at startup)
+    await getClassifier().ready();
     const localResult = getClassifier().lookup(objectName);
     if (localResult) {
       return {
