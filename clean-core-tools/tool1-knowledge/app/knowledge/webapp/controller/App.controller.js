@@ -582,8 +582,19 @@ sap.ui.define([
       // ── 展开状态集合：初始只有根节点（表示其子节点可见）────────────────
       var expandedSet = new Set([rootId]);
 
+      // ── 懒加载状态 ────────────────────────────────────────────────────
+      var nodeMap      = {};          // id → node object
+      var edgeKeys     = new Set();   // "src|tgt|rel" 去重
+      var loadingNodes = new Set();   // 正在请求的节点 id
+
+      nodes.forEach(function (n) { nodeMap[n.id] = n; });
+      edges.forEach(function (e) {
+        var src = typeof e.source === 'object' ? e.source.id : e.source;
+        var tgt = typeof e.target === 'object' ? e.target.id : e.target;
+        edgeKeys.add(src + '|' + tgt + '|' + e.relation);
+      });
+
       // ── 构建 childrenOf 映射：nodeId → [childId, ...] ─────────────────
-      // edges 在 simulation 解析后 source/target 会变成对象，先用字符串 id
       var childrenOf = {};
       nodes.forEach(function (n) { childrenOf[n.id] = []; });
       edges.forEach(function (e) {
@@ -595,7 +606,6 @@ sap.ui.define([
       // ── 可见性函数 ────────────────────────────────────────────────────
       function nodeVisible(d) {
         if (d.depth === 0) return true;
-        // visible if any edge points to it from an expanded node
         for (var i = 0; i < edges.length; i++) {
           var e = edges[i];
           var srcId = typeof e.source === 'object' ? e.source.id : e.source;
@@ -612,7 +622,7 @@ sap.ui.define([
 
       // ── 级联收起：移除节点及其所有后代（根节点始终保留）───────────────
       function collapseNode(id) {
-        if (id === rootId) return;   // 根节点不可收起
+        if (id === rootId) return;
         expandedSet.delete(id);
         var children = childrenOf[id] || [];
         children.forEach(function (childId) {
@@ -622,6 +632,61 @@ sap.ui.define([
         });
       }
 
+      // ── 懒加载：合并增量图数据并重建 D3 选择集 ──────────────────────
+      function mergeIncrementalGraph(centerNodeId, centerDepth, newNodes, newEdges) {
+        // 合并节点
+        newNodes.forEach(function (n) {
+          if (n.id === centerNodeId) return;   // 中心节点已在图中
+          if (!nodeMap[n.id]) {
+            var node = Object.assign({}, n, { depth: centerDepth + 1 });
+            nodeMap[node.id] = node;
+            nodes.push(node);
+            childrenOf[node.id] = [];
+          }
+        });
+        // 合并边（去重）
+        newEdges.forEach(function (e) {
+          var src = typeof e.source === 'object' ? e.source.id : e.source;
+          var tgt = typeof e.target === 'object' ? e.target.id : e.target;
+          var key = src + '|' + tgt + '|' + e.relation;
+          if (!edgeKeys.has(key)) {
+            edgeKeys.add(key);
+            edges.push({ source: src, target: tgt, relation: e.relation });
+            if (childrenOf[src]) childrenOf[src].push(tgt);
+          }
+        });
+        // 重建 D3 选择集和 simulation
+        rebuildD3Selections();
+        simulation.nodes(nodes);
+        simulation.force('link').links(edges);
+        simulation.alpha(0.3).restart();
+        setTimeout(function () { updateVisibility(); }, 50);
+      }
+
+      // ── 懒加载：向后端请求增量数据 ───────────────────────────────────
+      function fetchIncrementalGraph(viewName, centerDepth, onSuccess, onError) {
+        fetch('/odata/v4/knowledge/analyzeCds', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ viewName: viewName, parentViewName: '_lazy_' }),
+        })
+          .then(function (res) {
+            if (!res.ok) return res.json().then(function (e) {
+              throw new Error(e.error && e.error.message || 'error');
+            });
+            return res.json();
+          })
+          .then(function (data) { onSuccess(data.nodes || [], data.edges || []); })
+          .catch(function (err) { onError(err); });
+      }
+
+      // ── 懒加载：loading 视觉状态 ──────────────────────────────────────
+      function setNodeLoading(id, isLoading) {
+        node.filter(function (d) { return d.id === id; })
+          .attr('stroke-dasharray', isLoading ? '4,2' : null)
+          .attr('stroke', isLoading ? '#ffb300' : '#fff');
+      }
+
       // ── 力导向仿真 ────────────────────────────────────────────────────
       var simulation = d3.forceSimulation(nodes)
         .force('link', d3.forceLink(edges).id(function (d) { return d.id; }).distance(120))
@@ -629,122 +694,146 @@ sap.ui.define([
         .force('center', d3.forceCenter(width / 2, height / 2));
       this._graphSimulation = simulation;
 
-      // ── 连线 ──────────────────────────────────────────────────────────
-      var link = g.append('g')
-        .selectAll('line')
-        .data(edges)
-        .join('line')
-        .attr('stroke', function (d) {
-          return d.relation === 'association' ? '#42a5f5' : 'rgba(255,255,255,0.5)';
-        })
-        .attr('stroke-dasharray', function (d) {
-          return d.relation === 'association' ? '5,3' : null;
-        })
-        .attr('stroke-opacity', function (d) {
-          return d.relation === 'association' ? 0.7 : 0.5;
-        })
-        .attr('stroke-width', 1.5);
+      // ── D3 选择集变量（rebuildD3Selections 会重新赋值）──────────────
+      var link, linkLabel, node, label, badge;
 
-      // ── 连线标签（relation 类型）──────────────────────────────────────
-      var linkLabel = g.append('g')
-        .selectAll('text')
-        .data(edges)
-        .join('text')
-        .attr('fill', '#888')
-        .attr('font-size', '9px')
-        .attr('text-anchor', 'middle')
-        .text(function (d) { return d.relation; });
+      // ── 重建 D3 选择集（合并新节点/边后调用）─────────────────────────
+      function rebuildD3Selections() {
+        // 清除旧的 g 子元素，重新绘制
+        g.selectAll('g').remove();
 
-      // ── 节点圆圈 ──────────────────────────────────────────────────────
-      // D3 drag 会阻止 click 事件，因此在 drag.end 中判断是否为点击（位移 < 4px）
-      var dragStartX, dragStartY;
-
-      var node = g.append('g')
-        .selectAll('circle')
-        .data(nodes)
-        .join('circle')
-        .attr('r', nodeRadius)
-        .attr('fill', nodeColor)
-        .attr('filter', function (d) {
-          return d.cleanCore === true ? 'url(#glow)' : null;
-        })
-        .attr('stroke', '#fff')
-        .attr('stroke-width', function (d) { return d.depth === 0 ? 2.5 : 1; })
-        .style('cursor', function (d) {
-          return (d.depth === 0 || (childrenOf[d.id] && childrenOf[d.id].length === 0))
-            ? 'default' : 'pointer';
-        })
-        .call(d3.drag()
-          .on('start', function (event, d) {
-            dragStartX = event.x; dragStartY = event.y;
-            if (!event.active) simulation.alphaTarget(0.3).restart();
-            d.fx = d.x; d.fy = d.y;
+        link = g.append('g')
+          .selectAll('line')
+          .data(edges)
+          .join('line')
+          .attr('stroke', function (d) {
+            return d.relation === 'association' ? '#42a5f5' : 'rgba(255,255,255,0.5)';
           })
-          .on('drag', function (event, d) {
-            d.fx = event.x; d.fy = event.y;
+          .attr('stroke-dasharray', function (d) {
+            return d.relation === 'association' ? '5,3' : null;
           })
-          .on('end', function (event, d) {
-            if (!event.active) simulation.alphaTarget(0);
-            d.fx = null; d.fy = null;
-            // 位移 < 4px 视为点击，触发展开/收起
-            var dx = event.x - dragStartX;
-            var dy = event.y - dragStartY;
-            if (Math.sqrt(dx * dx + dy * dy) < 4) {
-              var children = childrenOf[d.id] || [];
-              if (children.length === 0) return;
-              if (expandedSet.has(d.id)) {
-                if (d.depth === 0) return;  // 根节点不收起，只能展开
-                collapseNode(d.id);
-              } else {
-                expandedSet.add(d.id);
+          .attr('stroke-opacity', function (d) {
+            return d.relation === 'association' ? 0.7 : 0.5;
+          })
+          .attr('stroke-width', 1.5);
+
+        linkLabel = g.append('g')
+          .selectAll('text')
+          .data(edges)
+          .join('text')
+          .attr('fill', '#888')
+          .attr('font-size', '9px')
+          .attr('text-anchor', 'middle')
+          .text(function (d) { return d.relation; });
+
+        node = g.append('g')
+          .selectAll('circle')
+          .data(nodes)
+          .join('circle')
+          .attr('r', nodeRadius)
+          .attr('fill', nodeColor)
+          .attr('filter', function (d) {
+            return d.cleanCore === true ? 'url(#glow)' : null;
+          })
+          .attr('stroke', '#fff')
+          .attr('stroke-width', function (d) { return d.depth === 0 ? 2.5 : 1; })
+          .style('cursor', function (d) {
+            var ch = childrenOf[d.id] || [];
+            return (ch.length === 0 && d.type === 'Unknown') ? 'default' : 'pointer';
+          })
+          .call(d3.drag()
+            .on('start', function (event, d) {
+              dragStartX = event.x; dragStartY = event.y;
+              if (!event.active) simulation.alphaTarget(0.3).restart();
+              d.fx = d.x; d.fy = d.y;
+            })
+            .on('drag', function (event, d) {
+              d.fx = event.x; d.fy = event.y;
+            })
+            .on('end', function (event, d) {
+              if (!event.active) simulation.alphaTarget(0);
+              d.fx = null; d.fy = null;
+              var dx = event.x - dragStartX;
+              var dy = event.y - dragStartY;
+              if (Math.sqrt(dx * dx + dy * dy) < 4) {
+                var children = childrenOf[d.id] || [];
+
+                if (expandedSet.has(d.id)) {
+                  if (d.depth === 0) return;
+                  collapseNode(d.id);
+                  updateVisibility();
+                  simulation.alpha(0.1).restart();
+
+                } else if (children.length > 0) {
+                  expandedSet.add(d.id);
+                  updateVisibility();
+                  simulation.alpha(0.1).restart();
+
+                } else if (d.type !== 'Unknown' && !loadingNodes.has(d.id)) {
+                  loadingNodes.add(d.id);
+                  setNodeLoading(d.id, true);
+                  updateVisibility();
+                  fetchIncrementalGraph(d.id, d.depth, function (newNodes, newEdges) {
+                    loadingNodes.delete(d.id);
+                    setNodeLoading(d.id, false);
+                    mergeIncrementalGraph(d.id, d.depth, newNodes, newEdges);
+                    expandedSet.add(d.id);
+                    updateVisibility();
+                  }, function (_err) {
+                    loadingNodes.delete(d.id);
+                    setNodeLoading(d.id, false);
+                    d.type = 'Unknown';
+                    updateVisibility();
+                  });
+                }
               }
-              updateVisibility();
-              simulation.alpha(0.1).restart();
-            }
+            })
+          )
+          .on('mouseover', function (event, d) {
+            var cleanText = d.cleanCore === true ? '✅ 合规' : d.cleanCore === false ? '❌ 不合规' : '—';
+            tooltip.innerHTML =
+              '<strong style="font-size:13px;">' + d.id + '</strong><br>' +
+              '类型：' + (d.type || '—') + '<br>' +
+              'Release：' + (d.releaseState || '—') + '<br>' +
+              'Clean Core：' + cleanText + '<br>' +
+              '分级：' + (d.classification || '—');
+            tooltip.style.display = 'block';
+            tooltip.style.left = (event.offsetX + 12) + 'px';
+            tooltip.style.top  = (event.offsetY - 10) + 'px';
           })
-        )
-        .on('mouseover', function (event, d) {
-          var cleanText = d.cleanCore === true ? '✅ 合规' : d.cleanCore === false ? '❌ 不合规' : '—';
-          tooltip.innerHTML =
-            '<strong style="font-size:13px;">' + d.id + '</strong><br>' +
-            '类型：' + (d.type || '—') + '<br>' +
-            'Release：' + (d.releaseState || '—') + '<br>' +
-            'Clean Core：' + cleanText + '<br>' +
-            '分级：' + (d.classification || '—');
-          tooltip.style.display = 'block';
-          tooltip.style.left = (event.offsetX + 12) + 'px';
-          tooltip.style.top  = (event.offsetY - 10) + 'px';
-        })
-        .on('mousemove', function (event) {
-          tooltip.style.left = (event.offsetX + 12) + 'px';
-          tooltip.style.top  = (event.offsetY - 10) + 'px';
-        })
-        .on('mouseout', function () {
-          tooltip.style.display = 'none';
-        });
+          .on('mousemove', function (event) {
+            tooltip.style.left = (event.offsetX + 12) + 'px';
+            tooltip.style.top  = (event.offsetY - 10) + 'px';
+          })
+          .on('mouseout', function () {
+            tooltip.style.display = 'none';
+          });
 
-      // ── 节点标签 ──────────────────────────────────────────────────────
-      var label = g.append('g')
-        .selectAll('text')
-        .data(nodes)
-        .join('text')
-        .attr('fill', '#fff')
-        .attr('font-size', function (d) { return d.depth === 0 ? '13px' : '12px'; })
-        .attr('text-anchor', 'middle')
-        .attr('dy', function (d) { return nodeRadius(d) + 14; })
-        .style('pointer-events', 'none')
-        .text(function (d) { return d.id; });
+        label = g.append('g')
+          .selectAll('text')
+          .data(nodes)
+          .join('text')
+          .attr('fill', '#fff')
+          .attr('font-size', function (d) { return d.depth === 0 ? '13px' : '12px'; })
+          .attr('text-anchor', 'middle')
+          .attr('dy', function (d) { return nodeRadius(d) + 14; })
+          .style('pointer-events', 'none')
+          .text(function (d) { return d.id; });
 
-      // ── 展开提示徽章（amber 小圆点，表示有隐藏子节点）──────────────────
-      var badge = g.append('g')
-        .selectAll('circle')
-        .data(nodes)
-        .join('circle')
-        .attr('r', 5)
-        .attr('fill', '#ffb300')
-        .attr('stroke', '#1a1a2e')
-        .attr('stroke-width', 1.5)
-        .style('pointer-events', 'none');
+        badge = g.append('g')
+          .selectAll('circle')
+          .data(nodes)
+          .join('circle')
+          .attr('r', 5)
+          .attr('fill', '#ffb300')
+          .attr('stroke', '#1a1a2e')
+          .attr('stroke-width', 1.5)
+          .style('pointer-events', 'none');
+      }
+
+      // ── D3 初始渲染 ───────────────────────────────────────────────────
+      var dragStartX, dragStartY;
+      rebuildD3Selections();
 
       // ── 更新可见性（节点/边/标签/徽章）──────────────────────────────
       function updateVisibility() {
@@ -760,12 +849,16 @@ sap.ui.define([
         linkLabel.style('display', function (d) {
           return edgeVisible(d) ? null : 'none';
         });
-        // 徽章：节点可见 AND 有子节点 AND 未展开
+        // 徽章：节点可见 AND 未展开 AND (有缓存子节点 OR 是可展开的边界节点)
         badge.style('display', function (d) {
           if (!nodeVisible(d)) return 'none';
+          if (expandedSet.has(d.id)) return 'none';
           var children = childrenOf[d.id] || [];
-          if (children.length === 0) return 'none';
-          return expandedSet.has(d.id) ? 'none' : null;
+          // 有缓存子节点：显示徽章
+          if (children.length > 0) return null;
+          // 边界节点：类型已知（非 Unknown）且未加载中 → 显示徽章提示可继续展开
+          if (d.type !== 'Unknown' && !loadingNodes.has(d.id)) return null;
+          return 'none';
         });
       }
 
