@@ -126,4 +126,98 @@ async function fetchDdl(viewName) {
   }
 }
 
-module.exports = { parseDdl, fetchDdl };
+// ── Graph Builder ────────────────────────────────────────────────────────────
+
+/**
+ * Build a CDS dependency graph starting from viewName by recursively
+ * fetching DDL from ADT (BFS, up to maxDepth levels deep).
+ *
+ * @param {string} viewName   - Root CDS View name
+ * @param {number} maxDepth   - Max BFS depth (default 2)
+ * @returns {Promise<{ nodes: object[], edges: object[] }>}
+ */
+async function buildGraphFromAdt(viewName, maxDepth = 2) {
+  const nodes   = new Map();   // id → node (keeps lowest depth)
+  const edges   = [];
+  const visited = new Set();   // nodes whose neighbors have been queued
+
+  // Process root node first (throws user-facing error if not found)
+  const rootDdl  = await fetchDdl(viewName);
+  const rootMeta = parseDdl(rootDdl);
+  nodes.set(viewName, {
+    id: viewName,
+    type:           rootMeta.type,
+    releaseState:   rootMeta.releaseState,
+    cleanCore:      rootMeta.cleanCore,
+    classification: rootMeta.classification,
+    depth: 0,
+  });
+  visited.add(viewName);
+
+  // BFS queue: each entry is { id, depth }
+  // Seed with root's neighbors
+  let currentQueue = rootMeta.neighbors
+    .filter(n => n.name !== viewName)
+    .map(n => {
+      edges.push({ source: viewName, target: n.name, relation: n.relation });
+      return { id: n.name, depth: 1 };
+    });
+
+  // Expand level by level up to maxDepth
+  for (let depth = 1; depth <= maxDepth && currentQueue.length > 0; depth++) {
+    // Deduplicate queue entries at this depth
+    const unique = [];
+    const seen   = new Set();
+    for (const item of currentQueue) {
+      if (!seen.has(item.id)) { seen.add(item.id); unique.push(item); }
+    }
+
+    // Fetch all nodes at this depth in parallel
+    const results = await Promise.all(
+      unique.map(async ({ id, depth: d }) => {
+        // Skip if already recorded at a lower depth
+        if (nodes.has(id) && nodes.get(id).depth < d) return { id, meta: null, d };
+        try {
+          const ddl  = await fetchDdl(id);
+          const meta = parseDdl(ddl);
+          return { id, meta, d };
+        } catch (_err) {
+          // Neighbor not found or unreachable — record as unknown, no expansion
+          console.warn(`[adt-client] Could not fetch DDL for ${id}: ${_err.message}`);
+          return { id, meta: null, d };
+        }
+      })
+    );
+
+    const nextQueue = [];
+    for (const { id, meta, d } of results) {
+      if (!nodes.has(id) || nodes.get(id).depth > d) {
+        nodes.set(id, {
+          id,
+          type:           meta ? meta.type           : 'Unknown',
+          releaseState:   meta ? meta.releaseState    : 'Unknown',
+          cleanCore:      meta ? meta.cleanCore       : null,
+          classification: meta ? meta.classification  : 'Not Classified',
+          depth: d,
+        });
+      }
+      if (meta && !visited.has(id) && d < maxDepth) {
+        visited.add(id);
+        for (const n of meta.neighbors) {
+          if (n.name !== id) {
+            edges.push({ source: id, target: n.name, relation: n.relation });
+            nextQueue.push({ id: n.name, depth: d + 1 });
+          }
+        }
+      }
+    }
+    currentQueue = nextQueue;
+  }
+
+  return {
+    nodes: Array.from(nodes.values()),
+    edges,
+  };
+}
+
+module.exports = { parseDdl, fetchDdl, buildGraphFromAdt };
