@@ -54,14 +54,14 @@ module.exports = cds.service.impl(async function (srv) {
     const collectionId = process.env.AICORE_GROUNDING_COLLECTION_ID;
     if (collectionId && getAI()) {
       try {
-        const answer = await getAI().chatWithGrounding(
+        const answer = await getAI().completeWithGrounding(
+          CLEAN_CORE_SYSTEM_PROMPT,
           `What is the SAP Clean Core classification level (A, B, C, or D) for the SAP object "${objectName}"? ` +
           `Reply ONLY with a JSON array containing one object with fields: ` +
           `objectName, tier (A/B/C/D), state (released/classicAPI/notToBeReleased/noAPI/unknown), ` +
           `explanation (1-2 sentences), recommendation (what developer should do). No markdown fences.`,
           collectionId,
           512,
-          true,
         );
         const cleaned = answer.trim().replace(/^```json\s*/i, '').replace(/\s*```$/i, '');
         const parsed = JSON.parse(cleaned);
@@ -475,7 +475,7 @@ module.exports = cds.service.impl(async function (srv) {
       let sourceType = 'ai-core';
       if (collectionId && getAI()) {
         try {
-          text = await getAI().chatWithGrounding(message, collectionId);
+          text = await getAI().completeWithGrounding(CLEAN_CORE_SYSTEM_PROMPT, message, collectionId);
           sourceType = 'grounding';
         } catch (err) {
           console.warn('[chat/explain] Grounding failed, falling back:', err.message);
@@ -809,7 +809,7 @@ module.exports = cds.service.impl(async function (srv) {
     let fallbackSourceType = 'ai-core';
     if (fallbackCollectionId && getAI()) {
       try {
-        fallbackText = await getAI().chatWithGrounding(message, fallbackCollectionId);
+        fallbackText = await getAI().completeWithGrounding(CLEAN_CORE_SYSTEM_PROMPT, message, fallbackCollectionId);
         fallbackSourceType = 'grounding';
       } catch (err) {
         console.warn('[chat/fallback] Grounding failed, falling back:', err.message);
@@ -1109,7 +1109,7 @@ module.exports = cds.service.impl(async function (srv) {
         const chunks = await grounder.search(btpGeneralCollectionId, query, 5);
 
         if (chunks.length > 0) {
-          const answer = await getAI().chatWithGrounding(query, btpGeneralCollectionId);
+          const answer = await getAI().completeWithGrounding(CLEAN_CORE_SYSTEM_PROMPT, query, btpGeneralCollectionId);
           return {
             replyType:  'general',
             answer,
