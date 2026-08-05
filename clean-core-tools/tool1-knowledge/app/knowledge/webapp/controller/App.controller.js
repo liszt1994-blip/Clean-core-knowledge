@@ -50,16 +50,17 @@ sap.ui.define([
       this._inputHistory = [];
 
       // Tab 独立历史
-      this._TAB_KEYS = ['concept', 'codeanalysis', 'search', 'apihub', 'graph'];
+      this._TAB_KEYS = ['concept', 'codeanalysis', 'search', 'btp', 'apihub', 'graph'];
       this._currentTab = 'concept';
       this._codeSubMode = 'code'; // 'code' | 'atc'
       this._chatHistories = {};
-      this._messages = { concept: [], codeanalysis: [], search: [], apihub: [], graph: [] };
+      this._messages = { concept: [], codeanalysis: [], search: [], btp: [], apihub: [], graph: [] };
 
       var TAB_CONFIG = {
         concept:      { icon: 'sap-icon://hint',       text: '概念 & 分级', placeholder: '输入 Clean Core 概念或 SAP 对象名...',                         welcome: '你好！请输入 Clean Core 概念或 SAP 对象名，我会解释概念或给出分级和替代 API。' },
         codeanalysis: { icon: 'sap-icon://source-code', text: '代码分析',   placeholder: '粘贴 ABAP 代码片段...',                                         welcome: '请粘贴 ABAP 代码，我会识别所有不合规对象并给出改写对比。' },
         search:       { icon: 'sap-icon://search',      text: 'SAP 搜索',   placeholder: '搜索 SAP Note 或文档...',                                      welcome: '用于直接在 SAP 门户网站搜索相关内容及 Note。' },
+        btp:          { icon: 'sap-icon://it-system',   text: 'BTP 知识库', placeholder: '提问 BTP 开发问题，或输入"如何开发一个采购申请应用"获取完整开发指南...', welcome: '你好！请提问 SAP BTP 开发相关问题，或描述你想开发的应用场景，我会自动识别并给出问答或完整开发指南。' },
         apihub:       { icon: 'sap-icon://product',       text: 'API Hub',    placeholder: '',                                                              welcome: '浏览 SAP S/4HANA PCE 官方 API 列表。输入关键词搜索，或点击模块按钮按业务范围浏览。' },
         graph:        { icon: 'sap-icon://org-chart',     text: '关系图谱',    placeholder: '',                                                              welcome: '输入 CDS View 名称，查看该 View 与关联对象的力导向关系图谱。节点颜色区分 Clean Core 合规性，支持悬停查看详情、拖拽和缩放。' }
       };
@@ -547,7 +548,6 @@ sap.ui.define([
 
       // ── SVG filter: 发光效果（仅合规节点使用）────────────────────────
       var defs = svg.append('defs');
-
       var g = svg.append('g');
       var filter = defs.append('filter').attr('id', 'glow');
       filter.append('feGaussianBlur').attr('stdDeviation', '3').attr('result', 'coloredBlur');
@@ -569,6 +569,52 @@ sap.ui.define([
 
       var nodes = graphData.nodes.map(function (d) { return Object.assign({}, d); });
       var edges = graphData.edges.map(function (d) { return Object.assign({}, d); });
+
+      // ── 找到根节点 ────────────────────────────────────────────────────
+      var rootNode = nodes.find(function (d) { return d.depth === 0; });
+      var rootId   = rootNode ? rootNode.id : (nodes[0] && nodes[0].id);
+
+      // ── 展开状态集合：初始只有根节点（表示其子节点可见）────────────────
+      var expandedSet = new Set([rootId]);
+
+      // ── 构建 childrenOf 映射：nodeId → [childId, ...] ─────────────────
+      // edges 在 simulation 解析后 source/target 会变成对象，先用字符串 id
+      var childrenOf = {};
+      nodes.forEach(function (n) { childrenOf[n.id] = []; });
+      edges.forEach(function (e) {
+        var srcId = typeof e.source === 'object' ? e.source.id : e.source;
+        var tgtId = typeof e.target === 'object' ? e.target.id : e.target;
+        if (childrenOf[srcId]) childrenOf[srcId].push(tgtId);
+      });
+
+      // ── 可见性函数 ────────────────────────────────────────────────────
+      function nodeVisible(d) {
+        if (d.depth === 0) return true;
+        // visible if any edge points to it from an expanded node
+        for (var i = 0; i < edges.length; i++) {
+          var e = edges[i];
+          var srcId = typeof e.source === 'object' ? e.source.id : e.source;
+          var tgtId = typeof e.target === 'object' ? e.target.id : e.target;
+          if (tgtId === d.id && expandedSet.has(srcId)) return true;
+        }
+        return false;
+      }
+
+      function edgeVisible(e) {
+        var srcId = typeof e.source === 'object' ? e.source.id : e.source;
+        return expandedSet.has(srcId);
+      }
+
+      // ── 级联收起：移除节点及其所有后代 ───────────────────────────────
+      function collapseNode(id) {
+        expandedSet.delete(id);
+        var children = childrenOf[id] || [];
+        children.forEach(function (childId) {
+          if (expandedSet.has(childId)) {
+            collapseNode(childId);
+          }
+        });
+      }
 
       // ── 力导向仿真 ────────────────────────────────────────────────────
       var simulation = d3.forceSimulation(nodes)
@@ -604,6 +650,8 @@ sap.ui.define([
         .text(function (d) { return d.relation; });
 
       // ── 节点圆圈 ──────────────────────────────────────────────────────
+      var dragMoved = false;
+
       var node = g.append('g')
         .selectAll('circle')
         .data(nodes)
@@ -615,13 +663,18 @@ sap.ui.define([
         })
         .attr('stroke', '#fff')
         .attr('stroke-width', function (d) { return d.depth === 0 ? 2.5 : 1; })
-        .style('cursor', 'pointer')
+        .style('cursor', function (d) {
+          return (d.depth === 0 || (childrenOf[d.id] && childrenOf[d.id].length === 0))
+            ? 'default' : 'pointer';
+        })
         .call(d3.drag()
           .on('start', function (event, d) {
+            dragMoved = false;
             if (!event.active) simulation.alphaTarget(0.3).restart();
             d.fx = d.x; d.fy = d.y;
           })
           .on('drag', function (event, d) {
+            dragMoved = true;
             d.fx = event.x; d.fy = event.y;
           })
           .on('end', function (event, d) {
@@ -629,6 +682,20 @@ sap.ui.define([
             d.fx = null; d.fy = null;
           })
         )
+        .on('click', function (event, d) {
+          event.stopPropagation();
+          if (dragMoved) return;
+          if (d.depth === 0) return;
+          var children = childrenOf[d.id] || [];
+          if (children.length === 0) return;
+          if (expandedSet.has(d.id)) {
+            collapseNode(d.id);
+          } else {
+            expandedSet.add(d.id);
+          }
+          updateVisibility();
+          simulation.alpha(0.1).restart();
+        })
         .on('mouseover', function (event, d) {
           var cleanText = d.cleanCore === true ? '✅ 合规' : d.cleanCore === false ? '❌ 不合规' : '—';
           tooltip.innerHTML =
@@ -661,6 +728,40 @@ sap.ui.define([
         .style('pointer-events', 'none')
         .text(function (d) { return d.id; });
 
+      // ── 展开提示徽章（amber 小圆点，表示有隐藏子节点）──────────────────
+      var badge = g.append('g')
+        .selectAll('circle')
+        .data(nodes)
+        .join('circle')
+        .attr('r', 5)
+        .attr('fill', '#ffb300')
+        .attr('stroke', '#1a1a2e')
+        .attr('stroke-width', 1.5)
+        .style('pointer-events', 'none');
+
+      // ── 更新可见性（节点/边/标签/徽章）──────────────────────────────
+      function updateVisibility() {
+        node.style('display', function (d) {
+          return nodeVisible(d) ? null : 'none';
+        });
+        label.style('display', function (d) {
+          return nodeVisible(d) ? null : 'none';
+        });
+        link.style('display', function (d) {
+          return edgeVisible(d) ? null : 'none';
+        });
+        linkLabel.style('display', function (d) {
+          return edgeVisible(d) ? null : 'none';
+        });
+        // 徽章：节点可见 AND 有子节点 AND 未展开
+        badge.style('display', function (d) {
+          if (!nodeVisible(d)) return 'none';
+          var children = childrenOf[d.id] || [];
+          if (children.length === 0) return 'none';
+          return expandedSet.has(d.id) ? 'none' : null;
+        });
+      }
+
       // ── 每帧更新位置 ──────────────────────────────────────────────────
       simulation.on('tick', function () {
         link
@@ -680,7 +781,20 @@ sap.ui.define([
         label
           .attr('x', function (d) { return d.x; })
           .attr('y', function (d) { return d.y; });
+
+        badge
+          .attr('cx', function (d) { return d.x + nodeRadius(d) * 0.7; })
+          .attr('cy', function (d) { return d.y - nodeRadius(d) * 0.7; });
       });
+
+      // ── 初始可见性（simulation 解析 source/target 后 edges 已是对象）──
+      // 在第一次 tick 之后更新（edges 的 source/target 此时已是对象引用）
+      simulation.on('end.init', function () {
+        simulation.on('end.init', null);
+        updateVisibility();
+      });
+      // 也在第一帧就更新一次（alpha 初始较高，确保立即生效）
+      setTimeout(function () { updateVisibility(); }, 50);
     },
 
     // ── API Hub 搜索 ─────────────────────────────────────────────────────────
@@ -698,6 +812,10 @@ sap.ui.define([
       var model = this.getView().getModel();
       if (model.getProperty('/busy')) return;
 
+      // 记录当前搜索参数，供"显示更多"按钮使用
+      this._lastApiHubParams = params;
+      this._noSgnOffset = 0;
+
       model.setProperty('/busy', true);
       this._apiHubSearchBtn.setEnabled(false);
       this._busyIndicator.setVisible(true);
@@ -706,7 +824,7 @@ sap.ui.define([
       fetch('/odata/v4/knowledge/searchApiHub', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(params),
+        body: JSON.stringify(Object.assign({}, params, { offset: 0 })),
       })
         .then(function (res) { return res.json(); })
         .then(function (json) {
@@ -742,61 +860,145 @@ sap.ui.define([
 
       var countText = document.createElement('p');
       countText.style.cssText = 'font-size:12px;color:#666;margin:8px 0 4px;';
-      countText.textContent = '找到 ' + results.length + ' 个 API（' + label + '）';
+      var ccCount = results.filter(function (r) { return r.cleanCore; }).length;
+      countText.textContent = '找到 ' + results.length + ' 个 API（' + label + '）' +
+        (ccCount > 0 ? '，其中 ' + ccCount + ' 个符合 Clean Core' : '');
       resultDiv.appendChild(countText);
 
+      // 分三段：① Clean Core (ODATAV4+SGN) → ② 其他 ODATAV4 → ③ 非 ODATAV4（SOAP/ODATA/REST）
+      var ccGroup = [];        // cleanCore = true
+      var odataV4Group = [];   // ODATAV4 但无 SGN
+      var legacyGroupMap = {}; // SOAP / ODATA / REST，按 apiType 再分组
+
+      results.forEach(function (item) {
+        if (item.cleanCore) {
+          ccGroup.push(item);
+        } else if (item.apiType === 'ODATAV4') {
+          odataV4Group.push(item);
+        } else {
+          var t = item.apiType || '其他';
+          if (!legacyGroupMap[t]) legacyGroupMap[t] = [];
+          legacyGroupMap[t].push(item);
+        }
+      });
+
+      // 构造渲染计划：[{ label, items, tier }]  tier: 'cc' | 'v4' | 'legacy'
+      var renderPlan = [];
+      if (ccGroup.length) {
+        renderPlan.push({ label: '✓ Clean Core · ODATAV4 (' + ccGroup.length + '个)', items: ccGroup, tier: 'cc' });
+      }
+      if (odataV4Group.length) {
+        renderPlan.push({ label: 'ODATAV4 (' + odataV4Group.length + '个）（无 SGN，暂不可直接调用）', items: odataV4Group, tier: 'v4' });
+      }
+      // legacy 按分组数量降序
+      Object.keys(legacyGroupMap)
+        .sort(function (a, b) { return legacyGroupMap[b].length - legacyGroupMap[a].length; })
+        .forEach(function (t) {
+          renderPlan.push({ label: t + ' (' + legacyGroupMap[t].length + '个）（非 Clean Core）', items: legacyGroupMap[t], tier: 'legacy' });
+        });
+
       var that = this;
-      var expandedIndex = -1;
+      // 全局展开状态：记录当前展开的 detailVBox，方便折叠旧项
+      this._apiHubExpandedDetail = null;
 
       this._apiHubList = new List({ mode: 'None' });
 
-      results.forEach(function (item, idx) {
-        var typeTag   = item.apiType ? '[' + item.apiType + '] ' : '';
-        var firstName = item.serviceGroupName || item.id || '';
+      renderPlan.forEach(function (group) {
+        var items = group.items;
+        var tier = group.tier;
 
-        // 主行：类型标签 + Service Group Name，第二行：Title（小字）
-        var titleVBox = new VBox({
-          items: [
+        // 分组标题行（非可点击）
+        var headerItem = new CustomListItem({
+          content: [
             new HBox({
-              alignItems: 'Center',
               items: [
-                new Text({ text: typeTag, wrapping: false }).addStyleClass('sapUiTinyMarginEnd'),
-                new Text({ text: firstName, wrapping: true })
+                new Text({
+                  text: group.label,
+                  wrapping: false
+                })
               ]
-            }),
-            new Text({ text: item.title || '', wrapping: false })
-              .addStyleClass('sapUiTinyMarginTop')
+            })
           ]
         });
-
-        // 详情区（初始隐藏）
-        var detailVBox = new VBox({
-          visible: false,
-          items: [
-            new Text({ text: '描述：' + (item.shortText || '（暂无描述）') })
-          ]
-        }).addStyleClass('sapUiSmallMarginTop sapUiSmallMarginBegin');
-
-        var itemVBox = new VBox({ items: [titleVBox, detailVBox] });
-
-        var listItem = new CustomListItem({
-          content: [itemVBox],
-          press: function () {
-            var isOpen = detailVBox.getVisible();
-            if (expandedIndex >= 0 && expandedIndex !== idx) {
-              var prevItem = that._apiHubList.getItems()[expandedIndex];
-              if (prevItem) {
-                var prevContentRoot = prevItem.getContent()[0];
-                var prevDetail = prevContentRoot && prevContentRoot.getItems()[1];
-                if (prevDetail) prevDetail.setVisible(false);
-              }
-            }
-            detailVBox.setVisible(!isOpen);
-            expandedIndex = isOpen ? -1 : idx;
+        // Clean Core=绿，其他ODATAV4=蓝，SOAP/ODATA/REST=灰
+        var headerBg = tier === 'cc'     ? 'background:#e8f5e9;color:#2e7d32;font-weight:bold;' :
+                       tier === 'v4'    ? 'background:#e3f2fd;color:#1565c0;' :
+                                          'background:#f5f5f5;color:#888;';
+        headerItem.addEventDelegate({
+          onAfterRendering: function () {
+            var dom = headerItem.getDomRef();
+            if (dom) dom.style.cssText += headerBg + 'cursor:default;pointer-events:none;';
           }
         });
+        that._apiHubList.addItem(headerItem);
 
-        that._apiHubList.addItem(listItem);
+        items.forEach(function (item) {
+          var detailVBox = new VBox({
+            visible: false,
+            items: [
+              new Text({ text: '描述：' + (item.shortText || '（暂无描述）'), wrapping: true }),
+              new Link({
+                text: '在 SAP API Hub 中查看',
+                href: 'https://api.sap.com/api/' + encodeURIComponent(item.id) + '/overview',
+                target: '_blank'
+              }).addStyleClass('sapUiTinyMarginTop')
+            ]
+          }).addStyleClass('sapUiSmallMarginTop sapUiSmallMarginBegin');
+
+          // 统一规则：有 SGN 显示 SGN，无 SGN 显示 title（业务名称比技术ID更可读）
+          var primaryName = item.serviceGroupName || item.title || '';
+          var showSecondLine = !!item.serviceGroupName && item.title && item.title !== item.serviceGroupName;
+          var titleItems = [
+            new Text({ text: primaryName, wrapping: true })
+          ];
+          if (showSecondLine) {
+            titleItems.push(
+              new Text({ text: item.title, wrapping: false })
+                .addStyleClass('sapUiTinyMarginTop')
+            );
+          }
+          // Clean Core 标签：OData V4 且有 SGN 的 API 标记为 Clean Core 合规
+          var badgeItems = [];
+          if (item.cleanCore) {
+            badgeItems.push(new HTML({
+              content: '<span style="display:inline-block;background:#e8f5e9;border:1px solid #4caf50;color:#2e7d32;border-radius:3px;padding:1px 6px;font-size:11px;font-weight:bold;margin-right:4px;">✓ Clean Core</span>'
+            }));
+          }
+          if (item.serviceGroupName) {
+            badgeItems.push(new HTML({
+              content: '<span style="display:inline-block;background:#e8f4ff;border:1px solid #0a6ed1;color:#0a6ed1;border-radius:3px;padding:1px 6px;font-size:11px;margin-right:4px;">SGN</span>'
+            }));
+          }
+
+          var titleVBox = new VBox({ items: titleItems });
+          var badgeHBox = badgeItems.length > 0
+            ? new HBox({ items: badgeItems }).addStyleClass('sapUiTinyMarginTop')
+            : null;
+          var itemVBox = new VBox({ items: badgeHBox ? [titleVBox, badgeHBox, detailVBox] : [titleVBox, detailVBox] });
+
+          // CustomListItem press doesn't fire when clicking inside content area in UI5.
+          // Use DOM onclick on the rendered itemVBox instead.
+          itemVBox.addEventDelegate({
+            onAfterRendering: function () {
+              var dom = itemVBox.getDomRef();
+              if (!dom) return;
+              dom.style.cursor = 'pointer';
+              dom.onclick = function (e) {
+                e.stopPropagation();
+                var isOpen = detailVBox.getVisible();
+                if (that._apiHubExpandedDetail && that._apiHubExpandedDetail !== detailVBox) {
+                  that._apiHubExpandedDetail.setVisible(false);
+                }
+                detailVBox.setVisible(!isOpen);
+                that._apiHubExpandedDetail = isOpen ? null : detailVBox;
+              };
+            }
+          });
+
+          var listItem = new CustomListItem({ content: [itemVBox] });
+
+          that._apiHubList.addItem(listItem);
+        });
       });
 
       this._apiHubList.placeAt(resultDiv);
@@ -1021,6 +1223,94 @@ sap.ui.define([
 
       var that = this;
 
+      // ── BTP 知识库 tab ──────────────────────────────────────────────────────
+      if (tabKey === 'btp') {
+        fetch('/odata/v4/knowledge/btpUnified', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ query: message })
+        })
+          .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+          .then(function (data) {
+            model.setProperty('/busy', false);
+            that._busyIndicator.setVisible(false);
+            that._sendBtn.setEnabled(true);
+            var reply = data.value || data;
+            var sourceType = reply.sourceType || 'ai-core';
+
+            // ── Guide response ─────────────────────────────────────────
+            if (reply.replyType === 'guide') {
+              var apis = [];
+              try { apis = JSON.parse(reply.apis || '[]'); } catch (e) { apis = []; }
+
+              var items = [];
+              var guideLabel = sourceType === 'grounding'
+                ? '<span style="display:inline-block;background:#e8f4ff;border:1px solid #0a6ed1;color:#0a6ed1;border-radius:4px;padding:1px 8px;font-size:11px;margin-bottom:6px;">开发向导 · 基于 AI Core 知识库</span>'
+                : '<span style="display:inline-block;background:#e8f4ff;border:1px solid #0a6ed1;color:#0a6ed1;border-radius:4px;padding:1px 8px;font-size:11px;margin-bottom:6px;">开发向导 · 基于 AI Core</span>';
+              var guideHtml = '<div style="font-size:13px;line-height:1.6;word-break:break-word">' +
+                guideLabel + '<br>' + that._markdownToHtml(reply.answer || '') + '</div>';
+              guideHtml = guideHtml.replace(/\{/g, '&#123;').replace(/\}/g, '&#125;');
+              items.push(new HTML({ content: guideHtml, sanitizeContent: false }).addStyleClass('sapUiSmallMarginBottom'));
+
+              if (apis.length > 0) {
+                var apiBox = new VBox({ items: [] }).addStyleClass('sapUiSmallMarginTop');
+                apiBox.addItem(new Title({ text: '相关 API 清单（点击标题跳转官方文档）', level: 'H5' }).addStyleClass('sapUiSmallMarginBottom'));
+                apis.forEach(function (api) {
+                  var cardContent = new VBox({ items: [] }).addStyleClass('sapUiSmallMargin');
+                  cardContent.addItem(new HTML({ content: '<div style="font-size:12px;color:#555;margin-bottom:6px">' + (api.description || '') + '</div>' }));
+                  if (api.endpoint) {
+                    cardContent.addItem(new HTML({ content: '<div style="margin-bottom:4px"><span style="font-size:11px;color:#888">Endpoint: </span><code style="background:#f0f0f0;padding:1px 6px;border-radius:3px;font-size:11px">' + api.endpoint + '</code></div>' }));
+                  }
+                  if (api.keyEntities && api.keyEntities.length > 0) {
+                    cardContent.addItem(new HTML({ content: '<div style="margin-bottom:4px"><span style="font-size:11px;color:#888">主要实体: </span>' + api.keyEntities.map(function (e) { return '<code style="background:#e8f4ff;color:#0a6ed1;padding:1px 5px;border-radius:3px;font-size:11px;margin-right:4px">' + e + '</code>'; }).join('') + '</div>' }));
+                  }
+                  cardContent.addItem(new Link({ text: '在 SAP API Business Hub 查看完整文档 →', href: api.url, target: '_blank' }));
+                  var deprecatedBadge = api.deprecated
+                    ? '<span style="display:inline-block;background:#fdf0f0;border:1px solid #e00;color:#c00;border-radius:4px;padding:1px 7px;font-size:11px;font-weight:bold;margin-left:6px">⚠ DEPRECATED</span>' + (api.successor ? '<span style="font-size:11px;color:#888;margin-left:6px">→ 请使用 ' + api.successor + '</span>' : '') : '';
+                  var card = new Panel({
+                    expandable: true, expanded: false,
+                    headerToolbar: new Toolbar({ content: [new HTML({ content: '<span style="font-size:13px;font-weight:bold;' + (api.deprecated ? 'color:#999;text-decoration:line-through' : 'color:#0a6ed1') + ';cursor:pointer" onclick="window.open(\'' + api.url + '\',\'_blank\')">' + api.name + '</span><span style="font-size:11px;color:#888;margin-left:8px">(' + (api.protocol || '') + ')</span>' + deprecatedBadge })] }),
+                    content: [cardContent]
+                  }).addStyleClass('sapUiSmallMarginBottom');
+                  apiBox.addItem(card);
+                });
+                items.push(apiBox);
+              }
+              var bubbleBox = that._buildAgentShell(items);
+              that._chatHistories['btp'].addItem(bubbleBox);
+              that._scrollToBottom();
+              return;
+            }
+
+            // ── General response ───────────────────────────────────────
+            var sources = [];
+            try { sources = JSON.parse(reply.sources || '[]'); } catch (e) { sources = []; }
+            var sourceLabel = sourceType === 'grounding'
+              ? '<span style="display:inline-block;background:#e8f4ff;border:1px solid #0a6ed1;color:#0a6ed1;border-radius:4px;padding:1px 8px;font-size:11px;margin-bottom:6px;">基于 AI Core 知识库</span>'
+              : sourceType === 'no-ai'
+              ? '<span style="display:inline-block;background:#fff3cd;border:1px solid #f0ad4e;color:#856404;border-radius:4px;padding:1px 8px;font-size:11px;margin-bottom:6px;">未连接 AI Core</span>'
+              : sourceType === 'mcp'
+              ? '<span style="display:inline-block;background:#e8f5e9;border:1px solid #4caf50;color:#2e7d32;border-radius:4px;padding:1px 8px;font-size:11px;margin-bottom:6px;">基于 MCP SAP Docs</span>'
+              : '<span style="display:inline-block;background:#e8f4ff;border:1px solid #0a6ed1;color:#0a6ed1;border-radius:4px;padding:1px 8px;font-size:11px;margin-bottom:6px;">基于 AI Core</span>';
+            that._addAgentBubble({
+              replyType: 'general',
+              text: sourceLabel + '<br>' + (reply.answer || ''),
+              violations: '[]',
+              rewriteOriginal: '', rewriteRewritten: '',
+              notes: JSON.stringify(sources.map(function (s) {
+                return { noteNumber: '', title: s.title, url: s.url, summary: s.summary || '' };
+              }))
+            }, tabKey);
+          })
+          .catch(function (err) {
+            model.setProperty('/busy', false);
+            that._busyIndicator.setVisible(false);
+            that._sendBtn.setEnabled(true);
+            MessageBox.error('请求失败：' + err.message);
+          });
+        return;
+      }
+
       fetch('/odata/v4/knowledge/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -1051,8 +1341,9 @@ sap.ui.define([
     },
 
     // ── 气泡渲染 ─────────────────────────────────────────────────────────────
-    _getHistoryVBox: function (tabKey) {
-      if (tabKey === 'codeanalysis' && this._codeSubMode === 'atc') {
+    _getHistoryVBox: function (tabKey, subMode) {
+      var mode = subMode !== undefined ? subMode : this._codeSubMode;
+      if (tabKey === 'codeanalysis' && mode === 'atc') {
         return this._atcChatHistory;
       }
       return this._chatHistories[tabKey];
@@ -1169,11 +1460,14 @@ sap.ui.define([
       }
 
       var bubbleBox = this._buildAgentShell(items);
-      var histVBox = this._getHistoryVBox(key);
+      var histVBox = this._getHistoryVBox(key, subMode);
       histVBox.addItem(bubbleBox);
 
-      // 代码对比 Panel 放在气泡外部，加入 VBox
-      if (reply.rewrite && reply.rewrite.rewritten) {
+      // Only show code diff panel when at least one violation is C/D/unknown (needs rewrite)
+      var hasRewritableViolations = Array.isArray(reply.violations) && reply.violations.some(function (v) {
+        return v.tier !== 'A' && v.tier !== 'B';
+      });
+      if (hasRewritableViolations && reply.rewrite && reply.rewrite.rewritten) {
         var diffPanel = this._buildCodeDiffPanel(reply.rewrite);
         diffPanel.addStyleClass('sapUiSmallMarginBottom');
         histVBox.addItem(diffPanel);
@@ -1226,7 +1520,7 @@ sap.ui.define([
       var details = [];
       if (v.state) details.push(new Text({ text: '状态：' + v.state, wrapping: true }));
 
-      if (v.replacement) {
+      if (v.replacement && v.tier !== 'A' && v.tier !== 'B') {
         // Each comma-separated replacement gets its own highlighted chip
         var replacements = v.replacement.split(',').map(function (s) { return s.trim(); }).filter(Boolean);
         var replBox = new VBox({ items: [] }).addStyleClass('sapUiSmallMarginTop');
@@ -1249,16 +1543,18 @@ sap.ui.define([
 
       if (v.note) details.push(new Text({ text: v.note, wrapping: true }).addStyleClass('sapUiSmallMarginTop'));
 
-      var that = this;
-      var planBtn = new sap.m.Button({
-        text: '迁移规划',
-        type: 'Transparent',
-        icon: 'sap-icon://map',
-        press: function (evt) {
-          that._onPlanPress(v.objectName, evt.getSource());
-        }
-      }).addStyleClass('sapUiTinyMarginTop');
-      details.push(planBtn);
+      if (v.tier !== 'A' && v.tier !== 'B') {
+        var that = this;
+        var planBtn = new sap.m.Button({
+          text: '迁移规划',
+          type: 'Transparent',
+          icon: 'sap-icon://map',
+          press: function (evt) {
+            that._onPlanPress(v.objectName, evt.getSource());
+          }
+        }).addStyleClass('sapUiTinyMarginTop');
+        details.push(planBtn);
+      }
 
       return new Panel({
         expandable: true,
@@ -1565,6 +1861,53 @@ sap.ui.define([
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;');
+    },
+
+    _markdownToHtml: function (text) {
+      if (!text) return '';
+      var html = text;
+      // unescape markdown-escaped characters (e.g. \_ \* \[ \])
+      html = html.replace(/\\([_*\[\]`\\])/g, '$1');
+      // markdown links [text](url) → clickable anchor
+      html = html.replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g, '<a href="$2" target="_blank" style="color:#0a6ed1;text-decoration:underline">$1</a>');
+      // horizontal rules
+      html = html.replace(/^---+$/gm, '<hr style="border:none;border-top:1px solid #e8e8e8;margin:8px 0"/>');
+      // headings
+      html = html.replace(/^#### (.+)$/gm, '<h5 style="margin:8px 0 3px;font-size:12px;font-weight:bold">$1</h5>');
+      html = html.replace(/^### (.+)$/gm, '<h4 style="margin:10px 0 4px;font-size:13px;font-weight:bold">$1</h4>');
+      html = html.replace(/^## (.+)$/gm, '<h3 style="margin:12px 0 4px;font-size:14px;font-weight:bold">$1</h3>');
+      html = html.replace(/^# (.+)$/gm, '<h2 style="margin:12px 0 6px;font-size:15px;font-weight:bold">$1</h2>');
+      // bold
+      html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+      // code blocks (must come before inline code)
+      html = html.replace(/```[\w]*\n?([\s\S]*?)```/g, '<pre style="background:#f5f5f5;padding:8px;border-radius:4px;font-size:12px;overflow:auto;white-space:pre-wrap">$1</pre>');
+      // inline code
+      html = html.replace(/`([^`]+)`/g, '<code style="background:#f0f0f0;padding:1px 4px;border-radius:3px;font-size:12px">$1</code>');
+      // remove any remaining stray backticks
+      html = html.replace(/`/g, '');
+      // blockquotes
+      html = html.replace(/^> (.+)$/gm, '<blockquote style="border-left:3px solid #0a6ed1;margin:4px 0;padding:2px 8px;color:#555">$1</blockquote>');
+      // tables — first row is header if next row is separator
+      html = html.replace(/^\|(.+)\|$/gm, function(line) {
+        if (/^[\|:\- ]+$/.test(line.replace(/\|/g, ''))) return '<!--sep-->';
+        var cells = line.split('|').slice(1, -1).map(function(c) {
+          return '<td style="padding:4px 8px;border:1px solid #e8e8e8">' + c.trim() + '</td>';
+        }).join('');
+        return '<tr>' + cells + '</tr>';
+      });
+      // remove separator markers
+      html = html.replace(/<!--sep-->\n?/g, '');
+      html = html.replace(/(<tr>[\s\S]*?<\/tr>\n?)+/g, function(rows) {
+        return '<table style="border-collapse:collapse;font-size:13px;margin:6px 0;width:100%">' + rows + '</table>';
+      });
+      // unordered lists
+      html = html.replace(/^[\-\*] (.+)$/gm, '<li style="margin:2px 0">$1</li>');
+      html = html.replace(/(<li[^>]*>.*<\/li>\n?)+/gs, '<ul style="margin:4px 0;padding-left:20px">$&</ul>');
+      // newlines to <br> (only outside block elements)
+      html = html.replace(/\n(?!<)/g, '<br>');
+      // clean up extra <br> after block elements
+      html = html.replace(/(<\/h[2-5]>|<\/pre>|<\/blockquote>|<\/ul>|<\/table>|<hr[^>]*\/>)<br>/g, '$1');
+      return html;
     }
 
   });
