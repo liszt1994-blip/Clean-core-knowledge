@@ -66,4 +66,60 @@ function parseDdl(ddl) {
   return { type, releaseState, cleanCore, classification, neighbors };
 }
 
-module.exports = { parseDdl };
+// ── ADT HTTP Client ──────────────────────────────────────────────────────────
+
+// Reuse a single https agent across calls (self-signed cert on S4T)
+const HTTPS_AGENT = new https.Agent({ rejectUnauthorized: false });
+
+/**
+ * Fetch DDL source for a single CDS View from ADT.
+ * Reads ADT_URL / ADT_USER / ADT_PASSWORD from process.env.
+ *
+ * @param {string} viewName
+ * @returns {Promise<string>}  raw DDL text
+ * @throws Error with user-facing Chinese message on failure
+ */
+async function fetchDdl(viewName) {
+  const { ADT_URL, ADT_USER, ADT_PASSWORD } = process.env;
+  if (!ADT_URL || !ADT_USER || !ADT_PASSWORD) {
+    throw new Error('ADT 环境变量未配置（ADT_URL / ADT_USER / ADT_PASSWORD）');
+  }
+
+  // TODO: CF deployment — detect VCAP_SERVICES.destination binding and
+  // route through BTP Connectivity proxy with S4T_100_LST destination instead.
+
+  const url = `${ADT_URL}/sap/bc/adt/ddic/ddl/sources/${encodeURIComponent(viewName)}/source/main`;
+
+  try {
+    const resp = await axios.get(url, {
+      httpsAgent: HTTPS_AGENT,
+      headers: {
+        Authorization: 'Basic ' + Buffer.from(`${ADT_USER}:${ADT_PASSWORD}`).toString('base64'),
+        Accept: 'text/plain',
+        'sap-client': '100',
+      },
+      responseType: 'text',
+      timeout: 15000,
+      validateStatus: null,   // handle all status codes manually
+    });
+
+    if (resp.status === 404) {
+      const err = new Error(`CDS View "${viewName}" 在 S4T 系统中不存在`);
+      err.isNotFound = true;
+      throw err;
+    }
+    if (resp.status !== 200) {
+      throw new Error(`ADT 请求失败：HTTP ${resp.status}`);
+    }
+
+    return resp.data;
+  } catch (err) {
+    if (err.isNotFound || err.message.startsWith('ADT ') || err.message.startsWith('CDS View')) {
+      throw err;   // already user-facing
+    }
+    // Network error (ECONNREFUSED, ETIMEDOUT, etc.)
+    throw new Error('无法连接 S4T 系统，请检查网络或 ADT 配置');
+  }
+}
+
+module.exports = { parseDdl, fetchDdl };
