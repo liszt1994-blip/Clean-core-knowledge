@@ -5,7 +5,7 @@ const { ClassificationClient } = require('../src/classification-client');
 const { DestinationClient } = require('../src/destination-client');
 const { searchHelpPortal } = require('../src/sap-help-search');
 const { searchApis, listByModule } = require('../src/apihub-client');
-const { buildGraphFromAdt } = require('../src/adt-client');
+const { buildGraphFromAdt, fetchDdl, parseDdl } = require('../src/adt-client');
 const { searchSapApis } = require('../src/sap-api-search');
 const { searchDiscoveryCenter, getServiceDetails, searchSapDocs } = require('../src/mcp-client');
 const {
@@ -49,10 +49,9 @@ module.exports = cds.service.impl(async function (srv) {
     return clf;
   }
 
-  // Classify a single SAP object: local JSON first, then Grounding, then plain AI fallback
+  // Classify a single SAP object: local JSON → Grounding → ADT (S4T) → AI fallback
   async function classifyWithGrounding(objectName) {
-    // Step 1: local JSON lookup (highest accuracy, no AI cost)
-    // Wait for remote JSON to finish loading (it was kicked off at startup)
+    // Step 1: remote/local JSON lookup (SAP official release data)
     await getClassifier().ready();
     const localResult = getClassifier().lookup(objectName);
     if (localResult) {
@@ -87,16 +86,40 @@ module.exports = cds.service.impl(async function (srv) {
           return { ...parsed[0], objectName, source: 'grounding' };
         }
       } catch (err) {
-        console.warn('[classifyWithGrounding] grounding failed, falling back to AI:', err.message);
+        console.warn('[classifyWithGrounding] grounding failed, trying ADT:', err.message);
       }
     }
 
-    // Step 3: plain AI inference (last resort)
+    // Step 3: ADT (S4T system) — parse @VDM.lifecycle.contract.type from DDL
+    // Rule: if no layer is "Released" → tier C, not clean core
+    try {
+      const ddl = await fetchDdl(objectName);
+      const meta = parseDdl(ddl);
+      const tier = meta.releaseState === 'Released' ? 'A'
+                 : meta.releaseState === 'Restricted' ? 'B'
+                 : 'C';
+      return {
+        objectName,
+        tier,
+        state:          meta.releaseState.toLowerCase(),
+        explanation:    `ADT @VDM.lifecycle.contract.type: ${meta.releaseState}`,
+        recommendation: tier === 'C' ? '该对象在 S4T 系统中未发布，不符合 Clean Core 标准' : '',
+        source:         'adt',
+      };
+    } catch (err) {
+      console.warn('[classifyWithGrounding] ADT lookup failed for', objectName, ':', err.message);
+    }
+
+    // Step 4: AI inference (last resort — likely inaccurate, badge shown in UI)
     if (!getAI()) return null;
-    const raw = await getAI().complete(CLEAN_CORE_SYSTEM_PROMPT, buildSingleClassifyPrompt(objectName));
-    const parsed = JSON.parse(raw.trim());
-    if (Array.isArray(parsed) && parsed.length > 0) {
-      return { ...parsed[0], objectName, source: 'ai-inference' };
+    try {
+      const raw = await getAI().complete(CLEAN_CORE_SYSTEM_PROMPT, buildSingleClassifyPrompt(objectName));
+      const parsed = JSON.parse(raw.trim());
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        return { ...parsed[0], objectName, source: 'ai-inference' };
+      }
+    } catch (err) {
+      console.warn('[classifyWithGrounding] AI inference failed for', objectName, ':', err.message);
     }
     return null;
   }
