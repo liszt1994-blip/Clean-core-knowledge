@@ -610,12 +610,13 @@ sap.ui.define([
         return expandedSet.has(srcId);
       }
 
-      // ── 级联收起：移除节点及其所有后代 ───────────────────────────────
+      // ── 级联收起：移除节点及其所有后代（根节点始终保留）───────────────
       function collapseNode(id) {
+        if (id === rootId) return;   // 根节点不可收起
         expandedSet.delete(id);
         var children = childrenOf[id] || [];
         children.forEach(function (childId) {
-          if (expandedSet.has(childId)) {
+          if (childId !== rootId && expandedSet.has(childId)) {
             collapseNode(childId);
           }
         });
@@ -689,10 +690,10 @@ sap.ui.define([
             var dx = event.x - dragStartX;
             var dy = event.y - dragStartY;
             if (Math.sqrt(dx * dx + dy * dy) < 4) {
-              if (d.depth === 0) return;
               var children = childrenOf[d.id] || [];
               if (children.length === 0) return;
               if (expandedSet.has(d.id)) {
+                if (d.depth === 0) return;  // 根节点不收起，只能展开
                 collapseNode(d.id);
               } else {
                 expandedSet.add(d.id);
