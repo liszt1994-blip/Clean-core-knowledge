@@ -147,12 +147,15 @@ module.exports = cds.service.impl(async function (srv) {
   });
 
   // ── Tab 2: Object Classification ────────────────────────────────────────
-  // Strategy: local JSON first → AI Core fallback per object
+  // Strategy: remote/local JSON first → Grounding → ADT → AI inference
   srv.on('classify', async (req) => {
     const { objects } = req.data;
     if (!objects || objects.length === 0) {
       return req.error(400, 'objects array is required');
     }
+
+    // Ensure remote GitHub JSON is loaded before any lookup
+    await getClassifier().ready();
 
     const results = [];
 
@@ -175,7 +178,7 @@ module.exports = cds.service.impl(async function (srv) {
           objectType:     info.objectType,
           softwareComponent: info.softwareComponent,
           appComponent:   info.appComponent,
-          source:         'official-json',
+          source:         'local-json',
         });
       } else {
         // ── Miss: use Grounding first, fallback to plain AI ────────────
@@ -497,6 +500,21 @@ module.exports = cds.service.impl(async function (srv) {
     // Step 1: detect intent (skip if mode is explicit)
     let intent = mode;
     if (mode === 'auto') {
+      // Pre-check: scan tokens against local JSON before calling AI for intent detection
+      // If any token matches a known SAP object, route directly to classify
+      try {
+        await getClassifier().ready();
+        const tokens = message.split(/[\n,\s]+/)
+          .map(s => s.trim().toUpperCase())
+          .filter(s => /^[A-Z][A-Z0-9_]{2,}$/.test(s));
+        for (const token of tokens) {
+          if (getClassifier().lookup(token)) { intent = 'classify'; break; }
+        }
+      } catch (e) {
+        console.warn('[pre-check] classifier lookup failed, skipping:', e.message);
+      }
+    }
+    if (intent === 'auto') {
       try {
         const raw = await getAI().complete(
           CLEAN_CORE_SYSTEM_PROMPT,
@@ -566,6 +584,7 @@ module.exports = cds.service.impl(async function (srv) {
       }
 
       // Step 2: Look up each object; AI fallback for unknowns
+      await getClassifier().ready();
       const violations = [];
       for (const name of objects) {
         const info = getClassifier().lookup(name);
@@ -754,7 +773,7 @@ module.exports = cds.service.impl(async function (srv) {
       let rewriteRewritten = '';
       if (needsRewrite) {
         try {
-          const raw = await aiComplete(
+          const raw = await getAI().complete(
             CLEAN_CORE_SYSTEM_PROMPT,
             buildRewriteCodePrompt(message, violations),
             8192,

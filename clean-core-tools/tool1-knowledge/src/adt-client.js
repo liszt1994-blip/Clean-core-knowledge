@@ -25,7 +25,7 @@ const RELEASE_MAP = {
  *   releaseState: string,
  *   cleanCore: boolean,
  *   classification: string,
- *   neighbors: Array<{ name: string, relation: 'join'|'association' }>
+ *   neighbors: Array<{ name: string, relation: 'from'|'join'|'association' }>
  * }}
  */
 function parseDdl(ddl) {
@@ -44,11 +44,11 @@ function parseDdl(ddl) {
 
   const neighbors = [];
 
-  // primary from source + any additional join targets → join
+  // primary from source → from; explicit join targets → join
   const fromRe = /\bfrom\s+(\w+)/gi;
   let fm;
   while ((fm = fromRe.exec(ddl)) !== null) {
-    neighbors.push({ name: fm[1], relation: 'join' });
+    neighbors.push({ name: fm[1], relation: 'from' });
   }
   const joinRe = /\bjoin\s+(\w+)/gi;
   let jm;

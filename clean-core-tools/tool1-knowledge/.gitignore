@@ -1,2 +1,6 @@
 .env
 node_modules/
+
+# Local ad-hoc debugging scratch (not part of the test suite)
+debug-test.js
+

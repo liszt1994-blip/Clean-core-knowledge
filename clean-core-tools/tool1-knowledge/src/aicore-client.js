@@ -112,6 +112,72 @@ class AICoreClient {
       maxTokens
     );
   }
+
+  /**
+   * Call AI Core Orchestration /completion with Document Grounding enabled.
+   * Retrieves relevant chunks from the specified S3 collection before calling the LLM.
+   *
+   * The grounding output is injected into the user prompt via {{groundingOutput}}.
+   * The user query is passed as {{groundingRequest}} placeholder.
+   *
+   * @param {string} systemPrompt - System prompt
+   * @param {string} userContent  - User query
+   * @param {string} collectionId - Grounding collection ID (from AI Launchpad)
+   * @param {number} maxTokens
+   * @returns {string} model reply
+   */
+  async completeWithGrounding(systemPrompt, userContent, collectionId, maxTokens = 2048) {
+    const token = await this._getToken();
+    const resp = await axios.post(
+      `${this._baseUrl}/completion`,
+      {
+        orchestration_config: {
+          module_configurations: {
+            llm_module_config: {
+              model_name: this.model,
+              model_params: { max_tokens: maxTokens, temperature: 0 },
+            },
+            templating_module_config: {
+              template: [
+                { role: 'system', content: systemPrompt },
+                {
+                  role: 'user',
+                  content:
+                    'Use the following context from our knowledge base to help answer the question.\n\n' +
+                    'Context:\n{{?groundingOutput}}\n\n' +
+                    'Question: {{?groundingRequest}}',
+                },
+              ],
+              defaults: { groundingRequest: userContent },
+            },
+            grounding_module_config: {
+              type: 'document_grounding_service',
+              config: {
+                filters: [
+                  {
+                    id: collectionId,
+                    data_repository_type: 'vector',
+                  },
+                ],
+                input_params: ['groundingRequest'],
+                output_param: 'groundingOutput',
+              },
+            },
+          },
+        },
+        input_params: { groundingRequest: userContent },
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+          'AI-Resource-Group': this.resourceGroup,
+        },
+        timeout: 120000,
+      }
+    );
+    return resp.data.orchestration_result.choices[0].message.content;
+  }
 }
 
 module.exports = { AICoreClient, CLEAN_CORE_SYSTEM_PROMPT };

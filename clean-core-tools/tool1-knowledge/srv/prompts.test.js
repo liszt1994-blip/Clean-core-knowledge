@@ -64,3 +64,94 @@ describe('Agent chat prompt builders', () => {
     expect(p).toMatch(/rewritten/);
   });
 });
+
+describe('Tab 4 BTP prompt builders', () => {
+  const {
+    buildBtpAnswerPrompt,
+    buildBtpGuidePrompt,
+    buildBtpIntentPrompt,
+    buildBtpServicePrompt,
+    buildBtpMcpAnswerPrompt,
+  } = require('./prompts');
+
+  test('buildBtpIntentPrompt includes query and the three intents', () => {
+    const p = buildBtpIntentPrompt('如何开发一个采购应用');
+    expect(p).toMatch(/如何开发一个采购应用/);
+    expect(p).toMatch(/service/);
+    expect(p).toMatch(/guide/);
+    expect(p).toMatch(/general/);
+    expect(p).toMatch(/JSON/);
+  });
+
+  test('buildBtpAnswerPrompt embeds query and numbered search snippets', () => {
+    const results = [
+      { title: 'Cloud Foundry Env', url: 'https://help.sap.com/x', summary: 'CF runtime' },
+    ];
+    const p = buildBtpAnswerPrompt('BTP 有哪些运行时', results);
+    expect(p).toMatch(/BTP 有哪些运行时/);
+    expect(p).toMatch(/Cloud Foundry Env/);
+    expect(p).toMatch(/help\.sap\.com/);
+  });
+
+  test('buildBtpAnswerPrompt handles empty search results', () => {
+    const p = buildBtpAnswerPrompt('随便问', []);
+    expect(p).toMatch(/随便问/);
+    expect(p).toMatch(/未找到相关片段/);
+  });
+
+  test('buildBtpGuidePrompt includes domain label, scenario and API list', () => {
+    const apis = [
+      { name: 'Purchase Order API', protocol: 'OData V2', description: '采购订单', endpoint: '/po', keyEntities: ['A_PurchaseOrder'], url: 'https://api.sap.com/po', deprecated: false },
+    ];
+    const p = buildBtpGuidePrompt('procurement', '搭建采购审批应用', apis);
+    expect(p).toMatch(/采购/);
+    expect(p).toMatch(/搭建采购审批应用/);
+    expect(p).toMatch(/Purchase Order API/);
+  });
+
+  test('buildBtpGuidePrompt flags deprecated APIs with successor', () => {
+    const apis = [
+      { name: 'Legacy PO', protocol: 'OData V2', description: '旧接口', endpoint: '/old', keyEntities: [], url: 'https://api.sap.com/old', deprecated: true, successor: 'API_PURCHASEORDER_PROCESS_SRV' },
+    ];
+    const p = buildBtpGuidePrompt('procurement', '场景', apis);
+    expect(p).toMatch(/DEPRECATED/);
+    expect(p).toMatch(/API_PURCHASEORDER_PROCESS_SRV/);
+  });
+
+  test('buildBtpGuidePrompt appends grounding context when provided', () => {
+    const p = buildBtpGuidePrompt('sales', '销售场景', [], '这是官方文档检索内容');
+    expect(p).toMatch(/这是官方文档检索内容/);
+  });
+
+  test('buildBtpServicePrompt lists services grouped when more than 5', () => {
+    const services = Array.from({ length: 6 }, (_, i) => ({
+      id: 's' + i, name: 'Service' + i, description: 'desc' + i, category: 'AI',
+    }));
+    const p = buildBtpServicePrompt('有哪些 AI 服务', services, {});
+    expect(p).toMatch(/有哪些 AI 服务/);
+    expect(p).toMatch(/Service0/);
+    expect(p).toMatch(/### AI/);
+  });
+
+  test('buildBtpServicePrompt shows pricing detail for a specific service', () => {
+    const services = [{ id: 's1', name: 'AI Core', description: 'AI 服务', category: 'AI' }];
+    const detailsMap = {
+      s1: {
+        pricing: [{ planName: 'Standard', commercialModels: [{ pricePerUnit: '0.5', metric: 'per call' }] }],
+        resources: { documentation: [{ url: 'https://help.sap.com/ai-core' }] },
+      },
+    };
+    const p = buildBtpServicePrompt('AI Core 怎么收费', services, detailsMap);
+    expect(p).toMatch(/AI Core 怎么收费/);
+    expect(p).toMatch(/Standard/);
+    expect(p).toMatch(/help\.sap\.com\/ai-core/);
+  });
+
+  test('buildBtpMcpAnswerPrompt includes query and doc snippets', () => {
+    const results = [{ title: 'BTP Doc', snippet: '文档片段', url: 'https://help.sap.com/btp' }];
+    const p = buildBtpMcpAnswerPrompt('BTP 是什么', results);
+    expect(p).toMatch(/BTP 是什么/);
+    expect(p).toMatch(/BTP Doc/);
+    expect(p).toMatch(/文档片段/);
+  });
+});

@@ -284,8 +284,10 @@ describe('searchApiHub', () => {
 
 // ── analyzeCds ─────────────────────────────────────────────────────────────
 
-jest.mock('../src/cds-graph-data', () => ({
-  buildGraph: jest.fn((viewName) => {
+// analyzeCds handler builds its graph via adt-client.buildGraphFromAdt (live ADT),
+// then enriches each node via classifyWithGrounding (mocked AICoreClient above).
+jest.mock('../src/adt-client', () => ({
+  buildGraphFromAdt: jest.fn(async (viewName) => {
     if (viewName === 'I_SalesOrder') {
       return {
         nodes: [
@@ -297,8 +299,10 @@ jest.mock('../src/cds-graph-data', () => ({
         ],
       };
     }
-    return null;
+    throw new Error(`View ${viewName} not found`);
   }),
+  fetchDdl: jest.fn(),
+  parseDdl: jest.fn(),
 }));
 
 describe('analyzeCds', () => {

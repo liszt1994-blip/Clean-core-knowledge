@@ -539,6 +539,19 @@ sap.ui.define([
         'pointer-events:none;max-width:260px;z-index:100;line-height:1.7;';
       canvas.appendChild(tooltip);
 
+      // ── 图例（右上角）────────────────────────────────────────────────
+      var legend = document.createElement('div');
+      legend.style.cssText = 'position:absolute;top:12px;right:12px;background:rgba(0,0,0,0.65);' +
+        'border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:8px 12px;' +
+        'font-size:11px;color:#ccc;line-height:1.8;z-index:50;pointer-events:none;';
+      legend.innerHTML = [
+        '<div style="font-weight:bold;color:#fff;margin-bottom:4px;font-size:12px;">连接关系</div>',
+        '<div><span style="display:inline-block;width:24px;height:2px;background:#fdd835;vertical-align:middle;margin-right:6px;"></span>SELECT FROM（基础来源）</div>',
+        '<div><span style="display:inline-block;width:24px;height:2px;background:#ff9800;vertical-align:middle;margin-right:6px;"></span>JOIN（连接）</div>',
+        '<div><span style="display:inline-block;width:24px;height:0;border-top:2px dashed #42a5f5;vertical-align:middle;margin-right:6px;"></span>Association（关联关系）</div>',
+      ].join('');
+      canvas.appendChild(legend);
+
       var d3 = window.d3;
 
       // ── SVG ──────────────────────────────────────────────────────────
@@ -708,13 +721,15 @@ sap.ui.define([
           .data(edges)
           .join('line')
           .attr('stroke', function (d) {
-            return d.relation === 'association' ? '#42a5f5' : 'rgba(255,255,255,0.5)';
+            if (d.relation === 'association') return '#42a5f5';
+            if (d.relation === 'from') return '#fdd835'; // from → 黄色
+            return '#ff9800'; // join → 橙色
           })
           .attr('stroke-dasharray', function (d) {
             return d.relation === 'association' ? '5,3' : null;
           })
           .attr('stroke-opacity', function (d) {
-            return d.relation === 'association' ? 0.7 : 0.5;
+            return d.relation === 'association' ? 0.7 : 0.6;
           })
           .attr('stroke-width', 1.5);
 

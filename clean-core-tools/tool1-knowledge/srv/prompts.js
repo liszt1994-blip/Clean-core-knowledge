@@ -225,6 +225,192 @@ function buildExtractObjectsPrompt(message) {
   );
 }
 
+// ── Tab 4 BTP: BTP Knowledge Q&A ─────────────────────────────────────────────
+function buildBtpAnswerPrompt(query, searchResults) {
+  const BTP_SOURCES = [
+    'https://help.sap.com/docs/btp',
+    'https://help.sap.com/docs/btp/sap-business-technology-platform/sap-business-technology-platform',
+    'https://help.sap.com/docs/btp/sap-btp-neo-environment/sap-btp-neo-environment',
+    'https://help.sap.com/docs/btp/sap-btp-cloud-foundry-environment/cloud-foundry-environment',
+    'https://help.sap.com/docs/btp/sap-btp-kyma-runtime/kyma-environment',
+    'https://discovery-center.cloud.sap/serviceCatalog',
+    'https://api.sap.com',
+  ];
+
+  const snippets = searchResults
+    .slice(0, 8)
+    .map((r, i) => `[${i + 1}] ${r.title}\n    URL: ${r.url}\n    摘要: ${r.summary || '（无摘要）'}`)
+    .join('\n\n');
+
+  return (
+    `你是 SAP BTP 开发专家，请根据以下参考资料回答用户问题。\n\n` +
+    `## 权威文档来源\n${BTP_SOURCES.map(u => '- ' + u).join('\n')}\n\n` +
+    `## 搜索到的相关片段\n${snippets || '（未找到相关片段）'}\n\n` +
+    `## 用户问题\n${query}\n\n` +
+    `## 回答要求\n` +
+    `- 用简体中文回答，条理清晰，适合 BTP 开发者阅读\n` +
+    `- 回答基于上方参考资料和你的 BTP 知识综合给出\n` +
+    `- 如引用了某个片段，在句末用 [数字] 标注来源编号（如：Cloud Foundry 支持多语言运行时 [2]）\n` +
+    `- 回答控制在 600 字以内，如有步骤请用列表格式\n` +
+    `- 不要重复问题，直接给出答案`
+  );
+}
+
+// ── Tab 4 BTP: BTP Development Guide ─────────────────────────────────────────
+function buildBtpGuidePrompt(domain, scenario, apiResults, groundingContext = '') {
+  const domainLabel = {
+    procurement: '采购（Procurement）',
+    sales:       '销售（Sales）',
+    finance:     '财务（Finance）',
+    hr:          '人力资源（HR）',
+    inventory:   '库存（Inventory）',
+  }[domain] || domain;
+
+  const apiList = apiResults.length > 0
+    ? apiResults.map((a, i) =>
+        `${i + 1}. **${a.name}**（${a.protocol}）${a.deprecated ? ' ⚠️ **[DEPRECATED - 已废弃]**' : ''}\n` +
+        `   - 说明：${a.description}\n` +
+        (a.deprecated ? `   - ⛔ 此 API 已废弃，请使用：${a.successor || '请查看官方文档获取替代方案'}\n` : '') +
+        `   - Endpoint：\`${a.endpoint || ''}\`\n` +
+        `   - 主要实体：${(a.keyEntities || []).join('、')}\n` +
+        `   - 文档：${a.url}`
+      ).join('\n\n')
+    : '（请参考 https://api.sap.com 搜索相关 API）';
+
+  return (
+    `你是一位经验丰富的 SAP BTP 开发顾问，需要为一位**完全没有 BTP 开发经验**的开发者，\n` +
+    `提供一份关于"${domainLabel}"业务场景的完整开发指南。\n\n` +
+    `## 用户的业务场景\n${scenario || '开发一个基于 SAP BTP 的' + domainLabel + '相关应用'}\n\n` +
+    `## 可用的相关 API\n${apiList}\n\n` +
+    `## 请按照以下结构生成完整指南（用中文，Markdown 格式）：\n\n` +
+    `### 一、准备工作\n` +
+    `列出需要开通的 BTP 服务（服务名 + 用途 + 建议套餐），以表格形式展示。\n` +
+    `然后给出 BTP 账号配置的具体步骤（含截图说明文字）。\n` +
+    `最后列出本地开发环境要求：Node.js 版本、需要安装的 npm 包、VS Code 插件。\n\n` +
+    `### 二、技术架构建议\n` +
+    `推荐运行时（Cloud Foundry 或 Kyma）并说明原因。\n` +
+    `用文字描述应用架构：前端（SAP Fiori/UI5）→ 后端（CAP/Node.js）→ S/4HANA API → S/4HANA 系统。\n\n` +
+    `### 三、分步骤开发流程\n` +
+    `**必须包含至少 7 个步骤**，每步格式：\n` +
+    `**步骤 N：[步骤名称]**\n` +
+    `目标：xxx\n` +
+    `操作：具体命令或操作说明\n` +
+    `代码示例（如有）：\n` +
+    `\`\`\`javascript\n// 代码\n\`\`\`\n\n` +
+    `步骤顺序：创建 BTP 项目 → 配置 Destination → 搭建 CAP 后端 → 集成 S/4HANA API → 开发前端 UI → 本地测试 → 部署到 CF/Kyma\n\n` +
+    `### 四、核心 API 详细使用说明\n` +
+    `**对上方列出的每一个 API，都必须包含以下内容：**\n\n` +
+    `#### API 名称\n` +
+    `**用途**：这个 API 解决什么业务问题\n\n` +
+    `**认证方式**：如何获取 OAuth token，用 BTP Destination Service 还是直接调用\n\n` +
+    `**关键操作示例**：\n` +
+    `- 读取数据（GET）：\n` +
+    `\`\`\`javascript\n// 完整可运行的 Node.js/axios 代码示例，包含 URL、headers、参数\n\`\`\`\n` +
+    `- 创建数据（POST）：\n` +
+    `\`\`\`javascript\n// 完整可运行的代码示例，包含请求体结构\n\`\`\`\n\n` +
+    `**返回数据结构示例**（JSON 片段）\n\n` +
+    `**注意事项**：权限要求、CSRF token、分页处理等\n\n` +
+    `### 五、常见问题与解决方法\n` +
+    `列出新手最常遇到的 5 个问题，每个给出具体解决步骤。\n\n` +
+    `要求：所有代码示例必须完整可运行，使用 axios 库，包含错误处理。` +
+    (groundingContext
+      ? `\n\n## 以下是从官方文档中检索到的相关参考内容，请优先参考：\n\n${groundingContext}`
+      : '')
+  );
+}
+
+// ── Tab 4 BTP: Intent Detection ────────────────────────────────────────────────
+function buildBtpIntentPrompt(query) {
+  return (
+    `Analyze the following user query and classify it into one of three intents:\n\n` +
+    `intent = "service" — user asks about BTP services/products: listing services, pricing, billing, ` +
+    `license models, roadmap, service details, how to activate/subscribe/use a specific service, ` +
+    `comparing services. Keywords: 有哪些服务、服务列表、服务目录、定价、收费、价格、费用、license、` +
+    `路线图、roadmap、怎么开通、服务详情、怎么订阅、怎么用、如何使用、怎么配置、怎么设置、怎么启用、` +
+    `SAP Build、AI Core、Integration Suite、HANA Cloud、Credential Store、Kyma、Cloud Foundry、` +
+    `BTP services、service catalog、pricing、how much does it cost、what services、how to use、how to configure。\n\n` +
+    `IMPORTANT: If the query mentions a specific SAP service name (like "SAP Credential Store", "SAP AI Core", ` +
+    `"SAP HANA Cloud", "Kyma", etc.) and asks how to use/configure/set up that service — classify as "service".\n\n` +
+    `intent = "guide" — user wants to BUILD/DEVELOP/CREATE a BTP application or integrate systems step by step. ` +
+    `Keywords: 如何开发、怎么开发、开发一个、创建应用、从零开始、搭建、集成、如何实现、怎么做、开发流程、` +
+    `怎么集成、如何接入、how to develop、how to build、create app、step by step。\n\n` +
+    `intent = "general" — BTP concepts, architecture, API questions, troubleshooting, explanations ` +
+    `(everything else).\n\n` +
+    `Also extract:\n` +
+    `- domain: if intent is "guide", the business domain: "procurement"|"sales"|"finance"|"hr"|"inventory"|"custom" (default "procurement")\n` +
+    `- scenario: if intent is "guide", a concise scenario description (max 50 chars)\n` +
+    `- serviceQuery: if intent is "service", the cleaned English search term for Discovery Center (max 30 chars)\n\n` +
+    `User query: "${query}"\n\n` +
+    `Return ONLY a JSON object, no markdown:\n` +
+    `{"intent":"service|guide|general","domain":"procurement|sales|finance|hr|inventory|custom","scenario":"...","serviceQuery":"..."}`
+  );
+}
+
+// ── Tab 4 BTP: Service Answer ──────────────────────────────────────────────────
+function buildBtpServicePrompt(query, services, detailsMap) {
+  const isBroadListing = services.length > 5;
+
+  let serviceContent;
+  if (isBroadListing) {
+    const grouped = {};
+    for (const s of services) {
+      const cat = s.category || '其他';
+      if (!grouped[cat]) grouped[cat] = [];
+      grouped[cat].push(s);
+    }
+    serviceContent = Object.entries(grouped).map(([cat, list]) =>
+      `### ${cat}\n` + list.map(s => `- **${s.name}**：${s.description || ''}`).join('\n')
+    ).join('\n\n');
+  } else {
+    serviceContent = services.map((s, i) => {
+      const detail = detailsMap[s.id];
+      let entry = `${i + 1}. **${s.name}**（${s.category || ''}）\n   ${s.description || ''}`;
+      if (detail) {
+        if (detail.pricing && detail.pricing.length > 0) {
+          const plans = detail.pricing.slice(0, 3).map(p =>
+            `${p.planName}${p.commercialModels && p.commercialModels[0] ? '：' + p.commercialModels[0].pricePerUnit + ' ' + p.commercialModels[0].metric : ''}`
+          ).join('；');
+          entry += `\n   定价方案：${plans}`;
+        }
+        const docUrl = detail.resources && detail.resources.documentation && detail.resources.documentation[0]
+          ? detail.resources.documentation[0].url : null;
+        const dcUrl = detail.links && detail.links.discoveryCenter ? detail.links.discoveryCenter : null;
+        if (docUrl) entry += `\n   官方文档：${docUrl}`;
+        if (dcUrl) entry += `\n   Discovery Center：${dcUrl}`;
+        if (detail.roadmap && detail.roadmap.length > 0) {
+          const nextItem = detail.roadmap[0];
+          entry += `\n   路线图：${nextItem.quarter || ''} — ${(nextItem.deliverables || []).slice(0, 2).join('；')}`;
+        }
+      }
+      return entry;
+    }).join('\n\n');
+  }
+
+  return (
+    `你是一位 SAP BTP 专家，请根据以下从 SAP Discovery Center 获取的服务信息，用中文回答用户问题。\n\n` +
+    `用户问题：${query}\n\n` +
+    `SAP BTP 服务信息（共 ${services.length} 项，来自 Discovery Center）：\n\n${serviceContent}\n\n` +
+    (isBroadListing
+      ? `请将上述所有 ${services.length} 个服务按分类逐一列出，每个服务单独一行，格式：服务名 + 一句话描述。不要省略任何服务，不要用"共X项"代替实际列表。`
+      : `请直接回答问题，语言简洁清晰，适当使用 Markdown 格式。如果涉及收费，请说明定价模型。` +
+        `必须在答案末尾附上官方链接，格式：\n**官方文档**：[链接文字](URL)\n**Discovery Center**：[链接文字](URL)`)
+  );
+}
+
+// ── Tab 4 BTP: MCP Docs Fallback Answer ───────────────────────────────────────
+function buildBtpMcpAnswerPrompt(query, searchResults) {
+  const docs = searchResults.slice(0, 5).map((r, i) =>
+    `[${i + 1}] **${r.title}**\n${r.snippet || ''}\n链接：${r.url || ''}`
+  ).join('\n\n');
+
+  return (
+    `你是一位 SAP BTP 专家，请根据以下从 SAP 官方文档搜索到的内容，用中文回答用户问题。\n\n` +
+    `用户问题：${query}\n\n` +
+    `搜索到的文档片段：\n\n${docs}\n\n` +
+    `请基于以上文档内容回答，并在答案末尾用"参考文档："列出引用的链接。`
+  );
+}
+
 // ── Feature 6: Migration Path Planning ────────────────────────────────────
 function buildPlanPrompt(objectName) {
   return (
@@ -263,4 +449,9 @@ module.exports = {
   buildRewriteCodePrompt,
   buildExtractObjectsPrompt,
   buildPlanPrompt,
+  buildBtpAnswerPrompt,
+  buildBtpGuidePrompt,
+  buildBtpIntentPrompt,
+  buildBtpServicePrompt,
+  buildBtpMcpAnswerPrompt,
 };

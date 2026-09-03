@@ -8,11 +8,19 @@ const fs    = require('fs');
 
 const BASE_URL  = 'https://api.sap.com/odata/1.0/catalog.svc';
 const PAGE_SIZE = 50;
+// 最多扫描 60 页（3000 条），覆盖 API Hub 全量（当前约 2500 条）
+const MAX_PAGES = 60;
 
 // Pre-built mapping: API Name → { title, type, serviceGroupName }
 // Built from browser-crawled data; update docs/apihub-sgn-map.json to refresh
 const SGN_MAP_PATH = path.join(__dirname, '..', 'docs', 'apihub-sgn-map.json');
 let _sgnMap = null;
+// Secondary index: normalized key (strip sap-s4- prefix and -vN suffix) → entry
+let _sgnMapNorm = null;
+
+function _normKey(k) {
+  return k.replace(/^sap-s4-/, '').replace(/-v\d+$/, '');
+}
 
 function _getSgnMap() {
   if (!_sgnMap) {
@@ -21,8 +29,24 @@ function _getSgnMap() {
     } catch (_) {
       _sgnMap = {};
     }
+    // Build normalized lookup for keys like 'sap-s4-OP_XXX-v1' → accessible by 'OP_XXX'
+    _sgnMapNorm = {};
+    Object.keys(_sgnMap).forEach(function (k) {
+      var norm = _normKey(k);
+      if (norm !== k) _sgnMapNorm[norm] = _sgnMap[k];
+    });
   }
   return _sgnMap;
+}
+
+function _lookupSgn(name) {
+  _getSgnMap();
+  return _sgnMap[name] || _sgnMapNorm[name] || null;
+}
+
+// S/4HANA PCE API 的 Name 都以 OP_ 或 sap-s4-OP_ 开头
+function _isS4Api(name) {
+  return name.startsWith('OP_') || name.startsWith('sap-s4-OP_');
 }
 
 const MODULE_KEYWORDS = {
@@ -46,11 +70,11 @@ function _getApiKey() {
   return key;
 }
 
-// 获取单页 API 列表（APIContent.APIs 接口）
+// 获取单页 API 列表（APIContent.APIs 接口），包含 State 字段
 async function _fetchApisPage(skip) {
   const url = `${BASE_URL}/APIContent.APIs` +
     `?$format=json&$top=${PAGE_SIZE}&$skip=${skip}` +
-    `&$select=Name,Title,ShortText,ServiceCode`;
+    `&$select=Name,Title,ShortText,ServiceCode,State`;
   const resp = await fetch(url, {
     headers: { APIKey: _getApiKey() },
     timeout: 15000,
@@ -61,62 +85,72 @@ async function _fetchApisPage(skip) {
 }
 
 // 将原始 API 记录转换为内部格式，从本地映射表读取 serviceGroupName
+// cleanCore: OData V4 API 且有 SGN 时为 true；ODATA/SOAP/REST 为 false（不代表不合规，需人工判断）
 function _toRecord(r) {
-  const map = _getSgnMap();
-  const entry = map[r.Name] || {};
+  const entry = _lookupSgn(r.Name) || {};
+  const hasSgn = !!(entry.serviceGroupName);
   return {
-    id:              r.Name         || '',
-    title:           r.Title        || '',
-    apiType:         r.ServiceCode  || '',
-    shortText:       r.ShortText    || '',
+    id:              r.Name        || '',
+    title:           r.Title       || '',
+    apiType:         r.ServiceCode || '',
+    shortText:       r.ShortText   || '',
     serviceGroupName: entry.serviceGroupName || '',
+    cleanCore:        hasSgn && r.ServiceCode === 'ODATAV4',
   };
 }
 
-// 逐页扫描所有 API，按关键词匹配 Title 字段
-async function _searchAll(keywords, maxPages = 10) {
-  const matched = [];
-  const lowerKws = keywords.map(k => k.toLowerCase());
-  for (let page = 0; page < maxPages; page++) {
+// 全量扫描 API Hub，只收集 S/4HANA PCE API（OP_ 或 sap-s4-OP_ 开头），过滤已废弃
+async function _fetchAllS4Apis() {
+  const all = [];
+  for (let page = 0; page < MAX_PAGES; page++) {
     const results = await _fetchApisPage(page * PAGE_SIZE);
     if (results.length === 0) break;
-    const lastPage = results.length < PAGE_SIZE;
     for (const r of results) {
-      const title = (r.Title || '').toLowerCase();
-      if (lowerKws.some(k => title.includes(k))) {
-        matched.push(r);
+      if (_isS4Api(r.Name) && r.State !== 'DEPRECATED') {
+        all.push(r);
       }
     }
-    if (lastPage) break;
+    if (results.length < PAGE_SIZE) break;
   }
-  return matched;
+  return all;
 }
 
-async function searchApis(query, limit = 20) {
-  _getApiKey(); // validate early
-  const keywords = query.trim().split(/\s+/);
-  const matched = await _searchAll(keywords);
-  return matched.slice(0, limit).map(_toRecord);
+async function searchApis(query, { offset = 0, limit = 20 } = {}) {
+  _getApiKey();
+  const lowerKws = query.trim().split(/\s+/).map(k => k.toLowerCase());
+  const all = await _fetchAllS4Apis();
+  const matched = all.filter(r => {
+    const title = (r.Title || '').toLowerCase();
+    return lowerKws.some(k => title.includes(k));
+  });
+  return matched.slice(offset, offset + limit).map(_toRecord);
 }
 
-async function listByModule(module, limit = 30) {
+async function listByModule(module, { offset = 0, limit = 500 } = {}) {
   _getApiKey();
   const mod = module.trim().toUpperCase();
   const keywords = MODULE_KEYWORDS[mod];
   if (!keywords) {
     throw new Error(`不支持模块 "${mod}"。可用：${Object.keys(MODULE_KEYWORDS).join('、')}`);
   }
-  const matched = await _searchAll(keywords);
-  return matched.slice(0, limit).map(_toRecord);
+  const lowerKws = keywords.map(k => k.toLowerCase());
+  const all = await _fetchAllS4Apis();
+  const matched = all.filter(r => {
+    const title = (r.Title || '').toLowerCase();
+    return lowerKws.some(k => title.includes(k));
+  });
+  return matched.slice(offset, offset + limit).map(_toRecord);
 }
 
 async function getDetails(apiName) {
   _getApiKey();
-  const matched = await _searchAll([apiName.trim()]);
-  const exact = matched.find(r => (r.Title || '').toLowerCase() === apiName.toLowerCase());
-  const target = exact || matched[0];
+  const lowerName = apiName.trim().toLowerCase();
+  const all = await _fetchAllS4Apis();
+  const exact = all.find(r => (r.Title || '').toLowerCase() === lowerName);
+  const partial = all.find(r => (r.Title || '').toLowerCase().includes(lowerName));
+  const target = exact || partial;
   if (!target) throw new Error(`未找到 API "${apiName}"`);
   return _toRecord(target);
 }
 
-module.exports = { searchApis, listByModule, getDetails, _resetSgnMapCache: () => { _sgnMap = null; } };
+module.exports = { searchApis, listByModule, getDetails, _resetSgnMapCache: () => { _sgnMap = null; _sgnMapNorm = null; } };
