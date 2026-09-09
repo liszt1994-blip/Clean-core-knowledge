@@ -15,8 +15,9 @@
           <Title text="Clean Core Agent" level="H4" />
         </contentLeft>
         <contentRight>
-          <Button id="historyBtn" icon="sap-icon://history" tooltip="历史记录" press=".onShowHistory" type="Transparent" />
-          <Button text="清空对话" icon="sap-icon://delete" press=".onClearChat" type="Transparent" />
+          <Button id="langToggleBtn" text="{i18n>header.langToggle}" tooltip="{i18n>header.langTooltip}" press=".onToggleLang" type="Transparent" />
+          <Button id="historyBtn" icon="sap-icon://history" tooltip="{i18n>header.history}" press=".onShowHistory" type="Transparent" />
+          <Button text="{i18n>header.clearChat}" icon="sap-icon://delete" press=".onClearChat" type="Transparent" />
         </contentRight>
       </Bar>
     </customHeader>

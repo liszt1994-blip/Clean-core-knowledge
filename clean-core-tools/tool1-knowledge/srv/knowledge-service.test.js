@@ -1,6 +1,7 @@
 // Mock AICoreClient to avoid real SAP AI Core API calls in tests
 jest.mock('../src/aicore-client', () => ({
   CLEAN_CORE_SYSTEM_PROMPT: 'mock-system-prompt',
+  systemPromptFor: (lang) => (lang === 'en' ? 'mock-system-prompt-en' : 'mock-system-prompt-zh'),
   AICoreClient: jest.fn().mockImplementation(() => {
     const mockComplete = jest.fn().mockImplementation((systemPrompt, userContent) => {
       if (userContent && userContent.includes('"intent"')) {
@@ -69,12 +70,15 @@ jest.mock('../src/aicore-client', () => ({
   }),
 }));
 
+// Mock shape must match the CDS searchApiHub return type
+// (id, serviceGroupName, title, apiType, shortText, cleanCore) — CDS strips
+// any field not declared in the action's return schema.
 jest.mock('../src/apihub-client', () => ({
   searchApis: jest.fn().mockResolvedValue([
-    { name: 'API_PURCHASEORDER_PROCESS_SRV', displayName: 'Purchase Order', apiType: 'OData', description: 'Process PO' }
+    { id: 'API_PURCHASEORDER_PROCESS_SRV', serviceGroupName: 'PurchaseOrder', title: 'Purchase Order', apiType: 'ODATAV4', shortText: 'Process PO', cleanCore: true }
   ]),
   listByModule: jest.fn().mockResolvedValue([
-    { name: 'API_JOURNALENTRY_SRV', displayName: 'Journal Entry', apiType: 'OData', description: 'Post JE' }
+    { id: 'API_JOURNALENTRY_SRV', serviceGroupName: 'JournalEntry', title: 'Journal Entry', apiType: 'ODATAV4', shortText: 'Post JE', cleanCore: true }
   ]),
 }));
 
@@ -258,7 +262,7 @@ describe('searchApiHub', () => {
       .send({ query: 'Purchase', module: '' });
     expect(res.status).toBe(200);
     const body = res.body.value || res.body;
-    expect(body[0].displayName).toBe('Purchase Order');
+    expect(body[0].title).toBe('Purchase Order');
   });
 
   test('module browse returns results', async () => {
@@ -269,7 +273,7 @@ describe('searchApiHub', () => {
       .send({ query: '', module: 'FI' });
     expect(res.status).toBe(200);
     const body = res.body.value || res.body;
-    expect(body[0].displayName).toBe('Journal Entry');
+    expect(body[0].title).toBe('Journal Entry');
   });
 
   test('returns 400 when both query and module empty', async () => {

@@ -41,6 +41,9 @@ sap.ui.define([
   return Controller.extend('knowledge.controller.App', {
 
     onInit: function () {
+      this._bundle = this.getOwnerComponent().getModel('i18n').getResourceBundle();
+      var b = this._bundle;
+
       var model = new JSONModel({
         messages: [],
         inputText: '',
@@ -57,18 +60,18 @@ sap.ui.define([
       this._messages = { concept: [], codeanalysis: [], search: [], btp: [], apihub: [], graph: [] };
 
       var TAB_CONFIG = {
-        concept:      { icon: 'sap-icon://hint',       text: '概念 & 分级', placeholder: '输入 Clean Core 概念或 SAP 对象名...',                         welcome: '你好！请输入 Clean Core 概念或 SAP 对象名，我会解释概念或给出分级和替代 API。' },
-        codeanalysis: { icon: 'sap-icon://source-code', text: '代码分析',   placeholder: '粘贴 ABAP 代码片段...',                                         welcome: '请粘贴 ABAP 代码，我会识别所有不合规对象并给出改写对比。' },
-        search:       { icon: 'sap-icon://search',      text: 'SAP 搜索',   placeholder: '搜索 SAP Note 或文档...',                                      welcome: '用于直接在 SAP 门户网站搜索相关内容及 Note。' },
-        btp:          { icon: 'sap-icon://it-system',   text: 'BTP 知识库', placeholder: '提问 BTP 开发问题，或输入"如何开发一个采购申请应用"获取完整开发指南...', welcome: '你好！请提问 SAP BTP 开发相关问题，或描述你想开发的应用场景，我会自动识别并给出问答或完整开发指南。' },
-        apihub:       { icon: 'sap-icon://product',       text: 'API Hub',    placeholder: '',                                                              welcome: '浏览 SAP S/4HANA PCE 官方 API 列表。输入关键词搜索，或点击模块按钮按业务范围浏览。' },
-        graph:        { icon: 'sap-icon://org-chart',     text: '关系图谱',    placeholder: '',                                                              welcome: '输入 CDS View 名称，查看该 View 与关联对象的力导向关系图谱。节点颜色区分 Clean Core 合规性，支持悬停查看详情、拖拽和缩放。' }
+        concept:      { icon: 'sap-icon://hint',        text: b.getText('tab.concept.text'),      placeholder: b.getText('tab.concept.placeholder'),      welcome: b.getText('tab.concept.welcome') },
+        codeanalysis: { icon: 'sap-icon://source-code', text: b.getText('tab.codeanalysis.text'), placeholder: b.getText('tab.codeanalysis.placeholder'), welcome: b.getText('tab.codeanalysis.welcome') },
+        search:       { icon: 'sap-icon://search',      text: b.getText('tab.search.text'),       placeholder: b.getText('tab.search.placeholder'),       welcome: b.getText('tab.search.welcome') },
+        btp:          { icon: 'sap-icon://it-system',   text: b.getText('tab.btp.text'),          placeholder: b.getText('tab.btp.placeholder'),          welcome: b.getText('tab.btp.welcome') },
+        apihub:       { icon: 'sap-icon://product',     text: b.getText('tab.apihub.text'),       placeholder: '',                                        welcome: b.getText('tab.apihub.welcome') },
+        graph:        { icon: 'sap-icon://org-chart',   text: b.getText('tab.graph.text'),        placeholder: '',                                        welcome: b.getText('tab.graph.welcome') }
       };
       this._TAB_CONFIG = TAB_CONFIG;
       // 子模式独立配置（代码分析 Tab 内部）
       var CODE_SUB_CONFIG = {
-        code: { placeholder: '粘贴 ABAP 代码片段...',                                         welcome: '请粘贴 ABAP 代码，我会识别所有不合规对象并给出改写对比。' },
-        atc:  { placeholder: '粘贴 ATC check 报错信息（SE80 或 ABAP Test Cockpit 格式）...', welcome: '请粘贴 ATC check 报错内容，我会解析违规并给出修复建议。' }
+        code: { placeholder: b.getText('codesub.code.placeholder'), welcome: b.getText('codesub.code.welcome') },
+        atc:  { placeholder: b.getText('codesub.atc.placeholder'),  welcome: b.getText('codesub.atc.welcome') }
       };
       this._CODE_SUB_CONFIG = CODE_SUB_CONFIG;
 
@@ -89,46 +92,46 @@ sap.ui.define([
 
       // Send button（Tab 1/2/3 共用）
       this._sendBtn = new Button({
-        text: '发送',
+        text: b.getText('btn.send'),
         type: 'Emphasized',
         press: [this.onSend, this]
       });
 
       // Tab 5（API Hub）专用控件
       this._apiHubInput = new TextArea({
-        placeholder: '输入 API 关键词，例如 Purchase Order...',
+        placeholder: b.getText('ph.apihub'),
         rows: 2,
         growing: false,
         width: '100%'
       });
       this._apiHubSearchBtn = new Button({
-        text: '搜索',
+        text: b.getText('btn.search'),
         type: 'Emphasized',
         press: [this.onSearchApiHub, this]
       });
 
       // Tab 5（关系图谱）专用控件
       this._graphInput = new TextArea({
-        placeholder: '输入 CDS View 名称，例如 I_SalesOrder...',
+        placeholder: b.getText('ph.graph'),
         rows: 1,
         growing: false,
         width: '100%'
       });
       this._graphAnalyzeBtn = new Button({
-        text: '分析',
+        text: b.getText('btn.analyze'),
         type: 'Emphasized',
         press: [this.onAnalyzeCds, this]
       });
 
       // Tab 4 搜索控件
       this._noteSearchInput = new TextArea({
-        placeholder: '搜索 SAP Note 或文档...',
+        placeholder: b.getText('tab.search.placeholder'),
         rows: 3,
         growing: false,
         width: '100%'
       });
       this._noteSearchBtn = new Button({
-        text: '发送',
+        text: b.getText('btn.send'),
         type: 'Emphasized',
         press: [this.onSearchNote, this]
       });
@@ -195,14 +198,14 @@ sap.ui.define([
 
               var btnCode = document.createElement('button');
               btnCode.id = 'ccSubBtn_code';
-              btnCode.textContent = '📝 代码输入';
+              btnCode.textContent = that._bundle.getText('codesub.btn.code');
               btnCode.style.cssText = 'background:#0a6ed1;color:#fff;padding:5px 16px;font-size:13px;border:none;cursor:pointer;font-weight:bold;';
               btnCode.onclick = function () { that._onCodeSubModeChange('code'); };
               subToggleDiv.appendChild(btnCode);
 
               var btnAtc = document.createElement('button');
               btnAtc.id = 'ccSubBtn_atc';
-              btnAtc.textContent = '⚠️ ATC 输出';
+              btnAtc.textContent = that._bundle.getText('codesub.btn.atc');
               btnAtc.style.cssText = 'background:#fff;color:#0a6ed1;padding:5px 16px;font-size:13px;border:none;border-left:1.5px solid #0a6ed1;cursor:pointer;';
               btnAtc.onclick = function () { that._onCodeSubModeChange('atc'); };
               subToggleDiv.appendChild(btnAtc);
@@ -331,9 +334,8 @@ sap.ui.define([
           apiHubInputDiv.appendChild(moduleRow);
 
           ['FI', 'MM', 'SD', 'PP', 'HR', 'PM'].forEach(function (mod) {
-            var modLabels = { FI: '财务 FI', MM: '物料 MM', SD: '销售 SD', PP: '生产 PP', HR: '人力 HR', PM: '工厂 PM' };
             var modBtn = document.createElement('button');
-            modBtn.textContent = modLabels[mod];
+            modBtn.textContent = that._bundle.getText('mod.' + mod);
             modBtn.dataset.mod = mod;
             modBtn.style.cssText = 'background:#f5f5f5;color:#0a6ed1;border:1px solid #0a6ed1;border-radius:4px;padding:4px 12px;font-size:12px;cursor:pointer;';
             modBtn.onmouseover = function () { this.style.background = '#e8f4ff'; };
@@ -375,7 +377,7 @@ sap.ui.define([
 
           var graphHint = document.createElement('p');
           graphHint.style.cssText = 'font-size:11px;color:#999;margin:2px 0 0;';
-          graphHint.textContent = '示例：I_SalesOrder · I_PurchaseOrder · I_JournalEntry · C_SalesOrderTP';
+          graphHint.textContent = that._bundle.getText('graph.hint');
           graphInputDiv.appendChild(graphHint);
 
           // Enter 键触发分析
@@ -404,6 +406,20 @@ sap.ui.define([
           });
         }
       });
+    },
+
+    // ── 语言切换 ──────────────────────────────────────────────────────
+    // 返回当前界面语言 'zh' | 'en'（供请求 body 传给后端 AI）
+    _lang: function () {
+      var loc = sap.ui.getCore().getConfiguration().getLanguage() || '';
+      return loc.toLowerCase().indexOf('en') === 0 ? 'en' : 'zh';
+    },
+
+    // 切换语言：持久化到 localStorage 后整页 reload（用新 locale 重跑 onInit）
+    onToggleLang: function () {
+      var next = this._lang() === 'en' ? 'zh' : 'en';
+      try { window.localStorage.setItem('cc_lang', next); } catch (e) { /* ignore */ }
+      window.location.reload();
     },
 
     // ── 代码分析子模式切换 ────────────────────────────────────────────
@@ -496,8 +512,8 @@ sap.ui.define([
           var canvas = document.getElementById('ccGraphCanvas');
           if (canvas) {
             canvas.innerHTML = '<p style="color:#e53935;padding:24px;font-size:13px;">' +
-              (err.message || '请求失败，请重试。') +
-              '<br><span style="color:#888;font-size:12px;">可用示例：I_SalesOrder · I_PurchaseOrder · I_JournalEntry · C_SalesOrderTP</span></p>';
+              (err.message || that._bundle.getText('graph.requestFailed')) +
+              '<br><span style="color:#888;font-size:12px;">' + that._bundle.getText('graph.exampleHint') + '</span></p>';
           }
         });
     },
@@ -511,6 +527,7 @@ sap.ui.define([
     },
 
     _renderGraph: function (graphData) {
+      var b = this._bundle;
       // 停止旧 simulation 防止 CPU 泄漏
       if (this._graphSimulation) {
         this._graphSimulation.stop();
@@ -545,10 +562,10 @@ sap.ui.define([
         'border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:8px 12px;' +
         'font-size:11px;color:#ccc;line-height:1.8;z-index:50;pointer-events:none;';
       legend.innerHTML = [
-        '<div style="font-weight:bold;color:#fff;margin-bottom:4px;font-size:12px;">连接关系</div>',
-        '<div><span style="display:inline-block;width:24px;height:2px;background:#fdd835;vertical-align:middle;margin-right:6px;"></span>SELECT FROM（基础来源）</div>',
-        '<div><span style="display:inline-block;width:24px;height:2px;background:#ff9800;vertical-align:middle;margin-right:6px;"></span>JOIN（连接）</div>',
-        '<div><span style="display:inline-block;width:24px;height:0;border-top:2px dashed #42a5f5;vertical-align:middle;margin-right:6px;"></span>Association（关联关系）</div>',
+        '<div style="font-weight:bold;color:#fff;margin-bottom:4px;font-size:12px;">' + b.getText('graph.legend.title') + '</div>',
+        '<div><span style="display:inline-block;width:24px;height:2px;background:#fdd835;vertical-align:middle;margin-right:6px;"></span>' + b.getText('graph.legend.from') + '</div>',
+        '<div><span style="display:inline-block;width:24px;height:2px;background:#ff9800;vertical-align:middle;margin-right:6px;"></span>' + b.getText('graph.legend.join') + '</div>',
+        '<div><span style="display:inline-block;width:24px;height:0;border-top:2px dashed #42a5f5;vertical-align:middle;margin-right:6px;"></span>' + b.getText('graph.legend.association') + '</div>',
       ].join('');
       canvas.appendChild(legend);
 
@@ -806,16 +823,16 @@ sap.ui.define([
             })
           )
           .on('mouseover', function (event, d) {
-            var cleanText = d.cleanCore === true ? '✅ 合规' : d.cleanCore === false ? '❌ 不合规' : '—';
+            var cleanText = d.cleanCore === true ? b.getText('graph.tooltip.compliant') : d.cleanCore === false ? b.getText('graph.tooltip.nonCompliant') : '—';
             var aiTag = d.classifySource === 'ai-inference'
-              ? ' <span style="background:#fff3e0;border:1px solid #ffb300;color:#e65100;border-radius:3px;padding:1px 5px;font-size:10px;font-weight:bold;">AI 推断</span>'
+              ? ' <span style="background:#fff3e0;border:1px solid #ffb300;color:#e65100;border-radius:3px;padding:1px 5px;font-size:10px;font-weight:bold;">' + b.getText('graph.tooltip.aiInference') + '</span>'
               : '';
             tooltip.innerHTML =
               '<strong style="font-size:13px;">' + d.id + '</strong><br>' +
-              '类型：' + (d.type || '—') + '<br>' +
-              'Release：' + (d.releaseState || '—') + '<br>' +
-              'Clean Core：' + cleanText + '<br>' +
-              '分级：' + (d.classification || '—') + aiTag;
+              b.getText('graph.tooltip.type') + (d.type || '—') + '<br>' +
+              b.getText('graph.tooltip.release') + (d.releaseState || '—') + '<br>' +
+              b.getText('graph.tooltip.cleanCore') + cleanText + '<br>' +
+              b.getText('graph.tooltip.classification') + (d.classification || '—') + aiTag;
             tooltip.style.display = 'block';
             tooltip.style.left = (event.offsetX + 12) + 'px';
             tooltip.style.top  = (event.offsetY - 10) + 'px';
@@ -958,11 +975,12 @@ sap.ui.define([
           that._apiHubSearchBtn.setEnabled(true);
           that._busyIndicator.setVisible(false);
           var resultDiv = document.getElementById('ccApiHubResult');
-          if (resultDiv) resultDiv.innerHTML = '<p style="color:#c00;padding:16px;font-size:13px">请求失败，请检查网络或 API Key 配置。</p>';
+          if (resultDiv) resultDiv.innerHTML = '<p style="color:#c00;padding:16px;font-size:13px">' + that._bundle.getText('apihub.requestFailed') + '</p>';
         });
     },
 
     _renderApiHubResults: function (results, label) {
+      var b = this._bundle;
       var resultDiv = document.getElementById('ccApiHubResult');
       if (!resultDiv) return;
 
@@ -973,15 +991,15 @@ sap.ui.define([
       resultDiv.innerHTML = '';
 
       if (results.length === 0) {
-        resultDiv.innerHTML = '<p style="color:#888;padding:16px;font-size:13px">未找到相关 API，请换个关键词或选择其他模块。</p>';
+        resultDiv.innerHTML = '<p style="color:#888;padding:16px;font-size:13px">' + b.getText('apihub.noResults') + '</p>';
         return;
       }
 
       var countText = document.createElement('p');
       countText.style.cssText = 'font-size:12px;color:#666;margin:8px 0 4px;';
       var ccCount = results.filter(function (r) { return r.cleanCore; }).length;
-      countText.textContent = '找到 ' + results.length + ' 个 API（' + label + '）' +
-        (ccCount > 0 ? '，其中 ' + ccCount + ' 个符合 Clean Core' : '');
+      countText.textContent = b.getText('apihub.count', [results.length, label]) +
+        (ccCount > 0 ? b.getText('apihub.countCc', [ccCount]) : '');
       resultDiv.appendChild(countText);
 
       // 分三段：① Clean Core (ODATAV4+SGN) → ② 其他 ODATAV4 → ③ 非 ODATAV4（SOAP/ODATA/REST）
@@ -995,7 +1013,7 @@ sap.ui.define([
         } else if (item.apiType === 'ODATAV4') {
           odataV4Group.push(item);
         } else {
-          var t = item.apiType || '其他';
+          var t = item.apiType || b.getText('apihub.otherType');
           if (!legacyGroupMap[t]) legacyGroupMap[t] = [];
           legacyGroupMap[t].push(item);
         }
@@ -1004,16 +1022,16 @@ sap.ui.define([
       // 构造渲染计划：[{ label, items, tier }]  tier: 'cc' | 'v4' | 'legacy'
       var renderPlan = [];
       if (ccGroup.length) {
-        renderPlan.push({ label: '✓ Clean Core · ODATAV4 (' + ccGroup.length + '个)', items: ccGroup, tier: 'cc' });
+        renderPlan.push({ label: b.getText('apihub.group.cc', [ccGroup.length]), items: ccGroup, tier: 'cc' });
       }
       if (odataV4Group.length) {
-        renderPlan.push({ label: 'ODATAV4 (' + odataV4Group.length + '个）（无 SGN，暂不可直接调用）', items: odataV4Group, tier: 'v4' });
+        renderPlan.push({ label: b.getText('apihub.group.v4', [odataV4Group.length]), items: odataV4Group, tier: 'v4' });
       }
       // legacy 按分组数量降序
       Object.keys(legacyGroupMap)
-        .sort(function (a, b) { return legacyGroupMap[b].length - legacyGroupMap[a].length; })
+        .sort(function (a, b2) { return legacyGroupMap[b2].length - legacyGroupMap[a].length; })
         .forEach(function (t) {
-          renderPlan.push({ label: t + ' (' + legacyGroupMap[t].length + '个）（非 Clean Core）', items: legacyGroupMap[t], tier: 'legacy' });
+          renderPlan.push({ label: b.getText('apihub.group.legacy', [t, legacyGroupMap[t].length]), items: legacyGroupMap[t], tier: 'legacy' });
         });
 
       var that = this;
@@ -1055,9 +1073,9 @@ sap.ui.define([
           var detailVBox = new VBox({
             visible: false,
             items: [
-              new Text({ text: '描述：' + (item.shortText || '（暂无描述）'), wrapping: true }),
+              new Text({ text: b.getText('apihub.detail.desc', [item.shortText || b.getText('apihub.detail.noDesc')]), wrapping: true }),
               new Link({
-                text: '在 SAP API Hub 中查看',
+                text: b.getText('apihub.detail.viewLink'),
                 href: 'https://api.sap.com/api/' + encodeURIComponent(item.id) + '/overview',
                 target: '_blank'
               }).addStyleClass('sapUiTinyMarginTop')
@@ -1226,7 +1244,7 @@ sap.ui.define([
       fetch('/odata/v4/knowledge/searchNote', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query: query })
+        body: JSON.stringify({ query: query, lang: this._lang() })
       })
         .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
         .then(function (data) {
@@ -1246,11 +1264,12 @@ sap.ui.define([
           model.setProperty('/busy', false);
           that._busyIndicator.setVisible(false);
           that._noteSearchBtn.setEnabled(true);
-          MessageBox.error('Note 搜索失败：' + err.message);
+          MessageBox.error(that._bundle.getText('note.searchFailed') + err.message);
         });
     },
 
     _renderSearchResults: function (results) {
+      var b = this._bundle;
       var resultDiv = document.getElementById('ccSearchResult');
       if (!resultDiv) return;
 
@@ -1264,7 +1283,7 @@ sap.ui.define([
       }
 
       if (results.length === 0) {
-        resultDiv.innerHTML = '<p style="color:#888;padding:16px;font-size:13px">未找到相关结果，请换个关键词再试。</p>';
+        resultDiv.innerHTML = '<p style="color:#888;padding:16px;font-size:13px">' + b.getText('note.noResults') + '</p>';
         return;
       }
       resultDiv.innerHTML = '';
@@ -1276,7 +1295,7 @@ sap.ui.define([
       var payload = JSON.stringify({ q: q, tab: 'All' });
       var portalUrl = 'https://me.sap.com/knowledge/search/' + encodeURIComponent(payload);
       this._searchPortalBtn = new Button({
-        text: '搜索相关Note',
+        text: b.getText('note.searchPortalBtn'),
         type: 'Ghost',
         icon: 'sap-icon://search',
         press: function () { window.open(portalUrl, '_blank'); }
@@ -1286,8 +1305,8 @@ sap.ui.define([
       // ── 结果表格 ────────────────────────────────────────────────────────────
       this._searchTable = new Table({
         columns: [
-          new Column({ width: '40%', header: new Text({ text: '标题' }) }),
-          new Column({ header: new Text({ text: '摘要' }) })
+          new Column({ width: '40%', header: new Text({ text: b.getText('note.col.title') }) }),
+          new Column({ header: new Text({ text: b.getText('note.col.summary') }) })
         ]
       });
 
@@ -1331,7 +1350,7 @@ sap.ui.define([
       this._chatInput.setValue('');
 
       var modeLabel = tabKey === 'codeanalysis'
-        ? (subMode === 'code' ? '代码分析' : 'ATC 分析')
+        ? (subMode === 'code' ? this._bundle.getText('chat.modeLabel.code') : this._bundle.getText('chat.modeLabel.atc'))
         : this._TAB_CONFIG[tabKey].text;
       this._inputHistory.unshift({ mode: mode, modeLabel: modeLabel, text: message });
       if (this._inputHistory.length > 50) this._inputHistory.pop();
@@ -1347,7 +1366,7 @@ sap.ui.define([
         fetch('/odata/v4/knowledge/btpUnified', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ query: message })
+          body: JSON.stringify({ query: message, lang: this._lang() })
         })
           .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
           .then(function (data) {
@@ -1364,8 +1383,8 @@ sap.ui.define([
 
               var items = [];
               var guideLabel = sourceType === 'grounding'
-                ? '<span style="display:inline-block;background:#e8f4ff;border:1px solid #0a6ed1;color:#0a6ed1;border-radius:4px;padding:1px 8px;font-size:11px;margin-bottom:6px;">开发向导 · 基于 AI Core 知识库</span>'
-                : '<span style="display:inline-block;background:#e8f4ff;border:1px solid #0a6ed1;color:#0a6ed1;border-radius:4px;padding:1px 8px;font-size:11px;margin-bottom:6px;">开发向导 · 基于 AI Core</span>';
+                ? '<span style="display:inline-block;background:#e8f4ff;border:1px solid #0a6ed1;color:#0a6ed1;border-radius:4px;padding:1px 8px;font-size:11px;margin-bottom:6px;">' + that._bundle.getText('btp.guide.groundingLabel') + '</span>'
+                : '<span style="display:inline-block;background:#e8f4ff;border:1px solid #0a6ed1;color:#0a6ed1;border-radius:4px;padding:1px 8px;font-size:11px;margin-bottom:6px;">' + that._bundle.getText('btp.guide.aiCoreLabel') + '</span>';
               var guideHtml = '<div style="font-size:13px;line-height:1.6;word-break:break-word">' +
                 guideLabel + '<br>' + that._markdownToHtml(reply.answer || '') + '</div>';
               guideHtml = guideHtml.replace(/\{/g, '&#123;').replace(/\}/g, '&#125;');
@@ -1373,19 +1392,19 @@ sap.ui.define([
 
               if (apis.length > 0) {
                 var apiBox = new VBox({ items: [] }).addStyleClass('sapUiSmallMarginTop');
-                apiBox.addItem(new Title({ text: '相关 API 清单（点击标题跳转官方文档）', level: 'H5' }).addStyleClass('sapUiSmallMarginBottom'));
+                apiBox.addItem(new Title({ text: that._bundle.getText('btp.guide.apiListTitle'), level: 'H5' }).addStyleClass('sapUiSmallMarginBottom'));
                 apis.forEach(function (api) {
                   var cardContent = new VBox({ items: [] }).addStyleClass('sapUiSmallMargin');
                   cardContent.addItem(new HTML({ content: '<div style="font-size:12px;color:#555;margin-bottom:6px">' + (api.description || '') + '</div>' }));
                   if (api.endpoint) {
-                    cardContent.addItem(new HTML({ content: '<div style="margin-bottom:4px"><span style="font-size:11px;color:#888">Endpoint: </span><code style="background:#f0f0f0;padding:1px 6px;border-radius:3px;font-size:11px">' + api.endpoint + '</code></div>' }));
+                    cardContent.addItem(new HTML({ content: '<div style="margin-bottom:4px"><span style="font-size:11px;color:#888">' + that._bundle.getText('btp.guide.endpoint') + ' </span><code style="background:#f0f0f0;padding:1px 6px;border-radius:3px;font-size:11px">' + api.endpoint + '</code></div>' }));
                   }
                   if (api.keyEntities && api.keyEntities.length > 0) {
-                    cardContent.addItem(new HTML({ content: '<div style="margin-bottom:4px"><span style="font-size:11px;color:#888">主要实体: </span>' + api.keyEntities.map(function (e) { return '<code style="background:#e8f4ff;color:#0a6ed1;padding:1px 5px;border-radius:3px;font-size:11px;margin-right:4px">' + e + '</code>'; }).join('') + '</div>' }));
+                    cardContent.addItem(new HTML({ content: '<div style="margin-bottom:4px"><span style="font-size:11px;color:#888">' + that._bundle.getText('btp.guide.keyEntities') + ' </span>' + api.keyEntities.map(function (e) { return '<code style="background:#e8f4ff;color:#0a6ed1;padding:1px 5px;border-radius:3px;font-size:11px;margin-right:4px">' + e + '</code>'; }).join('') + '</div>' }));
                   }
-                  cardContent.addItem(new Link({ text: '在 SAP API Business Hub 查看完整文档 →', href: api.url, target: '_blank' }));
+                  cardContent.addItem(new Link({ text: that._bundle.getText('btp.guide.viewDocLink'), href: api.url, target: '_blank' }));
                   var deprecatedBadge = api.deprecated
-                    ? '<span style="display:inline-block;background:#fdf0f0;border:1px solid #e00;color:#c00;border-radius:4px;padding:1px 7px;font-size:11px;font-weight:bold;margin-left:6px">⚠ DEPRECATED</span>' + (api.successor ? '<span style="font-size:11px;color:#888;margin-left:6px">→ 请使用 ' + api.successor + '</span>' : '') : '';
+                    ? '<span style="display:inline-block;background:#fdf0f0;border:1px solid #e00;color:#c00;border-radius:4px;padding:1px 7px;font-size:11px;font-weight:bold;margin-left:6px">' + that._bundle.getText('btp.guide.deprecated') + '</span>' + (api.successor ? '<span style="font-size:11px;color:#888;margin-left:6px">' + that._bundle.getText('btp.guide.successor', [api.successor]) + '</span>' : '') : '';
                   var card = new Panel({
                     expandable: true, expanded: false,
                     headerToolbar: new Toolbar({ content: [new HTML({ content: '<span style="font-size:13px;font-weight:bold;' + (api.deprecated ? 'color:#999;text-decoration:line-through' : 'color:#0a6ed1') + ';cursor:pointer" onclick="window.open(\'' + api.url + '\',\'_blank\')">' + api.name + '</span><span style="font-size:11px;color:#888;margin-left:8px">(' + (api.protocol || '') + ')</span>' + deprecatedBadge })] }),
@@ -1405,12 +1424,12 @@ sap.ui.define([
             var sources = [];
             try { sources = JSON.parse(reply.sources || '[]'); } catch (e) { sources = []; }
             var sourceLabel = sourceType === 'grounding'
-              ? '<span style="display:inline-block;background:#e8f4ff;border:1px solid #0a6ed1;color:#0a6ed1;border-radius:4px;padding:1px 8px;font-size:11px;margin-bottom:6px;">基于 AI Core 知识库</span>'
+              ? '<span style="display:inline-block;background:#e8f4ff;border:1px solid #0a6ed1;color:#0a6ed1;border-radius:4px;padding:1px 8px;font-size:11px;margin-bottom:6px;">' + that._bundle.getText('btp.general.groundingLabel') + '</span>'
               : sourceType === 'no-ai'
-              ? '<span style="display:inline-block;background:#fff3cd;border:1px solid #f0ad4e;color:#856404;border-radius:4px;padding:1px 8px;font-size:11px;margin-bottom:6px;">未连接 AI Core</span>'
+              ? '<span style="display:inline-block;background:#fff3cd;border:1px solid #f0ad4e;color:#856404;border-radius:4px;padding:1px 8px;font-size:11px;margin-bottom:6px;">' + that._bundle.getText('btp.general.noAiLabel') + '</span>'
               : sourceType === 'mcp'
-              ? '<span style="display:inline-block;background:#e8f5e9;border:1px solid #4caf50;color:#2e7d32;border-radius:4px;padding:1px 8px;font-size:11px;margin-bottom:6px;">基于 MCP SAP Docs</span>'
-              : '<span style="display:inline-block;background:#e8f4ff;border:1px solid #0a6ed1;color:#0a6ed1;border-radius:4px;padding:1px 8px;font-size:11px;margin-bottom:6px;">基于 AI Core</span>';
+              ? '<span style="display:inline-block;background:#e8f5e9;border:1px solid #4caf50;color:#2e7d32;border-radius:4px;padding:1px 8px;font-size:11px;margin-bottom:6px;">' + that._bundle.getText('btp.general.mcpLabel') + '</span>'
+              : '<span style="display:inline-block;background:#e8f4ff;border:1px solid #0a6ed1;color:#0a6ed1;border-radius:4px;padding:1px 8px;font-size:11px;margin-bottom:6px;">' + that._bundle.getText('btp.general.aiCoreLabel') + '</span>';
             that._addAgentBubble({
               replyType: 'general',
               text: sourceLabel + '<br>' + (reply.answer || ''),
@@ -1425,7 +1444,7 @@ sap.ui.define([
             model.setProperty('/busy', false);
             that._busyIndicator.setVisible(false);
             that._sendBtn.setEnabled(true);
-            MessageBox.error('请求失败：' + err.message);
+            MessageBox.error(that._bundle.getText('btp.requestFailed') + err.message);
           });
         return;
       }
@@ -1433,7 +1452,7 @@ sap.ui.define([
       fetch('/odata/v4/knowledge/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: message, mode: mode, history: history })
+        body: JSON.stringify({ message: message, mode: mode, history: history, lang: this._lang() })
       })
         .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
         .then(function (data) {
@@ -1455,7 +1474,7 @@ sap.ui.define([
           model.setProperty('/busy', false);
           that._busyIndicator.setVisible(false);
           that._sendBtn.setEnabled(true);
-          MessageBox.error('请求失败：' + err.message);
+          MessageBox.error(that._bundle.getText('chat.requestFailed') + err.message);
         });
     },
 
@@ -1514,6 +1533,7 @@ sap.ui.define([
     },
 
     _addAgentBubble: function (reply, tabKey, subMode) {
+      var b = this._bundle;
       var key = tabKey || this._currentTab;
       var items = [];
       var replyType = reply.replyType || 'general';
@@ -1533,7 +1553,7 @@ sap.ui.define([
 
       if (Array.isArray(reply.notes) && reply.notes.length > 0) {
         var notesBox = new VBox({ items: [] }).addStyleClass('sapUiSmallMarginTop');
-        notesBox.addItem(new Text({ text: '相关 SAP Note：' }).addStyleClass('sapUiSmallMarginBottom'));
+        notesBox.addItem(new Text({ text: b.getText('agent.relatedNotes') }).addStyleClass('sapUiSmallMarginBottom'));
         reply.notes.forEach(function (n) {
           var noteRow = new HBox({
             alignItems: 'Center',
@@ -1548,7 +1568,7 @@ sap.ui.define([
 
           if (n.noteNumber) {
             noteRow.addItem(new Button({
-              text: 'SSO 登录查看',
+              text: b.getText('agent.note.ssoView'),
               type: 'Transparent',
               icon: 'sap-icon://log',
               press: (function (num) {
@@ -1557,7 +1577,7 @@ sap.ui.define([
             }));
           } else {
             noteRow.addItem(new Button({
-              text: '搜索 SAP Note',
+              text: b.getText('agent.note.searchNote'),
               type: 'Transparent',
               icon: 'sap-icon://search',
               press: (function (title) {
@@ -1626,26 +1646,27 @@ sap.ui.define([
     },
 
     _buildViolationCard: function (v) {
+      var b = this._bundle;
       var state = TIER_STATE[v.tier] || 'None';
       var headerBox = new HBox({
         alignItems: 'Center',
         items: [
-          new ObjectStatus({ text: (v.tier || '?') + ' 类', state: state }).addStyleClass('sapUiSmallMarginEnd'),
+          new ObjectStatus({ text: (v.tier || '?') + b.getText('violation.tierSuffix'), state: state }).addStyleClass('sapUiSmallMarginEnd'),
           new Title({ text: v.objectName, level: 'H5' }).addStyleClass('sapUiSmallMarginEnd'),
-          v.line ? new Text({ text: '第 ' + v.line + ' 行' }).addStyleClass('sapUiTinyMarginEnd') : new Text({ text: '' }),
-          v.source === 'ai-inference' ? new HTML({ content: '<span style="display:inline-block;background:#fff3e0;border:1px solid #ffb300;color:#e65100;border-radius:3px;padding:1px 6px;font-size:11px;font-weight:bold;margin-left:4px;">AI 推断</span>' }) : new Text({ text: '' })
+          v.line ? new Text({ text: b.getText('violation.line', [v.line]) }).addStyleClass('sapUiTinyMarginEnd') : new Text({ text: '' }),
+          v.source === 'ai-inference' ? new HTML({ content: '<span style="display:inline-block;background:#fff3e0;border:1px solid #ffb300;color:#e65100;border-radius:3px;padding:1px 6px;font-size:11px;font-weight:bold;margin-left:4px;">' + b.getText('violation.aiInference') + '</span>' }) : new Text({ text: '' })
         ]
       });
 
       var details = [];
-      if (v.state) details.push(new Text({ text: '状态：' + v.state, wrapping: true }));
+      if (v.state) details.push(new Text({ text: b.getText('violation.state') + v.state, wrapping: true }));
 
       if (v.replacement && v.tier !== 'A' && v.tier !== 'B') {
         // Each comma-separated replacement gets its own highlighted chip
         var replacements = v.replacement.split(',').map(function (s) { return s.trim(); }).filter(Boolean);
         var replBox = new VBox({ items: [] }).addStyleClass('sapUiSmallMarginTop');
         var labelRow = new HBox({ alignItems: 'Center', items: [
-          new Text({ text: '建议替换：' }).addStyleClass('sapUiSmallMarginEnd')
+          new Text({ text: b.getText('violation.suggestedReplacement') }).addStyleClass('sapUiSmallMarginEnd')
         ]});
         replBox.addItem(labelRow);
         var chipsRow = new HBox({ wrap: 'Wrap', items: [] }).addStyleClass('sapUiTinyMarginTop');
@@ -1666,7 +1687,7 @@ sap.ui.define([
       if (v.tier !== 'A' && v.tier !== 'B') {
         var that = this;
         var planBtn = new sap.m.Button({
-          text: '迁移规划',
+          text: b.getText('violation.planBtn'),
           type: 'Transparent',
           icon: 'sap-icon://map',
           press: function (evt) {
@@ -1685,6 +1706,7 @@ sap.ui.define([
     },
 
     _buildCodeDiffPanel: function (rewrite) {
+      var b = this._bundle;
       var originalCode = rewrite.original || '';
       var rewrittenCode = rewrite.rewritten || '';
 
@@ -1696,14 +1718,14 @@ sap.ui.define([
         content: [
           '<div style="display:flex;gap:12px;">',
             '<div style="flex:1;min-width:0;">',
-              '<div style="font-size:12px;font-weight:bold;margin-bottom:4px;color:#333">原代码</div>',
+              '<div style="font-size:12px;font-weight:bold;margin-bottom:4px;color:#333">' + b.getText('diff.original') + '</div>',
               '<textarea id="' + uidOrig + '" readonly',
                 ' style="width:100%;height:300px;background:#1e1e1e;color:#f44747;',
                 'font-family:Consolas,Monaco,monospace;font-size:12px;padding:10px;border:none;',
                 'border-radius:4px;resize:vertical;box-sizing:border-box;overflow:auto;white-space:pre-wrap;word-break:break-all;"></textarea>',
             '</div>',
             '<div style="flex:1;min-width:0;">',
-              '<div style="font-size:12px;font-weight:bold;margin-bottom:4px;color:#333">改写后</div>',
+              '<div style="font-size:12px;font-weight:bold;margin-bottom:4px;color:#333">' + b.getText('diff.rewritten') + '</div>',
               '<textarea id="' + uidRew + '" readonly',
                 ' style="width:100%;height:300px;background:#1e1e1e;color:#4ec9b0;',
                 'font-family:Consolas,Monaco,monospace;font-size:12px;padding:10px;border:none;',
@@ -1734,7 +1756,7 @@ sap.ui.define([
       });
 
       var copyBtn = new Button({
-        text: '复制改写后代码',
+        text: b.getText('diff.copyBtn'),
         type: 'Transparent',
         press: function () {
           var el = document.getElementById(uidRew);
@@ -1748,7 +1770,7 @@ sap.ui.define([
       return new Panel({
         expandable: true,
         expanded: false,
-        headerText: '代码对比',
+        headerText: b.getText('diff.panelTitle'),
         width: '100%',
         content: [
           new VBox({ items: [shellHtml, copyBtn] }).addStyleClass('sapUiSmallMargin')
@@ -1766,7 +1788,7 @@ sap.ui.define([
       }
 
       var planPanel = new Panel(panelId, {
-        headerText: '迁移规划：' + objectName,
+        headerText: this._bundle.getText('plan.panelTitle', [objectName]),
         expandable: false,
         visible: true
       }).addStyleClass('sapUiSmallMarginTop');
@@ -1780,7 +1802,7 @@ sap.ui.define([
       fetch('/odata/v4/knowledge/plan', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ objectName: objectName })
+        body: JSON.stringify({ objectName: objectName, lang: this._lang() })
       })
         .then(function (r) {
           if (!r.ok) return r.json().then(function (e) { throw new Error(e.error && e.error.message || 'HTTP ' + r.status); });
@@ -1793,23 +1815,24 @@ sap.ui.define([
         })
         .catch(function (err) {
           planPanel.removeAllContent();
-          planPanel.addContent(new Text({ text: '获取迁移规划失败：' + err.message }));
+          planPanel.addContent(new Text({ text: that._bundle.getText('plan.fetchFailed') + err.message }));
         });
     },
 
     _buildPlanContent: function (plan) {
+      var b = this._bundle;
       var vbox = new VBox({ renderType: 'Bare' });
 
       vbox.addItem(new Text({
-        text: '替代方案：' + (plan.replacement || '') + ' (' + (plan.replacementType || '') + ')'
+        text: b.getText('plan.replacement', [plan.replacement || '', plan.replacementType || ''])
       }).addStyleClass('sapUiTinyMarginBottom'));
 
       var metaBox = new HBox({ renderType: 'Bare' });
-      metaBox.addItem(new Text({ text: '风险等级：' + (plan.riskLevel || '') }));
-      metaBox.addItem(new Text({ text: '　预估工作量：' + (plan.effortEstimate || '') }));
+      metaBox.addItem(new Text({ text: b.getText('plan.riskLevel', [plan.riskLevel || '']) }));
+      metaBox.addItem(new Text({ text: b.getText('plan.effortEstimate', [plan.effortEstimate || '']) }));
       vbox.addItem(metaBox);
 
-      vbox.addItem(new sap.m.Title({ text: '迁移步骤', level: 'H6' }).addStyleClass('sapUiTinyMarginTop'));
+      vbox.addItem(new sap.m.Title({ text: b.getText('plan.stepsTitle'), level: 'H6' }).addStyleClass('sapUiTinyMarginTop'));
       var steps = [];
       try { steps = JSON.parse(plan.steps || '[]'); } catch (e) { steps = []; }
       steps.forEach(function (s) {
@@ -1831,7 +1854,7 @@ sap.ui.define([
           sanitizeContent: false
         });
         var codePanel = new Panel({
-          headerText: '代码示例',
+          headerText: b.getText('plan.codeExampleTitle'),
           expandable: true,
           expanded: false,
           content: [codeHtmlCtrl]
@@ -1842,7 +1865,7 @@ sap.ui.define([
       var that = this;
       vbox.addItem(new HBox({ items: [
         new Button({
-          text: '导出 PDF',
+          text: b.getText('plan.exportPdf'),
           icon: 'sap-icon://pdf-attachment',
           type: 'Transparent',
           press: function () { that._exportPlanPDF(plan); }
@@ -1853,6 +1876,7 @@ sap.ui.define([
     },
 
     _exportPlanPDF: function (plan) {
+      var b = this._bundle;
       var steps = [];
       try { steps = JSON.parse(plan.steps || '[]'); } catch (e) { steps = []; }
 
@@ -1861,12 +1885,12 @@ sap.ui.define([
       }).join('');
 
       var codeHtml = plan.codeExample
-        ? '<h3>代码示例</h3><pre style="background:#f5f5f5;padding:1rem;font-size:0.85rem;white-space:pre-wrap;">'
+        ? '<h3>' + b.getText('plan.pdf.codeExampleTitle') + '</h3><pre style="background:#f5f5f5;padding:1rem;font-size:0.85rem;white-space:pre-wrap;">'
           + plan.codeExample.replace(/\\n/g, '\n').replace(/\\t/g, '\t').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
           + '</pre>'
         : '';
 
-      var html = '<!DOCTYPE html><html><head><meta charset="utf-8"><title>迁移规划 - ' + plan.objectName + '</title>'
+      var html = '<!DOCTYPE html><html><head><meta charset="utf-8"><title>' + b.getText('plan.pdf.title', [plan.objectName]) + '</title>'
         + '<style>body{font-family:Arial,sans-serif;margin:2rem;color:#333}'
         + 'h1{color:#0a6ed1;border-bottom:2px solid #0a6ed1;padding-bottom:.5rem}'
         + 'h2{color:#0a6ed1;margin-top:1.5rem}'
@@ -1876,12 +1900,12 @@ sap.ui.define([
         + 'pre{background:#f5f5f5;padding:1rem;font-size:.85rem;white-space:pre-wrap}'
         + '.summary{background:#e8f4e8;padding:.8rem;border-left:4px solid #4CAF50;margin:1rem 0}'
         + '</style></head><body>'
-        + '<h1>迁移规划：' + plan.objectName + '</h1>'
+        + '<h1>' + b.getText('plan.pdf.heading', [plan.objectName]) + '</h1>'
         + '<div class="summary">' + (plan.summary || '') + '</div>'
-        + '<h2>替代方案</h2><p>' + (plan.replacement || '') + ' (' + (plan.replacementType || '') + ')</p>'
-        + '<div class="meta"><span>风险等级：' + (plan.riskLevel || '') + '</span>'
-        + '<span>预估工作量：' + (plan.effortEstimate || '') + '</span></div>'
-        + '<h2>迁移步骤</h2><ol>' + stepsHtml + '</ol>'
+        + '<h2>' + b.getText('plan.pdf.replacementTitle') + '</h2><p>' + (plan.replacement || '') + ' (' + (plan.replacementType || '') + ')</p>'
+        + '<div class="meta"><span>' + b.getText('plan.pdf.riskLevel') + (plan.riskLevel || '') + '</span>'
+        + '<span>' + b.getText('plan.pdf.effortEstimate') + (plan.effortEstimate || '') + '</span></div>'
+        + '<h2>' + b.getText('plan.pdf.stepsTitle') + '</h2><ol>' + stepsHtml + '</ol>'
         + codeHtml
         + '</body></html>';
 
@@ -1900,9 +1924,9 @@ sap.ui.define([
     // ── 历史记录 ─────────────────────────────────────────────────────────────
     onShowHistory: function () {
       if (!this._historyPopover) {
-        this._historyList = new List({ noDataText: '暂无历史记录' });
+        this._historyList = new List({ noDataText: this._bundle.getText('hist.empty') });
         this._historyPopover = new Popover({
-          title: '历史输入记录',
+          title: this._bundle.getText('hist.title'),
           placement: 'Bottom',
           contentWidth: '420px',
           content: [this._historyList]

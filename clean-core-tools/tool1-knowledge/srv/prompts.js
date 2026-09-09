@@ -5,7 +5,19 @@ const { CLEAN_CORE_SYSTEM_PROMPT } = require('../src/aicore-client');
 const SYSTEM_PROMPT = CLEAN_CORE_SYSTEM_PROMPT;
 
 // ── Tab 1: Concept Explanation ─────────────────────────────────────────────
-function buildExplainPrompt(term) {
+function buildExplainPrompt(term, lang = 'zh') {
+  if (lang === 'en') {
+    return (
+      `Explain the following SAP Clean Core concept or object in English, targeted at SAP developers ` +
+      `who are new to Clean Core. Keep the language clear and concise, give a practical example where ` +
+      `possible, and keep the answer within 400 words.\n\n` +
+      `Important requirements:\n` +
+      `- If it involves replacement APIs or migration approaches, only give generic, cross-business-scenario alternatives\n` +
+      `- Do not infer replacement APIs based on a specific business domain (e.g. sales orders, purchase orders)\n` +
+      `- The alternatives should apply to all scenarios that use this object\n\n` +
+      `Topic: "${term}".`
+    );
+  }
   return (
     `请用中文解释以下 SAP Clean Core 概念或对象，面向刚接触 Clean Core 的 SAP 开发者，` +
     `语言简洁易懂，如有可能请给出实际示例，回答控制在 400 字以内。\n\n` +
@@ -19,8 +31,11 @@ function buildExplainPrompt(term) {
 
 // ── Tab 2: Classification — AI fallback (object not found in local JSON) ───
 // Used when ClassificationClient.lookup() returns null.
-function buildClassifyPrompt(objects) {
+function buildClassifyPrompt(objects, lang = 'zh') {
   const list = objects.map((o, i) => `${i + 1}. ${o}`).join('\n');
+  const langNote = lang === 'en'
+    ? `\n\nThe "explanation" and "recommendation" fields must be written in English.`
+    : `\n\nThe "explanation" and "recommendation" fields must be written in Chinese (简体中文).`;
   return (
     `Classify each of the following SAP objects according to the Clean Core A/B/C/D tier system ` +
     `described in your system prompt.\n\n` +
@@ -31,22 +46,25 @@ function buildClassifyPrompt(objects) {
     `- explanation (string: 1-2 sentences describing why it has this tier)\n` +
     `- recommendation (string: what the developer should do)\n` +
     `- source      (string: always "ai-inference" for objects classified by this prompt)\n\n` +
-    `Objects to classify:\n${list}`
+    `Objects to classify:\n${list}` + langNote
   );
 }
 
 // ── Tab 2: Classification — AI fallback for a single object ───────────────
 // Used when an individual object is not in the JSON; returns single-element array.
-function buildSingleClassifyPrompt(objectName) {
-  return buildClassifyPrompt([objectName]);
+function buildSingleClassifyPrompt(objectName, lang = 'zh') {
+  return buildClassifyPrompt([objectName], lang);
 }
 
 // ── Tab 3: Replacement — AI generates migrationNote for known successors ──
 // Used when ClassificationClient.lookup() found successors but no note.
-function buildMigrationNotePrompt(deprecatedObject, successors) {
+function buildMigrationNotePrompt(deprecatedObject, successors, lang = 'zh') {
   const succList = successors
     .map(s => `- ${s.name} (${s.type})`)
     .join('\n');
+  const langNote = lang === 'en'
+    ? `\n\nThe "migrationNote" field must be written in English.`
+    : `\n\nThe "migrationNote" field must be written in Chinese (简体中文).`;
   return (
     `For the deprecated SAP object "${deprecatedObject}", the official successors are:\n` +
     `${succList}\n\n` +
@@ -59,12 +77,15 @@ function buildMigrationNotePrompt(deprecatedObject, successors) {
     `- replacementName (string)\n` +
     `- type            (string: the successor type as listed above)\n` +
     `- migrationNote   (string: 2-3 sentences on how to migrate, generic context)\n` +
-    `- source          (string: "official-json+ai-note")`
+    `- source          (string: "official-json+ai-note")` + langNote
   );
 }
 
 // ── Tab 3: Replacement — full AI recommendation (object not in JSON) ───────
-function buildRecommendPrompt(deprecatedObject) {
+function buildRecommendPrompt(deprecatedObject, lang = 'zh') {
+  const langNote = lang === 'en'
+    ? `\n\nThe "migrationNote" field must be written in English.`
+    : `\n\nThe "migrationNote" field must be written in Chinese (简体中文).`;
   return (
     `For the deprecated or non-compliant SAP object "${deprecatedObject}", provide replacement ` +
     `recommendations.\n\n` +
@@ -81,7 +102,7 @@ function buildRecommendPrompt(deprecatedObject) {
     `- replacementName (string)\n` +
     `- type            (string: one of OData API, RAP BO, CDS View, Released FM, Released BAdI, Key User Extension, Side-by-Side BTP)\n` +
     `- migrationNote   (string: 1-2 concise sentences on how to migrate, generic context)\n` +
-    `- source          (string: always "ai-inference" for objects recommended by this prompt)`
+    `- source          (string: always "ai-inference" for objects recommended by this prompt)` + langNote
   );
 }
 
@@ -226,7 +247,7 @@ function buildExtractObjectsPrompt(message) {
 }
 
 // ── Tab 4 BTP: BTP Knowledge Q&A ─────────────────────────────────────────────
-function buildBtpAnswerPrompt(query, searchResults) {
+function buildBtpAnswerPrompt(query, searchResults, lang = 'zh') {
   const BTP_SOURCES = [
     'https://help.sap.com/docs/btp',
     'https://help.sap.com/docs/btp/sap-business-technology-platform/sap-business-technology-platform',
@@ -236,6 +257,25 @@ function buildBtpAnswerPrompt(query, searchResults) {
     'https://discovery-center.cloud.sap/serviceCatalog',
     'https://api.sap.com',
   ];
+
+  if (lang === 'en') {
+    const snippetsEn = searchResults
+      .slice(0, 8)
+      .map((r, i) => `[${i + 1}] ${r.title}\n    URL: ${r.url}\n    Summary: ${r.summary || '(no summary)'}`)
+      .join('\n\n');
+    return (
+      `You are an SAP BTP development expert. Answer the user's question based on the reference material below.\n\n` +
+      `## Authoritative documentation sources\n${BTP_SOURCES.map(u => '- ' + u).join('\n')}\n\n` +
+      `## Relevant snippets found\n${snippetsEn || '(no relevant snippets found)'}\n\n` +
+      `## User question\n${query}\n\n` +
+      `## Answer requirements\n` +
+      `- Answer in English, well-structured, suitable for BTP developers\n` +
+      `- Base the answer on the reference material above combined with your BTP knowledge\n` +
+      `- If you cite a snippet, mark the source number in brackets at the end of the sentence (e.g. Cloud Foundry supports multiple runtimes [2])\n` +
+      `- Keep the answer within 600 words; use lists for steps\n` +
+      `- Do not repeat the question, answer directly`
+    );
+  }
 
   const snippets = searchResults
     .slice(0, 8)
@@ -257,7 +297,69 @@ function buildBtpAnswerPrompt(query, searchResults) {
 }
 
 // ── Tab 4 BTP: BTP Development Guide ─────────────────────────────────────────
-function buildBtpGuidePrompt(domain, scenario, apiResults, groundingContext = '') {
+function buildBtpGuidePrompt(domain, scenario, apiResults, groundingContext = '', lang = 'zh') {
+  if (lang === 'en') {
+    const domainLabelEn = {
+      procurement: 'Procurement',
+      sales:       'Sales',
+      finance:     'Finance',
+      hr:          'HR',
+      inventory:   'Inventory',
+    }[domain] || domain;
+
+    const apiListEn = apiResults.length > 0
+      ? apiResults.map((a, i) =>
+          `${i + 1}. **${a.name}** (${a.protocol})${a.deprecated ? ' ⚠️ **[DEPRECATED]**' : ''}\n` +
+          `   - Description: ${a.description}\n` +
+          (a.deprecated ? `   - ⛔ This API is deprecated, use instead: ${a.successor || 'see official docs for the replacement'}\n` : '') +
+          `   - Endpoint: \`${a.endpoint || ''}\`\n` +
+          `   - Key entities: ${(a.keyEntities || []).join(', ')}\n` +
+          `   - Docs: ${a.url}`
+        ).join('\n\n')
+      : '(please search relevant APIs at https://api.sap.com)';
+
+    return (
+      `You are an experienced SAP BTP development consultant. You need to produce a complete development ` +
+      `guide about the "${domainLabelEn}" business scenario for a developer with **no prior BTP experience**.\n\n` +
+      `## The user's business scenario\n${scenario || 'Build a ' + domainLabelEn + '-related application on SAP BTP'}\n\n` +
+      `## Available relevant APIs\n${apiListEn}\n\n` +
+      `## Generate the complete guide with the following structure (in English, Markdown format):\n\n` +
+      `### 1. Prerequisites\n` +
+      `List the BTP services to provision (service name + purpose + suggested plan) as a table.\n` +
+      `Then give the concrete steps to configure the BTP account (with descriptive text for screenshots).\n` +
+      `Finally list local dev environment requirements: Node.js version, npm packages to install, VS Code plugins.\n\n` +
+      `### 2. Architecture recommendation\n` +
+      `Recommend a runtime (Cloud Foundry or Kyma) and explain why.\n` +
+      `Describe the app architecture in text: frontend (SAP Fiori/UI5) → backend (CAP/Node.js) → S/4HANA API → S/4HANA system.\n\n` +
+      `### 3. Step-by-step development workflow\n` +
+      `**Must include at least 7 steps**, each formatted as:\n` +
+      `**Step N: [step name]**\n` +
+      `Goal: xxx\n` +
+      `Actions: concrete commands or instructions\n` +
+      `Code example (if any):\n` +
+      `\`\`\`javascript\n// code\n\`\`\`\n\n` +
+      `Step order: create BTP project → configure Destination → build CAP backend → integrate S/4HANA API → develop frontend UI → local testing → deploy to CF/Kyma\n\n` +
+      `### 4. Detailed usage of the core APIs\n` +
+      `**For every API listed above, include the following:**\n\n` +
+      `#### API name\n` +
+      `**Purpose**: what business problem this API solves\n\n` +
+      `**Authentication**: how to obtain the OAuth token, via BTP Destination Service or direct call\n\n` +
+      `**Key operation examples**:\n` +
+      `- Read data (GET):\n` +
+      `\`\`\`javascript\n// complete runnable Node.js/axios example, including URL, headers, params\n\`\`\`\n` +
+      `- Create data (POST):\n` +
+      `\`\`\`javascript\n// complete runnable example, including request body structure\n\`\`\`\n\n` +
+      `**Sample response structure** (JSON snippet)\n\n` +
+      `**Caveats**: permissions, CSRF token, pagination, etc.\n\n` +
+      `### 5. Common issues and solutions\n` +
+      `List the 5 most common beginner problems, each with concrete resolution steps.\n\n` +
+      `Requirement: all code examples must be complete and runnable, use the axios library, include error handling.` +
+      (groundingContext
+        ? `\n\n## The following relevant content was retrieved from official docs, please prioritize it:\n\n${groundingContext}`
+        : '')
+    );
+  }
+
   const domainLabel = {
     procurement: '采购（Procurement）',
     sales:       '销售（Sales）',
@@ -347,43 +449,63 @@ function buildBtpIntentPrompt(query) {
 }
 
 // ── Tab 4 BTP: Service Answer ──────────────────────────────────────────────────
-function buildBtpServicePrompt(query, services, detailsMap) {
+function buildBtpServicePrompt(query, services, detailsMap, lang = 'zh') {
   const isBroadListing = services.length > 5;
+  const isEn = lang === 'en';
+  const otherCat = isEn ? 'Other' : '其他';
 
   let serviceContent;
   if (isBroadListing) {
     const grouped = {};
     for (const s of services) {
-      const cat = s.category || '其他';
+      const cat = s.category || otherCat;
       if (!grouped[cat]) grouped[cat] = [];
       grouped[cat].push(s);
     }
     serviceContent = Object.entries(grouped).map(([cat, list]) =>
-      `### ${cat}\n` + list.map(s => `- **${s.name}**：${s.description || ''}`).join('\n')
+      `### ${cat}\n` + list.map(s => isEn
+        ? `- **${s.name}**: ${s.description || ''}`
+        : `- **${s.name}**：${s.description || ''}`).join('\n')
     ).join('\n\n');
   } else {
     serviceContent = services.map((s, i) => {
       const detail = detailsMap[s.id];
-      let entry = `${i + 1}. **${s.name}**（${s.category || ''}）\n   ${s.description || ''}`;
+      let entry = isEn
+        ? `${i + 1}. **${s.name}** (${s.category || ''})\n   ${s.description || ''}`
+        : `${i + 1}. **${s.name}**（${s.category || ''}）\n   ${s.description || ''}`;
       if (detail) {
         if (detail.pricing && detail.pricing.length > 0) {
           const plans = detail.pricing.slice(0, 3).map(p =>
-            `${p.planName}${p.commercialModels && p.commercialModels[0] ? '：' + p.commercialModels[0].pricePerUnit + ' ' + p.commercialModels[0].metric : ''}`
-          ).join('；');
-          entry += `\n   定价方案：${plans}`;
+            `${p.planName}${p.commercialModels && p.commercialModels[0] ? (isEn ? ': ' : '：') + p.commercialModels[0].pricePerUnit + ' ' + p.commercialModels[0].metric : ''}`
+          ).join(isEn ? '; ' : '；');
+          entry += isEn ? `\n   Pricing plans: ${plans}` : `\n   定价方案：${plans}`;
         }
         const docUrl = detail.resources && detail.resources.documentation && detail.resources.documentation[0]
           ? detail.resources.documentation[0].url : null;
         const dcUrl = detail.links && detail.links.discoveryCenter ? detail.links.discoveryCenter : null;
-        if (docUrl) entry += `\n   官方文档：${docUrl}`;
+        if (docUrl) entry += isEn ? `\n   Official docs: ${docUrl}` : `\n   官方文档：${docUrl}`;
         if (dcUrl) entry += `\n   Discovery Center：${dcUrl}`;
         if (detail.roadmap && detail.roadmap.length > 0) {
           const nextItem = detail.roadmap[0];
-          entry += `\n   路线图：${nextItem.quarter || ''} — ${(nextItem.deliverables || []).slice(0, 2).join('；')}`;
+          entry += isEn
+            ? `\n   Roadmap: ${nextItem.quarter || ''} — ${(nextItem.deliverables || []).slice(0, 2).join('; ')}`
+            : `\n   路线图：${nextItem.quarter || ''} — ${(nextItem.deliverables || []).slice(0, 2).join('；')}`;
         }
       }
       return entry;
     }).join('\n\n');
+  }
+
+  if (isEn) {
+    return (
+      `You are an SAP BTP expert. Based on the following service information obtained from SAP Discovery Center, answer the user's question in English.\n\n` +
+      `User question: ${query}\n\n` +
+      `SAP BTP service information (${services.length} item(s), from Discovery Center):\n\n${serviceContent}\n\n` +
+      (isBroadListing
+        ? `List all ${services.length} services above one by one grouped by category, each service on its own line, format: service name + one-sentence description. Do not omit any service, do not replace the actual list with "X items total".`
+        : `Answer the question directly, concise and clear, using Markdown formatting where appropriate. If pricing is involved, explain the pricing model. ` +
+          `You MUST append the official links at the end of the answer, format:\n**Official docs**: [link text](URL)\n**Discovery Center**: [link text](URL)`)
+    );
   }
 
   return (
@@ -398,7 +520,18 @@ function buildBtpServicePrompt(query, services, detailsMap) {
 }
 
 // ── Tab 4 BTP: MCP Docs Fallback Answer ───────────────────────────────────────
-function buildBtpMcpAnswerPrompt(query, searchResults) {
+function buildBtpMcpAnswerPrompt(query, searchResults, lang = 'zh') {
+  if (lang === 'en') {
+    const docsEn = searchResults.slice(0, 5).map((r, i) =>
+      `[${i + 1}] **${r.title}**\n${r.snippet || ''}\nLink: ${r.url || ''}`
+    ).join('\n\n');
+    return (
+      `You are an SAP BTP expert. Based on the following content found in official SAP documentation, answer the user's question in English.\n\n` +
+      `User question: ${query}\n\n` +
+      `Document snippets found:\n\n${docsEn}\n\n` +
+      `Answer based on the documents above, and list the cited links under "References:" at the end.`
+    );
+  }
   const docs = searchResults.slice(0, 5).map((r, i) =>
     `[${i + 1}] **${r.title}**\n${r.snippet || ''}\n链接：${r.url || ''}`
   ).join('\n\n');
@@ -412,7 +545,27 @@ function buildBtpMcpAnswerPrompt(query, searchResults) {
 }
 
 // ── Feature 6: Migration Path Planning ────────────────────────────────────
-function buildPlanPrompt(objectName) {
+function buildPlanPrompt(objectName, lang = 'zh') {
+  if (lang === 'en') {
+    return (
+      `For the SAP object "${objectName}", generate a detailed Clean Core migration plan.\n\n` +
+      `Return ONLY a valid JSON object with no markdown fences and no extra text. The object must have exactly these fields:\n` +
+      `- objectName      (string: the input object name)\n` +
+      `- replacement     (string: the recommended Clean Core replacement name)\n` +
+      `- replacementType (string: one of OData API, RAP BO, CDS View, Released FM, Released BAdI, Key User Extension, Side-by-Side BTP)\n` +
+      `- riskLevel       (string: "Low" | "Medium" | "High" — migration complexity risk)\n` +
+      `- effortEstimate  (string: estimated effort, e.g. "2-3 days", "1 week")\n` +
+      `- steps           (string: a JSON array string, each element has { "step": number, "description": string })\n` +
+      `- codeExample     (string: ABAP code snippet. CRITICAL: escape ALL double-quotes as \\\\", escape ALL newlines as \\\\n, escape ALL backslashes as \\\\\\\\. The entire value must be a valid JSON string.)\n` +
+      `- summary         (string: one sentence summarizing the migration in English)\n\n` +
+      `Rules:\n` +
+      `- steps must contain 3-5 concrete, actionable migration steps\n` +
+      `- codeExample: use single-line format with \\\\n for line breaks, NO raw newlines inside the JSON string value\n` +
+      `- All text fields (riskLevel, summary, step descriptions) must be in English\n` +
+      `- The steps field value must itself be a valid JSON array serialized as a string\n` +
+      `- Your entire response must start with { and end with } — no other text`
+    );
+  }
   return (
     `For the SAP object "${objectName}", generate a detailed Clean Core migration plan.\n\n` +
     `Return ONLY a valid JSON object with no markdown fences and no extra text. The object must have exactly these fields:\n` +

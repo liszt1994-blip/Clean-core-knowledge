@@ -1,6 +1,6 @@
 // tool1-knowledge/srv/knowledge-service.js
 const cds = require('@sap/cds');
-const { AICoreClient, CLEAN_CORE_SYSTEM_PROMPT } = require('../src/aicore-client');
+const { AICoreClient, CLEAN_CORE_SYSTEM_PROMPT, systemPromptFor } = require('../src/aicore-client');
 const { ClassificationClient } = require('../src/classification-client');
 const { DestinationClient } = require('../src/destination-client');
 const { searchHelpPortal } = require('../src/sap-help-search');
@@ -50,7 +50,7 @@ module.exports = cds.service.impl(async function (srv) {
   }
 
   // Classify a single SAP object: local JSON → Grounding → ADT (S4T) → AI fallback
-  async function classifyWithGrounding(objectName) {
+  async function classifyWithGrounding(objectName, lang = 'zh') {
     // Step 1: remote/local JSON lookup (SAP official release data)
     await getClassifier().ready();
     const localResult = getClassifier().lookup(objectName);
@@ -72,7 +72,7 @@ module.exports = cds.service.impl(async function (srv) {
     if (collectionId && getAI()) {
       try {
         const answer = await getAI().completeWithGrounding(
-          CLEAN_CORE_SYSTEM_PROMPT,
+          systemPromptFor(lang),
           `What is the SAP Clean Core classification level (A, B, C, or D) for the SAP object "${objectName}"? ` +
           `Reply ONLY with a JSON array containing one object with fields: ` +
           `objectName, tier (A/B/C/D), state (released/classicAPI/notToBeReleased/noAPI/unknown), ` +
@@ -80,7 +80,7 @@ module.exports = cds.service.impl(async function (srv) {
           collectionId,
           512,
         );
-        const cleaned = answer.trim().replace(/^```json\s*/i, '').replace(/\s*```$/i, '');
+        const cleaned = answer.trim().replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '');
         const parsed = JSON.parse(cleaned);
         if (Array.isArray(parsed) && parsed.length > 0) {
           return { ...parsed[0], objectName, source: 'grounding' };
@@ -103,7 +103,11 @@ module.exports = cds.service.impl(async function (srv) {
         tier,
         state:          meta.releaseState.toLowerCase(),
         explanation:    `ADT @VDM.lifecycle.contract.type: ${meta.releaseState}`,
-        recommendation: tier === 'C' ? '该对象在 S4T 系统中未发布，不符合 Clean Core 标准' : '',
+        recommendation: tier === 'C'
+          ? (lang === 'en'
+              ? 'This object is not released in the S4T system and does not comply with Clean Core standards'
+              : '该对象在 S4T 系统中未发布，不符合 Clean Core 标准')
+          : '',
         source:         'adt',
       };
     } catch (err) {
@@ -113,7 +117,7 @@ module.exports = cds.service.impl(async function (srv) {
     // Step 4: AI inference (last resort — likely inaccurate, badge shown in UI)
     if (!getAI()) return null;
     try {
-      const raw = await getAI().complete(CLEAN_CORE_SYSTEM_PROMPT, buildSingleClassifyPrompt(objectName));
+      const raw = await getAI().complete(systemPromptFor(lang), buildSingleClassifyPrompt(objectName, lang));
       const parsed = JSON.parse(raw.trim());
       if (Array.isArray(parsed) && parsed.length > 0) {
         return { ...parsed[0], objectName, source: 'ai-inference' };
@@ -137,19 +141,19 @@ module.exports = cds.service.impl(async function (srv) {
 
   // ── Tab 1: Concept Explanation ─────────────────────────────────────────
   srv.on('explain', async (req) => {
-    const { term } = req.data;
+    const { term, lang = 'zh' } = req.data;
     if (!term || !term.trim()) {
       return req.error(400, 'term is required');
     }
     if (!getAI()) return 'AI Core 未配置，请在 .env 文件中填入真实的 VCAP_SERVICES 凭据。';
-    const result = await getAI().complete(CLEAN_CORE_SYSTEM_PROMPT, buildExplainPrompt(term));
+    const result = await getAI().complete(systemPromptFor(lang), buildExplainPrompt(term, lang));
     return result;
   });
 
   // ── Tab 2: Object Classification ────────────────────────────────────────
   // Strategy: remote/local JSON first → Grounding → ADT → AI inference
   srv.on('classify', async (req) => {
-    const { objects } = req.data;
+    const { objects, lang = 'zh' } = req.data;
     if (!objects || objects.length === 0) {
       return req.error(400, 'objects array is required');
     }
@@ -157,15 +161,16 @@ module.exports = cds.service.impl(async function (srv) {
     // Ensure remote GitHub JSON is loaded before any lookup
     await getClassifier().ready();
 
-    const results = [];
-
-    for (const objectName of objects) {
+    // Resolve each object independently. JSON hits are instant; misses require
+    // an AI/grounding round-trip. Run them concurrently so N misses cost ~1x
+    // AI latency instead of N x latency (each completion is ~9s serial).
+    const results = await Promise.all(objects.map(async (objectName) => {
       const name = objectName.trim().toUpperCase();
       const info = getClassifier().lookup(name);
 
       if (info) {
         // ── Hit: build response from authoritative JSON data ──────────
-        results.push({
+        return {
           objectName:     name,
           tier:           info.tier,
           state:          info.state || info.clsState,
@@ -179,35 +184,32 @@ module.exports = cds.service.impl(async function (srv) {
           softwareComponent: info.softwareComponent,
           appComponent:   info.appComponent,
           source:         'local-json',
-        });
-      } else {
-        // ── Miss: use Grounding first, fallback to plain AI ────────────
-        try {
-          const result = await classifyWithGrounding(name);
-          if (result) {
-            results.push(result);
-          } else {
-            results.push({
-              objectName: name,
-              tier: 'unknown',
-              state: 'unknown',
-              explanation: 'Object not found in SAP release data; Grounding and AI inference also failed.',
-              recommendation: 'Verify the object name and check the SAP API Business Hub.',
-              source: 'ai-inference-failed',
-            });
-          }
-        } catch (err) {
-          results.push({
-            objectName: name,
-            tier: 'unknown',
-            state: 'unknown',
-            explanation: `AI inference error: ${err.message}`,
-            recommendation: 'Check VCAP_SERVICES configuration and AI Core connectivity.',
-            source: 'error',
-          });
-        }
+        };
       }
-    }
+
+      // ── Miss: use Grounding first, fallback to plain AI ────────────
+      try {
+        const result = await classifyWithGrounding(name, lang);
+        if (result) return result;
+        return {
+          objectName: name,
+          tier: 'unknown',
+          state: 'unknown',
+          explanation: 'Object not found in SAP release data; Grounding and AI inference also failed.',
+          recommendation: 'Verify the object name and check the SAP API Business Hub.',
+          source: 'ai-inference-failed',
+        };
+      } catch (err) {
+        return {
+          objectName: name,
+          tier: 'unknown',
+          state: 'unknown',
+          explanation: `AI inference error: ${err.message}`,
+          recommendation: 'Check VCAP_SERVICES configuration and AI Core connectivity.',
+          source: 'error',
+        };
+      }
+    }));
 
     return results;
   });
@@ -216,7 +218,7 @@ module.exports = cds.service.impl(async function (srv) {
   // Strategy: official successors from JSON + AI-generated migrationNote;
   //           fully unknown objects → full AI recommendation
   srv.on('recommend', async (req) => {
-    const { deprecatedObject } = req.data;
+    const { deprecatedObject, lang = 'zh' } = req.data;
     if (!deprecatedObject || !deprecatedObject.trim()) {
       return req.error(400, 'deprecatedObject is required');
     }
@@ -226,13 +228,22 @@ module.exports = cds.service.impl(async function (srv) {
 
     if (info && info.allSuccessors.length > 0) {
       // We have official successors — ask AI only for migration notes
+      if (!getAI()) {
+        // No AI — return plain successor list from JSON
+        return info.allSuccessors.map(s => ({
+          replacementName: s.name,
+          type: s.type,
+          migrationNote: info.note || 'Refer to SAP API Business Hub for migration details.',
+          source: 'official-json',
+        }));
+      }
       const raw = await getAI().complete(
-        CLEAN_CORE_SYSTEM_PROMPT,
-        buildMigrationNotePrompt(name, info.allSuccessors),
+        systemPromptFor(lang),
+        buildMigrationNotePrompt(name, info.allSuccessors, lang),
       );
       let parsed;
       try {
-        parsed = JSON.parse(raw.trim());
+        parsed = JSON.parse(raw.trim().replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, ''));
       } catch {
         parsed = null;
       }
@@ -249,13 +260,16 @@ module.exports = cds.service.impl(async function (srv) {
     }
 
     // No JSON data — full AI recommendation
+    if (!getAI()) {
+      return req.error(503, 'AI Core 未配置，无法为未知对象生成推荐。请检查 VCAP_SERVICES 配置。');
+    }
     const raw = await getAI().complete(
-      CLEAN_CORE_SYSTEM_PROMPT,
-      buildRecommendPrompt(name),
+      systemPromptFor(lang),
+      buildRecommendPrompt(name, lang),
     );
     let parsed;
     try {
-      parsed = JSON.parse(raw.trim());
+      parsed = JSON.parse(raw.trim().replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, ''));
     } catch {
       return req.error(502, 'AI Core returned invalid JSON for recommendations');
     }
@@ -266,6 +280,7 @@ module.exports = cds.service.impl(async function (srv) {
   srv.on('analyzeCode', async (req) => {
     const { code } = req.data;
     if (!code || !code.trim()) return req.error(400, 'code is required');
+    if (!getAI()) return req.error(503, 'AI Core 未配置，无法分析代码。请检查 VCAP_SERVICES 配置。');
 
     // Step 1: AI extracts object references + line numbers
     let rawRefs;
@@ -274,7 +289,7 @@ module.exports = cds.service.impl(async function (srv) {
         CLEAN_CORE_SYSTEM_PROMPT,
         buildAnalyzeCodePrompt(code),
       );
-      rawRefs = JSON.parse(raw.trim().replace(/^```json\s*/i, '').replace(/\s*```$/i, ''));
+      rawRefs = JSON.parse(raw.trim().replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, ''));
       if (!Array.isArray(rawRefs)) rawRefs = [];
     } catch {
       return req.error(502, 'AI failed to analyze code');
@@ -332,6 +347,7 @@ module.exports = cds.service.impl(async function (srv) {
   srv.on('analyzeAtc', async (req) => {
     const { atcOutput } = req.data;
     if (!atcOutput || !atcOutput.trim()) return req.error(400, 'atcOutput is required');
+    if (!getAI()) return req.error(503, 'AI Core 未配置，无法解析 ATC 输出。请检查 VCAP_SERVICES 配置。');
 
     // Step 1: AI parses ATC text into structured findings
     let findings;
@@ -340,7 +356,7 @@ module.exports = cds.service.impl(async function (srv) {
         CLEAN_CORE_SYSTEM_PROMPT,
         buildAnalyzeAtcPrompt(atcOutput),
       );
-      findings = JSON.parse(raw.trim().replace(/^```json\s*/i, '').replace(/\s*```$/i, ''));
+      findings = JSON.parse(raw.trim().replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, ''));
       if (!Array.isArray(findings)) findings = [];
     } catch {
       return req.error(502, 'AI failed to parse ATC output');
@@ -386,6 +402,7 @@ module.exports = cds.service.impl(async function (srv) {
     if (!violations || violations.length === 0) {
       return { original: code, rewritten: code };
     }
+    if (!getAI()) return req.error(503, 'AI Core 未配置，无法重写代码。请检查 VCAP_SERVICES 配置。');
 
     const raw = await getAI().complete(
       CLEAN_CORE_SYSTEM_PROMPT,
@@ -395,7 +412,7 @@ module.exports = cds.service.impl(async function (srv) {
 
     let parsed;
     try {
-      const text = raw.trim().replace(/^```json\s*/i, '').replace(/\s*```$/i, '');
+      const text = raw.trim().replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '');
       parsed = JSON.parse(text);
     } catch {
       return req.error(502, 'AI returned invalid JSON for rewrite');
@@ -409,15 +426,16 @@ module.exports = cds.service.impl(async function (srv) {
 
   // ── Feature 6: Migration Path Planning ────────────────────────────────────
   srv.on('plan', async (req) => {
-    const { objectName } = req.data;
+    const { objectName, lang = 'zh' } = req.data;
     if (!objectName || !objectName.trim()) {
       return req.error(400, 'objectName is required');
     }
+    if (!getAI()) return req.error(503, 'AI Core 未配置，无法生成迁移规划。请检查 VCAP_SERVICES 配置。');
 
     // plan must NOT use grounding — the strict JSON format gets broken by the grounding template
     const raw = await getAI().complete(
-      CLEAN_CORE_SYSTEM_PROMPT,
-      buildPlanPrompt(objectName.trim().toUpperCase()),
+      systemPromptFor(lang),
+      buildPlanPrompt(objectName.trim().toUpperCase(), lang),
       4000
     );
 
@@ -472,8 +490,8 @@ module.exports = cds.service.impl(async function (srv) {
       objectName:      parsed.objectName      || objectName,
       replacement:     parsed.replacement     || '',
       replacementType: parsed.replacementType || '',
-      riskLevel:       parsed.riskLevel       || '未知',
-      effortEstimate:  parsed.effortEstimate  || '未知',
+      riskLevel:       parsed.riskLevel       || (lang === 'en' ? 'Unknown' : '未知'),
+      effortEstimate:  parsed.effortEstimate  || (lang === 'en' ? 'Unknown' : '未知'),
       steps:           typeof parsed.steps === 'string' ? parsed.steps : JSON.stringify(parsed.steps || []),
       codeExample:     parsed.codeExample     || '',
       summary:         parsed.summary         || '',
@@ -482,13 +500,15 @@ module.exports = cds.service.impl(async function (srv) {
 
   // ── chat: unified agent entry point ───────────────────────────────────────
   srv.on('chat', async (req) => {
-    const { message, mode = 'auto', history = [] } = req.data;
+    const { message, mode = 'auto', history = [], lang = 'zh' } = req.data;
     if (!message || !message.trim()) return req.error(400, 'message is required');
 
     if (!getAI()) {
       return {
         replyType: 'general',
-        text: 'AI Core 未配置，请在 .env 文件中填入真实的 VCAP_SERVICES 凭据后重启服务。\n\n本地可用功能：Tab 2（对象分级，直接查本地 JSON）和 Tab 3（SAP 搜索）。',
+        text: lang === 'en'
+          ? 'AI Core is not configured. Please fill in valid VCAP_SERVICES credentials in the .env file and restart the service.\n\nLocally available features: Tab 2 (Object Classification, queries local JSON directly) and Tab 3 (SAP Search).'
+          : 'AI Core 未配置，请在 .env 文件中填入真实的 VCAP_SERVICES 凭据后重启服务。\n\n本地可用功能：Tab 2（对象分级，直接查本地 JSON）和 Tab 3（SAP 搜索）。',
         violations: JSON.stringify([]),
         rewriteOriginal: '',
         rewriteRewritten: '',
@@ -535,14 +555,14 @@ module.exports = cds.service.impl(async function (srv) {
       let sourceType = 'ai-core';
       if (collectionId && getAI()) {
         try {
-          text = await getAI().completeWithGrounding(CLEAN_CORE_SYSTEM_PROMPT, message, collectionId);
+          text = await getAI().completeWithGrounding(systemPromptFor(lang), message, collectionId);
           sourceType = 'grounding';
         } catch (err) {
           console.warn('[chat/explain] Grounding failed, falling back:', err.message);
         }
       }
       if (!text) {
-        text = await getAI().complete(CLEAN_CORE_SYSTEM_PROMPT, buildExplainPrompt(message));
+        text = await getAI().complete(systemPromptFor(lang), buildExplainPrompt(message, lang));
       }
       return {
         replyType: 'explain',
@@ -564,7 +584,7 @@ module.exports = cds.service.impl(async function (srv) {
           buildExtractObjectsPrompt(message),
           256,
         );
-        const parsed = JSON.parse(raw.trim().replace(/^```json\s*/i, '').replace(/\s*```$/i, ''));
+        const parsed = JSON.parse(raw.trim().replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, ''));
         if (Array.isArray(parsed)) objects = parsed.map(s => String(s).trim().toUpperCase()).filter(Boolean);
       } catch {
         // Fallback: split on whitespace/comma, keep tokens that look like SAP object names
@@ -576,7 +596,9 @@ module.exports = cds.service.impl(async function (srv) {
       if (objects.length === 0) {
         return {
           replyType: 'general',
-          text: '无法从输入中识别 SAP 对象名，请直接输入对象名（如 READ_TEXT）。',
+          text: lang === 'en'
+            ? 'Could not identify any SAP object name from the input. Please enter an object name directly (e.g. READ_TEXT).'
+            : '无法从输入中识别 SAP 对象名，请直接输入对象名（如 READ_TEXT）。',
           violations: JSON.stringify([]),
           rewriteOriginal: '', rewriteRewritten: '', notes: JSON.stringify([]),
           sourceType: 'ai-core',
@@ -599,8 +621,8 @@ module.exports = cds.service.impl(async function (srv) {
           if (!replacement && !isCompliant) {
             try {
               const raw = await getAI().complete(
-                CLEAN_CORE_SYSTEM_PROMPT,
-                buildRecommendPrompt(name),
+                systemPromptFor(lang),
+                buildRecommendPrompt(name, lang),
                 1024,
               );
               const cleaned = raw.trim()
@@ -630,7 +652,7 @@ module.exports = cds.service.impl(async function (srv) {
         } else {
           // Not in local JSON — Grounding + AI fallback
           try {
-            const result = await classifyWithGrounding(name);
+            const result = await classifyWithGrounding(name, lang);
             if (result) {
               violations.push({
                 objectName: name,
@@ -646,14 +668,16 @@ module.exports = cds.service.impl(async function (srv) {
               violations.push({
                 objectName: name, tier: 'unknown', state: 'unknown',
                 line: 0, callType: '', replacement: '', replacementType: '',
-                note: '未在本地数据中找到，Grounding 和 AI 也无法推断，请手动核实。',
+                note: lang === 'en'
+                  ? 'Not found in local data; Grounding and AI could not infer either. Please verify manually.'
+                  : '未在本地数据中找到，Grounding 和 AI 也无法推断，请手动核实。',
               });
             }
           } catch {
             violations.push({
               objectName: name, tier: 'unknown', state: 'unknown',
               line: 0, callType: '', replacement: '', replacementType: '',
-              note: '查询失败，请手动核实。',
+              note: lang === 'en' ? 'Lookup failed, please verify manually.' : '查询失败，请手动核实。',
             });
           }
         }
@@ -663,8 +687,12 @@ module.exports = cds.service.impl(async function (srv) {
       return {
         replyType: 'violations',
         text: violations.length > 0
-          ? `发现 ${violations.length} 个对象，分级结果如下：`
-          : '在本地数据中未找到这些对象，建议手动核实。',
+          ? (lang === 'en'
+              ? `Found ${violations.length} object(s). Classification results:`
+              : `发现 ${violations.length} 个对象，分级结果如下：`)
+          : (lang === 'en'
+              ? 'These objects were not found in local data. Please verify manually.'
+              : '在本地数据中未找到这些对象，建议手动核实。'),
         violations: JSON.stringify(violations),
         rewriteOriginal: '', rewriteRewritten: '', notes: JSON.stringify([]),
         sourceType: classifyCollectionId ? 'grounding' : 'ai-core',
@@ -678,7 +706,7 @@ module.exports = cds.service.impl(async function (srv) {
           CLEAN_CORE_SYSTEM_PROMPT,
           buildAnalyzeCodePrompt(message),
         );
-        rawRefs = JSON.parse(raw.trim().replace(/^```json\s*/i, '').replace(/\s*```$/i, ''));
+        rawRefs = JSON.parse(raw.trim().replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, ''));
         if (!Array.isArray(rawRefs)) rawRefs = [];
       } catch { /* fall through with empty */ }
 
@@ -698,8 +726,8 @@ module.exports = cds.service.impl(async function (srv) {
           if (!replacement && !isCompliant) {
             try {
               const raw = await getAI().complete(
-                CLEAN_CORE_SYSTEM_PROMPT,
-                buildRecommendPrompt(name),
+                systemPromptFor(lang),
+                buildRecommendPrompt(name, lang),
                 1024,
               );
               const cleaned = raw.trim()
@@ -734,7 +762,7 @@ module.exports = cds.service.impl(async function (srv) {
               buildSingleClassifyPrompt(name),
               512,
             );
-            const parsed = JSON.parse(raw.trim().replace(/^```json\s*/i, '').replace(/\s*```$/i, ''));
+            const parsed = JSON.parse(raw.trim().replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, ''));
             if (Array.isArray(parsed) && parsed.length > 0 && parsed[0].tier !== 'A') {
               violations.push({
                 objectName:      name,
@@ -757,7 +785,9 @@ module.exports = cds.service.impl(async function (srv) {
       if (violations.length === 0) {
         return {
           replyType: 'general',
-          text: '代码中未发现 Clean Core 违规对象，可以安全使用。',
+          text: lang === 'en'
+            ? 'No Clean Core violations found in the code — safe to use.'
+            : '代码中未发现 Clean Core 违规对象，可以安全使用。',
           violations: JSON.stringify([]),
           rewriteOriginal: '',
           rewriteRewritten: '',
@@ -818,7 +848,9 @@ module.exports = cds.service.impl(async function (srv) {
 
       return {
         replyType: 'violations',
-        text: `发现 ${violations.length} 个 Clean Core 违规对象：`,
+        text: lang === 'en'
+          ? `Found ${violations.length} Clean Core violation object(s):`
+          : `发现 ${violations.length} 个 Clean Core 违规对象：`,
         violations: JSON.stringify(violations),
         rewriteOriginal,
         rewriteRewritten,
@@ -834,7 +866,7 @@ module.exports = cds.service.impl(async function (srv) {
           CLEAN_CORE_SYSTEM_PROMPT,
           buildAnalyzeAtcPrompt(message),
         );
-        findings = JSON.parse(raw.trim().replace(/^```json\s*/i, '').replace(/\s*```$/i, ''));
+        findings = JSON.parse(raw.trim().replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, ''));
         if (!Array.isArray(findings)) findings = [];
       } catch { /* fall through */ }
 
@@ -856,8 +888,12 @@ module.exports = cds.service.impl(async function (srv) {
       return {
         replyType: violations.length > 0 ? 'violations' : 'general',
         text: violations.length > 0
-          ? `解析到 ${violations.length} 个 ATC 违规，分级结果如下：`
-          : '未能从 ATC 输出中解析到违规对象，请确认输入格式。',
+          ? (lang === 'en'
+              ? `Parsed ${violations.length} ATC violation(s). Classification results:`
+              : `解析到 ${violations.length} 个 ATC 违规，分级结果如下：`)
+          : (lang === 'en'
+              ? 'Could not parse any violation objects from the ATC output. Please check the input format.'
+              : '未能从 ATC 输出中解析到违规对象，请确认输入格式。'),
         violations: JSON.stringify(violations),
         rewriteOriginal: '',
         rewriteRewritten: '',
@@ -872,14 +908,14 @@ module.exports = cds.service.impl(async function (srv) {
     let fallbackSourceType = 'ai-core';
     if (fallbackCollectionId && getAI()) {
       try {
-        fallbackText = await getAI().completeWithGrounding(CLEAN_CORE_SYSTEM_PROMPT, message, fallbackCollectionId);
+        fallbackText = await getAI().completeWithGrounding(systemPromptFor(lang), message, fallbackCollectionId);
         fallbackSourceType = 'grounding';
       } catch (err) {
         console.warn('[chat/fallback] Grounding failed, falling back:', err.message);
       }
     }
     if (!fallbackText) {
-      fallbackText = await getAI().complete(CLEAN_CORE_SYSTEM_PROMPT, buildExplainPrompt(message));
+      fallbackText = await getAI().complete(systemPromptFor(lang), buildExplainPrompt(message, lang));
     }
     return {
       replyType: 'general',
@@ -897,7 +933,7 @@ module.exports = cds.service.impl(async function (srv) {
   // Step 2: Call SAP Help Portal real search API (no login required)
   // Step 3: Return real results + a direct Support Portal search link
   srv.on('searchNote', async (req) => {
-    const { query } = req.data;
+    const { query, lang = 'zh' } = req.data;
     if (!query || !query.trim()) {
       return req.error(400, 'query is required');
     }
@@ -969,13 +1005,15 @@ module.exports = cds.service.impl(async function (srv) {
 
   // ── Tab 4: BTP Unified (intent-routed) ────────────────────────────────────
   srv.on('btpUnified', async (req) => {
-    const { query } = req.data;
+    const { query, lang = 'zh' } = req.data;
     if (!query || !query.trim()) return req.error(400, 'query is required');
 
     if (!getAI()) {
       return {
         replyType:  'general',
-        answer:     'AI Core 未配置，请在 .env 文件中填入真实的 VCAP_SERVICES 凭据后重启服务。',
+        answer:     lang === 'en'
+          ? 'AI Core is not configured. Please fill in valid VCAP_SERVICES credentials in the .env file and restart the service.'
+          : 'AI Core 未配置，请在 .env 文件中填入真实的 VCAP_SERVICES 凭据后重启服务。',
         sources:    JSON.stringify([]),
         apis:       JSON.stringify([]),
         sourceType: 'no-ai',
@@ -993,7 +1031,7 @@ module.exports = cds.service.impl(async function (srv) {
         buildBtpIntentPrompt(query),
         96,
       );
-      const parsed = JSON.parse(raw.trim().replace(/^```json\s*/i, '').replace(/\s*```$/i, ''));
+      const parsed = JSON.parse(raw.trim().replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, ''));
       intent       = parsed.intent       || 'general';
       domain       = parsed.domain       || 'procurement';
       scenario     = parsed.scenario     || query.trim();
@@ -1057,38 +1095,49 @@ module.exports = cds.service.impl(async function (srv) {
         if (isBroadListing) {
           const grouped = {};
           for (const s of services) {
-            const cat = s.category || '其他';
+            const cat = s.category || (lang === 'en' ? 'Other' : '其他');
             if (!grouped[cat]) grouped[cat] = [];
             grouped[cat].push(s);
           }
 
-          const allDesc = services.map((s, i) => `${i}|${s.name}|${s.description || ''}`).join('\n');
+          // Only translate to Chinese when the UI language is Chinese.
           let translations = {};
-          try {
-            const raw = await getAI().complete(
-              'You are a precise technical translator for SAP product documentation. ' +
-              'Translate each service description from English to Chinese accurately (max 15 Chinese chars). ' +
-              'The format is: index|serviceName|englishDescription. ' +
-              'Return ONLY a JSON object mapping index to accurate Chinese translation. ' +
-              'Do NOT guess — base the translation strictly on the English description provided. ' +
-              'Example: {"0":"身份认证与SSO管理","1":"容器应用运行时"}. No markdown fences.',
-              allDesc,
-              2048,
-            );
-            translations = JSON.parse(raw.trim().replace(/^```json\s*/i, '').replace(/\s*```$/i, ''));
-          } catch (e) {
-            console.warn('[btpUnified/service] translation failed:', e.message);
+          if (lang !== 'en') {
+            const allDesc = services.map((s, i) => `${i}|${s.name}|${s.description || ''}`).join('\n');
+            try {
+              const raw = await getAI().complete(
+                'You are a precise technical translator for SAP product documentation. ' +
+                'Translate each service description from English to Chinese accurately (max 15 Chinese chars). ' +
+                'The format is: index|serviceName|englishDescription. ' +
+                'Return ONLY a JSON object mapping index to accurate Chinese translation. ' +
+                'Do NOT guess — base the translation strictly on the English description provided. ' +
+                'Example: {"0":"身份认证与SSO管理","1":"容器应用运行时"}. No markdown fences.',
+                allDesc,
+                2048,
+              );
+              translations = JSON.parse(raw.trim().replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, ''));
+            } catch (e) {
+              console.warn('[btpUnified/service] translation failed:', e.message);
+            }
           }
 
-          const lines = [`# SAP BTP 服务完整列表（共 ${services.length} 项）\n`];
+          const lines = lang === 'en'
+            ? [`# SAP BTP Service Catalog (${services.length} total)\n`]
+            : [`# SAP BTP 服务完整列表（共 ${services.length} 项）\n`];
           let idx = 0;
           for (const [cat, list] of Object.entries(grouped)) {
-            lines.push(`## ${cat}（${list.length} 项）\n`);
+            lines.push(lang === 'en'
+              ? `## ${cat} (${list.length})\n`
+              : `## ${cat}（${list.length} 项）\n`);
             for (const s of list) {
-              const zhDesc = translations[String(idx)] || '';
               const enDesc = s.description || '';
-              const desc = zhDesc ? `${zhDesc} / ${enDesc}` : enDesc;
-              lines.push(`- **${s.name}**：${desc}`);
+              if (lang === 'en') {
+                lines.push(`- **${s.name}**: ${enDesc}`);
+              } else {
+                const zhDesc = translations[String(idx)] || '';
+                const desc = zhDesc ? `${zhDesc} / ${enDesc}` : enDesc;
+                lines.push(`- **${s.name}**：${desc}`);
+              }
               idx++;
             }
             lines.push('');
@@ -1104,8 +1153,8 @@ module.exports = cds.service.impl(async function (srv) {
 
         // Specific service query — use AI to format the detailed answer
         const answer = await getAI().complete(
-          CLEAN_CORE_SYSTEM_PROMPT,
-          buildBtpServicePrompt(query, services, detailsMap),
+          systemPromptFor(lang),
+          buildBtpServicePrompt(query, services, detailsMap, lang),
           2048,
         );
         return {
@@ -1148,8 +1197,8 @@ module.exports = cds.service.impl(async function (srv) {
       }
 
       const guide = await getAI().complete(
-        CLEAN_CORE_SYSTEM_PROMPT,
-        buildBtpGuidePrompt(domain, scenario, apiResults, groundingContext),
+        systemPromptFor(lang),
+        buildBtpGuidePrompt(domain, scenario, apiResults, groundingContext, lang),
         4096,
       );
 
@@ -1172,7 +1221,7 @@ module.exports = cds.service.impl(async function (srv) {
         const chunks = await grounder.search(btpGeneralCollectionId, query, 5);
 
         if (chunks.length > 0) {
-          const answer = await getAI().completeWithGrounding(CLEAN_CORE_SYSTEM_PROMPT, query, btpGeneralCollectionId);
+          const answer = await getAI().completeWithGrounding(systemPromptFor(lang), query, btpGeneralCollectionId);
           return {
             replyType:  'general',
             answer,
@@ -1192,8 +1241,8 @@ module.exports = cds.service.impl(async function (srv) {
       const mcpResults = await searchSapDocs(query, 5);
       if (mcpResults.length > 0) {
         const answer = await getAI().complete(
-          CLEAN_CORE_SYSTEM_PROMPT,
-          buildBtpMcpAnswerPrompt(query, mcpResults),
+          systemPromptFor(lang),
+          buildBtpMcpAnswerPrompt(query, mcpResults, lang),
           1024,
         );
         return {
@@ -1210,8 +1259,8 @@ module.exports = cds.service.impl(async function (srv) {
 
     // Final fallback: pure AI
     const btpAnswer = await getAI().complete(
-      CLEAN_CORE_SYSTEM_PROMPT,
-      buildBtpAnswerPrompt(query, []),
+      systemPromptFor(lang),
+      buildBtpAnswerPrompt(query, [], lang),
       1024,
     );
 

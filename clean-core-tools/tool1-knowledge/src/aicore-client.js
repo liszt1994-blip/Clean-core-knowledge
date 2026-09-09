@@ -23,6 +23,24 @@ const CLEAN_CORE_SYSTEM_PROMPT =
   '- **D — Deprecated / Forbidden:** Explicitly deprecated or forbidden for cloud use.\n\n' +
   'Always respond in Chinese (简体中文) by default, unless the user explicitly writes in another language. Be concise but precise.';
 
+// Base prompt WITHOUT the trailing language directive, so callers can append
+// a language-specific instruction via systemPromptFor(lang).
+const CLEAN_CORE_SYSTEM_PROMPT_BASE =
+  CLEAN_CORE_SYSTEM_PROMPT.replace(
+    'Always respond in Chinese (简体中文) by default, unless the user explicitly writes in another language. Be concise but precise.',
+    ''
+  ).trimEnd();
+
+// Return a system prompt whose response-language directive matches `lang`.
+// lang = 'en' → respond in English; anything else (default 'zh') → respond in Chinese.
+// systemPromptFor('zh') reproduces the original CLEAN_CORE_SYSTEM_PROMPT behavior.
+function systemPromptFor(lang) {
+  const directive = lang === 'en'
+    ? '\n\nAlways respond in English, unless the user explicitly writes in another language. Be concise but precise.'
+    : '\n\nAlways respond in Chinese (简体中文) by default, unless the user explicitly writes in another language. Be concise but precise.';
+  return CLEAN_CORE_SYSTEM_PROMPT_BASE + directive;
+}
+
 
 class AICoreClient {
   constructor() {
@@ -180,4 +198,4 @@ class AICoreClient {
   }
 }
 
-module.exports = { AICoreClient, CLEAN_CORE_SYSTEM_PROMPT };
+module.exports = { AICoreClient, CLEAN_CORE_SYSTEM_PROMPT, systemPromptFor };

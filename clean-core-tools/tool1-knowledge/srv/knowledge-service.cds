@@ -1,10 +1,10 @@
 service KnowledgeService {
 
   // Tab 1: Concept explanation (streaming via SSE)
-  action explain(term : String) returns String;
+  action explain(term : String, lang : String) returns String;
 
   // Tab 2: Object classification
-  action classify(objects : array of String) returns array of {
+  action classify(objects : array of String, lang : String) returns array of {
     objectName       : String;
     tier             : String;
     state            : String;
@@ -21,7 +21,7 @@ service KnowledgeService {
   };
 
   // Tab 3: Replacement API recommendation
-  action recommend(deprecatedObject : String) returns array of {
+  action recommend(deprecatedObject : String, lang : String) returns array of {
     replacementName : String;
     type            : String;
     migrationNote   : String;
@@ -29,7 +29,7 @@ service KnowledgeService {
   };
 
   // Tab 4: SAP Note search
-  action searchNote(query : String) returns array of {
+  action searchNote(query : String, lang : String) returns array of {
     noteNumber       : String;
     title            : String;
     summary          : String;
@@ -47,6 +47,7 @@ service KnowledgeService {
   action chat(
     message  : String,
     mode     : String,
+    lang     : String,
     history  : array of { role : String; text : String; }
   ) returns {
     replyType        : String;
@@ -95,7 +96,7 @@ service KnowledgeService {
     rewritten : String;
   };
 
-  action plan(objectName : String) returns {
+  action plan(objectName : String, lang : String) returns {
     objectName      : String;
     replacement     : String;
     replacementType : String;
@@ -137,7 +138,7 @@ service KnowledgeService {
   };
 
   // Tab 4: BTP Unified Q&A + Guide (intent-routed)
-  action btpUnified(query : String) returns {
+  action btpUnified(query : String, lang : String) returns {
     replyType  : String;   // 'general' | 'guide'
     answer     : String;   // for general: answer text; for guide: guide markdown
     sources    : String;   // JSON array of {title, url, summary} — general only

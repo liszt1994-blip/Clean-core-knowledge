@@ -7,9 +7,9 @@ const https = require('https');
 const REMOTE_RELEASE_URL      = 'https://raw.githubusercontent.com/SAP/abap-atc-cr-cv-s4hc/main/src/objectReleaseInfoLatest.json';
 const REMOTE_CLASSIFICATIONS_URL = 'https://raw.githubusercontent.com/SAP/abap-atc-cr-cv-s4hc/refs/heads/main/src/objectClassifications_SAP.json';
 
-function fetchJson(url) {
+function fetchJson(url, timeoutMs = 15000) {
   return new Promise((resolve, reject) => {
-    https.get(url, (res) => {
+    const req = https.get(url, (res) => {
       if (res.statusCode !== 200) {
         res.resume();
         return reject(new Error(`HTTP ${res.statusCode} for ${url}`));
@@ -20,7 +20,13 @@ function fetchJson(url) {
         try { resolve(JSON.parse(data)); }
         catch (e) { reject(e); }
       });
-    }).on('error', reject);
+    });
+    req.on('error', reject);
+    // Guard against a stalled connection hanging ready() forever — if the
+    // remote fetch stalls, abort so callers fall back to the bundled local JSON.
+    req.setTimeout(timeoutMs, () => {
+      req.destroy(new Error(`Timeout after ${timeoutMs}ms for ${url}`));
+    });
   });
 }
 

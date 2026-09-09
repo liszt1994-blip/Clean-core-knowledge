@@ -6,6 +6,7 @@
     "title": "Clean Core Knowledge",
     "description": "Learn SAP Clean Core concepts",
     "applicationVersion": { "version": "1.0.0" },
+    "i18n": "i18n/i18n.properties",
     "dataSources": {
       "KnowledgeService": {
         "uri": "/odata/v4/knowledge/",
@@ -26,7 +27,16 @@
       "minUI5Version": "1.120.0",
       "libs": { "sap.m": {}, "sap.ui.core": {} }
     },
-    "models": {},
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "knowledge.i18n.i18n",
+          "supportedLocales": ["", "en"],
+          "fallbackLocale": ""
+        }
+      }
+    },
     "routing": {}
   }
 }
