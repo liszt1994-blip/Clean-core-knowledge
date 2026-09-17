@@ -561,6 +561,16 @@ module.exports = cds.service.impl(async function (srv) {
       } catch (e) {
         console.warn('[pre-check] classifier lookup failed, skipping:', e.message);
       }
+
+      // Pre-check 2: explain-type questions. If the message reads like a
+      // conceptual "what is / how / why / explain" question and no known SAP
+      // object token was matched above, route straight to explain and skip the
+      // intent-detection AI round-trip (~1-2s saved). The explain handler does
+      // its own grounding/AI, so the classification is safe either way.
+      if (intent === 'auto') {
+        const explainRe = /什么是|是什么|如何|怎么|怎样|为什么|为何|解释|介绍|说明|讲解|概念|含义|意思|区别|\bwhat\s+is\b|\bwhat\s+are\b|\bhow\s+(to|do|does|can)\b|\bwhy\b|\bexplain\b|\bwhat'?s\b|\bdifference\b/i;
+        if (explainRe.test(message)) intent = 'explain';
+      }
     }
     if (intent === 'auto') {
       try {
@@ -1220,12 +1230,14 @@ module.exports = cds.service.impl(async function (srv) {
 
     if (btpGeneralCollectionId && getAI()) {
       try {
-        const { DocumentGroundingClient } = require('../src/document-grounding-client');
-        const grounder = new DocumentGroundingClient();
-        const chunks = await grounder.search(btpGeneralCollectionId, query, 5);
-
-        if (chunks.length > 0) {
-          const answer = await getAI().completeWithGrounding(systemPromptFor(lang), query, btpGeneralCollectionId);
+        // Single grounding round-trip: completeWithGrounding both retrieves and
+        // answers. (Previously we called grounder.search() first just to test for
+        // chunks, then completeWithGrounding() re-retrieved the same query — two
+        // round-trips for one answer.) If grounding yields nothing useful the
+        // model returns a short "no context" reply, which we detect and fall
+        // through to MCP.
+        const answer = await getAI().completeWithGrounding(systemPromptFor(lang), query, btpGeneralCollectionId);
+        if (answer && answer.trim().length > 40) {
           return {
             replyType:  'general',
             answer,
@@ -1234,7 +1246,7 @@ module.exports = cds.service.impl(async function (srv) {
             sourceType: 'grounding',
           };
         }
-        console.log('[btpUnified/general] S3 returned 0 chunks, falling back to MCP');
+        console.log('[btpUnified/general] grounding answer too short, falling back to MCP');
       } catch (err) {
         console.warn('[btpUnified/general] Grounding failed, falling back to MCP:', err.message);
       }
@@ -1303,22 +1315,29 @@ module.exports = cds.service.impl(async function (srv) {
     try {
       const graph = await buildGraphFromAdt(viewName.trim(), maxDepth);
 
-      // Enrich nodes with Clean Core classification via AI (same logic as Tab 1)
-      // A/B = clean core compliant; C/D = not compliant
-      await Promise.all(graph.nodes.map(async (node) => {
-        try {
-          const result = await classifyWithGrounding(node.id);
-          if (result) {
-            const tier = (result.tier || '').toUpperCase();
-            node.cleanCore      = tier === 'A' || tier === 'B';
-            node.classification = tier === 'A' ? 'C1' : tier === 'B' ? 'C2' : 'Not Classified';
-            node.releaseState   = tier === 'A' ? 'Released' : tier === 'B' ? 'Restricted' : 'Internal';
-            node.classifySource = result.source || 'ai-inference';
-          }
-        } catch (_err) {
-          // Classification failed for this node — keep ADT-parsed defaults
+      // Enrich nodes with Clean Core classification.
+      // Priority: authoritative local JSON (instant) → the ADT releaseState that
+      // buildGraphFromAdt already parsed for every node (already in memory, zero cost).
+      // We deliberately do NOT call Grounding/AI per node here: the graph can hold
+      // dozens of nodes, and a per-node AI round-trip (~10s each) is what made this
+      // action slow. The ADT @VDM.lifecycle.contract.type is authoritative enough
+      // for the graph's A/B/C coloring; Tab 1/2 still offer AI-backed deep classify.
+      await getClassifier().ready();
+      for (const node of graph.nodes) {
+        const info = getClassifier().lookup(node.id);
+        if (info && info.tier) {
+          const tier = String(info.tier).toUpperCase();
+          node.cleanCore      = tier === 'A' || tier === 'B';
+          node.classification = tier === 'A' ? 'C1' : tier === 'B' ? 'C2' : 'Not Classified';
+          node.releaseState   = tier === 'A' ? 'Released' : tier === 'B' ? 'Restricted' : 'Internal';
+          node.classifySource = 'local-json';
+        } else {
+          // Fall back to the ADT-parsed releaseState already on the node.
+          node.classifySource = node.releaseState && node.releaseState !== 'Unknown'
+            ? 'adt'
+            : 'unknown';
         }
-      }));
+      }
 
       return graph;
     } catch (err) {

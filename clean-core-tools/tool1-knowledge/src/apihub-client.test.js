@@ -35,16 +35,25 @@ function makeListResponse(items) {
   return new Response(JSON.stringify({ d: { results: items } }), { status: 200 });
 }
 
+// _fetchAllS4Apis fetches pages in concurrent batches (PAGE_BATCH=6), so more
+// than one request may fire before the end-of-data (short/empty page) is seen.
+// Configure a default empty-page response for any request beyond the queued
+// ones, then queue the data page(s) with fetchQueue().
+function fetchQueue(...pages) {
+  // Default: a FRESH empty-page Response per call (a node-fetch Response body
+  // can only be consumed once, and concurrent batch calls may reuse the default).
+  fetch.mockImplementation(() => Promise.resolve(makeListResponse([])));
+  for (const p of pages) fetch.mockResolvedValueOnce(makeListResponse(p));
+}
+
 // ── searchApis ────────────────────────────────────────────────────────────
 
 test('searchApis returns S4 APIs with serviceGroupName from local map', async () => {
   mockSgnMap({ 'OP_PURCHASEORDER_0001': { serviceGroupName: 'API_PURCHASEORDER_2' } });
-  fetch
-    .mockResolvedValueOnce(makeListResponse([
-      { Name: 'OP_PURCHASEORDER_0001', Title: 'Purchase Order', ServiceCode: 'ODATAV4', ShortText: 'Process purchase orders', State: 'ACTIVE' },
-      { Name: 'some_other_api', Title: 'Purchase Other', ServiceCode: 'REST', ShortText: 'Not S4', State: 'ACTIVE' },
-    ]))
-    .mockResolvedValueOnce(makeListResponse([]));
+  fetchQueue([
+    { Name: 'OP_PURCHASEORDER_0001', Title: 'Purchase Order', ServiceCode: 'ODATAV4', ShortText: 'Process purchase orders', State: 'ACTIVE' },
+    { Name: 'some_other_api', Title: 'Purchase Other', ServiceCode: 'REST', ShortText: 'Not S4', State: 'ACTIVE' },
+  ]);
 
   const results = await searchApis('Purchase');
   // Only OP_ prefixed APIs returned
@@ -61,12 +70,10 @@ test('searchApis returns S4 APIs with serviceGroupName from local map', async ()
 
 test('searchApis excludes DEPRECATED APIs', async () => {
   mockSgnMap({});
-  fetch
-    .mockResolvedValueOnce(makeListResponse([
-      { Name: 'OP_ACTIVE_0001', Title: 'Bank Active', ServiceCode: 'ODATAV4', ShortText: 'Active', State: 'ACTIVE' },
-      { Name: 'OP_DEPRECATED_0001', Title: 'Bank Deprecated', ServiceCode: 'ODATAV4', ShortText: 'Old', State: 'DEPRECATED' },
-    ]))
-    .mockResolvedValueOnce(makeListResponse([]));
+  fetchQueue([
+    { Name: 'OP_ACTIVE_0001', Title: 'Bank Active', ServiceCode: 'ODATAV4', ShortText: 'Active', State: 'ACTIVE' },
+    { Name: 'OP_DEPRECATED_0001', Title: 'Bank Deprecated', ServiceCode: 'ODATAV4', ShortText: 'Old', State: 'DEPRECATED' },
+  ]);
 
   const results = await searchApis('Bank');
   expect(results).toHaveLength(1);
@@ -75,11 +82,9 @@ test('searchApis excludes DEPRECATED APIs', async () => {
 
 test('searchApis returns empty serviceGroupName and cleanCore=false when not in map', async () => {
   mockSgnMap({});
-  fetch
-    .mockResolvedValueOnce(makeListResponse([
-      { Name: 'OP_BANK_0003', Title: 'Bank', ServiceCode: 'ODATAV4', ShortText: 'Bank master data', State: 'ACTIVE' },
-    ]))
-    .mockResolvedValueOnce(makeListResponse([]));
+  fetchQueue([
+    { Name: 'OP_BANK_0003', Title: 'Bank', ServiceCode: 'ODATAV4', ShortText: 'Bank master data', State: 'ACTIVE' },
+  ]);
 
   const results = await searchApis('Bank');
   expect(results).toHaveLength(1);
@@ -95,20 +100,18 @@ test('searchApis throws when API_HUB_KEY not set', async () => {
 
 test('searchApis returns empty array when no S4 APIs match', async () => {
   mockSgnMap({});
-  fetch.mockResolvedValue(makeListResponse([
+  fetch.mockImplementation(() => Promise.resolve(makeListResponse([
     { Name: 'googleads', Title: 'Google Ads Bank', ServiceCode: 'REST', ShortText: 'Not S4', State: 'ACTIVE' },
-  ]));
+  ])));
   const results = await searchApis('Bank');
   expect(results).toEqual([]);
 });
 
 test('searchApis degrades gracefully when map file is missing', async () => {
   fs.readFileSync.mockImplementation(() => { throw new Error('ENOENT'); });
-  fetch
-    .mockResolvedValueOnce(makeListResponse([
-      { Name: 'OP_BANK_0003', Title: 'Bank', ServiceCode: 'ODATAV4', ShortText: 'Bank master data', State: 'ACTIVE' },
-    ]))
-    .mockResolvedValueOnce(makeListResponse([]));
+  fetchQueue([
+    { Name: 'OP_BANK_0003', Title: 'Bank', ServiceCode: 'ODATAV4', ShortText: 'Bank master data', State: 'ACTIVE' },
+  ]);
 
   const results = await searchApis('Bank');
   expect(results).toHaveLength(1);
@@ -117,11 +120,9 @@ test('searchApis degrades gracefully when map file is missing', async () => {
 
 test('searchApis resolves sap-s4- prefixed map keys via normalization', async () => {
   mockSgnMap({ 'sap-s4-OP_BUDGETREQUESTDOCUMENT_0001-v1': { serviceGroupName: 'API_FNDSMGMTBUDGETREQUEST' } });
-  fetch
-    .mockResolvedValueOnce(makeListResponse([
-      { Name: 'OP_BUDGETREQUESTDOCUMENT_0001', Title: 'Manage Budget Request', ServiceCode: 'ODATAV4', ShortText: 'Budget', State: 'ACTIVE' },
-    ]))
-    .mockResolvedValueOnce(makeListResponse([]));
+  fetchQueue([
+    { Name: 'OP_BUDGETREQUESTDOCUMENT_0001', Title: 'Manage Budget Request', ServiceCode: 'ODATAV4', ShortText: 'Budget', State: 'ACTIVE' },
+  ]);
 
   const results = await searchApis('Budget');
   expect(results).toHaveLength(1);
@@ -133,12 +134,10 @@ test('searchApis resolves sap-s4- prefixed map keys via normalization', async ()
 
 test('listByModule FI returns S4 finance-related results', async () => {
   mockSgnMap({ 'OP_JOURNALENTRYBULKCREATIONREQUEST_IN': { serviceGroupName: 'API_JOURNALENTRY' } });
-  fetch
-    .mockResolvedValueOnce(makeListResponse([
-      { Name: 'OP_JOURNALENTRYBULKCREATIONREQUEST_IN', Title: 'Journal Entry', ServiceCode: 'ODATAV4', ShortText: 'Post journal entries', State: 'ACTIVE' },
-      { Name: 'some_non_s4', Title: 'GL Account External', ServiceCode: 'REST', ShortText: 'Third party', State: 'ACTIVE' },
-    ]))
-    .mockResolvedValueOnce(makeListResponse([]));
+  fetchQueue([
+    { Name: 'OP_JOURNALENTRYBULKCREATIONREQUEST_IN', Title: 'Journal Entry', ServiceCode: 'ODATAV4', ShortText: 'Post journal entries', State: 'ACTIVE' },
+    { Name: 'some_non_s4', Title: 'GL Account External', ServiceCode: 'REST', ShortText: 'Third party', State: 'ACTIVE' },
+  ]);
 
   const results = await listByModule('FI');
   expect(results.length).toBeGreaterThan(0);
@@ -154,12 +153,10 @@ test('listByModule throws for unknown module', async () => {
 
 test('getDetails returns exact match first', async () => {
   mockSgnMap({ 'OP_PURCHASEORDER_0001': { serviceGroupName: 'API_PURCHASEORDER_2' } });
-  fetch
-    .mockResolvedValueOnce(makeListResponse([
-      { Name: 'OP_PURCHASEORDER_0001',  Title: 'Purchase Order',              ServiceCode: 'ODATAV4', ShortText: 'Process purchase orders', State: 'ACTIVE' },
-      { Name: 'OP_PURCHASEORDER_CONFIRM_0001', Title: 'Purchase Order Confirmation', ServiceCode: 'ODATAV4', ShortText: 'Confirm orders', State: 'ACTIVE' },
-    ]))
-    .mockResolvedValueOnce(makeListResponse([]));
+  fetchQueue([
+    { Name: 'OP_PURCHASEORDER_0001',  Title: 'Purchase Order',              ServiceCode: 'ODATAV4', ShortText: 'Process purchase orders', State: 'ACTIVE' },
+    { Name: 'OP_PURCHASEORDER_CONFIRM_0001', Title: 'Purchase Order Confirmation', ServiceCode: 'ODATAV4', ShortText: 'Confirm orders', State: 'ACTIVE' },
+  ]);
 
   const result = await getDetails('Purchase Order');
   expect(result.title).toBe('Purchase Order');
@@ -168,7 +165,7 @@ test('getDetails returns exact match first', async () => {
 
 test('getDetails throws when not found', async () => {
   mockSgnMap({});
-  fetch.mockResolvedValue(makeListResponse([]));
+  fetch.mockImplementation(() => Promise.resolve(makeListResponse([])));
   await expect(getDetails('Nonexistent API')).rejects.toThrow('未找到');
 });
 

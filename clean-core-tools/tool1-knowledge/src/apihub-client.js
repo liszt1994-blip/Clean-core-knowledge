@@ -99,18 +99,29 @@ function _toRecord(r) {
   };
 }
 
-// 全量扫描 API Hub，只收集 S/4HANA PCE API（OP_ 或 sap-s4-OP_ 开头），过滤已废弃
+// 每批并发拉取的页数。API Hub 总量约 2500 条（~50 页），串行逐页拉满 60 页
+// 是主要耗时来源。分批并发可把 60 次串行往返压缩到约 10 批。
+const PAGE_BATCH = 6;
+
+// 全量扫描 API Hub，只收集 S/4HANA PCE API（OP_ 或 sap-s4-OP_ 开头），过滤已废弃。
+// 分批并发拉页：一次并发 PAGE_BATCH 页，若本批出现空页或不足页（说明已到末尾）则停止。
 async function _fetchAllS4Apis() {
   const all = [];
-  for (let page = 0; page < MAX_PAGES; page++) {
-    const results = await _fetchApisPage(page * PAGE_SIZE);
-    if (results.length === 0) break;
-    for (const r of results) {
-      if (_isS4Api(r.Name) && r.State !== 'DEPRECATED') {
-        all.push(r);
+  let reachedEnd = false;
+  for (let start = 0; start < MAX_PAGES && !reachedEnd; start += PAGE_BATCH) {
+    const batch = [];
+    for (let p = start; p < Math.min(start + PAGE_BATCH, MAX_PAGES); p++) {
+      batch.push(p);
+    }
+    const pages = await Promise.all(batch.map(page => _fetchApisPage(page * PAGE_SIZE)));
+    for (const results of pages) {
+      if (results.length === 0 || results.length < PAGE_SIZE) reachedEnd = true;
+      for (const r of results) {
+        if (_isS4Api(r.Name) && r.State !== 'DEPRECATED') {
+          all.push(r);
+        }
       }
     }
-    if (results.length < PAGE_SIZE) break;
   }
   return all;
 }
