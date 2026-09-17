@@ -118,7 +118,7 @@ module.exports = cds.service.impl(async function (srv) {
     if (!getAI()) return null;
     try {
       const raw = await getAI().complete(systemPromptFor(lang), buildSingleClassifyPrompt(objectName, lang));
-      const parsed = JSON.parse(raw.trim());
+      const parsed = JSON.parse(raw.trim().replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, ''));
       if (Array.isArray(parsed) && parsed.length > 0) {
         return { ...parsed[0], objectName, source: 'ai-inference' };
       }
@@ -137,6 +137,34 @@ module.exports = cds.service.impl(async function (srv) {
       }
     }
     return dest;
+  }
+
+  // For an object that is in the local JSON but has no successor recorded (and is
+  // not tier A/B), ask the AI for replacement recommendations. Returns
+  // { replacement, replacementType, note } on success, or null if the AI call
+  // fails or yields nothing. Shared by the chat "classify" and "code" branches.
+  async function fetchAiReplacement(name, lang, tag) {
+    try {
+      const raw = await getAI().complete(
+        systemPromptFor(lang),
+        buildRecommendPrompt(name, lang),
+        1024,
+      );
+      const cleaned = raw.trim()
+        .replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '')
+        .trim();
+      const recs = JSON.parse(cleaned);
+      if (Array.isArray(recs) && recs.length > 0) {
+        return {
+          replacement:     recs.map(r => r.replacementName).filter(Boolean).join(', '),
+          replacementType: recs[0].type || '',
+          note:            recs.map(r => r.migrationNote).filter(Boolean).join('\n'),
+        };
+      }
+    } catch (e) {
+      console.error(`[${tag}] AI replacement failed for ${name}:`, e.message);
+    }
+    return null;
   }
 
   // ── Tab 1: Concept Explanation ─────────────────────────────────────────
@@ -321,7 +349,7 @@ module.exports = cds.service.impl(async function (srv) {
             CLEAN_CORE_SYSTEM_PROMPT,
             buildSingleClassifyPrompt(name),
           );
-          const parsed = JSON.parse(raw.trim());
+          const parsed = JSON.parse(raw.trim().replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, ''));
           if (Array.isArray(parsed) && parsed.length > 0 && parsed[0].tier !== 'A') {
             results.push({
               objectName:      name,
@@ -541,7 +569,7 @@ module.exports = cds.service.impl(async function (srv) {
           buildIntentPrompt(message, mode),
           64,
         );
-        const parsed = JSON.parse(raw.trim());
+        const parsed = JSON.parse(raw.trim().replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, ''));
         intent = parsed.intent || 'general';
       } catch {
         intent = 'general';
@@ -619,23 +647,11 @@ module.exports = cds.service.impl(async function (srv) {
 
           // If no replacement in JSON and tier is not A/B, ask AI for recommendation
           if (!replacement && !isCompliant) {
-            try {
-              const raw = await getAI().complete(
-                systemPromptFor(lang),
-                buildRecommendPrompt(name, lang),
-                1024,
-              );
-              const cleaned = raw.trim()
-                .replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '')
-                .trim();
-              const recs = JSON.parse(cleaned);
-              if (Array.isArray(recs) && recs.length > 0) {
-                replacement = recs.map(r => r.replacementName).filter(Boolean).join(', ');
-                replacementType = recs[0].type || '';
-                note = recs.map(r => r.migrationNote).filter(Boolean).join('\n');
-              }
-            } catch (e) {
-              console.error(`[classify] AI replacement failed for ${name}:`, e.message);
+            const rec = await fetchAiReplacement(name, lang, 'classify');
+            if (rec) {
+              replacement = rec.replacement;
+              replacementType = rec.replacementType;
+              note = rec.note;
             }
           }
 
@@ -724,23 +740,11 @@ module.exports = cds.service.impl(async function (srv) {
 
           // If no replacement in JSON and tier is not A/B, ask AI for recommendation
           if (!replacement && !isCompliant) {
-            try {
-              const raw = await getAI().complete(
-                systemPromptFor(lang),
-                buildRecommendPrompt(name, lang),
-                1024,
-              );
-              const cleaned = raw.trim()
-                .replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '')
-                .trim();
-              const recs = JSON.parse(cleaned);
-              if (Array.isArray(recs) && recs.length > 0) {
-                replacement = recs.map(r => r.replacementName).filter(Boolean).join(', ');
-                replacementType = recs[0].type || '';
-                note = recs.map(r => r.migrationNote).filter(Boolean).join('\n');
-              }
-            } catch (e) {
-              console.error(`[code] AI replacement failed for ${name}:`, e.message);
+            const rec = await fetchAiReplacement(name, lang, 'code');
+            if (rec) {
+              replacement = rec.replacement;
+              replacementType = rec.replacementType;
+              note = rec.note;
             }
           }
 

@@ -85,6 +85,21 @@ class AICoreClient {
     return `${aiUrl}/v2/inference/deployments/${this.deploymentId}`;
   }
 
+  // Safely extract the model reply text from an orchestration /completion response.
+  // AI Core can return an unexpected shape on rate-limiting, content filtering, or
+  // service errors; a deep property access would throw an opaque "Cannot read
+  // properties of undefined" instead of a clear message.
+  static _extractContent(respData) {
+    const content = respData?.orchestration_result?.choices?.[0]?.message?.content;
+    if (typeof content !== 'string') {
+      throw new Error(
+        'SAP AI Core returned an unexpected response shape (no message content). ' +
+        'This usually indicates rate limiting, content filtering, or a service error.'
+      );
+    }
+    return content;
+  }
+
   /**
    * Call AI Core Orchestration /completion endpoint.
    * messages: array of { role: 'system'|'user'|'assistant', content: string }
@@ -115,7 +130,7 @@ class AICoreClient {
         timeout: 120000,
       }
     );
-    return resp.data.orchestration_result.choices[0].message.content;
+    return AICoreClient._extractContent(resp.data);
   }
 
   /**
@@ -194,7 +209,7 @@ class AICoreClient {
         timeout: 120000,
       }
     );
-    return resp.data.orchestration_result.choices[0].message.content;
+    return AICoreClient._extractContent(resp.data);
   }
 }
 
