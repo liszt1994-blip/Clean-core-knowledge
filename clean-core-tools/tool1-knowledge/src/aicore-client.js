@@ -49,7 +49,11 @@ class AICoreClient {
       throw new Error('VCAP_SERVICES environment variable is required for SAP AI Core');
     }
     const vcap = JSON.parse(vcapRaw);
-    this._creds = vcap.aicore[0].credentials;
+    const aicoreBinding = Array.isArray(vcap.aicore) ? vcap.aicore[0] : undefined;
+    if (!aicoreBinding || !aicoreBinding.credentials) {
+      throw new Error('No "aicore" service binding with credentials found in VCAP_SERVICES');
+    }
+    this._creds = aicoreBinding.credentials;
     this.deploymentId = process.env.AICORE_DEPLOYMENT_ID || 'd6efeabe29c1a3f6';
     this.model = process.env.AICORE_MODEL || 'anthropic--claude-4.6-sonnet';
     this.resourceGroup = process.env.AICORE_RESOURCE_GROUP || 'docgrp';

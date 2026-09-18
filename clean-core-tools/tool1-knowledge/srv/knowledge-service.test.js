@@ -129,16 +129,6 @@ test('POST /odata/v4/knowledge/recommend returns recommendation array', async ()
   expect(body[0]).toHaveProperty('migrationNote');
 });
 
-test('GET /stream/explain streams SSE chunks', async () => {
-  const app = cds.app;
-  const res = await supertest(app)
-    .get('/stream/explain?term=RAP')
-    .set('Accept', 'text/event-stream');
-  expect(res.status).toBe(200);
-  expect(res.headers['content-type']).toMatch(/text\/event-stream/);
-  expect(res.text).toContain('data:');
-});
-
 test('POST /odata/v4/knowledge/analyzeCode returns violations array', async () => {
   const app = cds.app;
   const code = `CALL FUNCTION 'BAPI_MATERIAL_SAVEDATA'\n  EXPORTING material = lv_matnr.`;

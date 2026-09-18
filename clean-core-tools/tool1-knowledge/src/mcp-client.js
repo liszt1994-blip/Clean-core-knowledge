@@ -1,9 +1,9 @@
 // tool1-knowledge/src/mcp-client.js
-// Client for the public MCP SAP Docs endpoint (JSON-RPC 2.0 over HTTP)
-// Endpoint: http://mcp-sap-docs.marianzeis.de/mcp
+// Client for the public MCP SAP Docs endpoint (JSON-RPC 2.0 over HTTPS)
+// Endpoint: https://mcp-sap-docs.marianzeis.de/mcp
 const axios = require('axios');
 
-const MCP_URL = 'http://mcp-sap-docs.marianzeis.de/mcp';
+const MCP_URL = process.env.MCP_SAP_DOCS_URL || 'https://mcp-sap-docs.marianzeis.de/mcp';
 let _rpcId = 1;
 
 async function callTool(toolName, args) {
@@ -52,7 +52,14 @@ async function callTool(toolName, args) {
     ? result.content.map(c => c.text || '').join('')
     : (result.content || '');
 
-  return JSON.parse(text);
+  try {
+    return JSON.parse(text);
+  } catch (_e) {
+    // Endpoint returned non-JSON (error page, empty body, or plain text).
+    // Surface a clear error so BTP-tab callers can degrade gracefully instead
+    // of propagating an opaque "Unexpected token" SyntaxError.
+    throw new Error(`MCP tool ${toolName} returned non-JSON content`);
+  }
 }
 
 /**

@@ -2,7 +2,6 @@
 const cds = require('@sap/cds');
 const { AICoreClient, CLEAN_CORE_SYSTEM_PROMPT, systemPromptFor } = require('../src/aicore-client');
 const { ClassificationClient } = require('../src/classification-client');
-const { DestinationClient } = require('../src/destination-client');
 const { searchHelpPortal } = require('../src/sap-help-search');
 const { searchApis, listByModule } = require('../src/apihub-client');
 const { buildGraphFromAdt, fetchDdl, parseDdl } = require('../src/adt-client');
@@ -15,7 +14,6 @@ const {
   buildRecommendPrompt,
   buildTranslateQueryPrompt,
   buildRerankPrompt,
-  buildNoteSummaryFromContentPrompt,
   buildAnalyzeCodePrompt,
   buildAnalyzeAtcPrompt,
   buildIntentPrompt,
@@ -86,7 +84,6 @@ module.exports = cds.service.impl(async function (srv) {
   // Lazy-init singletons: constructed on first request so env vars are loaded
   let ai;
   let clf;
-  let dest;
 
   function getAI() {
     if (!ai) {
@@ -106,7 +103,7 @@ module.exports = cds.service.impl(async function (srv) {
   async function classifyWithGrounding(objectName, lang = 'zh') {
     // Step 1: remote/local JSON lookup (SAP official release data)
     await getClassifier().ready();
-    const localResult = getClassifier().lookup(objectName);
+    const localResult = getClassifier().lookup(objectName, '', lang);
     if (localResult) {
       return {
         objectName,
@@ -181,17 +178,6 @@ module.exports = cds.service.impl(async function (srv) {
     return null;
   }
 
-  function getDestination() {
-    if (!dest) {
-      try {
-        dest = new DestinationClient();
-      } catch (e) {
-        return null; // Destination service not configured — graceful degradation
-      }
-    }
-    return dest;
-  }
-
   // For an object that is in the local JSON but has no successor recorded (and is
   // not tier A/B), ask the AI for replacement recommendations. Returns
   // { replacement, replacementType, note } on success, or null if the AI call
@@ -247,7 +233,7 @@ module.exports = cds.service.impl(async function (srv) {
     // AI latency instead of N x latency (each completion is ~9s serial).
     const results = await Promise.all(objects.map(async (objectName) => {
       const name = objectName.trim().toUpperCase();
-      const info = getClassifier().lookup(name);
+      const info = getClassifier().lookup(name, '', lang);
 
       if (info) {
         // ── Hit: build response from authoritative JSON data ──────────
@@ -305,7 +291,7 @@ module.exports = cds.service.impl(async function (srv) {
     }
 
     const name = deprecatedObject.trim().toUpperCase();
-    const info = getClassifier().lookup(name);
+    const info = getClassifier().lookup(name, '', lang);
 
     if (info && info.allSuccessors.length > 0) {
       // We have official successors — ask AI only for migration notes

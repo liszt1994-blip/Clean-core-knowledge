@@ -137,19 +137,6 @@ function buildRerankPrompt(originalQuery, candidates) {
 }
 
 
-// Used when DestinationClient successfully fetched the Note page text.
-function buildNoteSummaryFromContentPrompt(noteNumber, rawContent) {
-  return (
-    `The following is the extracted text content from SAP Note ${noteNumber}:\n\n` +
-    `---\n${rawContent}\n---\n\n` +
-    `Based on this actual Note content, provide a JSON object with:\n` +
-    `- title        (string: the Note title)\n` +
-    `- summary      (string: 3-5 sentences summarizing what this Note covers, the problem it addresses, and how it helps)\n` +
-    `- releaseDate  (string: release or validity date if mentioned, otherwise "")\n\n` +
-    `Return ONLY a JSON object with no markdown fences.`
-  );
-}
-
 // ── Agent chat: intent detection ──────────────────────────────────────────
 function buildIntentPrompt(message, mode) {
   return (
@@ -595,7 +582,6 @@ module.exports = {
   buildRecommendPrompt,
   buildTranslateQueryPrompt,
   buildRerankPrompt,
-  buildNoteSummaryFromContentPrompt,
   buildIntentPrompt,
   buildAnalyzeCodePrompt,
   buildAnalyzeAtcPrompt,

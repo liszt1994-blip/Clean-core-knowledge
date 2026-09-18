@@ -45,13 +45,32 @@ const STATE_TO_TIER = {
   noAPI:            'D',
 };
 
-// Human-readable state descriptions
+// Human-readable state descriptions (bilingual). isEn(lang) picks the language
+// the same way the rest of the app does: any lang starting with 'en' → English.
+function _isEn(lang) {
+  return String(lang || '').toLowerCase().startsWith('en');
+}
 const STATE_DESCRIPTION = {
-  released:         'Released API (C1) — safe to use in ABAP Cloud',
-  deprecated:       'Deprecated — official successor exists, migration required',
-  notToBeReleased:  'Not to be released — use official successor or side-by-side extension',
-  classicAPI:       'Classic API — not released for ABAP Cloud, migration required',
-  noAPI:            'No API available — direct table/object access forbidden in cloud',
+  released: {
+    en: 'Released API (C1) — safe to use in ABAP Cloud',
+    zh: '已发布 API（C1）——可安全用于 ABAP Cloud',
+  },
+  deprecated: {
+    en: 'Deprecated — official successor exists, migration required',
+    zh: '已废弃——存在官方后继对象，需迁移',
+  },
+  notToBeReleased: {
+    en: 'Not to be released — use official successor or side-by-side extension',
+    zh: '不会发布——请使用官方后继对象或旁路扩展',
+  },
+  classicAPI: {
+    en: 'Classic API — not released for ABAP Cloud, migration required',
+    zh: '经典 API——未面向 ABAP Cloud 发布，需迁移',
+  },
+  noAPI: {
+    en: 'No API available — direct table/object access forbidden in cloud',
+    zh: '无可用 API——云端禁止直接访问表/对象',
+  },
 };
 
 
@@ -148,7 +167,7 @@ class ClassificationClient {
    *   appComponent:    string,
    * }
    */
-  lookup(deprecatedName, oldType = '') {
+  lookup(deprecatedName, oldType = '', lang = 'zh') {
     const index = this._loadReleaseIndex();
     const classes = this._loadClassifications();
 
@@ -185,7 +204,10 @@ class ClassificationClient {
     // Prefer release state; fall back to classification state
     const effectiveState = relState || clsState;
     const tier = STATE_TO_TIER[effectiveState] || 'B';
-    const tierDescription = STATE_DESCRIPTION[effectiveState] || `State: ${effectiveState}`;
+    const descEntry = STATE_DESCRIPTION[effectiveState];
+    const tierDescription = descEntry
+      ? (_isEn(lang) ? descEntry.en : descEntry.zh)
+      : (_isEn(lang) ? `State: ${effectiveState}` : `状态：${effectiveState}`);
 
     // Merge metadata from both sources (release file takes priority)
     const sourceItem = item || classification;
