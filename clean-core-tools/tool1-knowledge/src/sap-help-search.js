@@ -9,27 +9,45 @@ const HELP_SEARCH_URL = 'https://help.sap.com/api-gateway-direct/search/api/sear
 const HELP_BASE_URL   = 'https://help.sap.com';
 const DEFAULT_TOP = 8;
 
-/**
- * Returns true if the string is predominantly English (ASCII + common punctuation).
- * Rejects titles where more than 10% of characters are non-ASCII (CJK, Cyrillic, etc.).
- */
-function isEnglish(text) {
-  if (!text) return false;
-  const nonAscii = (text.match(/[^\x00-\x7F]/g) || []).length;
-  return nonAscii / text.length <= 0.1;
+// Fraction of CJK characters above which a string is considered "Chinese".
+const CJK_RE = /[\u3400-\u9FFF\uF900-\uFAFF\uFF00-\uFFEF]/g;
+
+function cjkRatio(text) {
+  if (!text) return 0;
+  return (text.match(CJK_RE) || []).length / text.length;
+}
+
+// Map the UI target language to the Help Portal `language` request field.
+function helpLanguageFor(lang) {
+  return String(lang || '').toLowerCase().startsWith('zh') ? 'zh-CN' : 'en-US';
+}
+
+// A result belongs to the target language when its human-readable text
+// (title + summary) is in that language. We key on CJK content specifically
+// (not all non-ASCII), so English rows containing ™, ®, é, — are still kept.
+// - en UI: drop rows whose title OR summary is predominantly CJK.
+// - zh UI: keep rows whose title or summary actually contains CJK, dropping
+//   pure-English rows so the zh UI never shows English-only descriptions.
+function matchesLanguage(item, lang) {
+  const isZh = String(lang || '').toLowerCase().startsWith('zh');
+  if (isZh) {
+    return cjkRatio(item.title) > 0.1 || cjkRatio(item.summary) > 0.1;
+  }
+  return cjkRatio(item.title) <= 0.1 && cjkRatio(item.summary) <= 0.1;
 }
 
 /**
  * Search SAP Help Portal.
- * Returns array of { title, url, summary, product, date }
+ * Returns array of { title, url, summary, product, date }, filtered so every
+ * field is in the target language (lang: 'en' | 'zh').
  */
-async function searchHelpPortal(query, top = DEFAULT_TOP) {
+async function searchHelpPortal(query, top = DEFAULT_TOP, lang = 'en') {
   const resp = await axios.post(
     HELP_SEARCH_URL,
     {
       query:      query,
       searchType: 'STANDARD',
-      language:   'en-US',
+      language:   helpLanguageFor(lang),
       state:      'PRODUCTION',
       top:        top,
     },
@@ -59,7 +77,7 @@ async function searchHelpPortal(query, top = DEFAULT_TOP) {
       };
     })
     .filter(item => item.title && item.url)
-    .filter(item => isEnglish(item.title))
+    .filter(item => matchesLanguage(item, lang))
     .sort((a, b) => b.score - a.score);
 }
 

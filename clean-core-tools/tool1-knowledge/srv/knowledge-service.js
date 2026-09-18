@@ -29,6 +29,14 @@ const {
   buildBtpMcpAnswerPrompt,
 } = require('./prompts');
 
+// Detect Chinese (CJK) characters. Used to guard English-language responses:
+// the AI occasionally drifts back to Chinese on long generations even when the
+// system + user prompts both ask for English, so callers re-request once.
+const CJK_TEST_RE = /[\u3400-\u9FFF\uF900-\uFAFF]/;
+function hasCjk(text) {
+  return CJK_TEST_RE.test(String(text || ''));
+}
+
 module.exports = cds.service.impl(async function (srv) {
   // Lazy-init singletons: constructed on first request so env vars are loaded
   let ai;
@@ -306,7 +314,7 @@ module.exports = cds.service.impl(async function (srv) {
 
   // ── analyzeCode: extract non-compliant objects from ABAP code ─────────────
   srv.on('analyzeCode', async (req) => {
-    const { code } = req.data;
+    const { code, lang = 'zh' } = req.data;
     if (!code || !code.trim()) return req.error(400, 'code is required');
     if (!getAI()) return req.error(503, 'AI Core 未配置，无法分析代码。请检查 VCAP_SERVICES 配置。');
 
@@ -323,15 +331,18 @@ module.exports = cds.service.impl(async function (srv) {
       return req.error(502, 'AI failed to analyze code');
     }
 
-    // Step 2: classify each found object via local JSON first, AI fallback
+    // Step 2: classify each found object. Local JSON is instant; unknown objects
+    // need an AI call. Split the two paths so the (slow) AI classifications can
+    // run concurrently instead of serially blocking each other.
     const results = [];
+    const unknownRefs = [];
     for (const ref of rawRefs) {
       const name = (ref.objectName || '').trim().toUpperCase();
       if (!name) continue;
       const info = getClassifier().lookup(name);
       if (info && info.tier !== 'A') {
-        // A and B tiers: do not show replacement suggestions
-        const isCompliant = info.tier === 'A' || info.tier === 'B';
+        // B tier: compliant, no replacement suggestion needed
+        const isCompliant = info.tier === 'B';
         results.push({
           objectName:      name,
           tier:            info.tier,
@@ -343,30 +354,40 @@ module.exports = cds.service.impl(async function (srv) {
           note:            info.note || '',
         });
       } else if (!info) {
-        // AI fallback for unknown objects
-        try {
-          const raw = await getAI().complete(
-            CLEAN_CORE_SYSTEM_PROMPT,
-            buildSingleClassifyPrompt(name),
-          );
-          const parsed = JSON.parse(raw.trim().replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, ''));
-          if (Array.isArray(parsed) && parsed.length > 0 && parsed[0].tier !== 'A') {
-            results.push({
-              objectName:      name,
-              tier:            parsed[0].tier || 'unknown',
-              state:           parsed[0].state || 'unknown',
-              line:            ref.line || 0,
-              callType:        ref.callType || '',
-              replacement:     '',
-              replacementType: '',
-              note:            '',
-            });
-          }
-        } catch {
-          // skip objects where AI also fails
-        }
+        // Unknown — defer to a concurrent AI classification batch below
+        unknownRefs.push({ name, ref });
       }
       // Tier A objects are compliant — skip them
+    }
+
+    // Run all unknown-object AI classifications in parallel.
+    const aiResults = await Promise.all(unknownRefs.map(async ({ name, ref }) => {
+      try {
+        const raw = await getAI().complete(
+          systemPromptFor(lang),
+          buildSingleClassifyPrompt(name, lang),
+        );
+        const parsed = JSON.parse(raw.trim().replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, ''));
+        if (Array.isArray(parsed) && parsed.length > 0 && parsed[0].tier !== 'A') {
+          return {
+            objectName:      name,
+            tier:            parsed[0].tier || 'unknown',
+            state:           parsed[0].state || 'unknown',
+            line:            ref.line || 0,
+            callType:        ref.callType || '',
+            replacement:     '',
+            replacementType: '',
+            note:            '',
+            source:          'ai-inference',
+          };
+        }
+      } catch {
+        // skip objects where AI also fails
+      }
+      return null;
+    }));
+    for (const r of aiResults) {
+      if (r) results.push(r);
     }
     return results;
   });
@@ -460,12 +481,20 @@ module.exports = cds.service.impl(async function (srv) {
     }
     if (!getAI()) return req.error(503, 'AI Core 未配置，无法生成迁移规划。请检查 VCAP_SERVICES 配置。');
 
-    // plan must NOT use grounding — the strict JSON format gets broken by the grounding template
-    const raw = await getAI().complete(
-      systemPromptFor(lang),
-      buildPlanPrompt(objectName.trim().toUpperCase(), lang),
-      4000
-    );
+    // plan must NOT use grounding — the strict JSON format gets broken by the grounding template.
+    // Cap output tokens: the JSON has few fields and a short code snippet, so a lower
+    // ceiling keeps latency down (AI Core is non-streaming — latency scales with output length).
+    const planSys = systemPromptFor(lang);
+    const planUser = buildPlanPrompt(objectName.trim().toUpperCase(), lang);
+    let raw = await getAI().complete(planSys, planUser, 2000);
+
+    // Language-purity guard: in English mode the model sometimes drifts back to
+    // Chinese on long output. Re-request once if we detect CJK; keep only one
+    // retry so a persistently-drifting response never doubles latency unbounded.
+    if (String(lang).toLowerCase().startsWith('en') && hasCjk(raw)) {
+      const retry = await getAI().complete(planSys, planUser, 2000);
+      if (!hasCjk(retry)) raw = retry;
+    }
 
     // AI sometimes emits real newlines inside the codeExample JSON string value, breaking JSON.parse.
     // Walk the string char-by-char to find the codeExample value boundaries and fix only real newlines,
@@ -737,13 +766,16 @@ module.exports = cds.service.impl(async function (srv) {
       } catch { /* fall through with empty */ }
 
       const violations = [];
-      for (const ref of rawRefs) {
+      // Build per-object tasks. Local-JSON hits resolve instantly; objects that
+      // need an AI call (missing replacement, or unknown object) are awaited
+      // concurrently so N slow AI calls cost ~1 call's latency, not N serial ones.
+      const tasks = rawRefs.map(async (ref) => {
         const name = (ref.objectName || '').trim().toUpperCase();
-        if (!name) continue;
+        if (!name) return null;
         const info = getClassifier().lookup(name);
         if (info && info.tier !== 'A') {
-          // A and B tiers: do not suggest replacements
-          const isCompliant = info.tier === 'A' || info.tier === 'B';
+          // B tier: compliant, no replacement suggestion needed
+          const isCompliant = info.tier === 'B';
           let replacement = isCompliant ? '' : (info.replacement || '');
           let replacementType = isCompliant ? '' : (info.replacementType || '');
           let note = info.note || '';
@@ -758,7 +790,7 @@ module.exports = cds.service.impl(async function (srv) {
             }
           }
 
-          violations.push({
+          return {
             objectName:      name,
             tier:            info.tier,
             state:           info.state || info.clsState,
@@ -767,18 +799,19 @@ module.exports = cds.service.impl(async function (srv) {
             replacement,
             replacementType,
             note,
-          });
+          };
         } else if (!info) {
-          // Not in local JSON — AI fallback for tier + replacement
+          // Not in local JSON — AI fallback for tier + replacement (pass lang so
+          // the explanation text matches the UI language).
           try {
             const raw = await getAI().complete(
-              CLEAN_CORE_SYSTEM_PROMPT,
-              buildSingleClassifyPrompt(name),
+              systemPromptFor(lang),
+              buildSingleClassifyPrompt(name, lang),
               512,
             );
             const parsed = JSON.parse(raw.trim().replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, ''));
             if (Array.isArray(parsed) && parsed.length > 0 && parsed[0].tier !== 'A') {
-              violations.push({
+              return {
                 objectName:      name,
                 tier:            parsed[0].tier || 'unknown',
                 state:           parsed[0].state || 'unknown',
@@ -787,13 +820,18 @@ module.exports = cds.service.impl(async function (srv) {
                 replacement:     parsed[0].recommendation || '',
                 replacementType: '',
                 note:            parsed[0].explanation || '',
-              });
+              };
             }
           } catch {
             // skip objects where AI also fails
           }
         }
         // Tier A objects are compliant — skip them
+        return null;
+      });
+
+      for (const v of await Promise.all(tasks)) {
+        if (v) violations.push(v);
       }
 
       if (violations.length === 0) {
@@ -820,10 +858,8 @@ module.exports = cds.service.impl(async function (srv) {
           const raw = await getAI().complete(
             CLEAN_CORE_SYSTEM_PROMPT,
             buildRewriteCodePrompt(message, violations),
-            8192,
+            4096,
           );
-          console.log('[rewrite] raw length:', raw ? raw.length : 0);
-          console.log('[rewrite] raw FULL:\n', raw);
 
           if (!raw || !raw.trim()) {
             console.error('[rewrite] AI returned empty response');
@@ -844,13 +880,11 @@ module.exports = cds.service.impl(async function (srv) {
               if (m) {
                 const rewrit = m[1].replace(/\\n/g, '\n').replace(/\\"/g, '"').replace(/\\\\/g, '\\');
                 rw = { rewritten: rewrit };
-                console.log('[rewrite] regex extraction succeeded, rewritten length:', rewrit.length);
               }
             }
 
             if (rw && rw.rewritten) {
               rewriteRewritten = rw.rewritten;
-              console.log('[rewrite] success, rewritten length:', rewriteRewritten.length);
             } else {
               console.error('[rewrite] rewritten field empty or missing. text:\n', text.slice(0, 500));
             }
@@ -952,10 +986,14 @@ module.exports = cds.service.impl(async function (srv) {
       return req.error(400, 'query is required');
     }
 
-    // Step 1: Translate to English only if query contains non-ASCII (e.g. Chinese)
-    const needsTranslation = /[^\x00-\x7F]/.test(query);
-    let englishQuery = query.trim();
-    if (needsTranslation) {
+    // Step 1: pick the search query per target language.
+    // - zh UI: search Chinese content with the original query (no translation,
+    //   which also saves a ~8s AI round-trip).
+    // - en UI: translate to English only if the query contains non-ASCII, so we
+    //   query English content with an English keyword.
+    const isZh = String(lang).toLowerCase().startsWith('zh');
+    let searchQuery = query.trim();
+    if (!isZh && /[^\x00-\x7F]/.test(query)) {
       try {
         const translated = await getAI().complete(
           CLEAN_CORE_SYSTEM_PROMPT,
@@ -963,18 +1001,19 @@ module.exports = cds.service.impl(async function (srv) {
           128,
         );
         const t = translated.trim();
-        if (t && t.length > 0 && t.length < 300) englishQuery = t;
+        if (t && t.length > 0 && t.length < 300) searchQuery = t;
       } catch {
         // translation failed — use original query
       }
     }
 
-    // Step 2: Call SAP Help Portal search API — fetch more candidates for re-ranking
+    // Step 2: Call SAP Help Portal search API in the target language — fetch
+    // more candidates for re-ranking. Results are already language-filtered.
     let helpResults = [];
     try {
-      helpResults = await searchHelpPortal(englishQuery, 30);
+      helpResults = await searchHelpPortal(searchQuery, 30, lang);
     } catch (err) {
-      // Help Portal unavailable
+      console.warn('SAP Help Portal search failed:', err.message);
     }
 
     if (helpResults.length === 0) {
@@ -1013,7 +1052,7 @@ module.exports = cds.service.impl(async function (srv) {
       contentSource:    'help-portal',
       confidence:       'high',
       confidenceReason: item.product || 'SAP Help Portal',
-      englishQuery:     englishQuery,
+      englishQuery:     searchQuery,
     }));
   });
 

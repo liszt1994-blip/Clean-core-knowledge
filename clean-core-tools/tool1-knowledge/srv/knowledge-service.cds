@@ -60,7 +60,7 @@ service KnowledgeService {
   };
 
   // ── Internal helpers exposed for direct testing ───────────────────────────
-  action analyzeCode(code : String) returns array of {
+  action analyzeCode(code : String, lang : String) returns array of {
     objectName      : String;
     tier            : String;
     state           : String;

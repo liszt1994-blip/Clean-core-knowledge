@@ -556,10 +556,10 @@ function buildPlanPrompt(objectName, lang = 'zh') {
       `- riskLevel       (string: "Low" | "Medium" | "High" — migration complexity risk)\n` +
       `- effortEstimate  (string: estimated effort, e.g. "2-3 days", "1 week")\n` +
       `- steps           (string: a JSON array string, each element has { "step": number, "description": string })\n` +
-      `- codeExample     (string: ABAP code snippet. CRITICAL: escape ALL double-quotes as \\\\", escape ALL newlines as \\\\n, escape ALL backslashes as \\\\\\\\. The entire value must be a valid JSON string.)\n` +
+      `- codeExample     (string: a SHORT ABAP snippet, at most ~15 lines, showing only the key replacement call — NOT a full class. CRITICAL: escape ALL double-quotes as \\\\", escape ALL newlines as \\\\n, escape ALL backslashes as \\\\\\\\. The entire value must be a valid JSON string.)\n` +
       `- summary         (string: one sentence summarizing the migration in English)\n\n` +
       `Rules:\n` +
-      `- steps must contain 3-5 concrete, actionable migration steps\n` +
+      `- steps must contain 3-5 concrete, actionable migration steps, each description one sentence\n` +
       `- codeExample: use single-line format with \\\\n for line breaks, NO raw newlines inside the JSON string value\n` +
       `- All text fields (riskLevel, summary, step descriptions) must be in English\n` +
       `- The steps field value must itself be a valid JSON array serialized as a string\n` +
@@ -575,10 +575,10 @@ function buildPlanPrompt(objectName, lang = 'zh') {
     `- riskLevel       (string: "低" | "中" | "高" — migration complexity risk)\n` +
     `- effortEstimate  (string: estimated effort, e.g. "2-3 天", "1 周")\n` +
     `- steps           (string: a JSON array string, each element has { "step": number, "description": string })\n` +
-    `- codeExample     (string: ABAP code snippet. CRITICAL: escape ALL double-quotes as \\\\", escape ALL newlines as \\\\n, escape ALL backslashes as \\\\\\\\. The entire value must be a valid JSON string.)\n` +
+    `- codeExample     (string: a SHORT ABAP snippet, at most ~15 lines, showing only the key replacement call — NOT a full class. CRITICAL: escape ALL double-quotes as \\\\", escape ALL newlines as \\\\n, escape ALL backslashes as \\\\\\\\. The entire value must be a valid JSON string.)\n` +
     `- summary         (string: one sentence summarizing the migration in Chinese)\n\n` +
     `Rules:\n` +
-    `- steps must contain 3-5 concrete, actionable migration steps\n` +
+    `- steps must contain 3-5 concrete, actionable migration steps, each description one sentence\n` +
     `- codeExample: use single-line format with \\\\n for line breaks, NO raw newlines inside the JSON string value\n` +
     `- All text fields (riskLevel, summary, step descriptions) must be in Chinese\n` +
     `- The steps field value must itself be a valid JSON array serialized as a string\n` +
