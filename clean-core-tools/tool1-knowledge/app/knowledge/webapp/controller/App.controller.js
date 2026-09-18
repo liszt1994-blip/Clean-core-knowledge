@@ -1462,7 +1462,6 @@ sap.ui.define([
           var reply = data.value || data;
           try { reply.violations = JSON.parse(reply.violations || '[]'); } catch (e) { reply.violations = []; }
           try { reply.notes = JSON.parse(reply.notes || '[]'); } catch (e) { reply.notes = []; }
-          console.log('[rewrite] rewriteRewritten length:', reply.rewriteRewritten ? reply.rewriteRewritten.length : 0);
           if (reply.rewriteRewritten) {
             reply.rewrite = { original: reply.rewriteOriginal || message, rewritten: reply.rewriteRewritten };
           } else {
@@ -1606,10 +1605,23 @@ sap.ui.define([
       var hasRewritableViolations = Array.isArray(reply.violations) && reply.violations.some(function (v) {
         return v.tier !== 'A' && v.tier !== 'B';
       });
-      if (hasRewritableViolations && reply.rewrite && reply.rewrite.rewritten) {
-        var diffPanel = this._buildCodeDiffPanel(reply.rewrite);
-        diffPanel.addStyleClass('sapUiSmallMarginBottom');
-        histVBox.addItem(diffPanel);
+      if (hasRewritableViolations) {
+        if (reply.rewrite && reply.rewrite.rewritten) {
+          // Rewrite already present (e.g. eager path) — render the diff directly.
+          var diffPanel = this._buildCodeDiffPanel(reply.rewrite);
+          diffPanel.addStyleClass('sapUiSmallMarginBottom');
+          histVBox.addItem(diffPanel);
+        } else {
+          // Lazy path: rewrite is deferred. Render a button that fetches the
+          // rewrite on demand so the first screen stays fast.
+          var originalCode = reply.rewriteOriginal || '';
+          var rewritableViolations = reply.violations.filter(function (v) {
+            return v.tier !== 'A' && v.tier !== 'B';
+          });
+          var rewriteBtn = this._buildRewriteButton(originalCode, rewritableViolations, histVBox);
+          rewriteBtn.addStyleClass('sapUiSmallMarginBottom');
+          histVBox.addItem(rewriteBtn);
+        }
       }
 
       var summary = replyType === 'violations'
@@ -1703,6 +1715,65 @@ sap.ui.define([
         headerToolbar: new Toolbar({ content: [headerBox] }),
         content: [new VBox({ items: details }).addStyleClass('sapUiSmallMargin')]
       }).addStyleClass('sapUiSmallMarginBottom');
+    },
+
+    // Lazy rewrite: renders a button that fetches the rewrite on demand and
+    // swaps itself for the diff panel. Keeps the first screen (violations) fast.
+    _buildRewriteButton: function (originalCode, violations, histVBox) {
+      var that = this;
+      var b = this._bundle;
+
+      var btn = new Button({
+        text: b.getText('diff.generateBtn'),
+        icon: 'sap-icon://synchronize',
+        type: 'Emphasized',
+        press: function () {
+          btn.setEnabled(false);
+          btn.setText(b.getText('diff.generating'));
+          btn.setBusy(true);
+          fetch('/odata/v4/knowledge/rewriteCode', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              code: originalCode,
+              violations: violations.map(function (v) {
+                return {
+                  objectName: v.objectName,
+                  replacement: v.replacement,
+                  replacementType: v.replacementType
+                };
+              }),
+              lang: that._lang()
+            })
+          })
+            .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+            .then(function (data) {
+              var result = data.value || data;
+              var diffPanel = that._buildCodeDiffPanel({
+                original: result.original || originalCode,
+                rewritten: result.rewritten || ''
+              });
+              diffPanel.addStyleClass('sapUiSmallMarginBottom');
+              var idx = histVBox.indexOfItem(btn);
+              histVBox.removeItem(btn);
+              btn.destroy();
+              if (idx >= 0) {
+                histVBox.insertItem(diffPanel, idx);
+              } else {
+                histVBox.addItem(diffPanel);
+              }
+              that._scrollToBottom();
+            })
+            .catch(function (err) {
+              btn.setBusy(false);
+              btn.setEnabled(true);
+              btn.setText(b.getText('diff.generateBtn'));
+              MessageBox.error(that._bundle.getText('chat.requestFailed') + err.message);
+            });
+        }
+      });
+
+      return btn;
     },
 
     _buildCodeDiffPanel: function (rewrite) {

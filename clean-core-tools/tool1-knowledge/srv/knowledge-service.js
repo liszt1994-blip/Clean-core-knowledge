@@ -446,7 +446,7 @@ module.exports = cds.service.impl(async function (srv) {
 
   // ── rewriteCode: rewrite ABAP code to Clean Core compliant version ────────
   srv.on('rewriteCode', async (req) => {
-    const { code, violations } = req.data;
+    const { code, violations, lang = 'zh' } = req.data;
     if (!code || !code.trim()) return req.error(400, 'code is required');
     if (!violations || violations.length === 0) {
       return { original: code, rewritten: code };
@@ -454,23 +454,34 @@ module.exports = cds.service.impl(async function (srv) {
     if (!getAI()) return req.error(503, 'AI Core 未配置，无法重写代码。请检查 VCAP_SERVICES 配置。');
 
     const raw = await getAI().complete(
-      CLEAN_CORE_SYSTEM_PROMPT,
+      systemPromptFor(lang),
       buildRewriteCodePrompt(code, violations),
       4096,
     );
 
-    let parsed;
+    if (!raw || !raw.trim()) return req.error(502, 'AI returned empty response for rewrite');
+
+    const text = raw.trim()
+      .replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '')
+      .trim();
+
+    let rewritten = '';
     try {
-      const text = raw.trim().replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '');
-      parsed = JSON.parse(text);
+      const parsed = JSON.parse(text);
+      rewritten = parsed.rewritten || '';
     } catch {
-      return req.error(502, 'AI returned invalid JSON for rewrite');
+      // Regex fallback: the AI often emits real newlines inside the "rewritten"
+      // code value, which breaks strict JSON.parse. Extract the value directly
+      // and unescape it.
+      const m = text.match(/"rewritten"\s*:\s*"([\s\S]*?)(?<!\\)"(?=\s*[,}])/);
+      if (m) {
+        rewritten = m[1].replace(/\\n/g, '\n').replace(/\\"/g, '"').replace(/\\\\/g, '\\');
+      }
     }
 
-    return {
-      original:  parsed.original  || code,
-      rewritten: parsed.rewritten || code,
-    };
+    if (!rewritten) return req.error(502, 'AI returned invalid JSON for rewrite');
+
+    return { original: code, rewritten };
   });
 
   // ── Feature 6: Migration Path Planning ────────────────────────────────────
@@ -848,51 +859,11 @@ module.exports = cds.service.impl(async function (srv) {
         };
       }
 
-      // Generate rewrite — skip if all violations are A/B tier (no replacements to apply)
-      const needsRewrite = violations.some(v => v.tier !== 'A' && v.tier !== 'B');
+      // Rewrite is lazy-loaded: the first screen returns violations only (fast).
+      // The frontend renders a "generate rewrite" button that calls the
+      // rewriteCode action on demand, keeping first-screen latency low.
       // rewriteOriginal always comes from message directly (saves tokens, avoids truncation)
-      let rewriteOriginal = message;
-      let rewriteRewritten = '';
-      if (needsRewrite) {
-        try {
-          const raw = await getAI().complete(
-            CLEAN_CORE_SYSTEM_PROMPT,
-            buildRewriteCodePrompt(message, violations),
-            4096,
-          );
-
-          if (!raw || !raw.trim()) {
-            console.error('[rewrite] AI returned empty response');
-          } else {
-            // Strip markdown fences
-            let text = raw.trim()
-              .replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '')
-              .trim();
-
-            // Try JSON.parse first
-            let rw = null;
-            try {
-              rw = JSON.parse(text);
-            } catch (parseErr) {
-              console.error('[rewrite] JSON.parse failed:', parseErr.message, '— trying regex extraction');
-              // Regex fallback: extract "rewritten" field handling real newlines in value
-              const m = text.match(/"rewritten"\s*:\s*"([\s\S]*?)(?<!\\)"(?=\s*[,}])/);
-              if (m) {
-                const rewrit = m[1].replace(/\\n/g, '\n').replace(/\\"/g, '"').replace(/\\\\/g, '\\');
-                rw = { rewritten: rewrit };
-              }
-            }
-
-            if (rw && rw.rewritten) {
-              rewriteRewritten = rw.rewritten;
-            } else {
-              console.error('[rewrite] rewritten field empty or missing. text:\n', text.slice(0, 500));
-            }
-          }
-        } catch (e) {
-          console.error('[rewrite] outer catch:', e.message);
-        }
-      }
+      const rewriteOriginal = message;
 
       return {
         replyType: 'violations',
@@ -901,7 +872,7 @@ module.exports = cds.service.impl(async function (srv) {
           : `发现 ${violations.length} 个 Clean Core 违规对象：`,
         violations: JSON.stringify(violations),
         rewriteOriginal,
-        rewriteRewritten,
+        rewriteRewritten: '',
         notes: JSON.stringify([]),
         sourceType: 'ai-core',
       };

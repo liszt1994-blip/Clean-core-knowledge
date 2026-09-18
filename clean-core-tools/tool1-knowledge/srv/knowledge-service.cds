@@ -86,6 +86,7 @@ service KnowledgeService {
 
   action rewriteCode(
     code       : String,
+    lang       : String,
     violations : array of {
       objectName      : String;
       replacement     : String;
