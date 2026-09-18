@@ -1198,7 +1198,7 @@ module.exports = cds.service.impl(async function (srv) {
     if (intent === 'guide') {
       let apiResults = [];
       try {
-        apiResults = await searchSapApis(domain, scenario, 8);
+        apiResults = await searchSapApis(domain, scenario, 8, lang);
       } catch (err) {
         console.warn('[btpUnified] API search failed:', err.message);
       }
