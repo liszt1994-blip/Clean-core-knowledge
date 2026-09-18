@@ -493,7 +493,7 @@ sap.ui.define([
       fetch('/odata/v4/knowledge/analyzeCds', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ viewName: viewName }),
+        body: JSON.stringify({ viewName: viewName, lang: this._lang() }),
       })
         .then(function (res) {
           if (!res.ok) return res.json().then(function (e) { throw new Error(e.error && e.error.message || 'error'); });
@@ -528,6 +528,7 @@ sap.ui.define([
 
     _renderGraph: function (graphData) {
       var b = this._bundle;
+      var graphLang = this._lang();
       // 停止旧 simulation 防止 CPU 泄漏
       if (this._graphSimulation) {
         this._graphSimulation.stop();
@@ -699,7 +700,7 @@ sap.ui.define([
         fetch('/odata/v4/knowledge/analyzeCds', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ viewName: viewName, parentViewName: '_lazy_' }),
+          body: JSON.stringify({ viewName: viewName, parentViewName: '_lazy_', lang: graphLang }),
         })
           .then(function (res) {
             if (!res.ok) return res.json().then(function (e) {
@@ -960,7 +961,7 @@ sap.ui.define([
       fetch('/odata/v4/knowledge/searchApiHub', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(Object.assign({}, params, { offset: 0 })),
+        body: JSON.stringify(Object.assign({}, params, { offset: 0, lang: this._lang() })),
       })
         .then(function (res) { return res.json(); })
         .then(function (json) {

@@ -64,19 +64,25 @@ const MODULE_KEYWORDS = {
   PM: ['Maintenance','Equipment','Functional Location','Notification','Work Order','Plant'],
 };
 
-function _getApiKey() {
+function _isEn(lang) {
+  return String(lang || '').toLowerCase().startsWith('en');
+}
+
+function _getApiKey(lang = 'zh') {
   const key = process.env.API_HUB_KEY || '';
-  if (!key) throw new Error('API_HUB_KEY 环境变量未设置');
+  if (!key) throw new Error(_isEn(lang)
+    ? 'The API_HUB_KEY environment variable is not set.'
+    : 'API_HUB_KEY 环境变量未设置');
   return key;
 }
 
 // 获取单页 API 列表（APIContent.APIs 接口），包含 State 字段
-async function _fetchApisPage(skip) {
+async function _fetchApisPage(skip, lang = 'zh') {
   const url = `${BASE_URL}/APIContent.APIs` +
     `?$format=json&$top=${PAGE_SIZE}&$skip=${skip}` +
     `&$select=Name,Title,ShortText,ServiceCode,State`;
   const resp = await fetch(url, {
-    headers: { APIKey: _getApiKey() },
+    headers: { APIKey: _getApiKey(lang) },
     timeout: 15000,
   });
   if (!resp.ok) throw new Error(`API Hub HTTP ${resp.status}`);
@@ -105,7 +111,7 @@ const PAGE_BATCH = 6;
 
 // 全量扫描 API Hub，只收集 S/4HANA PCE API（OP_ 或 sap-s4-OP_ 开头），过滤已废弃。
 // 分批并发拉页：一次并发 PAGE_BATCH 页，若本批出现空页或不足页（说明已到末尾）则停止。
-async function _fetchAllS4Apis() {
+async function _fetchAllS4Apis(lang = 'zh') {
   const all = [];
   let reachedEnd = false;
   for (let start = 0; start < MAX_PAGES && !reachedEnd; start += PAGE_BATCH) {
@@ -113,7 +119,7 @@ async function _fetchAllS4Apis() {
     for (let p = start; p < Math.min(start + PAGE_BATCH, MAX_PAGES); p++) {
       batch.push(p);
     }
-    const pages = await Promise.all(batch.map(page => _fetchApisPage(page * PAGE_SIZE)));
+    const pages = await Promise.all(batch.map(page => _fetchApisPage(page * PAGE_SIZE, lang)));
     for (const results of pages) {
       if (results.length === 0 || results.length < PAGE_SIZE) reachedEnd = true;
       for (const r of results) {
@@ -126,10 +132,10 @@ async function _fetchAllS4Apis() {
   return all;
 }
 
-async function searchApis(query, { offset = 0, limit = 20 } = {}) {
-  _getApiKey();
+async function searchApis(query, { offset = 0, limit = 20 } = {}, lang = 'zh') {
+  _getApiKey(lang);
   const lowerKws = query.trim().split(/\s+/).map(k => k.toLowerCase());
-  const all = await _fetchAllS4Apis();
+  const all = await _fetchAllS4Apis(lang);
   const matched = all.filter(r => {
     const title = (r.Title || '').toLowerCase();
     return lowerKws.some(k => title.includes(k));
@@ -137,15 +143,17 @@ async function searchApis(query, { offset = 0, limit = 20 } = {}) {
   return matched.slice(offset, offset + limit).map(_toRecord);
 }
 
-async function listByModule(module, { offset = 0, limit = 500 } = {}) {
-  _getApiKey();
+async function listByModule(module, { offset = 0, limit = 500 } = {}, lang = 'zh') {
+  _getApiKey(lang);
   const mod = module.trim().toUpperCase();
   const keywords = MODULE_KEYWORDS[mod];
   if (!keywords) {
-    throw new Error(`不支持模块 "${mod}"。可用：${Object.keys(MODULE_KEYWORDS).join('、')}`);
+    throw new Error(_isEn(lang)
+      ? `Unsupported module "${mod}". Available: ${Object.keys(MODULE_KEYWORDS).join(', ')}`
+      : `不支持模块 "${mod}"。可用：${Object.keys(MODULE_KEYWORDS).join('、')}`);
   }
   const lowerKws = keywords.map(k => k.toLowerCase());
-  const all = await _fetchAllS4Apis();
+  const all = await _fetchAllS4Apis(lang);
   const matched = all.filter(r => {
     const title = (r.Title || '').toLowerCase();
     return lowerKws.some(k => title.includes(k));
@@ -153,14 +161,16 @@ async function listByModule(module, { offset = 0, limit = 500 } = {}) {
   return matched.slice(offset, offset + limit).map(_toRecord);
 }
 
-async function getDetails(apiName) {
-  _getApiKey();
+async function getDetails(apiName, lang = 'zh') {
+  _getApiKey(lang);
   const lowerName = apiName.trim().toLowerCase();
-  const all = await _fetchAllS4Apis();
+  const all = await _fetchAllS4Apis(lang);
   const exact = all.find(r => (r.Title || '').toLowerCase() === lowerName);
   const partial = all.find(r => (r.Title || '').toLowerCase().includes(lowerName));
   const target = exact || partial;
-  if (!target) throw new Error(`未找到 API "${apiName}"`);
+  if (!target) throw new Error(_isEn(lang)
+    ? `API "${apiName}" not found.`
+    : `未找到 API "${apiName}"`);
   return _toRecord(target);
 }
 

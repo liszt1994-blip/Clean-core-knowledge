@@ -71,18 +71,28 @@ function parseDdl(ddl) {
 // Reuse a single https agent across calls (self-signed cert on S4T)
 const HTTPS_AGENT = new https.Agent({ rejectUnauthorized: false });
 
+// Pick the language for user-facing errors the same way the rest of the app
+// does: any lang string starting with 'en' → English, everything else → Chinese.
+function _isEn(lang) {
+  return String(lang || '').toLowerCase().startsWith('en');
+}
+
 /**
  * Fetch DDL source for a single CDS View from ADT.
  * Reads ADT_URL / ADT_USER / ADT_PASSWORD from process.env.
  *
  * @param {string} viewName
+ * @param {string} [lang='zh']  - Language for user-facing error messages
  * @returns {Promise<string>}  raw DDL text
- * @throws Error with user-facing Chinese message on failure
+ * @throws Error with user-facing message (localized) on failure
  */
-async function fetchDdl(viewName) {
+async function fetchDdl(viewName, lang = 'zh') {
+  const en = _isEn(lang);
   const { ADT_URL, ADT_USER, ADT_PASSWORD } = process.env;
   if (!ADT_URL || !ADT_USER || !ADT_PASSWORD) {
-    throw new Error('ADT 环境变量未配置（ADT_URL / ADT_USER / ADT_PASSWORD）');
+    throw new Error(en
+      ? 'ADT environment variables are not configured (ADT_URL / ADT_USER / ADT_PASSWORD).'
+      : 'ADT 环境变量未配置（ADT_URL / ADT_USER / ADT_PASSWORD）');
   }
 
   // TODO: CF deployment — detect VCAP_SERVICES.destination binding and
@@ -108,12 +118,16 @@ async function fetchDdl(viewName) {
     });
 
     if (resp.status === 404) {
-      const err = new Error(`CDS View "${viewName}" 在 S4T 系统中不存在`);
+      const err = new Error(en
+        ? `CDS View "${viewName}" does not exist in the S4T system.`
+        : `CDS View "${viewName}" 在 S4T 系统中不存在`);
       err.isUserFacing = true;
       throw err;
     }
     if (resp.status !== 200) {
-      const err = new Error(`ADT 请求失败：HTTP ${resp.status}`);
+      const err = new Error(en
+        ? `ADT request failed: HTTP ${resp.status}`
+        : `ADT 请求失败：HTTP ${resp.status}`);
       err.isUserFacing = true;
       throw err;
     }
@@ -122,7 +136,9 @@ async function fetchDdl(viewName) {
   } catch (err) {
     if (err.isUserFacing) throw err;
     // Network error (ECONNREFUSED, ETIMEDOUT, etc.)
-    throw new Error('无法连接 S4T 系统，请检查网络或 ADT 配置');
+    throw new Error(en
+      ? 'Cannot connect to the S4T system. Please check the network or ADT configuration.'
+      : '无法连接 S4T 系统，请检查网络或 ADT 配置');
   }
 }
 
@@ -134,16 +150,17 @@ async function fetchDdl(viewName) {
  *
  * @param {string} viewName   - Root CDS View name
  * @param {number} maxDepth   - Max BFS depth (default 2)
+ * @param {string} [lang='zh'] - Language for user-facing error messages
  * @returns {Promise<{ nodes: object[], edges: object[] }>}
  */
-async function buildGraphFromAdt(viewName, maxDepth = 2) {
+async function buildGraphFromAdt(viewName, maxDepth = 2, lang = 'zh') {
   const nodes   = new Map();   // id → node (keeps lowest depth)
   const edges   = [];
   const edgeKeys = new Set();   // dedup: 'source|target|relation'
   const visited = new Set();   // nodes whose neighbors have been queued
 
   // Process root node first (throws user-facing error if not found)
-  const rootDdl  = await fetchDdl(viewName);
+  const rootDdl  = await fetchDdl(viewName, lang);
   const rootMeta = parseDdl(rootDdl);
   nodes.set(viewName, {
     id: viewName,
@@ -180,7 +197,7 @@ async function buildGraphFromAdt(viewName, maxDepth = 2) {
         // Skip if already recorded at a lower depth
         if (nodes.has(id) && nodes.get(id).depth < d) return { id, meta: null, d };
         try {
-          const ddl  = await fetchDdl(id);
+          const ddl  = await fetchDdl(id, lang);
           const meta = parseDdl(ddl);
           return { id, meta, d };
         } catch (_err) {

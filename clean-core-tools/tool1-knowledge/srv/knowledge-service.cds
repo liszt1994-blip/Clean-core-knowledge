@@ -72,7 +72,7 @@ service KnowledgeService {
     source          : String;
   };
 
-  action analyzeAtc(atcOutput : String) returns array of {
+  action analyzeAtc(atcOutput : String, lang : String) returns array of {
     objectName      : String;
     tier            : String;
     state           : String;
@@ -111,7 +111,8 @@ service KnowledgeService {
   action searchApiHub(
     query   : String,
     module  : String,
-    offset  : Integer
+    offset  : Integer,
+    lang    : String
   ) returns array of {
     id              : String;
     serviceGroupName: String;
@@ -121,7 +122,7 @@ service KnowledgeService {
     cleanCore       : Boolean;
   };
 
-  action analyzeCds(viewName : String, parentViewName : String) returns {
+  action analyzeCds(viewName : String, parentViewName : String, lang : String) returns {
     nodes : array of {
       id             : String;
       type           : String;

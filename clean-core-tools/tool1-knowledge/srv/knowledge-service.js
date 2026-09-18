@@ -37,6 +37,51 @@ function hasCjk(text) {
   return CJK_TEST_RE.test(String(text || ''));
 }
 
+// Localized user-facing error messages. Keyed by message id; each entry holds
+// { en, zh }. isEn(lang) picks the language the same way the AI prompts do
+// (any lang string starting with 'en' → English, everything else → Chinese).
+function isEn(lang) {
+  return String(lang || '').toLowerCase().startsWith('en');
+}
+const ERR = {
+  aiCoreRecommend: {
+    en: 'AI Core is not configured, so recommendations for unknown objects cannot be generated. Please check the VCAP_SERVICES configuration.',
+    zh: 'AI Core 未配置，无法为未知对象生成推荐。请检查 VCAP_SERVICES 配置。',
+  },
+  aiCoreAnalyzeCode: {
+    en: 'AI Core is not configured, so code cannot be analyzed. Please check the VCAP_SERVICES configuration.',
+    zh: 'AI Core 未配置，无法分析代码。请检查 VCAP_SERVICES 配置。',
+  },
+  aiCoreAnalyzeAtc: {
+    en: 'AI Core is not configured, so ATC output cannot be parsed. Please check the VCAP_SERVICES configuration.',
+    zh: 'AI Core 未配置，无法解析 ATC 输出。请检查 VCAP_SERVICES 配置。',
+  },
+  aiCoreRewrite: {
+    en: 'AI Core is not configured, so code cannot be rewritten. Please check the VCAP_SERVICES configuration.',
+    zh: 'AI Core 未配置，无法重写代码。请检查 VCAP_SERVICES 配置。',
+  },
+  aiCorePlan: {
+    en: 'AI Core is not configured, so a migration plan cannot be generated. Please check the VCAP_SERVICES configuration.',
+    zh: 'AI Core 未配置，无法生成迁移规划。请检查 VCAP_SERVICES 配置。',
+  },
+  apiHubQueryOrModule: {
+    en: 'Provide at least one of "query" or "module".',
+    zh: 'query 或 module 至少填写一个',
+  },
+  cdsViewNameRequired: {
+    en: 'Please enter a CDS View name.',
+    zh: '请输入 CDS View 名称',
+  },
+  explainNoAi: {
+    en: 'AI Core is not configured. Please fill in real VCAP_SERVICES credentials in the .env file.',
+    zh: 'AI Core 未配置，请在 .env 文件中填入真实的 VCAP_SERVICES 凭据。',
+  },
+};
+function errMsg(key, lang) {
+  const entry = ERR[key];
+  return isEn(lang) ? entry.en : entry.zh;
+}
+
 module.exports = cds.service.impl(async function (srv) {
   // Lazy-init singletons: constructed on first request so env vars are loaded
   let ai;
@@ -101,7 +146,7 @@ module.exports = cds.service.impl(async function (srv) {
     // Step 3: ADT (S4T system) — parse @VDM.lifecycle.contract.type from DDL
     // Rule: if no layer is "Released" → tier C, not clean core
     try {
-      const ddl = await fetchDdl(objectName);
+      const ddl = await fetchDdl(objectName, lang);
       const meta = parseDdl(ddl);
       const tier = meta.releaseState === 'Released' ? 'A'
                  : meta.releaseState === 'Restricted' ? 'B'
@@ -181,7 +226,7 @@ module.exports = cds.service.impl(async function (srv) {
     if (!term || !term.trim()) {
       return req.error(400, 'term is required');
     }
-    if (!getAI()) return 'AI Core 未配置，请在 .env 文件中填入真实的 VCAP_SERVICES 凭据。';
+    if (!getAI()) return errMsg('explainNoAi', lang);
     const result = await getAI().complete(systemPromptFor(lang), buildExplainPrompt(term, lang));
     return result;
   });
@@ -297,7 +342,7 @@ module.exports = cds.service.impl(async function (srv) {
 
     // No JSON data — full AI recommendation
     if (!getAI()) {
-      return req.error(503, 'AI Core 未配置，无法为未知对象生成推荐。请检查 VCAP_SERVICES 配置。');
+      return req.error(503, errMsg('aiCoreRecommend', lang));
     }
     const raw = await getAI().complete(
       systemPromptFor(lang),
@@ -316,7 +361,7 @@ module.exports = cds.service.impl(async function (srv) {
   srv.on('analyzeCode', async (req) => {
     const { code, lang = 'zh' } = req.data;
     if (!code || !code.trim()) return req.error(400, 'code is required');
-    if (!getAI()) return req.error(503, 'AI Core 未配置，无法分析代码。请检查 VCAP_SERVICES 配置。');
+    if (!getAI()) return req.error(503, errMsg('aiCoreAnalyzeCode', lang));
 
     // Step 1: AI extracts object references + line numbers
     let rawRefs;
@@ -394,9 +439,9 @@ module.exports = cds.service.impl(async function (srv) {
 
   // ── analyzeAtc: parse ATC output and classify found objects ──────────────
   srv.on('analyzeAtc', async (req) => {
-    const { atcOutput } = req.data;
+    const { atcOutput, lang = 'zh' } = req.data;
     if (!atcOutput || !atcOutput.trim()) return req.error(400, 'atcOutput is required');
-    if (!getAI()) return req.error(503, 'AI Core 未配置，无法解析 ATC 输出。请检查 VCAP_SERVICES 配置。');
+    if (!getAI()) return req.error(503, errMsg('aiCoreAnalyzeAtc', lang));
 
     // Step 1: AI parses ATC text into structured findings
     let findings;
@@ -451,7 +496,7 @@ module.exports = cds.service.impl(async function (srv) {
     if (!violations || violations.length === 0) {
       return { original: code, rewritten: code };
     }
-    if (!getAI()) return req.error(503, 'AI Core 未配置，无法重写代码。请检查 VCAP_SERVICES 配置。');
+    if (!getAI()) return req.error(503, errMsg('aiCoreRewrite', lang));
 
     const raw = await getAI().complete(
       systemPromptFor(lang),
@@ -490,7 +535,7 @@ module.exports = cds.service.impl(async function (srv) {
     if (!objectName || !objectName.trim()) {
       return req.error(400, 'objectName is required');
     }
-    if (!getAI()) return req.error(503, 'AI Core 未配置，无法生成迁移规划。请检查 VCAP_SERVICES 配置。');
+    if (!getAI()) return req.error(503, errMsg('aiCorePlan', lang));
 
     // plan must NOT use grounding — the strict JSON format gets broken by the grounding template.
     // Cap output tokens: the JSON has few fields and a short code snippet, so a lower
@@ -1301,29 +1346,29 @@ module.exports = cds.service.impl(async function (srv) {
 
   // ── Tab 5: API Hub 搜索 ──────────────────────────────────────────────────
   srv.on('searchApiHub', async (req) => {
-    const { query, module, offset = 0 } = req.data;
+    const { query, module, offset = 0, lang = 'zh' } = req.data;
     if (!query?.trim() && !module?.trim()) {
-      return req.error(400, 'query 或 module 至少填写一个');
+      return req.error(400, errMsg('apiHubQueryOrModule', lang));
     }
     const opts = { offset, limit: 500 };
     if (module?.trim()) {
-      return await listByModule(module.trim().toUpperCase(), opts);
+      return await listByModule(module.trim().toUpperCase(), opts, lang);
     }
-    return await searchApis(query.trim(), opts);
+    return await searchApis(query.trim(), opts, lang);
   });
 
   // ── Tab 6: CDS 关系图谱 ──────────────────────────────────────────────────
   srv.on('analyzeCds', async (req) => {
-    const { viewName, parentViewName } = req.data;
+    const { viewName, parentViewName, lang = 'zh' } = req.data;
     if (!viewName?.trim()) {
-      return req.error(400, '请输入 CDS View 名称');
+      return req.error(400, errMsg('cdsViewNameRequired', lang));
     }
 
     // depth to fetch: incremental mode = 1 level only, full mode = 2 levels
     const maxDepth = parentViewName ? 1 : 2;
 
     try {
-      const graph = await buildGraphFromAdt(viewName.trim(), maxDepth);
+      const graph = await buildGraphFromAdt(viewName.trim(), maxDepth, lang);
 
       // Enrich nodes with Clean Core classification.
       // Priority: authoritative local JSON (instant) → the ADT releaseState that
