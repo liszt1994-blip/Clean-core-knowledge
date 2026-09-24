@@ -370,7 +370,7 @@ module.exports = cds.service.impl(async function (srv) {
     for (const ref of rawRefs) {
       const name = (ref.objectName || '').trim().toUpperCase();
       if (!name) continue;
-      const info = getClassifier().lookup(name);
+      const info = getClassifier().lookup(name, '', lang);
       if (info && info.tier !== 'A') {
         // B tier: compliant, no replacement suggestion needed
         const isCompliant = info.tier === 'B';
@@ -447,7 +447,7 @@ module.exports = cds.service.impl(async function (srv) {
     for (const finding of findings) {
       const name = (finding.objectName || '').trim().toUpperCase();
       if (!name) continue;
-      const info = getClassifier().lookup(name);
+      const info = getClassifier().lookup(name, '', lang);
       if (info) {
         results.push({
           objectName:      name,
@@ -718,7 +718,7 @@ module.exports = cds.service.impl(async function (srv) {
       await getClassifier().ready();
       const violations = [];
       for (const name of objects) {
-        const info = getClassifier().lookup(name);
+        const info = getClassifier().lookup(name, '', lang);
         if (info) {
           // A and B tiers: do not suggest replacements
           const isCompliant = info.tier === 'A' || info.tier === 'B';
@@ -814,7 +814,7 @@ module.exports = cds.service.impl(async function (srv) {
       const tasks = rawRefs.map(async (ref) => {
         const name = (ref.objectName || '').trim().toUpperCase();
         if (!name) return null;
-        const info = getClassifier().lookup(name);
+        const info = getClassifier().lookup(name, '', lang);
         if (info && info.tier !== 'A') {
           // B tier: compliant, no replacement suggestion needed
           const isCompliant = info.tier === 'B';
@@ -922,7 +922,7 @@ module.exports = cds.service.impl(async function (srv) {
 
       const violations = findings.map(f => {
         const name = (f.objectName || '').trim().toUpperCase();
-        const info = getClassifier().lookup(name);
+        const info = getClassifier().lookup(name, '', lang);
         return {
           objectName:      name,
           tier:            info ? info.tier : 'unknown',

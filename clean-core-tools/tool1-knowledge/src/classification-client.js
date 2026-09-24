@@ -73,6 +73,24 @@ const STATE_DESCRIPTION = {
   },
 };
 
+// Human-readable descriptions for the raw successorClassification enum values
+// found in objectReleaseInfoLatest.json (oneObject / multipleObjects / concept).
+// Empty string means "no successor classification" and is left as-is.
+const SUCCESSOR_CLASSIFICATION_DESCRIPTION = {
+  oneObject: {
+    en: 'A single official successor object is available',
+    zh: '存在唯一官方后继对象',
+  },
+  multipleObjects: {
+    en: 'Multiple official successor objects are available — choose the right one for your use case',
+    zh: '存在多个官方后继对象——请根据场景选择合适的对象',
+  },
+  concept: {
+    en: 'No direct object successor — a conceptual/architectural replacement applies',
+    zh: '没有直接的对象后继——需采用概念性/架构性的替代方案',
+  },
+};
+
 
 class ClassificationClient {
   constructor() {
@@ -212,6 +230,14 @@ class ClassificationClient {
     // Merge metadata from both sources (release file takes priority)
     const sourceItem = item || classification;
 
+    // Convert the raw successorClassification enum into a human-readable
+    // bilingual note (same pattern as tierDescription). Empty stays empty.
+    const rawSuccClass = item?.successorClassification || '';
+    const succEntry = SUCCESSOR_CLASSIFICATION_DESCRIPTION[rawSuccClass];
+    const note = succEntry
+      ? (_isEn(lang) ? succEntry.en : succEntry.zh)
+      : (rawSuccClass ? (_isEn(lang) ? `Successor classification: ${rawSuccClass}` : `后继分类：${rawSuccClass}`) : '');
+
     return {
       deprecated:        deprecatedName,
       objectType:        sourceItem.objectType || '',
@@ -223,7 +249,7 @@ class ClassificationClient {
       replacement:       successors[0]?.name ?? null,
       replacementType:   successors[0]?.type ?? null,
       allSuccessors:     successors,
-      note:              item?.successorClassification || '',
+      note,
       softwareComponent: sourceItem.softwareComponent || '',
       appComponent:      sourceItem.applicationComponent || '',
     };
