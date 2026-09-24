@@ -1,0 +1,95 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/establish-trust-and-federation-between-uaa-and-identity-authentication
+Title: Establish Trust and Federation Between SAP Authorization and Trust Management Service and SAP Cloud Identity Services | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Business UsersEstablish Trust and Federation Between SAP Authorization and Trus…
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Establish Trust and Federation Between SAP Authorization and Trust Management Service and SAP Cloud Identity Services
+
+Use your SAP Cloud Identity Services tenant as an identity provider or a proxy to your own identity provider hosting your business users. This method avoids the upload and download of SAML meta data by using OpenID Connect (OIDC) to establish trust.
+
+Prerequisites
+
+You have subaccount administrator permissions.
+
+You have a tenant of SAP Cloud Identity Services.
+
+For more information, see Get Your Tenant in the documentation for SAP Cloud Identity Services.
+
+The SAP Cloud Identity Services tenant is associated with the customer IDs of the relevant global account of SAP BTP.
+
+For more information, see Reuse SAP Cloud Identity Services Tenants for Different Customer IDs in the documentation for SAP Cloud Identity Services.
+
+Context
+Note
+
+The content in this section is not relevant for Government Cloud (US) regions.
+
+Consider the following restrictions and tips before you start.
+
+Restriction
+
+You can only establish trust with a single tenant of SAP Cloud Identity Services per subaccount using this method.
+
+Your SAP Cloud Identity Services tenant can be changed only when no SAP Cloud Identity Services-based subscriptions (for example, SAP Build Work Zone using authentication with SAP Cloud Identity Services, SAP Build Apps, or SAP Integration Suite, advanced event mesh) exist.
+
+If you have an SAML trust configuration for a certain tenant already, you can't add an OIDC trust configuration to the same tenant in addition. Instead, migrate the SAML trust configuration to OIDC (see Migration from SAML Trust to OpenID Connect Trust with SAP Cloud Identity Services).
+
+Consider the upper limits for trust configurations in the subaccount. See Limits for the Subaccount.
+
+Tip
+
+We recommend that you use SAP Cloud Identity Services as identity provider and connect a potential corporate identity provider there. If you don't have a tenant yet, check Getting a Tenant.
+
+For more information, see Corporate Identity Providers and Configure Conditional Authentication for an Application in What Is Identity Authentication and SAP Cloud Identity Services
+
+We provide APIs so you can perform this procedure programmatically. For more information, see the Identity Provider Management API on SAP Business Accelerator Hub.
+
+Procedure
+In the SAP BTP cockpit, go to your subaccount (see Navigate in the Cockpit) and choose Security  Trust Configuration.
+Choose Establish Trust.
+The Choose Tenant wizard opens.
+Choose the SAP Cloud Identity Services tenant and choose Next.
+
+The identity providers listed are the SAP Cloud Identity Services tenants associated with your customer ID.
+
+For more information, see the preceding prerequisites.
+
+You can change the name and the description of the tenant, display and change the origin key.
+
+The origin key can have 36 characters at maximum. Only use the following characters for the origin key of the trust configuration.
+
+aA–zZ, 0–9, - (hyphen), _ (underscore)
+
+Choose the domain configured with the SAP Cloud Identity Services tenant and continue with Next. It's also possible to use Default as domain.
+Available for User Logon is switched on. Provide a link text for user logon (see Using Multiple Identity Providers from the Same Subaccount).
+If unsure, keep the parameter Create Shadow Users on User Logon switched on. After logon, SAP BTP automatically creates a shadow user. Logon failures would occur if the shadow user doesn't exist. An administrator can then assign role collections to the shadow user.
+If unsure, keep the parameter Default for Noninteractive Logon as suggested by the wizard (only for logon to a command line interface). If you switch on this parameter, it sets another identity provider as default for noninteractive logon (for more information,see btp update security/settings. Continue with Next.
+Review your configuration and confirm using Finish.
+Results
+
+You've configured trust in your tenant of the SAP Cloud Identity Services, which is your identity provider. SAP Cloud Identity Services creates an application with the prefix SAP BTP subaccount and the display name of your subaccount in the administration console for SAP Cloud Identity Services. Some attributes of the application are managed by SAP, such as the application type, and are read-only.
+
+SAP BTP automatically creates applications in SAP Cloud Identity Services for subscriptions to BTP applications and service instances of the Identity service of SAP BTP. Newly created applications in SAP Cloud Identity Services are automatically set as child applications of the application that represents the relevant SAP BTP subaccount. Child applications inherit configurations such as the subject name identifier, authentication configuration, and branding from the parent application representing the subaccount.
+
+Example
+
+If your subaccount is named My Subaccount, the resulting application in SAP Cloud Identity Services would be SAP BTP subaccount My Subaccount.
+
+Older applications start with XSUAA_.
+
+Tip
+
+To troubleshoot problems with tokens from SAP Cloud Identity Services, see Logging OpenID Connect Tokens in the documentation for SAP Cloud Identity Services.
+
+Restriction
+
+If the OIDC issuer is changed in the trust configuration, the trust breaks. To update the trust configuration on the SAP BTP side, open the details of the trust configuration and choose Refresh. This button refreshes the trust configuration to reflect changes in the SAP Cloud Identity Services tenant, for example the issuer value.
+
+Next Steps
+
+If you don't need the default identity provider anymore, set it to inactive or hide the logon link.
+
+Related Information
+Default Identity Provider

@@ -1,0 +1,60 @@
+=== BTP Documentation: hana-data ===
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/d531b2dd49904927a0327c9479edd2b7.html
+Title: Change the Default Database System | SAP Help Portal
+
+HomeSAP HANA Service for SAP BTP in SAP RegionsSAP HANA Service for SAP BTP in SAP RegionsAdministrationAdministering Database SchemasChange the Default Database System
+SAP HANA Service for SAP BTP in SAP RegionsEnglish
+Provide feedback on our search
+
+Change the Default Database System
+
+Change the database property, which determines the database in the Neo environment on which an application runs.
+
+Context
+
+The default database system is used when schemas are created automatically. This occurs if an application is started but has not yet been assigned a schema.
+
+You can change the default database system at any time, however, keep in mind the following:
+
+A new application that has not been explicitly assigned a schema uses the most effective default database system when automatic schema creation is triggered, that is, when the application is started for the first time.
+
+When deploying an application from the Eclipse IDE, an application is deployed and started in one step.
+
+An application that is already using a default database system is not affected by any changes. Its schema remains associated with the default database system selected when the application was created.
+
+Procedure
+In the SAP BTP cockpit, navigate the list of subaccounts available to you. For more information, see Navigate in the Cockpit.
+Choose the  (edit) icon on the tile for the subaccount you want to change.
+Select the new default database system, and save your changes.
+Related Information
+Org Administration Using the Cockpit
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/trigger-registration-in-sap-s-4hana-cloud-tenant
+Title: Trigger the Registration in the SAP S/4HANA Cloud Tenant | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Register an SAP S/4HANA Cloud System in a Global Account in SAP B…Trigger the Registration in the SAP S/4HANA Cloud Tenant
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Trigger the Registration in the SAP S/4HANA Cloud Tenant
+
+Use this procedure to trigger the registration process for an SAP S/4HANA Cloud system that you want to pair with your global account in SAP BTP.
+
+Prerequisites
+
+You are an SAP S/4HANA Cloud tenant administrator.
+
+Procedure
+Log on to the SAP S/4HANA Cloud tenant, go to Home, Communication Management tab and then choose the Maintain Extensions on SAP BTP tile.
+In the Maintain Extensions on SAP BTP screen, in the Extensions section, choose New.
+In the Integration Token field, enter the content of the registration token from the SAP BTP cockpit.
+Choose Save. A new entry in the table appears with status Enabling.
+After the integration has finished successfully, you can refresh the table.
+
+The status of the integration should have changed to Enabled.
+
+---
+

@@ -1,0 +1,68 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/change-configuration-settings
+Title: Change Configuration Settings | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…How to Work with the btp CLIChange Configuration Settings
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Change Configuration Settings
+
+Change the configuration settings to customize the behavior of the btp CLI.
+
+Context
+
+There are a few configuration settings that you can set to customize how the btp CLI works.
+
+These settings are saved to the configuration file, which governs how the btp CLI works. You can have more than one configuration file for working in different accounts at the same time by logging in with the --config PATH option and then also providing it with each command call. See Specify the Location of the Configuration File.
+
+To find out where the configuration file is stored, use btp --info.
+
+Procedure
+To change a setting, run:
+
+btp [OPTIONS] set config [--format FORMAT] [--verbose BOOL] [--login.sso MODE] [--login.securestore BOOL] [--login.showglobalaccounts BOOL] [--target.hierarchy BOOL] [--theme THEME]
+
+Parameter
+
+Description
+
+--format FORMAT
+
+The output format of commands. Valid values: text (default), json.
+
+--verbose BOOL
+
+If set to true, command output includes tracing information for support. Valid values: false (default), true.
+
+--login.sso MODE
+
+Single sign-on mode of btp login. Valid values: none (default), browser, manual. For example, if you want btp login to always open a browser for login at your identity provider, use btp set config --login.sso browser.
+
+--login.securestore BOOL
+
+If true, your login session will be stored in your OS secure store (only macOS/Windows).
+
+--login.showglobalaccounts BOOL
+
+If set to true, btp login will always prompt you to choose a global account.
+
+--target.hierarchy BOOL
+
+If set to true, btp target displays the full hierarchy of all global accounts. Valid values: false (default), true
+
+See Set a Target for Subsequent Commands with btp target.
+
+--theme THEME
+
+Theme setting for the CLI. Use environment variable NO_COLOR=true to force the theme to 'none', regardless of this setting.
+
+To list the current settings, run:
+
+btp [OPTIONS] list config
+
+To reset individual or all settings back to their default values, run:
+
+btp [OPTIONS] reset config [--format] [--verbose] [--login.sso] [--login.securestore] [--login.showglobalaccounts] [--target.hierarchy] [--theme] [--all]
+
+Related Information
+Specify the Location of the Configuration File

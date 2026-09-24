@@ -1,0 +1,150 @@
+URL: https://help.sap.com/docs/btp/sap-btp-neo-environment-security-recommendations-ed2ef9c59a8245c9b9505d6bf8305cfb/sap-btp-neo-environment-security-recommendations
+Title: SAP BTP, Neo Environment Security Recommendations | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP, Neo Environment Security Recommendations
+SAP BTP, Neo Environment Security RecommendationsEnglish
+Provide feedback on our search
+
+SAP BTP, Neo Environment Security Recommendations
+
+These recommendations help you evaluate the security of the configuration of SAP BTP, Neo environment.
+
+Caution
+
+SAP Business Technology Platform, Neo environment will sunset on December 31, 2028, subject to terms of customer or partner contracts.
+
+For more information, see SAP Note 3351844 .
+
+Tip
+
+This documentation refers to SAP Business Technology Platform, Neo environment. If you are looking for security recommendations about other environments, see SAP BTP Security Recommendations.
+
+Remember
+
+As part of the cloud shared responsibility model (restricted access), you're responsible for determining if any of these recommendations are relevant for your environment and to what extent.
+
+The security recommendations are provided as a courtesy, without a warranty, and may be subject to change. For more information, see the disclaimer.
+
+Note
+
+Not all SAP BTP services are listed yet. We've started with the core services and are extending this list service-by-service.
+
+If your service is missing, see also the Security section of the your service documentation on the SAP Help Portal.
+
+See also Explanation of Table Headings.
+
+Component
+
+Priority
+
+Secure Operations Map
+
+Title
+
+Default Setting or Behavior
+
+Recommendation
+
+More Information
+
+Last Update
+
+Index
+
+Filter:
+[No selection]
+
+Filter:
+[No selection]
+
+Filter:
+[No selection]
+
+Component
+
+Priority
+
+Secure Operations Map
+
+Title
+
+Default Setting or Behavior
+
+Recommendation
+
+More Information
+
+Last Update
+
+Index
+
+Agent Activation for Dynatrace Service for SAP BTP	Recommended	Client Security	Token Lifecycle	By default, Dynatrace API tokens don’t have an expiry date unless configured explicitly.	Use a Dynatrace API token with an expiration date. Periodically rotate the token to mitigate the potential exposure of a secret.	Setup Guide .	2024-03-20	BTP-AGA-0001
+SAP Audit Log	Recommended	Audit & Fraud Management	Audit	The SAP Audit Log is a platform service that centrally collects and stores all audit logs generated on your behalf by the SAP BTP Neo platform services you use. Audit logs can be accessed and downloaded programmatically via the Audit Log Retrieval API. By default, logs are retained for 201 days, after which they are automatically and permanently deleted. If a longer retention period is required, it can be extended up to a maximum of 365 days using the Audit Log Retention API.	The Audit Log Retrieval API enables programmatic access to your audit logs stored in the SAP BTP Neo environment. To prevent data loss and meet long-term compliance or regulatory requirements, it is strongly recommended to retrieve and export audit logs on a regular basis and store them in a central, organization-managed system of your choice. This is particularly important if your retention needs exceed the maximum period supported by the Audit Log Retention API, after which logs are permanently deleted and cannot be recovered.
+
+Audit Log Retention API Usage for the Neo Environment
+
+Audit Log Retrieval API Usage for the Neo Environment
+
+2026-06-25	BTP-ALN-0001
+HTML5 Application Runtime	Critical	User & Identity Management	Authenticate Routes
+
+The routes are maintained in the application descriptor file. By default, they are all together protected by an authentication service using the SAML authentication method.
+
+If you have defined logout page, this page has public access.
+
+Make sure that when you define routes to resources, such as backend services or destinations, the resources are all together protected by an authentication service either by default or by specifying an authentication method.
+
+Use the authentication type None only if all routes are to public pages.
+
+Securing HTML5 Applications - Authentication and Application Descriptor File - Authentication	2024-05-02	BTP-HEL-0001
+HTML5 Application Runtime	Recommended	Roles & Authorizations
+
+Restricted Access for Users
+
+By default, the AccountDeveloper role is assigned to the pre-defined NonActiveApplicationPermission permission for viewing the non-active versions of the application.
+
+Limit the access to routes leading to security sensitive sites by configuring user authorization. You can assign a permission to such a specific route using security constraints in the application descriptor file. After that, you can assign a role to the permission and then assign a user to the role, both by using the SAP BTP cockpit.
+
+The roles may be pre-defined, such as the AccountDeveloper role, or customized. You can customize roles using the SAP BTP cockpit. The custom roles can be reused across multiple applications.
+
+Managing Roles and Permissions
+
+Authorization
+
+2024-05-02	BTP-HEL-0002
+HTML5 Application Runtime	Recommended	Network Security	Approving HTTP Headers	Not all HTTP headers are forwarded from the application to a backend or from the backend to the application. The HTTP headers that are forwarded by default are either part of the HTTP standard or are frequently used by Web applications or SAP servers.	Add the HTTP headers that should be forwarded between the application and the backend. Add the required header name to the headerWhiteList attribute in the application descriptor file.	Approving HTTP Headers	2024-05-02	BTP-HEL-0003
+HTML5 Application Runtime	Recommended	Network Security	Custom Response Headers
+
+Custom response headers are optional and don’t have any default.
+
+Add custom response headers to your application to comply with the security standards of your browser. Add the required header name and value to the responseHeaders attribute in the application descriptor file.I	Custom Response Headers	2024-05-02	BTP-HEL-0004
+HTML5 Application Runtime	Recommended	Data Privacy & Protection
+
+File System – No Sensitive Data
+
+The file names used for deploying HTML5 applications are not intended for personal data.	Avoid sensitive and personal data as part of HTML5 application data. This includes file names.
+
+Create an HTML5 Application
+
+Importing an HTML5 Application
+
+2024-05-02	BTP-HEL-0005
+Mobile Services	Recommended	Authentication & Single Sign-On	Client Password Policy	The password policy is enabled by default, including default parameter values, such as Expiration Time Frame, Minimum Length, Retry Limit, Lock Timeout and so on. The default is the minimum level of security.	Enable the password policy based on your company policy.	Defining Client Password Policy	2024-04-17	BTP-MBN-0001
+Mobile Services	Recommended	Authentication & Single Sign-On	Authentication Method for Client Application Security	When you configure app security, OAuth 2.0 is the default and recommended security type. Other security types are available.	Use OAuth to ensure app security.
+
+Application Authentication
+
+Managing OAuth Authentication
+
+2024-04-17	BTP-MBN-0002
+Mobile Services	Recommended	Roles & Authorizations	Configuring Access Control
+
+Default roles are not set.
+
+Setting roles is especially important when a back-end service has no authorization mechanism.
+
+Use role settings to protect an application so that only privileged users can access it.	Defining Access Control	2024-04-17	BTP-MBN-0004
+
+Related Information
+SAP BTP Security, Neo Environment
+Best Practices for SAP BTP

@@ -1,0 +1,21 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/delete-users-from-role-collections
+Title: Delete Users from Role Collections | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Assigning Role Collections to Users or User GroupsDelete Users from Role Collections
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Delete Users from Role Collections
+
+You can unassign users from a role collection by deleting them from the role collection.
+
+Procedure
+Open the SAP BTP cockpit.
+Go to your global account and subaccount (see Navigate in the Cockpit).
+Choose Security  Role Collections.
+Choose the role collection from which you want to unassign users.
+Choose Edit.
+Choose  (Delete) in the row of the user you want to unassign.
+Save your changes.
+
+You've now unassigned this user by deleting the user from the role collection.

@@ -1,0 +1,32 @@
+URL: https://help.sap.com/docs/btp/btp-developers-guide/performing-ui-usability-and-unit-tests
+Title: Performing UI, Usability, and Unit Tests | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP Developer's Guide…DevelopPerforming UI, Usability, and Unit Tests
+SAP BTP Developer's GuideEnglish
+Provide feedback on our search
+
+Performing UI, Usability, and Unit Tests
+
+You should always conduct careful testing to ensure that your application is of high quality. Create a release candidate to propagate throughout your landscape.
+
+For example, consider testing the user interface, usability, and performance, as well as running general unit tests. Developers should use unit tests to ensure that software modules behave as expected. Unit tests are the smallest tests, and they detect issues fast. Taking good care of unit tests usually leads to better maintainable and understandable code. If you use the Continuous Integration process, you should consider automated tests as part of the pipeline.
+
+SAPUI5
+
+SAPUI5 supports QUnit testing. We recommend that you write unit tests as small as possible, ensuring that you only test one single thing at a time. This will not only make debugging easier, but also maintaining the tests in the long run.
+
+For an overview of available testing options for SAPUI5 developments, see Testing and Performance Measurement.
+
+For SAPUI5 and SAP Fiori testing, please see the demokit for SAP UI5: https://sapui5.hana.ondemand.com/#/topic.
+
+Testing in SAP Web IDE
+
+SAP Web IDE empowers developers to test and evaluate the functionality and performance of their apps:
+
+Use the application preview to test functionality, design and performance before deploying it. There are different configuration options available, such as SAP UI5 runtime version, URL parameters. See Running Applications in Development Mode.
+
+Run your application using a client mock server. See Run Applications with Mock Data.
+
+Execute unit tests for SAPUI5 (Qunit) and Java (JUnit). See Developing Application Tests and Test a Java Module.
+
+Execute SAPUI5 integration tests based on OPA5. See Performing Integration Tests.

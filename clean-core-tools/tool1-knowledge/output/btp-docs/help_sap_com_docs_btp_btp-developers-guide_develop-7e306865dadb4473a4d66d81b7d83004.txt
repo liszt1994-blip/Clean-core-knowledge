@@ -1,0 +1,65 @@
+URL: https://help.sap.com/docs/btp/btp-developers-guide/develop-7e306865dadb4473a4d66d81b7d83004
+Title: Develop | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP Developer's GuideDeveloping with CAP in the SAP BTP, Cloud Foundry and SAP BTP, Ky…DeliverDevelop
+SAP BTP Developer's GuideEnglish
+Provide feedback on our search
+
+Develop
+
+When using SAP Cloud Application Programming Model (CAP), you can choose the right runtime of your use case: SAP BTP, Cloud Foundry runtime or SAP BTP, Kyma runtime. To make an informed decision, see:
+
+SAP BTP, Cloud Foundry and SAP BTP, Kyma Runtimes with CAP
+
+Comparison: SAP BTP, Kyma Runtime and SAP BTP, Cloud Foundry Runtime
+
+Metering:
+
+Cloud Foundry runtime: Metering starts when you start using the runtime memory, for example, when you deploy an application.
+
+If your global account uses the consumption-based commercial model and you want to understand how the consumption of SAP BTP, Cloud Foundry runtime is calculated, see Consumption Monitoring in the SAP BTP, Cloud Foundry runtime documentation.
+
+Kyma runtime: Metering starts when you enable the Kyma runtime. This triggers the creation of a dedicated Kubernetes cluster, and the cluster is metered from the start, before you have deployed any applications.
+
+For Cloud Foundry , we recommend that you create multitarget applications for managing dependencies more easily. For more information, see Using Multitarget Applications to Manage Dependencies.
+
+For best practices, guidelines and step-by-step instructions, see Development.
+
+Development Options Overview
+
+The following graphic is designed to help you find the information you need for your programming purposes. The bottom row represents the tools, frameworks, services, and deployment options recommended by SAP. If you want full flexibility you can also bring your own development tools and languages, as shown in the top row.
+
+This image is interactive. Hover over each area for a description. Click highlighted areas for more information.
+
+Development Guidelines
+
+To ensure consistency and foster collaboration between developers, we recommend that you define guidelines that include standards for programming principles, code styles, and naming conventions.
+
+SAP provides the following official guidelines:
+
+SAPUI5 Guidelines
+
+SAP Fiori Design Guidelines
+
+SAP BTP and Third-Party Cookies
+
+The deprecation of third-party cookies by browser manufacturers might impact applications running on SAP BTP. For example, logon scenarios in your application might fail due to session management and authentication issues.
+
+Third-party cookies are set by domains other than the one a user is directly visiting. They are commonly used for online advertising and tracking user behavior across multiple websites. In SAP BTP, SAP uses third-party cookies for service management and single sign-on.
+
+Prepare your applications for the third-party cookie deprecation and test them. See Preparing and Testing Your Solution for Third-Party Cookie Deprecation.
+
+All the available solutions are listed in the SAP Note 3409306 - Removal of Third-Party Cookies in Google Chrome and Microsoft Edge Browser.
+
+Tutorials and End-to-End Scenarios
+
+There are tutorials and end-to-end scenarios developed to show you how to apply the recommended path for the Cloud Application Programming Model (CAP). All these tutorials and scenarios are based on the Incident Management sample application. For a full list of the tutorials and their use cases, see Tutorials for SAP Cloud Application Programming Model.
+
+Related Information
+Programming Languages, Tools, and APIs
+Security Considerations for Applications
+Developing Resilient Applications
+Using Multitarget Applications to Manage Dependencies
+Extending Existing SAP Solutions Using SAP BTP
+Performing UI, Usability, and Unit Tests
+Connecting to Remote Systems

@@ -1,0 +1,80 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/additional-information-about-cloud-foundry
+Title: Additional Information About Cloud Foundry | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Cloud Foundry EnvironmentAdditional Information About Cloud Foundry
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Additional Information About Cloud Foundry
+
+Links to additional information about Cloud Foundry that is useful to know but not necessarily directly connected to the SAP BTP, Cloud Foundry environment.
+
+Content
+
+Location
+
+BOSH
+
+http://bosh.cloudfoundry.org
+
+BOSH documentation
+
+http://bosh.io/docs
+
+Buildpacks
+
+http://docs.cloudfoundry.org/buildpacks
+
+Components of Cloud Foundry
+
+http://docs.cloudfoundry.org/concepts/architecture/
+
+Cloud Foundry Concepts
+
+http://docs.cloudfoundry.org/concepts/
+
+Deployment of Cloud Foundry
+
+http://docs.cloudfoundry.org/deploying
+
+Developer Guide for Cloud Foundry
+
+http://docs.cloudfoundry.org/devguide
+
+Diego Application Process Balancing
+
+https://docs.cloudfoundry.org/concepts/diego/diego-auction.html
+
+Glossary for Cloud Foundry
+
+http://docs.cloudfoundry.org/concepts/glossary.html
+
+Overview of Cloud Foundry
+
+http://docs.cloudfoundry.org/concepts/overview.html
+
+Sample applications for Cloud Foundry
+
+https://github.com/cloudfoundry-samples
+
+Security settings for Cloud Foundry
+
+http://docs.cloudfoundry.org/concepts/security.html
+
+Cloud Foundry Services
+
+http://docs.cloudfoundry.org/services
+
+http://docs.cloudfoundry.org/devguide/services/user-provided.html
+
+Considerations for designing and running an application in the cloud
+
+http://docs.cloudfoundry.org/devguide/deploy-apps/prepare-to-deploy.html
+
+Installing the Cloud Foundry command line interface
+
+http://docs.cloudfoundry.org/devguide/installcf/install-go-cli.html
+
+Blog about Cloud Foundry
+
+http://blog.cloudfoundry.org/

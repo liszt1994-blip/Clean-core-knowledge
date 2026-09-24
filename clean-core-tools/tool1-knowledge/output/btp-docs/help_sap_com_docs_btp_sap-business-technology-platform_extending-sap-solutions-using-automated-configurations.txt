@@ -1,0 +1,83 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/extending-sap-solutions-using-automated-configurations
+Title: Extending SAP Solutions | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformExtensions and IntegrationsExtending SAP Solutions
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Extending SAP Solutions
+
+The extension capabilities of SAP Business Technology Platform (SAP BTP) enables developers to implement loosely coupled extension applications securely, thus implementing additional workflows or modules on top of the existing SAP cloud solution they already have.
+
+Overview
+Note
+
+The content in this section is not relevant for China (Shanghai) and Government Cloud (US) regions.
+
+With the automated configuration you have the following key benefits:
+
+A way of extending standard SAP solutions without disrupting their performance and core processes
+
+Frameworks that offer simplified, standardized, and unified extensibility and configuration for SAP solutions
+
+A central repository for solutions' APIs, events, credentials, and other data, thereby ensuring easy access to services while creating your extensions
+
+You can also use dedicated formations that help you integrate automaticatically the SAP solution you want to extend with runtimes and tools you might need. See:
+
+Setting Up System Landscape for Kyma
+
+Setting Up System Landscape for SAP Build
+
+Setting Up System Landscape for SAP Integration Suite
+
+Setting Up System Landscape for SAP Business Application Studio
+
+Process Flow
+
+You can use the extension capabilities of SAP BTP to implement additional workflows or modules on top of your existing SAP solutions. You can extend one or more SAP solutions grouped together in a common business case.
+
+To enable the integration, you need to:
+
+Connect the corresponding SAP system with the global account.
+
+For systems of type SAP S/4HANA Cloud, SAP Marketing Cloud, SAP SuccessFactors and SAP systems from the SAP Customer Experience portfolio, during the pairing process you create an registration token which is then used by the SAP system administrator to configure the registration on the SAP system side. See Adding, Registering and Deregistering Systems.
+
+For systems of type different than SAP S/4HANA Cloud, SAP Marketing Cloud, SAP SuccessFactors and SAP systems from the SAP Customer Experience portfolio, the SAP system is already registered when it's part of the Systems page. However, in the Status column, there is no status shown. See Adding, Registering and Deregistering Systems.
+
+For third-party systems, the system is already registered when it's part of the Systems page. However, in the Status column, there is no status shown. See Register a Third-Party System.
+
+Note
+
+You cannot migrate the registered SAP systems between global accounts.
+
+If you want to start using another global account, you will have to register your SAP systems again.
+
+Optional: Group SAP systems so that they can be extended in a business scenario at one go.
+
+To do so, you create a formation containing one or more different systems assigned to a common subaccount. See Automating Integrations Using Formations.
+
+Make the SAP system accessible in the subaccounts in which you want to build your extension applications.
+
+For systems of type SAP S/4HANA Cloud, SAP Marketing Cloud, and SAP SuccessFactors, configure the entitlements and assign the corresponding quota and service plans to the subaccounts where the extension applications will reside. The service plans define the access to the corresponding SAP solution APIs. See:
+
+Configure the Entitlements for the SAP S/4HANA Cloud Extensibility Service
+
+Configure the Entitlements for the SAP SuccessFactors Extensibility Service
+
+For the systems of type different than SAP S/4HANA Cloud, SAP Marketing Cloud, and SAP SuccessFactors, you can continue with developing your extension application.
+
+For systems of type SAP S/4HANA Cloud, SAP Marketing Cloud, and SAP SuccessFactors, configure the communication flow for the extension application.
+
+To be able to consume the SAP S/4HANA Cloud, SAP Marketing Cloud, and SAP SuccessFactors APIs, you need to create a service instance for the corresponding SAP solution system. During the creation of the service instance, you configure the communication flow between the subaccount and the corresponding SAP solution. An HTTP destination which contains the binding properties for establishing the connection is automatically generated.
+
+After you have created the service instance, you have two options to configure the extension application's connectivity to the corresponding SAP solution:
+
+Consume the HTTP destination
+
+Bind the service instance to the extension application
+
+Related Information
+Extending SAP S/4HANA Cloud in the Cloud Foundry and Kyma Environment
+Extending SAP SuccessFactors in the Cloud Foundry and Kyma Environment
+Extending SAP Customer Experience Products in the Kyma Environment
+Extending SAP Marketing Cloud in the Cloud Foundry and Kyma Environment

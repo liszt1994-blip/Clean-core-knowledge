@@ -1,0 +1,32 @@
+URL: https://help.sap.com/docs/btp/btp-developers-guide/developing-resilient-applications
+Title: Developing Resilient Applications | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP Developer's Guide…DevelopDeveloping Resilient Applications
+SAP BTP Developer's GuideEnglish
+Provide feedback on our search
+
+Developing Resilient Applications
+
+Our best practices about resilient application design help you to make your applications running on SAP BTP stable and highly available.
+
+There are many different principles and patterns you can use to make your software resilient. However, it isn't always easy to find the combination that best fits your applications. For an overview of the various options you have when developing applications and detailed information about the individual patterns you can use, as well as examples for applied resilience principles and how to develop your own resilient apps on SAP BTP, read Developing Resilient Apps on SAP BTP.
+
+For examples on how to use selected SAP BTP services in a multi-region setup, see Route Multi-Region Traffic to SAP BTP Services Intelligently.
+
+You can also use the Architecting Multi-Region Resiliency for SAP BTP Use Cases reference architecture in the SAP Discovery Center. It shows the multi-region high availability architecture for SAP BTP services and the applications built on SAP BTP.
+
+Developing Resilient Applications in Cloud Foundry
+
+In SAP BTP, Cloud Foundry environment, you can use the availability zones: Benefit from the high availability mechanisms in Cloud Foundry by setting up your applications with multiple instances. You do not have to do anything explicitly to distribute the instances across the different availability zones - this is handled by the platform. For more information, see Availability Zones in the Cloud Foundry Environment.
+
+Setting up your application with multiple instances might have an impact on your applications' capability for handling requests: In case of an availability zone failure in a 3-availability-zone-deployment, at least one third of the application instances are affected and unavailable until Cloud Foundry can reschedule these instances on a healthy virtual machine.
+
+During that period, the remaining instances in the healthy availability zones have to carry the request load.
+
+Distribution During an Availability Zone Failure
+Developing Resilient Applications in Kyma
+
+Learn how to develop stable Kubernetes and microservice-based applications, as well as Istio-related resiliency tips with Develop Resilient Applications in the Kyma Runtime.
+
+Related Information
+Resilience, High Availability, and Disaster Recovery (Cloud Foundry, ABAP and Kyma Environments)

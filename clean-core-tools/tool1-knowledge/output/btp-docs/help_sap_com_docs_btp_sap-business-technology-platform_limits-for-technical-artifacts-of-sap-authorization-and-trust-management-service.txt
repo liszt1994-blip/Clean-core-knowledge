@@ -1,0 +1,110 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/limits-for-technical-artifacts-of-sap-authorization-and-trust-management-service
+Title: Limits for Technical Artifacts of the SAP Authorization and Trust Management Service | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformSecuritySAP Authorization and Trust Management ServiceLimits for Technical Artifacts of the SAP Authorization and Trust…
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Limits for Technical Artifacts of the SAP Authorization and Trust Management Service
+
+To improve the resiliency of the SAP Authorization and Trust Management service, we have introduced limitations on technical artifacts of the service.
+
+Limits for the Service Broker
+
+We allow a maximum of service instances per subaccount.
+
+There is also a maximum of service bindings and service keys in total per service instance. The service rejects attempts to add more bindings or service keys. For more information, see Service Instance Secrets.
+
+Limits for the Service Broker
+
+Service Broker Resource
+
+Upper Limit
+
+Service instances per subaccount
+
+2500
+
+Service bindings and service keys in total per service instances
+
+1000
+
+Limits for the Application Security Descriptor
+
+There are limits that apply when you define properties in the application security descriptor.
+
+You define properties in the xs-security.json application security descriptor file for creating or updating service instances. Take care that you don't define more properties than specified in the table.
+
+Limits for Properties
+
+Property
+
+Upper Limit
+
+attributes
+
+50
+
+role-collections
+
+250
+
+role-templates
+
+500
+
+scopes
+
+500
+
+scopes (granted)
+
+Note
+
+Granted means that the scope object refers to applications that are specified using granted-apps or grant-as-authority-to-apps properties
+
+250
+
+Limits for the Global Account
+
+It is possible to configure up to 3 custom identity providers for platform users in a global account.
+
+Limits for the Subaccount
+
+There are limits that apply to the subaccount. Administrators can use application roles and create their own roles. They can create and manage role collections, add roles to them, and assign the role collections to business users.
+
+For more information, see Building Roles and Role Collections for Applications and Working with Role Collections.
+
+Limits for Security Artifacts
+
+Security Artifact
+
+Upper Limit
+
+Roles created by administrators
+
+Note
+
+Roles that are automatically generated when a service instance was created or updated are not counted here.
+
+2500
+
+Role collections created by administrators
+
+5000
+
+When establishing trust, subaccount administrators must observe the limits for identity providers.
+
+Limits for Identity Providers
+
+Identity Provider
+
+Upper Limit
+
+SAML identity providers
+
+50
+
+User attribute mappings defined in a subaccount
+
+5000

@@ -1,0 +1,38 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/aae4e0ae1cdf434b908c3c8cf3ea942a.html
+Title: Migrating from the Neo Environment to the Multi-Cloud Foundation for SAP BTP (Cloud Foundry and Kyma) | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)Migrating from the Neo Environment to the Multi-Cloud Foundation …
+Migrating from the Neo Environment to the Multi-Cloud Foundation (Cloud Foundry and Kyma)English
+Provide feedback on our search
+
+Migrating from the Neo Environment to the Multi-Cloud Foundation for SAP BTP (Cloud Foundry and Kyma)
+
+Learn why and how to migrate scenarios from the Neo environment to the multi-cloud foundation for SAP BTP. This guide is for SAP Business Technology Platform (SAP BTP) customers and partners with scenarios in the Neo environment that need to move to the multi-cloud foundation, including the Cloud Foundry environment or the Kyma environment.
+
+What Is This Guide About?
+
+The multi-cloud foundation has become the strategic focus for SAP BTP because of its significant benefits as compared with the Neo environment, including its principles of openness and freedom of choice in terms of support for multiple infrastructure providers, data centers, and a wide range of runtimes and programming languages. Unlike for Neo where you can use selected services only, you can choose from the full service portfolio on SAP Discovery Center.
+
+Therefore, the Neo environment will be sunset and scenarios on Neo must be migrated to the multi-cloud foundation (that is, the Cloud Foundry environment or the Kyma environment).
+
+Remember
+
+SAP Business Technology Platform, Neo environment will sunset on December 31, 2028, subject to terms of customer or partner contracts.
+
+For more information, see SAP Note 3351844 .
+
+Learn about the characteristics of the multi-cloud foundation and its differences and advantages compared to the Neo environment.
+
+Use this guide to plan and prepare for the migration to the multi-cloud foundation, to get help in deciding on your migration path and to learn where you find detailed information about the steps involved in migrating your scenarios from the Neo environment to the multi-cloud foundation. It presents a strategic approach to handling your migration, helps you to get started, and during the process, improves your expertise in working with the new environment.
+
+Is This Guide for You?
+
+This guide addresses SAP BTP customers and partners who have at least one existing scenario in SAP BTP, Neo environment that they must move to the multi-cloud foundation (that is, the Cloud Foundry environment or the Kyma environment).
+
+A scenario on SAP BTP pursues a specific business objective (that is, a use case) and most likely, comprises several different applications, services, and integrations to achieve it. Therefore, migrating a scenario from the Neo environment to the multi-cloud foundation implies migrating all components involved.
+
+Documentation Feedback Survey
+
+Give Feedback
+
+Help us improve our documentation. Please take this two-minute survey and let us know what you think.

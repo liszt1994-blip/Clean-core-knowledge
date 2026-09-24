@@ -1,0 +1,56 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/getting-started-with-enterprise-account-in-cloud-foundry-environment
+Title: Getting Started with an Enterprise Account in the Cloud Foundry Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformGetting StartedGetting Started in the Cloud Foundry EnvironmentGetting Started with an Enterprise Account in the Cloud Foundry E…
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Getting Started with an Enterprise Account in the Cloud Foundry Environment
+
+Quickly get started with an enterprise account in the Cloud Foundry Environment.
+
+This topic focuses on how to get started with a customer or partner account using the SAP BTP cockpit. However, you can also perform these tasks using the CLI. See Setting Up a Global Account via the Command Line.
+
+1. Setting Up Your Account Model
+
+This image is interactive. Hover over each area for a description. Click highlighted areas for more information.
+
+After you've received your logon data by email, create subaccounts in your global account. This allows you to further break down your account model and structure it according to your business needs. See Create a Subaccount.
+
+If you haven't done so already, now is a good time to download and install the Cloud Foundry Command Line Interface (cf CLI). This tool allows you to administer and configure your environment, enable services, and deploy applications. See Download and Install the Cloud Foundry Command Line Interface. But don't worry, you can also perform all the necessary task using the SAP BTP cockpit, which you don't need to install.
+
+If you'd like to use the cf CLI, log on to your environment. See Log On to the Cloud Foundry Environment Using the Cloud Foundry Command Line Interface.
+
+Create a Cloud Foundry organization in each of your subaccounts. See Create Orgs
+
+Create spaces. See Create Spaces.
+
+2. Configuring Your Environment
+
+You can either use the cockpit or the cf CLI to configure your environment. If you'd like to use the cockpit, it's important you understand how you can navigate to your accounts and spaces. See Navigate to Orgs and Spaces.
+
+It's time to think about member management. You can add members at different levels. For example, you can add members at an org level. See Add Org Members. For more information about roles, see User and Member Management.
+
+You can also add members at a space level. See Add Space Members.
+
+Before you can start using resources such as services or application runtimes, you need to manage your entitlements and add quotas to your subaccounts. See Configure Entitlements and Quotas for Subaccounts. To learn more about entitlements and quotas, see Managing Entitlements and Quotas Using the Cockpit. Note that if you want to try out services for free, you need to select free tier service plans if available. For a list of free services, check the SAP Discovery Center.
+
+You can also assign quotas to different spaces within a subaccount. To do so, first create a space quota plan. See Create Space Quotas or Create Space Quota Plans Using the Cloud Foundry Command Line Interface.
+
+Then assign the quota plan to your space. See Assign Space Quotas to Spaces or Assign Quota Plans to Spaces Using the Cloud Foundry Command Line Interface.
+
+3. Developing and Deploying Applications
+
+This image is interactive. Hover over each area for a description. Click highlighted areas for more information.
+
+Develop your application. Check out the Developer Guide for tutorials and more information. See Development.
+
+Deploy your application. See Deploy Business Applications in the Cloud Foundry Environment.
+
+Integrate your application with a service. To do so, first create a service instance. See Creating Service Instances
+
+Bind the service instance to your application. See Binding Service Instances to Applications.
+
+Alternatively, you can also create and use service keys. See Creating Service Keys. For more information on using services and creating service keys, see About Services.
+
+You can also create instances of user-provided services. See Creating User-Provided Service Instances.

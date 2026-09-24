@@ -1,0 +1,117 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/protecting-your-application
+Title: Protecting Your Application | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Adding Authentication and AuthorizationProtecting Your Application
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Protecting Your Application
+
+Developers create authorization information for business users in their environment; this information is deployed in an application and made available to administrators who complete the authorization setup and assign the authorizations to business users.
+
+Lifecycle of Security Artifacts for Developers and Administrators
+
+Developers store authorization information as design-time role templates in the application security descriptor file (xs-security.json). Using the xsuaa service broker, they deploy the security information to the xsuaa service. The administrators view the authorization information in role templates, which they use as part of the run-time configuration. They use the role templates to build roles, which are aggregated in role collections. The role collections are then assigned, in turn, to business users.
+
+The tasks required to set up authorization artifacts are performed by two distinct user roles: the application developer and the administrator of the Cloud Foundry environment. After the deployment of the authorization artifacts as role templates, the administrator of the application uses the role templates provided by the developers for building role collections and assigning them to business users.
+
+Note
+
+To test authorization artifacts after deployment, developers can use the role templates to build role collections and assign authorization to business users in an authorization tool based on a REST API.
+
+Setting Up Authorization Artifacts (Developers)
+
+Step
+
+Task
+
+User Role
+
+Tool
+
+1
+
+Specify the application security descriptor file containing the functional authorization scopes for your application.
+
+Application developer
+
+Text editor
+
+(If applicable) If you want to create an OAuth 2.0 client in an application-related subaccount, you must use a separate security descriptor file where you specify the subaccount.
+
+Application developer
+
+CF command line interface
+
+2
+
+Create role templates for the application using the application security descriptor file.
+
+Application developer
+
+Text editor
+
+3
+
+Create a service instance from the xsuaa service using the service broker
+
+Application developer
+
+CF command line interface
+
+4
+
+Bind the service instance to the application by including it into the manifest file
+
+Application developer
+
+Text editor
+
+5
+
+Deploy the application
+
+Application developer
+
+CF command line interface or SAP BTP cockpit
+
+Note
+
+For more information about the different steps in setting up authorization artifacts as an application developer, refer to the associated procedures in this section.
+
+Add Authentication and Functional Authorization Checks to Your Application
+
+Propagate User Information Between Applications or Services
+
+Set Up Your Application for Multitenancy
+
+Setting Up Instance-Based Authorizations
+
+Setting Up Authorization Artifacts (Account Administrators)
+
+Task
+
+Links
+
+Assign the role collection to the users provided by an identity provider
+
+Working with Role Collections
+
+(If you do use a custom identity provider) Assign the role collections to user groups
+
+Map Role Collections to User Groups
+
+Assign the role collections to users and user groups, manage attribute mappings
+
+Mapping Role Collections
+
+Create a role collection and assign roles to it
+
+Define a Role Collection
+
+Use an existing role or create a new one using role templates
+
+Add Roles to Role Collections on the Application Level
+
+Related Information
+Application Security Descriptor Configuration Syntax

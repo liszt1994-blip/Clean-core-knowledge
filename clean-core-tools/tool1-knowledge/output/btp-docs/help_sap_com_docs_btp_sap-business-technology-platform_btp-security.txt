@@ -1,0 +1,99 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/btp-security
+Title: Security | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformSecurity
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Security
+
+Use the security features and functions of SAP BTP to support the security policies of your organization.
+
+Security Recommendations
+
+We provide a list with our recommendations for the configuration of our services. These recommendations help you to meet your compliance goals and secure your business.
+
+See SAP BTP Security Recommendations.
+
+Our customer success organization uses these recommendations as a base to create a security baseline template.
+
+For more information, go to https://support.sap.com/sos and choose Media Library  SAP CoE Security Services - Security Baseline Template.
+
+User Model
+
+SAP BTP distinguishes between platform users (account management, custom development, and operations) and business users (for the applications).
+
+See User and Member Management.
+
+Authorizations
+
+You can configure authorizations using roles and role collections for your global account, subaccount, directory, or individual applications.
+
+See Security Administration: Managing Authentication and Authorization.
+
+Identity Providers
+
+All users of SAP BTP are stored in identity providers, either in the default or in a custom identity provider. SAP BTP needs a copy of the user, sometimes called a shadow user. You assign the shadow user authorizations to access resources in SAP BTP. When a user authenticates, SAP BTP forwards the request to the identity provider.
+
+For more information, see Trust and Federation with Identity Providers.
+
+Note
+
+For the China (Shanghai) region, a different default identity provider is used.
+
+For more information, see this blog article on SAP Community.
+
+Default Identity Provider
+
+We provide a default identity provider for both platform users and business users (in applications) at SAP BTP. The default identity provider enables single sign-on to your SAP applications and services.
+
+Use the default identity provider as a preconfigured user store in your starter scenarios or for testing. You can also use the default identity provider as a backup identity provider if access to your custom identity provider fails.
+
+See Default Identity Provider.
+
+Identity Authentication Service
+
+Identity Authentication service provides authentication and single sign-on in the cloud.
+
+We recommend that you configure the Identity Authentication service as the identity provider and connect Identity Authentication to your own corporate identity provider. Identity Authentication provides features that the default identity provider doesn't, such as the ability to connect your corporate identity provider or to define security policies.
+
+See Trust and Federation with Identity Providers.
+
+For more information about Identity Authentication, see SAP Cloud Identity Services - Identity Authentication.
+
+Transport Layer Security (TLS) Connectivity Support
+SAP BTP uses encrypted communication channels based on HTTPS/TLS, supporting TLS version 1.2 or higher.
+Note
+
+TLS versions 1.0 and 1.1 are no longer supported.
+
+Make sure you use HTTP clients (such as web browsers) that support TLS version 1.2 or higher for connecting to SAP BTP.
+
+Note
+
+You can optionally use TLS 1.3 in the Custom Domain Manager. This option allows the use of TLS 1.3 with applications running on SAP BTP. It's not allowed to use TLS 1.3, for example for the SAP BTP cockpit or SAP Cloud Identity Services. These services are still using TLS 1.2.
+
+See What Is Custom Domain.
+
+Audit Logging
+
+Use the Audit Log Retrieval API to view the audit logs stored for your subaccount. Use the audit log viewer to display the audit logs for your Cloud Foundry account, produced by SAP applications and services you’ve subscribed to. See Audit Logging in the Cloud Foundry Environment.
+
+Credential Store
+
+SAP Credential Store provides a repository for passwords and keys for applications that are running on SAP BTP, Cloud Foundry environment. It enables the applications to retrieve credentials and use them for authentication to external services, or to perform cryptographic operations and TLS communication.
+
+See SAP Credential Store.
+
+Malware Scanning
+
+Use the SAP Malware Scanning service to scan business documents for malware. Integrate this service with your custom-developed apps running on the Cloud Foundry runtime. When your apps upload business documents, your apps can call the SAP Malware Scanning service to check for viruses or other malware.
+
+For more information, see SAP Malware Scanning Service.
+
+Related Information
+SAP Authorization and Trust Management Service
+Audit Logging in the Cloud Foundry Environment
+Principal Propagation
+Data Protection and Privacy
+Security in the Kyma Environment

@@ -1,0 +1,31 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/add-users-from-sap-id-service-for-multi-environment-subaccounts
+Title: Add Users from SAP ID Service for Multi-Environment Subaccounts | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Default Identity ProviderAdd Users from SAP ID Service for Multi-Environment Subaccounts
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Add Users from SAP ID Service for Multi-Environment Subaccounts
+
+Before you can assign role collection to a user from SAP ID service, ensure that this user exists in your subaccount.
+
+Prerequisites
+
+The user you want to add to your subaccount must have an SAP user account (for example, an S-user or P-user).
+
+For more information, see Create SAP User Accounts.
+
+Context
+
+When you create your own trial account, your SAP user is automatically created and assigned to SAP ID service. When you onboard new members to your subscribed app, add them to your subaccount. Then you can assign a role collection to the user.
+
+Procedure
+Create users and assign role collections to users in Security  Users.
+
+It's possible to create users in custom identity providers and in the SAP ID service.
+
+For more information, see Working with Users.
+
+Related Information
+Platform Identity Provider for Tools
+Mapping Role Collections

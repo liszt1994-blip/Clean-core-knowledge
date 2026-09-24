@@ -1,0 +1,33 @@
+URL: https://help.sap.com/docs/btp/implementing-permanent-solution-for-third-party-cookie-deprecation-final/what-is-purpose-of-this-document
+Title: What Is The Purpose of This Document? | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)Implementing a Permanent Solution for the Third-Party Cookie Phas…
+Implementing a Permanent Solution for the Third-Party Cookie Phase-OutEnglish
+Provide feedback on our search
+
+What Is The Purpose of This Document?
+
+This purpose of this guide is to provide guidance about the potential solutions you can implement regarding limitation of third-party cookie usage.
+
+Note
+
+Google has revised its strategy (July 22nd, 2024) regarding third-party cookies. Instead of enforcing tracking protection by blocking third-party cookies centrally, they will offer this as a choice to their users across all their web browsing. To allow our users to enable tracking protection, the solutions discussed in this guide remain fully relevant. We updated the guide accordingly and will incorporate future guidance of Google as it becomes available.
+
+Caution
+
+This guide aims at providing guidance, pointing to the right resources, and sharing our experience about solutions for the limitation of third-party cookie usage. It is not exhaustive, and we give no guarantee for correctness, as the topic is driven by Google and subject to change. Please always refer to the official Google documentation for a complete overview and for latest updates.
+
+Browser manufacturers are presenting users with a choice for tracking protection that limits the usage of third-party cookies. A prominent example is Google Chrome’s plan to offer people to possibility to make an informed choice that applies across their web browsing.
+
+To help SAP customers and partners best prepare for the limited usaged of third-party cookies, we have come up with a blog series and step-by-step guides to help you set up your solution in an SAP context. Before you read this document, we recommend having a look at the following guides to get familiar with the topic:
+
+Preparing and Testing Your Solution for Third-Party Cookie Phase-Out.
+
+Getting and Applying a Deprecation Trial Token for the Third-Party Cookie Phase-Out.
+
+This document provides information about permanent solutions if your application breaks because of the restriction of third-party cookies when users choose to activate tracking protection. Google has listed multiple options in the Solutions section on its website. At SAP, and in this guide, we focus on two options to preserve third-party cookie use cases: Cookie Having Independent State (CHIPS) (also known as cookie partioning or partitioned cookies) and Storage Access API (SAA).
+
+While these solutions are also supported by other browsers, there might be some differences in the implementation.
+Note
+
+This guide focuses on Google Chrome only. If you want support for different browsers, make sure to read the browser's official documentation on the topic.

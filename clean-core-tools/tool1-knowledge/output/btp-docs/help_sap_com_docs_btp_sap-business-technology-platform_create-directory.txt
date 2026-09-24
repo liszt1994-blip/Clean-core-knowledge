@@ -1,0 +1,84 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/create-directory
+Title: Create a Directory | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Managing Directories Using the CockpitCreate a Directory
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Create a Directory
+
+Create a directory using the SAP BTP cockpit to organize and manage your subaccounts. For example, you can group subaccounts by project, team, or department.
+
+Context
+Recommendation
+
+Before creating your subaccounts, we recommend you learn more about Setting Up Your Account Model.
+
+For more information about directories, see Directories.
+
+Procedure
+In your global account, navigate to the Account Explorer page.
+In the Create dropdown, choose Directory.
+Tip
+
+You can also create a directory by selecting Create Directory from the  Actions menu button of the global account or an existing directory.
+
+In the Create Directory dialog box, enter a display name for your new directory and choose a parent. The parent can be the global account or another directory.
+Optional: Under Advanced, choose the Enable entitlement management option if you want to manage the entitlements that are used by the subaccounts under this directory. This allows you to reserve quota for service plans so that they cannot be assigned to other subaccounts or directories. For more information, see Entitlements and Quotas and Configure Entitlements and Quotas for Directories.
+
+You can enable this feature later from the Entitlements  Entity Entitlements page or by editing the directory in the Account Explorer page.
+
+If you don't enable this feature, then subaccounts in this directory use the entitlements and quota from the global account level.
+
+Note
+
+Only a single directory in any given directory path can have the user management (see next option) and/or entitlement management features enabled.
+
+For example, if you have 3 stacked directories in your account hierarchy and the middle directory has both the user and entitlement management features enabled, then neither of these features can be enabled for its parent or child directory since these two directories are in the same direct path as the middle directory.
+
+Optional: Under Advanced, choose the Enable user management option if you want to assign specific users as administrators or viewers of this directory. For more information, see Manage Users in Directories.
+
+You can enable this feature later from the directory's Users page or by editing the directory in the Account Explorer page.
+
+If you don't enable this feature, then any user that has access to the directory in the account hierarchy can view and work in it.
+
+Note
+
+The user management feature can be enabled only in combination with the entitlement management feature on the same directory in given path.
+
+Only a single directory in any given directory path can have the user management and/or entitlement management features enabled.
+
+For example, if you have 3 stacked directories in your account hierarchy and the middle directory has both the user and entitlement management features enabled, then neither of these features can be enabled for its parent or child directory since these two directories are in the same direct path as the middle directory.
+
+Optional: Under Advanced  Labels, assign labels to the directory to make organizing and filtering your directories and their subaccounts easier. For more information, see Labels.
+Tip
+
+When adding multiple values to a label, press Enter after each value.
+
+When you start typing, any matching label names and values that are already assigned to other directories in your global account are offered as suggestions.
+
+Note
+
+All subaccounts in the path of this directory also inherit all labels that are assigned to this directory.
+
+Review the details of your directory and choose Create to finalize the process.
+Results
+Your directory is created.
+Next Steps
+Once you've created a directory, you can perform the following actions:
+
+Edit the directory - you can edit the name, description, entitlements, and labels of the directory.
+
+Add subaccounts to the directory - Manage the Account Explorer Hierarchy.
+
+Assign users and entitlements to the directory (if you've enabled the user and entitlement management features, respectively).
+
+Delete the directory - you can only delete a directory that does not contain any subaccounts or subdirectories.
+
+Related Information
+Directories
+Manage the Account Explorer Hierarchy
+Manage Users in Directories
+Configure Entitlements and Quotas for Directories
+View Directory Usage Analytics
+Labels

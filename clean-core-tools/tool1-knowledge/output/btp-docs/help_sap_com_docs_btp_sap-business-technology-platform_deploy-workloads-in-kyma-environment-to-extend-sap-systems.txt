@@ -1,0 +1,73 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/deploy-workloads-in-kyma-environment-to-extend-sap-systems
+Title: Deploy Workloads in the Kyma Environment to Extend SAP Systems | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformDevelopmentDevelopment in the Kyma EnvironmentDeploy Workloads in the Kyma Environment to Extend SAP Systems
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Deploy Workloads in the Kyma Environment to Extend SAP Systems
+
+Access the Kyma environment and start creating extensions for SAP systems.
+
+Prerequisites
+
+You have the Application Connector and Serverless modules in your cluster. See Adding and Deleting a Kyma Module.
+
+If you want to expose and secure your workload, you must have the default Istio and API Gateway modules in your cluster.
+
+If you want your workload to react to events, you must have the Eventing module in your cluster.
+
+If you want to use CloudEvents, make sure that your ecosystem supports it.
+
+Context
+
+You can extend a given SAP system in the Kyma environment with workloads. There are two kinds of workloads - Functions and microservices:
+
+Functions are simple code snippets that are called when the Function is triggered. They implement the exact business logic you define in the code, and you don’t need to worry about containerization and deployment in Kyma runtime. Because Kyma Serverless is taking care of that, using Functions is convenient and fast.
+
+You can also deploy your extension code as a microservice. In this variant, you must contain your microservice code in a Docker image and deploy it in Kyma runtime. You need more Kubernetes experience but get more control over the shape of your extension application, because you can separate the tasks into smaller pieces that interact with each other as loosely coupled, independently deployable units of code.
+
+Whichever workload variant you choose, you can make it part of the SAP system extension. You can do this in two ways. Depending on your solution's needs, choose one or both of them:
+
+Expose your workload's API using API Rule and make it accessible to other components of your ecosystem with REST calls.
+
+Subscribe your workload to events emitted from the SAP systems and extend them.
+
+Note
+
+Most of the linked tutorials contain steps that you can perform both on the Kyma dashboard and in the terminal after downloading the kubeconfig file with the cluster configuration.
+
+Follow these steps to get familiar with workloads and learn how to use them.
+
+Procedure
+Connect the SAP system you want to extend (Extending SAP Solutions Using Automated Configurations).
+Choose a namespace in your cluster and create a simple Function (Create and Modify an Inline Function) or a microservice.
+If you want to expose your workload outside the cluster, read Expose and Secure Workloads.
+If you want your workload to react to events, read Subscribe to Multiple Event Types.
+
+To subscribe to events with Kyma, you must create a Subscription custom resource (CR) including the following parameters:
+
+Application name: The name of the external Application connected to Kyma runtime. Typically, it starts with mp-*. This name can be found in the UI under Integration  Applications. It must be bound to the namespace.
+
+Event name: The event name depends on your CX solution:
+
+SAP Commerce Cloud - for custom events, check the configuration of your Destination Target for the Kyma runtime
+
+SAP Sales Cloud / SAP Service Cloud - you can check the event specification in Event Notification Monitoring.
+
+Event version: v1 for legacy events or v2 for CloudEvents
+
+Caution
+
+Your workload must be error-free, otherwise event loss could occur. If you're facing problems, check:
+
+Troubleshooting for the API Gateway Module
+
+Troubleshooting for the Eventing Module
+
+Troubleshooting for the Serverless Module
+
+Related Information
+API Gateway Module
+Eventing Module
+Serverless Module

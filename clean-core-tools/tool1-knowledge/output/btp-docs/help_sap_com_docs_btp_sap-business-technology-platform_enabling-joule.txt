@@ -1,0 +1,97 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/enabling-joule
+Title: Enabling Joule | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Formations for Services in SAP BTPEnabling Joule
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Enabling Joule
+
+Use
+Note
+
+The content in this section is not relevant for China (Shanghai) and Government Cloud (US) regions.
+
+Leveraging its generative AI capabilities, Joule aims to understand your requests, retrieve information, and complete your tasks in a conversational way. You can describe the current task to Joule, who can help automate tasks or take you to places where you can find desired data. By using Joule, you can easily interact with the system and increase your productivity.
+
+To use Joule in SAP systems, you have to integrate these systems with Joule. To do that, you have to include the SAP systems in a formation of type Integration with Joule on the System Landscape  Formations page of the SAP BTP cockpit. The integration is between the Joule system and every SAP system in the formation, but not between each and every SAP system.
+
+To see which SAP systems are supported, see Joule Capabilities.
+
+Rules
+
+When creating Integration with Joule formations, keep in mind the following rules:
+
+At most one system of type Joule can be included in one Integration with Joule formation.
+
+A system of type Joule can be included in at most one Integration with Joule formation.
+
+Applicable to systems of type SAP Integrated Business Planning: you can include these systems in a formation of type Integration with Joule only if they are registered using the All Communication Scenarios communication scenario group. See Register an SAP Integrated Business Planning System in a Global Account in SAP BTP.
+
+Applicable to systems of type SAP SuccessFactors: you can include these systems in a formation of type Integration with Joule only after they have been registered. See Register an SAP SuccessFactors System in a Global Account in SAP BTP.
+
+Applicable to systems of type SAP S/4HANA Cloud: you can include these systems in a formation of type Integration with Joule only if they are registered using the All Communication Scenarios communication scenario group. See Register an SAP S/4HANA Cloud System in a Global Account in SAP BTP.
+
+Note
+
+This documentation refers to SAP S/4HANA Cloud Public Edition. See Introduction to the Universe of SAP S/4HANA Cloud Public Edition.
+
+Prerequisites
+
+You are a global account administrator, or you are a system landscape administrator. See Working with Role Collections.
+
+You have a Joule system and at least one other system of the supported types that fulfill the rules in the Systems page. The Joule system is auto-discovered.
+
+Procedure
+
+The following procedure outlines the steps you need to perform to enable the integration between Joule and SAP systems.
+
+As an alternative to the steps that follow, you can use the Setting Up Joule booster in the SAP BTP cockpit and have the end-to-end scenario set up. See Run the Joule Booster.
+
+Note
+
+We recommend that you use the Setting Up Joule booster.
+
+In the SAP BTP cockpit, in the System Landscape  Systems page of the SAP BTP cockpit, browse the already added systems in your customer system landscape or manually add and register any missing systems.
+
+The Joule system you are going to include in this formation must not be part of another formation.
+
+The customer system landscape features systems that are added to the list in one of the following ways:
+
+Auto-discovered
+
+An auto-discovered system is a system (associated with the given global account) that has been discovered and added automatically to the list based on information of the existing system landscape. Any SAP system of the supported system types that is associated with the same customer ID, with which your global account in SAP BTP is associated, will be added automatically in the system landscape list.
+
+Subaccount/<my-subaccount>
+
+A subscription in SAP BTP cockpit associated with a given subaccount. The subscription has been discovered and added automatically through the subaccount. Check the value of the Discovery column to see the subaccount where your system is subscribed.
+
+Manually added
+
+Specifies that the system has been added to the list manually by the global account administrator, using the Add System button and completing the wizard. The system has been associated with the global account in SAP BTP.
+
+Note
+
+If a given SAP system is missing on the Systems page, it may be associated with a different customer ID on the SAP BTP global account you are working in. In this case, you need to add the system manually, and then, register it.
+
+See Adding, Registering and Deregistering Systems.
+
+Create a formation of type Integration with Joule and include the relevant systems in it.
+
+Add any name that helps you identify your formation.
+
+In the Formation Type dropdown menu, select Integration with Joule.
+
+Select the systems that you want to include in the formation. One of these systems must be of type Joule.
+
+Note
+
+Systems can only be added to one formation of type Integration with Joule in a global account.
+
+Also, a formation of type Integration with Joule can contain only one system of type Joule.
+
+Review your selections and create the formation.
+
+Next Steps
+
+The next steps of the different SAP solutions integrated with Joule are listed at Integrating Joule with SAP Solutions.

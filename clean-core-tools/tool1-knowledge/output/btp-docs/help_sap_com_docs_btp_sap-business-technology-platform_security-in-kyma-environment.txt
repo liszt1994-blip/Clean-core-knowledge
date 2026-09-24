@@ -1,0 +1,17 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/security-in-kyma-environment
+Title: Security in the Kyma Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformSecuritySecurity in the Kyma Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Security in the Kyma Environment
+Security in SAP BTP, Kyma runtime comprises the following pillars:
+
+Kyma Security Concepts
+
+Secure Administration and Operations in the Kyma Environment
+
+Secure Development in the Kyma Environment
+
+Go to the respective topics to learn more about the security features and configurations they propose.

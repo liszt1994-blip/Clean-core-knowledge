@@ -1,0 +1,20 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/managing-orgs
+Title: Managing Orgs | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Org Administration Using the CockpitManaging Orgs
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Managing Orgs
+
+In the SAP BTP cockpit, learn how to create a Cloud Foundry org, manage its members, and later delete it, if needed.
+
+Create Orgs
+
+Delete Orgs
+
+Managing Org Members
+
+Note
+
+If you work with the Cloud Foundry CLI (cf CLI), be aware that you are responsible for all actions performed using the CLI. Also, you won't always be able to mirror the same data in the SAP BTP cockpit.

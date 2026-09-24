@@ -1,0 +1,40 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/getting-started-with-trial-account-in-kyma-environment
+Title: Getting Started with a Trial Account in the Kyma Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformGetting StartedGetting Started in the Kyma EnvironmentGetting Started with a Trial Account in the Kyma Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Getting Started with a Trial Account in the Kyma Environment
+
+Quickly get started with a trial account in the Kyma environment.
+
+Procedure
+Get a global account.
+
+Sign up for a free trial account. See Get a Free Trial Account. For more information about the scope of our trial offering, see Trial Accounts and Free Tier .
+
+For more information on available plans, including free tier, see Available Plans in the Kyma Environment.
+
+Set up your subaccount.
+
+When you register for a trial account, a subaccount is created for you.
+
+If you want to create more subaccounts to break down your account model and structure it according to your development scenario, see Create a Subaccount. But first it's important you understand how to navigate to your accounts using the SAP BTP cockpit.
+
+You can also download and use the SAP BTP command line interface (btp CLI) to create new subaccounts. See Download and Start Using the btp CLI Client and Working with Global Accounts, Directories, and Subaccounts Using the btp CLI.
+
+Create your Kyma environment. For details, see Creating Kyma Instances and Enable Trial Kyma Environment.
+Configure your Kyma environment.
+
+Now that you've set up your account model, it's time to think about member management. You can add members at different levels:
+
+For Kyma-specific role assignment, see Assign Roles in the Kyma Environment.
+
+To learn more about how user roles are assigned in SAP BTP, have a look at User and Member Management.
+
+Develop your applications and extend SAP solutions.
+
+Check out Development in the Kyma Environment to learn more.
+
+You can also provide extensions for the SAP Commerce Cloud, SAP Cloud for Customer, and SAP Field Service Management systems. For more information, read Extending SAP Solutions.

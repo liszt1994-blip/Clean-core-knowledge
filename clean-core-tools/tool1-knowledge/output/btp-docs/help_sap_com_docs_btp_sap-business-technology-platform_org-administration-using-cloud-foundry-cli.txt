@@ -1,0 +1,32 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/org-administration-using-cloud-foundry-cli
+Title: Org Administration Using the Cloud Foundry CLI | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformAdministration and OperationsAdministration and Operations in the Cloud Foundry EnvironmentOrg Administration Using the Cloud Foundry CLI
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Org Administration Using the Cloud Foundry CLI
+
+Use the Cloud Foundry command line interface (CF CLI) for managing subaccounts in the Cloud Foundry environment, such as creating orgs and spaces, or managing quota.
+
+Download and Install the Cloud Foundry Command Line Interface
+
+CF CLI: Plug-ins
+
+Create Spaces Using the Cloud Foundry Command Line Interface
+
+Add Organization Members Using the Cloud Foundry Command Line Interface
+
+Add Space Members Using the Cloud Foundry Command Line Interface
+
+Create Space Quota Plans Using the Cloud Foundry Command Line Interface
+
+Assign Quota Plans to Spaces Using the Cloud Foundry Command Line Interface
+
+Change Space Quota Plans Using the Command Line Interface
+
+Note
+
+If you work with the Cloud Foundry CLI (cf CLI), be aware that you are responsible for all actions performed using the CLI. Also, you won't always be able to mirror the same data in the SAP BTP cockpit.
+
+You must delete an org using only the cockpit or the SAP BTP command line interface (btp CLI).

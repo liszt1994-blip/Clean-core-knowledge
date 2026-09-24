@@ -1,0 +1,16 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/managing-space-members
+Title: Managing Space Members | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Org Administration Using the CockpitManaging Space Members
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Managing Space Members
+
+Learn how to add, edit, and delete space members in the SAP BTP cockpit.
+
+Add Space Members
+
+Edit Space Members
+
+Delete Space Members

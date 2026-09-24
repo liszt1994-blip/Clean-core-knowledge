@@ -1,0 +1,32 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/assigning-abap-environment-administrator-role-to-new-administrator-user
+Title: Assigning the ABAP Environment Administrator Role to the New Administrator User | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Creation of Additional Administrator Users (Optional)Assigning the ABAP Environment Administrator Role to the New Admi…
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Assigning the ABAP Environment Administrator Role to the New Administrator User
+
+Add the new administration user as administrator to the ABAP instance.
+
+You have logged on to the administration launchpad of the ABAP environment as administrator (see Logging on to the Administration Launchpad of the ABAP Environment). You have created an employee record for another, new administrator.
+
+On the SAP Fiori launchpad, choose the Maintain Business Users tile.
+
+Choose New.
+
+In the following dialog, choose the employee record of the new administrator from the list.
+
+Confirm the system message that you want to create a new user.
+
+Add the time zone to the business user data.
+
+On the Assigned Business Roles tab, choose Add.
+
+Select the checkbox for the predefined administrator business role SAP_BR_ADMINISTRATOR.
+
+Select the checkbox for other administrator roles that are available for your organization and choose OK.
+
+Choose OK.
+
+Choose Save.

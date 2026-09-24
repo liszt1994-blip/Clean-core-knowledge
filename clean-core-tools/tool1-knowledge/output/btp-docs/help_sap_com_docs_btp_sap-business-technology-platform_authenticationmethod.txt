@@ -1,0 +1,41 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/authenticationmethod
+Title: authenticationMethod | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Routing Configuration FileauthenticationMethod
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+authenticationMethod
+
+The method used to authenticate user requests, for example: “route” or “none” (no authentication).
+
+Code Syntax
+
+
+"authenticationMethod" : "route"
+
+Property
+
+Type
+
+Mandatory
+
+Values
+
+authenticationMethod
+
+String
+
+No
+
+route (default)
+
+Authentication type is defined in the routes configuration
+
+none
+
+Disables authentication for all routes
+
+Caution
+
+If authenticationMethod is set to “none”, logon with User Account and Authentication (UAA) is disabled.

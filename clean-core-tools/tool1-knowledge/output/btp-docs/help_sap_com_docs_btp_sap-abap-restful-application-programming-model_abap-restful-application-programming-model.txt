@@ -1,0 +1,63 @@
+URL: https://help.sap.com/docs/btp/sap-abap-restful-application-programming-model/abap-restful-application-programming-model
+Title: ABAP RESTful Application Programming Model | SAP Help Portal
+
+HomeABAP CloudABAP RESTful Application Programming Model
+ABAP RESTful Application Programming ModelVersion: SAP BTP ABAP environmentEnglish
+Provide feedback on our search
+
+ABAP RESTful Application Programming Model
+
+The ABAP RESTful Application Programming Model (in short RAP) defines the architecture for efficient end-to-end development of intrinsically SAP HANA-optimized OData services (such as Fiori apps) in ABAP Cloud. RAP supports the development of all types of transactional Fiori applications as well as publishing Web APIs. It is based on technologies and frameworks such as Core Data Services (CDS) for defining semantically rich data models and a service model infrastructure for creating OData services with bindings to an OData protocol and ABAP-based application services for custom logic and SAPUI5-based user interfaces – as shown in the figure below.
+
+More information on how RAP relates to ABAP Cloud and on its role in the ABAP Cloud development model is available in the ABAP Cloud concepts guide.
+
+Architecture Overview
+
+For more information, refer to Learning About RAP.
+
+Classification of ABAP RESTful Application Programming Model within the Evolution of ABAP Programming Model
+
+This image is interactive. Hover over each area for a description. Click highlighted areas for more information.
+
+ For more information about the evolution of the ABAP programming model, read this blog on the community portal.
+
+RAP in Simple Terms
+
+The RESTful Application Programming model is part of ABAP Cloud. ABAP Cloud consists of different documentation sets for the different use cases. The following graphics give you an overview of all available guides for the different scenarios. To get more an overview of ABAP Cloud, see ABAP Cloud Development Model.
+
+This guide describes the ABAP RESTful application programming model (RAP) that you use to build transactional apps in ABAP Cloud. RAP deals with how data and the related business logic are modeled to implement transactional OData services for SAP Fiori apps or Web APIs.
+
+More Details about RAP
+ABAP Language Version
+
+The present documentation is based on ABAP for Cloud Development. All described features are applicable using the restricted set of language elements and repository objects that are released for cloud development. For cloud products, only the language version ABAP for Cloud Development is available. In classic ABAP development environments you can choose the ABAP language version. Developing RAP applications with ABAP for Cloud Development is recommended for all ABAP development environments as this is key for your developments to be upgrade-stable, cloud-ready, software-architecture-driven and thus future-proven.
+
+For more information about the ABAP language versions, see ABAP Language Versions (ABAP Keyword Documentation).
+
+Validity of Documentation
+
+The ABAP RESTful Application Programming Model guide is valid for the following products:
+
+SAP S/4HANA Cloud Public Edition
+
+SAP BTP ABAP environment
+
+Note
+
+To highlight the specifics for SAP BTP and SAP S/4HANA Cloud releases, the  icon is used.
+
+This documentation reflects the latest feature scope of ABAP development tools for Eclipse (ADT) that is shipped with the latest backend versions of the supported SAP products.
+
+Prerequisites
+
+To start developing with the ABAP RESTful Application Programming Model, make sure you meet the prerequisites. See Prerequisites.
+
+Constraints
+
+The current version of the ABAP RESTful Application Programming Model still has some constraints for certain features. For a detailed list, see Development Constraints.
+
+The ABAP RESTful Application Programming Model and ABAP Cloud
+
+The ABAP RESTful Application Programming Model (RAP) was designed to improve upon the ABAP Programming Model for SAP Fiori. RAP was designed to incorporate lessons learned from the previous model. RAP enhanced key architectural concepts that are now integral to ABAP Cloud, like separating the business logic implementation and protocol-specific parts. RAP allows you, for example, to expose the same RAP business object for OData V2 and OData V4. This means that the same implementation can be used for multiple business services, which increases efficiency and reusability. This became a best practice for other scenarios, including embedded analytics and integration services. The ABAP Cloud development model incorporated all best practices from RAP, starting with an architecture blueprint based on a model-driven approach.
+
+In ABAP Cloud, you develop transactional apps and services with RAP. For more information about the different use cases in ABAP Cloud, see Broad Use Case Coverage in the ABAP Cloud: Background Concepts and Overview.

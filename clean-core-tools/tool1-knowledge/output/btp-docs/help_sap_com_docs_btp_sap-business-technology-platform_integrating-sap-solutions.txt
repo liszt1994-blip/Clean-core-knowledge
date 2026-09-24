@@ -1,0 +1,61 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/integrating-sap-solutions
+Title: Integrating SAP Solutions | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformExtensions and IntegrationsIntegrating SAP Solutions
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Integrating SAP Solutions
+
+You can integrate several systems and services as part of the common business scenario. To do that, you create a formation in the SAP BTP cockpit that includes all systems that the scenario requires.
+
+A formation is a logical grouping of SAP systems that can be integrated as part of a business scenario. Formations allow you to combine SAP solution systems to simplify the connectivity setup and to provide a unified view of all components required for the implementation of your integration or extension scenario. To create a fully functional formation, you have to include SAP solution systems. You do this configuration once and you can change it anytime.
+
+See Automating Integrations Using Formations.
+
+Use Cases
+Integrate SAP Systems to Achieve a Business Scenario
+
+This formation use case enables some of the SAP systems included in such a formation to communicate with each other.
+
+These are the formations types following this use case:
+
+Integration with SAP Ariba Buying. See Automating Integrations with SAP Ariba Buying.
+
+Integration with SAP Start. See Automating Integrations with SAP Start.
+
+Data Ingestion for Industry Cloud Solutions. See Automating Integrations with Data Ingestion for Industry Cloud Solutions.
+
+Integration with SAP Ariba Central Invoice Management. See Automating Integrations with SAP Ariba Central Invoice Management.
+
+Integration with SAP Subscription Billing. See Automating Integrations with SAP Subscription Billing.
+
+Integration with SAP Collaboration Manager. See Automating Integrations with SAP Collaboration Manager.
+
+Integration with SAP Ariba Central Invoice Management. See Automating Integrations with SAP Advanced Financial Closing.
+
+Integrate SAP Systems with a Service in SAP BTP
+
+There are formations dedicated to automate the integration between supported SAP systems and a service in SAP BTP. In this use case the topology is a star topology where the service is in the center and is communicating with every SAP system that is included in the formation. The formation type is related to the service. The SAP systems that are included do not communicate between each other.
+
+These are the formations types following this use case:
+
+Integration with Joule. See Enabling Joule.
+
+Eventing Between SAP Cloud Systems. See Enabling Events Exchange Between SAP Cloud Systems.
+
+Integration with SAP Master Data Integration. See Enabling Integration with SAP Master Data Integration.
+
+Integrate SAP Systems to Achieve an Extensibility Scenario
+
+Automated configuration allows you to extend SAP solutions without affecting their core functions. It also provides a central repository for APIs and data, ensuring easy access to services for developing extensions.
+
+These are the formations types following this use case:
+
+Side-by-Side Extensibility with Kyma. See Setting Up System Landscape for Kyma.
+
+Integration with SAP Build. See Setting Up System Landscape for SAP Build.
+
+Integration with SAP Integration Suite. See Setting Up System Landscape for SAP Integration Suite.
+
+Developing with SAP Business Application Studio. See Setting Up System Landscape for SAP Business Application Studio.

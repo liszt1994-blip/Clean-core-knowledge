@@ -1,0 +1,86 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/getting-global-account
+Title: Getting a Global Account | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformGetting StartedGetting a Global Account
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Getting a Global Account
+
+SAP BTP offers two types of global accounts: Trial accounts (completely free of charge) and enterprise accounts. Within an enterprise account, you can use both free and paid plans.
+
+A global account is the realization of a contract you or your company has made with SAP. A global account is used to manage subaccounts, members, entitlements and quotas. You receive entitlements and quotas to use platform resources per global account and then distribute the entitlements and quotas to the subaccount for actual consumption. There are two types of commercial models for global accounts: consumption-based model and subscription-based model. See Commercial Models
+
+Trial Accounts and Free Tier
+
+Enterprise Accounts
+
+Try Out SAP BTP for Free
+
+Get an Enterprise Account
+
+Try Out SAP BTP for Free
+
+There are two ways to try out SAP BTP services and applications for free.
+
+Context
+
+A free trial account is intended for individuals, for example students, who want to explore SAP BTP for free. It is an isolated account and subaccount, with preallocated service entitlements that can be used for a limited number of days.
+
+Free tier is not an account type, but it's a set of free services that can be used within an enterprise account.
+
+To learn which is best for your needs, see the Set Up an SAP BTP Account for Tutorials group in the SAP Developer Center.
+
+Get an Enterprise Account
+
+To use an enterprise account, you can either purchase a customer account, join the partner program to purchase a partner account, or self-register for an enterprise account to try out free tier service plans.
+
+For more information about the scope of our enterprise offering, see Enterprise Accounts. For more information about free tier within an enterprise account, see Trial Accounts and Free Tier and Using Free Service Plans.
+
+Related Information
+Get an Account on SAP BTP to Try Out Free Tier Service Plans
+Sign up for a Customer Account
+
+A customer account is an enterprise account that allows you to host productive, business-critical applications with 24x7 support.
+
+When you want to purchase a customer account, you can select from a set of predefined packages. For information about service availability, prices, and estimators, seehttps://www.sap.com/products/technology-platform/pricing.html . You can also view the service catalog via the SAP Discovery Center. Contact us on SAP BTP or via an SAP sales representative.
+
+Free Tier
+
+If you want to try out services for free, with the option of easily upgrading them later, you can get an enterprise account and use free tier service plans only. See Get an Account on SAP BTP to Try Out Free Tier Service Plans. When you sign up for a global account to try out free tier service plans, you need to select either an existing global account of your company, or create a new global account. If you choose an existing global account, make sure to contact the global account admin of this global account, as they'll receive the communication emails. In this case, we recommend to have them add you as Global Account Administrator. See Assign Users to Role Collections and SAP BTP Onboarding Resource Center.
+
+You can upgrade and refine your resources later on. You can also contact your SAP sales representative and opt for a configuration, tailored to your needs.
+
+Onboarding
+
+After you have purchased a new customer account, you will receive an email confirming the provisioning of resources from the platform services team and a second email with the URL and login ID to obtain access. Note, only the person who receives the access email has initial access to SAP BTP.
+
+If you chose an add-on to an existing global account, the initial access email will not be sent to you. You will need to contact the Global Account Administrator from the initial BTP order. If you’re unsure who this person is, please contact your SAP Sales representative. If you need to add a new global admin because the person with initial access is no longer available to grant you access, then you can contact the SAP Support Portal, by creating a ticket at component BC-NEO-CIS-OPS.
+
+Tip
+
+Check out the Live Onboarding Webinars.
+
+Getting a Customer Account in China
+
+If you are located in China and want to buy a global account on SAP BTP, you need to contact an SAP sales representative: https://www.sap.cn/registration/contact.html.
+
+Related Information
+Commercial Models
+Using Free Service Plans
+Access the Cockpit
+Join the Partner Program
+
+A partner account is an enterprise account that enables you to build applications and to sell them to your customers.
+
+To become a partner, you need to fill in an application form and then sign your partner contract. You will be assigned to a partner account with the respective resources. To apply for the partner program, visit https://partneredge.sap.com/content/partnerregistration/en_us/registration.html?partnertype=BLD&engagement=0002&build=1. You will receive a welcome mail with further information afterwards.
+
+General information about the partner program is available onhttps://www.sap.com/partners/partner-program.html .
+
+Next Steps
+
+Getting Started in the Cloud Foundry Environment
+
+Getting Started in the ABAP Environment
+
+Getting Started in the Kyma Environment

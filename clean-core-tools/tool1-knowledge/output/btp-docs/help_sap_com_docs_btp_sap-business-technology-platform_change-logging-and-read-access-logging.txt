@@ -1,0 +1,20 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/change-logging-and-read-access-logging
+Title: Change Logging and Read-Access Logging | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformSecurityData Protection and PrivacyChange Logging and Read-Access Logging
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Change Logging and Read-Access Logging
+
+Change logging records changes to personal data, while read-access logging records access to sensitive personal data. You may be required to gather this information for auditing purposes or legal requirements.
+
+Use the appropriate API to retrieve logs.
+
+For the Cloud Foundry, see Audit Log Retrieval API Usage for Subaccounts in the Cloud Foundry Environment.
+
+Note
+
+For any applications you develop, you must ensure they include logging functions. SAP BTP does not provide audit logging functions for custom developments.
+
+Logs are deleted regularly.

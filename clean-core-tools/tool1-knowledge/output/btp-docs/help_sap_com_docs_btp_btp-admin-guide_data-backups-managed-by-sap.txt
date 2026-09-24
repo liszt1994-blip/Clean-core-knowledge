@@ -1,0 +1,51 @@
+URL: https://help.sap.com/docs/btp/btp-admin-guide/data-backups-managed-by-sap
+Title: Data Backups Managed by SAP | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP Administrator's GuideDeploy and DeliverData Backups Managed by SAP
+SAP BTP Administrator's GuideEnglish
+Provide feedback on our search
+
+Data Backups Managed by SAP
+
+SAP handles the backup and recovery of service data. However, there are some exceptions.
+
+Services with Automated Data Backups
+
+Data stored in the following services and components is automatically backed up on a regular basis by SAP:
+
+SAP HANA Cloud: SAP HANA Cloud instances are continually backed up to safeguard your database and ensure that it can be recovered. For more information, see Backup and Recovery.
+
+PostgreSQL on SAP BTP, Hyperscaler Option: SAP keeps backups of your PostgreSQL database instances for a retention period of 14 days. You can restore a database instance to any point in time within the backup retention period by creating a new database instance. For more information, see Restore Database Instance to a Specified Time.
+
+Services Without Automated Data Backups
+The following services don’t currently provide any backup and restore features:
+
+Redis on SAP BTP, hyperscaler option: This service doesn’t support persistence.
+
+Object Store on SAP BTP: There's no backup and restore feature provided by the Object Store service. However, there are additional features that could help with backup and restore in certain scenarios:
+
+Object Versioning allows you to recover from accidental deletion and modification of objects because the hyperscalers keep older versions in case the objects are modified or deleted.
+
+Object Expiration Rules helps with the automatic deletion of older versions.
+
+The prevent deletion feature helps preventing your blob stores from accidental deletion. For more information, see Prevent Accidental Deletion of AWS S3 Buckets and Preventing Accidental Deletion of Azure Containers
+
+Runtimes
+SAP BTP, Cloud Foundry Runtime
+
+For services running in the SAP BTP, Cloud Foundry runtime, the backed-up data is copied to additional availability zones within the same region. Each availability zone represents a physically separate location with its own power supply, network, and cooling. For more information, see Regions.
+
+SAP BTP, Kyma Runtime
+
+SAP BTP, Kyma runtime relies on managed Kubernetes clusters for periodic backups of Kubernetes objects. Automatic backup doesn't include Kubernetes volumes. For more information, see Kyma Environment Backup.
+
+SAP BTP, Neo Environment
+
+For services running in the SAP BTP, Neo environment, the backed-up data is copied to an availability zone in another region. For more information, see Regions in the Neo Environment.
+
+SAP BTP ABAP Environment
+
+The ABAP environment relies on backups from SAP HANA Cloud. For details, see Backups.
+
+Related Information
+SAP BTP Service Configuration Backups Managed by Customers

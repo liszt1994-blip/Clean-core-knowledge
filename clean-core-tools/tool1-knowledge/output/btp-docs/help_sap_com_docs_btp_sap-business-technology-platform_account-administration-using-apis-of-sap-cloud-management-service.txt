@@ -1,0 +1,83 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/account-administration-using-apis-of-sap-cloud-management-service
+Title: Account Administration Using APIs of the SAP Cloud Management Service | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Account Administration Using APIsAccount Administration Using APIs of the SAP Cloud Management Ser…
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Account Administration Using APIs of the SAP Cloud Management Service
+
+Provides information about using the APIs of the SAP Cloud Management service for SAP BTP (technical name: cis) to manage some of the administrative operations in your accounts.
+
+The APIs of the core services for SAP BTP allow you to manage, build, and extend the core capabilities of SAP BTP. Each core service focuses on a different aspect of the platform, such as the management of accounts and product entitlements, and the registration and provisioning of subscriptions for multitenant applications and services.
+
+The APIs of the SAP Cloud Management service are included in the core services for SAP BTP.
+
+The following table provides an overview of the SAP Cloud Management service APIs:
+
+API / Microservice
+
+Description
+
+Region Availability(1)
+
+Accounts
+
+Provides functions to manage the directories and subaccounts in your global accounts' structure in SAP BTP.
+
+Central region(2)
+
+Entitlements
+
+Provides functions to manage product entitlements and assignments across your global account, directories, and subaccounts.
+
+Central region(2)
+
+Provisioning
+
+Provides functions to manage the provisioning of your environment instances, multitenant application subscriptions, and services for subaccounts in their corresponding region.
+
+All regions
+
+Events
+
+Provides functions to get information about events relating to administrative operations in your accounts.
+
+All regions
+
+(1) For more information about available regions, see Regions.
+
+(2) Refers to the eu10 Europe (Frankfurt) region, unless your global account is located in the China (Shanghai) and Government Cloud (US) regions then use the landscape domain of your central region.
+
+For detailed information about the APIs, including their specifications and endpoints, go to SAP Core Services for SAP BTP on SAP Business Accelerator Hub
+
+Alternatively, go to https://events-service.<app domain>.<landscape domain>/swagger-index.html where you can try out the APIs.
+
+Example
+
+If your global account is running on the US East (VA) region, use this URL:
+
+https://events-service.cfapps.us10.hana.ondemand.com/swagger-index.html
+
+Remember
+
+When using the Accounts and Entitlements APIs, make sure the endpoint you are using points to the landscape domain of the central region.
+
+To call the core platform API methods, you must obtain an access token. See Getting an Access Token for SAP Cloud Management Service APIs.
+
+For information about the APIs of the SAP Service Manager service, see Working with Service Management APIs.
+
+For additional information about using the SAP Cloud Management service APIs with subaccounts in the Neo environment, see Working with Cloud Management Tools Feature Set B in the Neo Environment.
+
+Related Information
+Error Response Format
+Asynchronous Jobs
+Using the Events Service APIs
+Rate Limiting
+Monitoring Usage Information Using APIs of the SAP Usage Data Management Service
+Using SAP SaaS Provisioning Service APIs to Manage Multitenant Applications
+Using Platform APIs
+Account Model
+Environments
+Entitlements and Quotas
+Data Protection and Privacy

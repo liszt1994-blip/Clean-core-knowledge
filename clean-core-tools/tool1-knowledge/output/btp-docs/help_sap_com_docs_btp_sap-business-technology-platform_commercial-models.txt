@@ -1,0 +1,24 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/commercial-models
+Title: Commercial Models | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformBasic Platform ConceptsEnterprise AccountsCommercial Models
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Commercial Models
+
+SAP BTP offers two different commercial models for enterprise accounts.
+
+Consumption-based commercial model: Your organization receives access to all current and future services that are eligible for this model. You have complete flexibility to turn services on and off and to switch between services as your business requires throughout the duration of your contract. This commercial model is available in the following flavors: SAP BTP Enterprise Agreement (SAP BTPEA), Cloud Platform Enterprise Agreement (CPEA), and Pay-As-You-Go for SAP BTP.
+
+For more information, see What Is the Consumption-Based Commercial Model?
+
+Subscription-based commercial model: Your organization subscribes only to the services that you plan to use. You can then use these services at a fixed cost, irrespective of consumption.
+
+For more information, see What Is the Subscription-Based Commercial Model?
+
+Note
+
+You can use both commercial models, either in separate global accounts or in the same global account depending on your business needs. Contact your SAP account executive or sales representative for more information. Note however that you cannot mix more than one flavor of the consumption-based commercial model in the same global account.
+
+For information about service availability, prices, and estimators, see https://www.sap.com/products/technology-platform/solutions.html and https://www.sap.com/products/technology-platform/integration-suite/pricing.html. You can also view the service catalog via the SAP Discovery Center.

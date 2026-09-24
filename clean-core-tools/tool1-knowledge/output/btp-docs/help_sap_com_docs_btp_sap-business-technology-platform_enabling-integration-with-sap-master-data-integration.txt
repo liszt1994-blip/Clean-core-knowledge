@@ -1,0 +1,77 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/enabling-integration-with-sap-master-data-integration
+Title: Enabling Integration with SAP Master Data Integration | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Formations for Services in SAP BTPEnabling Integration with SAP Master Data Integration
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Enabling Integration with SAP Master Data Integration
+
+Use
+Note
+
+The content in this section is not relevant for China (Shanghai) and Government Cloud (US) regions.
+
+SAP Master Data Integration service is a central master data hub. Applications integrate with SAP Master Data Integration to synchronize their local master data databases with the master data database of the central hub. In a typical setup, there is exactly one tenant of SAP Master Data Integration for each landscape. See What Is Master Data Integration?.
+
+Using a formation of type Integration with SAP Master Data Integration, you automatically set up an integration between systems of type SAP Master Data Integration and other systems or applications, for example SAP S/4HANA Cloud.
+
+Note
+
+This documentation refers to SAP S/4HANA Cloud Public Edition. See Introduction to the Universe of SAP S/4HANA Cloud Public Edition.
+
+Rules
+
+When creating formations of type Integration with SAP Master Data Integration, keep in mind the following rules:
+
+System of type SAP Master Data Integration can be included in at most one Integration with SAP Master Data Integration formation.
+
+Formation of type Integration with SAP Master Data Integration can contain exactly one system of type SAP Master Data Integration.
+
+System of type SAP S/4HANA Cloud can be included in at most one Integration with SAP Master Data Integration formation.
+
+When registering the SAP S/4HANA Cloud system, you have to choose one of the following communication scenario groups:
+
+All Communication Scenarios
+
+Integration with SAP Master Data Integration
+
+Integration with SAP Ariba Central Invoice Management
+
+See Register an SAP S/4HANA Cloud System in a Global Account in SAP BTP.
+
+Prerequisites
+
+You are a global account administrator, or you are a system landscape administrator. See Working with Role Collections.
+
+You have a system of type SAP Master Data Integration in the Systems list. This system is auto-discovered because it is associated with your global account and has been discovered and added automatically to the list based on information of the existing system landscape.
+
+You have registered the SAP S/4HANA Cloud system that you are going to include in the formation of type Integration with SAP Master Data Integration.
+
+When you register an SAP S/4HANA Cloud system, use the All Communication Scenarios or the Integration with SAP Master Data Integration communication scenario groups when you get the registration token for the SAP S/4HANA Cloud system. This allows the automatic enablement of the SAP_COM_0008, SAP_COM_0091, SAP_COM_0659, and SAP_COM_0594 communication scenarios after the corresponding system is added to the formation of type Integration with SAP Master Data Integration.
+
+Procedure
+
+In the System Landscape  Systems page of the SAP BTP cockpit, browse the already added systems in your system landscape.
+
+The SAP S/4HANA Cloud and the SAP Master Data Integration systems you are going to include in this formation must not be part of another formation.
+
+In the System Landscape  Formations page, create a formation of type Integration with SAP Master Data Integration and include the relevant systems in it.
+
+Add any name that helps you identify your formation.
+
+In the Formation Type dropdown menu, select Integration with SAP Master Data Integration.
+
+Choose Next Step.
+
+Select the SAP Master Data Integration system that you want to include in the formation.
+
+Select the other systems that you want to include. In the list you can select only systems that are allowed to be included in this formation.
+
+Choose Next Step.
+
+Review your selections and create the formation.
+
+Next Steps
+
+Depending on the specific scenario, the next steps would be different. For example, if an SAP Ariba Central Invoice Management system is included in a formation of type Integration with SAP Master Data Integration, then continue with the steps described in Automating Integrations with SAP Ariba Central Invoice Management.

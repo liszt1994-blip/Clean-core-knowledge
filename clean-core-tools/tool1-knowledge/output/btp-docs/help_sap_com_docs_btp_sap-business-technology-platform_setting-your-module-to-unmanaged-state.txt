@@ -1,0 +1,17 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/setting-your-module-to-unmanaged-state
+Title: Setting Your Module to the Unmanaged and Managed State | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformAdministration and OperationsAdministration and Operations in the Kyma EnvironmentSetting Your Module to the Unmanaged and Managed State
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Setting Your Module to the Unmanaged and Managed State
+
+In some cases, for example, for testing, you may need to modify your module beyond what is supported by its configuration. By default, when a module is in the managed state, Kyma Control Plane governs its Kubernetes resources, reverting any manual changes during the next reconciliation loop. To modify Kubernetes objects directly without them being reverted, you must set the module to the unmanaged state. In this state, reconciliation is disabled, ensuring your manual changes are preserved.
+
+Caution
+
+Unmanaged modules aren't subject to the Service Level Agreement (SLA). Additionally, setting a module back to the managed state does not guarantee its version is correctly updated.
+
+Setting Your Module to the Unmanaged State
+Setting Your Module to the Managed State

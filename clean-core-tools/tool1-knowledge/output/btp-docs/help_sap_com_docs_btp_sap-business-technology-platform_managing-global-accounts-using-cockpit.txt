@@ -1,0 +1,35 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/managing-global-accounts-using-cockpit
+Title: Managing Global Accounts Using the Cockpit | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Account Administration in the CockpitManaging Global Accounts Using the Cockpit
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Managing Global Accounts Using the Cockpit
+
+Your SAP BTP global account is the entry point for managing the resources, landscape, and entitlements for your departments and projects in a self-service manner.
+
+Global Account Settings
+
+As a global account administrator, you can access the global account settings by clicking  (Global Account Settings) in the SAP BTP cockpit.
+
+In the General tab of the global account settings, you can obtain general information about your global account, including your global account ID, global account name, account type, payment models, contract status, global account subdomain, geographic access restrictions, and when your account was created.
+
+Note
+
+In this tab, you cannot change any of the values. The only value that you can edit is the global account name, and you can do this in the Account Explorer page (see Change the Display Name of Your Global Account).
+
+In the Subaccounts tab in the global account settings, you can
+
+Define default settings that are used when creating a new subaccount in this global account.
+
+You can set the supported providers, the default provider, and the default region.
+
+Set the option to enable the force deletion of subaccounts.
+
+If this option is selected, all global account admins can force delete subaccounts that are not marked as "used for production". The force deletion of a subaccount permanently deletes all its data, including applications, service instances, spaces, active subscriptions, and members. The force deletion is permanent and irreversible. This option also enables the force deletion of subaccounts using the btp CLI or the SAP Cloud Management APIs. Subaccounts that are marked as "used for production" cannot be force deleted. When the force deletion of a subaccount has been requested, a seven-day waiting period begins during which access to the subaccount and its services is partially blocked and the subaccount is marked as Pending Deletion. During this waiting period, you can still cancel the scheduled deletion. After the waiting period, the subaccount and all its data will be permanently deleted.
+
+Related Information
+Setting Up Your Account Model
+Managing Directories Using the Cockpit
+Managing Subaccounts Using the Cockpit

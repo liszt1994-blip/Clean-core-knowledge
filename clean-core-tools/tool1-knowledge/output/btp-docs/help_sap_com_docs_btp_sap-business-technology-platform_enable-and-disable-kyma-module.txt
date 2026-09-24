@@ -1,0 +1,33 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/enable-and-disable-kyma-module
+Title: Adding and Deleting a Kyma Module | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformAdministration and OperationsAdministration and Operations in the Kyma EnvironmentAdding and Deleting a Kyma Module
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Adding and Deleting a Kyma Module
+
+To use a Kyma module, you must add it first. Use Kyma dashboard or Kyma CLI to do that. If you don't need the module anymore, delete it to save resources.
+
+Context
+Tip
+
+To see which modules you have in your cluster, go to Kyma dashboard and under Cluster Overview, choose Modify Modules.
+
+If you prefer Kyma CLI, run kyma module list.
+
+Adding a Kyma Module
+Context
+Procedure
+Use Kyma dashboard
+Use Kyma CLI
+Related Information
+Kyma Dashboard
+Kyma CLI
+Deleting a Kyma Module
+Procedure
+Use Kyma dashboard
+Use Kyma CLI
+Related Information
+Kyma Dashboard
+Kyma CLI

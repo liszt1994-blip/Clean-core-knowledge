@@ -1,0 +1,94 @@
+URL: https://help.sap.com/docs/btp/btp-developers-guide/tools
+Title: Tools Available for SAP BTP Multi-Cloud Foundation | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP Developer's Guide…Programming Languages, Tools, and APIsTools Available for SAP BTP Multi-Cloud Foundation
+SAP BTP Developer's GuideEnglish
+Provide feedback on our search
+
+Tools Available for SAP BTP Multi-Cloud Foundation
+
+SAP BTP includes many tools to help you develop and manage applications. The availability of some of the tools depend on the runtime that you are running on.
+
+Tool
+
+Description
+
+Account Administration in the Cockpit
+
+The SAP BTP cockpit is the web-based administration interface of SAP BTP and provides access to a number of functions for configuring and managing applications, services, and subaccounts. Use the cockpit to manage resources, services, security, monitor application metrics, and perform actions on cloud applications.
+
+Used for account administration in SAP BTP.
+
+SAP Business Application Studio
+
+Designed and optimized for business application development in SAP ecosystems, SAP Business Application Studio enhances productivity by offering specialized tools for various scenarios, including SAP Fiori application development, SAP HANA native extensions, full-stack and mobile application development, and more.
+
+Central to the development environment is Code-OSS, the open-source foundation of Visual Studio Code, ensuring a familiar experience for developers when creating SAP-centric applications. SAP Business Application Studio streamlines the building, testing, and deployment of applications with integrated features for source control and testing. Furthermore, its Full-Stack Application Productivity Toolkit offers intuitive visual tools covering the entire development process, guaranteeing seamless integration with various SAP services and solutions.
+
+Used for:
+
+SAP Fiori development for ABAP and non-ABAP
+
+CAP full-stack application development
+
+SAP Build
+
+SAP Build enables everyone, no matter the skill level, to create and augment enterprise applications, process automations, and business sites with drag-and-drop simplicity.
+
+Used for low-code, no-code development.
+
+Command Line Interface for Cloud Foundry
+
+The Cloud Foundry command line interface enables you to work with the Cloud Foundry runtime to deploy and manage your applications.
+
+Used for managing subaccounts in the SAP BTP, Cloud Foundry runtime.
+
+Cloud Connector
+
+The Cloud Connector serves as the link between on-demand applications in SAP BTP. This is the browser-based and existing on-premise systems. You can control the resources available for the cloud applications in those systems.
+
+Used for connectivity between SAP BTP applications and on-premise systems.
+
+Terraform provider for SAP BTP
+
+The Terraform provider for SAP BTP enables you to automate the provisioning, management, and configuration of resources on SAP BTP.
+
+kubectl
+
+The Kubernetes command line tool to communicate with a Kubernetes cluster's control plane, using the Kubernetes API.
+
+Used as a Kubernetes tool connected with the SAP BTP, Kyma runtime.
+
+kubelogin
+
+A kubectl plugin for Kubernetes OpenID Connect (OIDC) authentication.
+
+Used as a Kubernetes tool connected with the SAP BTP, Kyma runtime.
+
+Helm
+
+The package manager for Kubernetes, used for installing and managing Kubernetes applications in form of Helm charts.
+
+Used as a Kubernetes tool connected with the SAP BTP, Kyma runtime.
+
+Paketo (Pack)
+
+Pack is a tool maintained by the Cloud Native Buildpacks project to support the use of buildpacks. Pack lets you build container images, which are collaboratively maintained making it easier to maintain and update.
+
+Used as a Kubernetes tool connected with the SAP BTP, Kyma runtime.
+
+Docker Desktop
+
+Docker Desktop is an application that enables you to manage (build, push, pull, and run) container images on your desktop and a docker-compatible command line interface.
+
+Used as a Kubernetes tool connected with the SAP BTP, Kyma runtime.
+
+SAP Cloud SDK
+
+SAP Cloud SDK provides a layer of abstractions for features of SAP BTP such as logging, multitenancy, and connectivity. It also includes project templates for different execution environments and implementations.
+
+Used for programming in Java and JavaScript.
+
+Service-Specific Tools
+
+The services that run on SAP BTP can come with service-specific tools. For an overview of the services and their tools, see the SAP Discovery Center.

@@ -1,0 +1,49 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/developing-html5-applications-in-cloud-foundry-environment
+Title: Developing HTML5 Applications in the Cloud Foundry Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Developing User InterfaceDeveloping HTML5 Applications in the Cloud Foundry Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Developing HTML5 Applications in the Cloud Foundry Environment
+
+SAP BTP enables you to access and run HTML5 applications in a cloud environment without the need to maintain your own runtime infrastructure.
+
+HTML5 applications consist of static content that runs on a browser. Then you develop your applications - either in SAP Business Application Studio, or in your own IDE (integrated development environment) - and deploy them to the HTML5 application repository.
+
+Depending on your backend application setup, you either configure the destinations during development, or define them after deploying the application. Finally, to consume the applications, you can create a site using SAP Cloud Portal service or SAP Build Work Zone, build the URL, and define custom domains.
+
+On the Cloud Foundry environment of SAP BTP you can run an application that was uploaded to HTML5 application repository using one of the following options:
+
+Use the application router that is managed by SAP.
+
+For more information, see Managed Application Router.
+
+Set up and maintain your own application router in your own space.
+
+For more information, see Application Router.
+
+Both options allow you to serve static content from HTML5 application repository, authenticate users, rewrite URLs, and forward or proxy requests to other micro services while propagating user information. However, the managed application router brings many benefits, such as:
+
+Simplify and speed up your development and deployment experience
+
+Save resources by running a serverless HTML5 application, which doesn’t require any application runtime
+
+Lower maintenance efforts by leveraging the most up-to-date routing capabilities
+
+Meet the changing demand for HTML5 applications by automatically adjusting the service to maintain consistent and predictable performance
+
+Monitor and run your HTML5 applications from the HTML5 Applications UI in the SAP BTP cockpit
+
+Therefore, we recommend running your own application router only in advanced cases, for example when application router extensibility is required.
+
+Note
+
+When using the managed application router, you can monitor and run your HTML5 applications from the HTML5 Applications UI for your subaccount in the SAP BTP cockpit.
+
+For monitoring and running HTML5 applications served by a standalone application router, you can use the CF HTML5 applications repository CLI plugin.
+
+Related Information
+HTML5 Application Repository
+Application Router
+Managed Application Router

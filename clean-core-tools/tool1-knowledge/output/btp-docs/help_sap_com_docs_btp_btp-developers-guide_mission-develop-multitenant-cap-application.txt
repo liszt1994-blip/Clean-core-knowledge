@@ -1,0 +1,58 @@
+URL: https://help.sap.com/docs/btp/btp-developers-guide/mission-develop-multitenant-cap-application
+Title: Mission: Develop a Multitenant CAP Application | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP Developer's GuideDeveloping with CAP in the SAP BTP, Cloud Foundry and SAP BTP, Ky…Tutorials for SAP Cloud Application Programming ModelMission: Develop a Multitenant CAP Application
+SAP BTP Developer's GuideEnglish
+Provide feedback on our search
+
+Mission: Develop a Multitenant CAP Application
+
+SAP BTP provides a multitenant functionality that allows application providers to own, deploy, and operate tenant-aware applications for multiple consumers, with reduced costs. For example, the application provider upgrades the application for all your consumers instead of performing each update individually, or share resources across multiple consumers. The application consumers launch the applications using consumer-specific URLs, and configure certain application features.
+
+With tenant-aware applications, you can:
+
+Separate data securely for each tenant
+
+Save resources by sharing them among tenants
+
+Update applications efficiently, in a single step
+
+A business solution is typically a multitenant application that consists of UI modules, business logic and a connection to a database. Unlike other applications that are integrated into SAP Build Work Zone, it also contains the site design-time definitions such as tiles, roles, spaces, and pages, and the site entity that wraps in all together. You can develop business solutions to easily share them with consumers. There are two types of business solutions you can choose from: a central or local entry point. These are the main differences between the central and local entry point:
+
+Key Differences Between the Approaches Supporting Multitenancy in SAP Build Work Zone
+
+Feature
+
+Central Entry Point
+
+Local Entry Point
+
+Consumer-side SAP Build Work Zone service instance
+
+Required: standard or advanced service plan
+
+Not required
+
+App router management
+
+Managed app router: you get it out of the box
+
+Standalone app router: extensible
+
+Site administration
+
+Administered by the consumer: full SAP Build Work Zone service instance in the consumer subaccount
+
+Provider-managed: not administered by the consumer
+
+Layout customization
+
+Customizable by the consumers: the administrator defines the spaces/pages with federated business application
+
+Layout is fixed by the provider, groups are not supported
+
+You can find a detailed comparison between central and local entry point at Creating Business Solutions.
+
+To try out the multitenant functionality on the Incident Management sample application, see Develop a Multitenant CAP Application Following the SAP BTP Developer's Guide.
+
+This image is interactive. Click the highlighted areas so you open the respective tutorial or mission.

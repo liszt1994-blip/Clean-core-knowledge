@@ -1,0 +1,24 @@
+URL: https://help.sap.com/docs/btp/preparing-and-testing-your-solution-for-third-party-cookie-deprecation
+Title: What Is The Purpose of This Document? | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)Preparing and Testing Your Solution for Third-Party Cookie Phase-…
+Preparing and Testing Your Solution for Third-Party Cookie Phase-OutEnglish
+Provide feedback on our search
+
+What Is The Purpose of This Document?
+
+The focus of this guide is to identify issues related to the phase out of third-party cookies. You will learn how to test your application your extensions and assess whether they are affected. Mitigation strategies are covered in Implementing a Permanent Solution for the Third-Party Cookie Phase-Out guide.
+
+Note
+
+Google has revised its strategy (July 22nd, 2024) regarding the third-party cookie phase-out. Instead of enforcing tracking protection by blocking third-party cookies centrally, they will offer this as a choice to their users across all their web browsing. To allow our users to enable tracking protection, the solutions discussed in the guide remain fully relevant. We will update the guide accordingly and incorporate any guidance of Google as it becomes available.
+
+Caution
+
+This guide aims at providing guidance, pointing to the right resources, and sharing our experience on testing the impact of third-party phase-out on applications to developers. It is not exhaustive, and we give no guarantee for correctness, as the topic is driven by Google and subject to change. Please always refer to the official Google documentation for a complete overview and for latest updates.
+
+Browser manufacturers are presenting users with a choice for tracking protection that limits the usage of third-party cookies. A prominent example is Google Chrome’s plan to offer people to possibility to make an informed choice that applies across their web browsing.
+
+While the overall plan and timeline is defined by Google and other vendors, we are striving to make sure that our products are best prepared for our users' choice. Our partners and customers, who have successfully built extensions and applications on top of SAP products, are also working hard to guarantee that their solution will keep working with very minimal impact.
+
+Before you get started, we recommend checking our blog, Are You Affected by the Third-Party Cookie Phase-Out?, to get an understanding of the different scenarios. As you might be aware, Google is continuing their 1%-trial for unmanaged users. You have to test differently for this scenario. To that end, the Test for Breakage chapter provides further instructions on how to set up the testing environment and how to run the different tests. After you have run these tests, and if you identify a breakage in your application due to the third-party cookie blocking, see the Auditing Cookie Usage using Chrome DevTools and Identifying Cookies to find tips about identifying the responsible cookies.

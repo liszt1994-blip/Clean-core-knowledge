@@ -1,0 +1,44 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/register-microsoft-365-copilot-for-joule-system
+Title: Register a Microsoft 365 Copilot for Joule System | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformExtensions and IntegrationsAdding, Registering and Deregistering SystemsRegister a Microsoft 365 Copilot for Joule System
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Register a Microsoft 365 Copilot for Joule System
+
+Prerequisites
+
+You are a global account administrator, or you are a system landscape administrator of the global account where you want to add a system of type Microsoft 365 Copilot for Joule. See Working with Role Collections.
+
+Context
+Note
+
+The content in this section is not relevant for China (Shanghai) and Government Cloud (US) regions.
+
+You can integrate Microsoft 365 Copilot with Joule so that your users have conversational interactions that include content about integrated SAP systems. To do that, you have to add a system of type Microsoft 365 Copilot for Joule in a formation of type Integration with Joule. See Integrating Joule with Microsoft 365 Copilot.
+
+Procedure
+In the cockpit, navigate to your global account, and then choose System Landscape  Systems .
+On the Systems page, choose Add System.
+In the Add System wizard:
+In the Type dropdown list, select Microsoft 365 Copilot for Joule.
+Enter a name for the system you want to register.
+Note
+
+Use only printable ASCII characters.
+
+Tip
+
+We recommend that you indicate the type of the system when specifying the system name.
+
+In the System ID field, enter the ID which corresponds to the Microsoft Entra Tenant ID. To see how to get this ID, see section Get the Tenant ID of Your Microsoft Entra ID Tenant of the Configuring SAP Cloud Identity Services and Microsoft Entra ID for Joule blog post.
+Choose Add.
+Results
+
+The system has been added as a record to the list on the Systems page in the SAP BTP cockpit and you have added the respective APIs or events.
+
+If you no longer need it, you can remove the system. See Deregister or Removе a System.
+
+Next Steps
+Create a new Integration with Joule formation or use an already existing one and include in the system in this formation. See Enabling Joule.

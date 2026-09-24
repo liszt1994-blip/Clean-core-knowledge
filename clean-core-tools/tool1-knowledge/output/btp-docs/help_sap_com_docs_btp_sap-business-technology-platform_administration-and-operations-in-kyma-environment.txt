@@ -1,0 +1,59 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/administration-and-operations-in-kyma-environment
+Title: Administration and Operations in the Kyma Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformAdministration and OperationsAdministration and Operations in the Kyma Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Administration and Operations in the Kyma Environment
+
+This is the managed offering of SAP BTP, Kyma runtime (based on the open-source project "Kyma"). The administrators of the Kyma environment take care of setting it up and make sure it is ready for developers to work with. Create your Kyma instance to build applications and extensions to SAP and third-party solutions, manage roles, have your Kubernetes objects backed up, and view metrics and logs.
+
+Caution
+
+Do not make changes in any Kyma-managed namespaces, the kube-system namespace, or to any resources marked with Do Not Edit. Changes to those resources could lead to exclusion or disruptions from the agreed SLA. If you decide to make changes despite this, consult support in advance, and proceed with caution. To identify a Kyma-managed namespace, check if it has the operator.kyma-project.io/managed-by: kyma label.
+
+Creating Kyma Instances
+
+Set up a Kubernetes cluster with SAP BTP, Kyma runtime and use it to build applications and extensions to your SAP and third-party solutions. You can create one or multiple Kyma clusters in a single SAP BTP subaccount.
+Tracking Kubeconfig and Cluster Associations in Kyma
+
+You can identify which kubeconfig is associated with a particular Kyma cluster by the value of the Cluster Name parameter.
+Managing Kyma Runtime Using the Provisioning Service API
+
+The SAP Cloud Management service for SAP BTP (technical name: cis) provides the Provisioning Service API to create and manage available environments. Use the Provisioning Service API to automatically manage and access SAP BTP, Kyma runtime.
+Available Plans in the Kyma Environment
+
+Depending on your global account type, you have access to a different plan that specifies the cluster parameters for the Kyma environment.
+Provisioning and Updating Parameters in the Kyma Environment
+
+When creating a Kyma cluster, you can configure various parameters to adjust it to your specific needs.
+Adding and Deleting a Kyma Module
+
+To use a Kyma module, you must add it first. Use Kyma dashboard or Kyma CLI to do that. If you don't need the module anymore, delete it to save resources.
+Setting Your Module to the Unmanaged and Managed State
+
+In some cases, for example, for testing, you may need to modify your module beyond what is supported by its configuration. By default, when a module is in the managed state, Kyma Control Plane governs its Kubernetes resources, reverting any manual changes during the next reconciliation loop. To modify Kubernetes objects directly without them being reverted, you must set the module to the unmanaged state. In this state, reconciliation is disabled, ensuring your manual changes are preserved.
+Access Kyma Application Logs
+
+Get insights into your applications, microservices, and Functions by viewing the respective logs. To check out real-time logs immediately, use the Kubernetes functionalities - either in Kyma dashboard, or with kubectl.
+Kyma Environment Backup
+
+Kyma Modules' Sizing
+
+The following tables show the resource consumption, such as memory, CPU, and storage, of Kyma modules.
+Change Storage Size in Kyma
+
+If the amount of data for the applications in your Kyma environment grows, you can expand the storage size for your customer data by resizing the respective Persistent Volume Claim (PVC).
+Assigning Workloads to Worker Node Pools
+
+In addition to the mandatory worker node pool existing in each Kyma runtime, you can add and configure custom worker node pools. These additional worker nodes are reserved for running your workloads with special computing requirements on optimized machines. To ensure your workload runs on the right worker node pool, assign workloads to particular worker nodes.
+Admission Policies
+
+Learn about the validating admission policies deployed in SAP BTP, Kyma runtime clusters, why they block specific actions, and what you can do if you need an exception. These policies are enforced at admission time and protect cluster stability, security, and operational correctness.
+Kyma Runtime with Dual-Stack Support
+
+Learn how to apply dual-stack support in Kyma instances.
+Ingress and Egress IP Addresses
+
+Learn how to check ingress and egress IP addresses for your Kyma runtime cluster. These addresses are needed to integrate with partner systems, enforce IP-based access controls, connect to external databases, and more.

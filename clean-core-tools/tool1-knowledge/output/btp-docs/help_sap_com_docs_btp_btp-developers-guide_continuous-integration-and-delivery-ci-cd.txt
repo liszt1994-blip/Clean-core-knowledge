@@ -1,0 +1,90 @@
+URL: https://help.sap.com/docs/btp/btp-developers-guide/continuous-integration-and-delivery-ci-cd
+Title: Continuous Integration and Delivery (CI/CD) | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP Developer's Guide…Programming Languages, Tools, and APIsContinuous Integration and Delivery (CI/CD)
+SAP BTP Developer's GuideEnglish
+Provide feedback on our search
+
+Continuous Integration and Delivery (CI/CD)
+
+Configure and run predefined continuous integration and delivery (CI/CD) pipelines that automatically build, test, and deploy your code changes to speed up your development and delivery cycles.
+
+Note
+
+For links to all SAP solutions for CI/CD, blog posts, presentations, and tutorials, have a look at our Continuous Integration and Delivery by SAP overview.
+
+Continuous integration (CI) describes a software development process, in which various team members integrate their contributions frequently into a single main line. Before each integration, the changes are verified through builds and automated testing. Thereby, you can detect errors as quickly as possible and prevent integration problems before completing the development.
+
+The continuous delivery (CD) concept expands on the one of continuous integration. It adds the aspect that any change that has successfully passed the tests is immediately ready to be deployed to production, both from a technical and a qualitative point of view.
+
+The following graphic shows the basic flow for continuous integration and delivery:
+
+Continuous Integration Basic Flow
+
+For more information about the continuous integration and continuous delivery concepts, see What Are Continuous Integration and Continuous Delivery?.
+
+Use
+
+Depending on your use case, you can choose between different CI/CD pipelines to help you implement continuous integration and delivery in your software development.
+
+SAP Continuous Integration and Delivery lets you configure and run predefined pipelines for the development of the following applications:
+
+Configure a Cloud Foundry Environment Job
+
+Create an SAP Continuous Integration and Delivery job for SAP Fiori and SAP Cloud Application Programming Model projects in the Cloud Foundry environment.
+
+Configure an SAP Fiori for the ABAP Platform Job
+
+Create an SAP Continuous Integration and Delivery job for SAP Fiori projects for the ABAP platform.
+
+Configure an SAP Integration Suite Artifacts Job
+
+Create an SAP Continuous Integration and Delivery job for SAP Integration Suite artifacts.
+
+To learn more about the CI/CD pipelines supported by SAP Continuous Integration and Delivery and the stages each pipeline can comprise, see Configuring Jobs.
+Get Started with CI/CD
+
+SAP Continuous Integration and Delivery provides an easy, UI-guided way to set up the service and configure and run your pipelines, without hosting your own Jenkins instance.
+
+To set up SAP Continuous Integration and Delivery:
+
+Enable the service in the SAP BTP cockpit.
+
+Assign either the Administrator or Developer role to your user.
+
+Enable the API usage to connect SAP Continuous Integration and Delivery to other services, if necessary.
+
+To configure SAP Continuous Integration and Delivery:
+
+Note
+
+Only administrators of SAP Continuous Integration and Delivery can configure the service.
+
+Configure credentials for connecting SAP Continuous Integration and Delivery to other services (for example, GitHub, GitLab, Bitbucket Server, or Azure Repos to clone your sources, and SAP BTP to deploy your built application).
+
+Add your repository.
+
+Now you can create and modify your CI/CD jobs and monitor their outcome. If you want to automate your builds, you can configure a webhook between your repository and the service. You can create and modify timed triggers for your jobs, if necessary.
+
+For more information, see Initial Setup and Configuration.
+
+Automate the Provisioning of Resources Needed to Create a Kyma Cluster
+
+Integrate the Terraform module, which uses the Terraform provider for SAP BTP, into CI/CD pipelines, so you can automate the provisioning of resources needed to create a Kyma cluster, deploy applications, run tests, and tear down the resources when they are no longer required. As there is no need to have resources running continuously, this approach reduces operational costs.
+
+See Terraforming Kyma Runtimes.
+
+Learn and Get Certified
+Depending on your learning goals and level of expertise, you can choose from the following offerings:
+
+Exploring DevOps with SAP BTP
+
+Learn how to efficiently apply DevOps practices to your development projects on SAP BTP.
+
+Efficient DevOps with SAP
+
+This openSAP course introduces general DevOps approaches and key principles. Learn about the basic CI/CD principles (week 1) and how to deliver cloud applications using CI/CD (week 3).
+
+Continuous Integration and Delivery Introduction Guide
+
+The CI/CD Introduction Guide provides you with basic knowledge for setting up and implementing continuous integration and delivery processes. It gives an overview of the concepts and principles of CI/CD, explains both procedures and their relation, and helps you plan your own CI/CD process.

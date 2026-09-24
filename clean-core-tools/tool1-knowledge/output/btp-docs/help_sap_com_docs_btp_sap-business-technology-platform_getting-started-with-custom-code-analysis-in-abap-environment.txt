@@ -1,0 +1,50 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/getting-started-with-custom-code-analysis-in-abap-environment
+Title: Getting Started with Custom Code Analysis in the ABAP Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformGetting StartedGetting Started in the ABAP EnvironmentGetting Started with Custom Code Analysis in the ABAP Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Getting Started with Custom Code Analysis in the ABAP Environment
+
+Learn how to get started with Custom Code Analysis in the SAP BTP ABAP environment.
+
+You want to use the SAP BTP ABAP environment to analyze your custom code remotely in your SAP ECC or SAP S/4HANA systems? This documentation will help you gain insight into all the options to work with the ABAP Test Cockpit (ATC) in the SAP BTP ABAP environment.
+
+The following list covers all possible use cases and will guide you to the respective documentation chapters providing more details on each use case.
+
+Configure ABAP Test Cockpit: Use this app to maintain ATC configurations using the SAP Fiori launchpad.
+
+For more information on this app, see ABAP Test Cockpit Configurator.
+
+To learn how to enable the app, see Enable Usage of the ABAP Test Cockpit Configurator App.
+
+Custom Code Analysis: If you want to check your custom code in your on-premise system remotely using the SAP BTP ABAP environment as the central check system, you need to set up the Analyze Custom Code app on the SAP Fiori launchpad.
+
+To enable the Analyze Custom Code app, see Enable Usage of the Custom Code Migration App.
+
+To learn all about custom code migration, see the Custom Code Migration Guide for SAP S/4HANA 2023.
+
+ATC Developer Scenario: You can use a system in the SAP BTP ABAP environment as a central check system to run ATC checks from an on-premise system against this system. To do this, a number of configurations will be necessary.
+
+To learn how to use the ATC as a central check system, see Configuring Remote ATC Using a Central Check System.
+
+To learn how to set up the ATC developer scenario, see Configuring the ATC Developer Scenario.
+
+Working with Exemptions: Learn about your options to exempt your ATC findings.
+
+To learn how to enable the Approve ATC Exemptions app to be able to exempt the findings from your custom code analysis, see Enable Usage of the Approve ATC Exemptions App.
+
+For more information on the Approve ATC Exemptions app, see Approve ATC Exemptions.
+
+Schedule Custom Code Analysis: The Schedule Custom Code Analysis app enables you to schedule projects created in the Analyze Custom Code app as application jobs. With this functionality, the analyses can be performed once or periodically.
+
+To learn more about the app and how to enable it, see Schedule Custom Code Analysis.
+
+Maintain the Baseline: In the Analyze Custom Code app, it is now possible to maintain the ATC baseline. This means that you can add/remove custom code project check results to/from the baseline​ and choose whether you would like to exempt your findings, suppress your findings or reduce their priority. After adding findings to the baseline, they won't appear in the subsequent check results of the custom code project.
+
+To learn more about the baseline functionality in the Analyze Custom Code app, see Custom Code Migration.
+
+Related Information
+SAP BTP ABAP environment
+Custom Code Analysis

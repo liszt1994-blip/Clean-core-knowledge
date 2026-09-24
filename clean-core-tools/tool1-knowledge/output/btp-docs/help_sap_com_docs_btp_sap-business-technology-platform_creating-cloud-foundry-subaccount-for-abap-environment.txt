@@ -1,0 +1,34 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/creating-cloud-foundry-subaccount-for-abap-environment
+Title: Creating a Cloud Foundry Subaccount for the ABAP Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…ABAP Environment: Initial SettingsCreating a Cloud Foundry Subaccount for the ABAP Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Creating a Cloud Foundry Subaccount for the ABAP Environment
+
+Create a Cloud Foundry subaccount for the ABAP environment in your global account using the cockpit.
+
+Context
+Note
+
+If you have run the booster Prepare an Account for ABAP Development, you can skip these steps.
+
+For the ABAP environment, you need a Cloud Foundry subaccount as a technical environment. If you want to reuse an existing Cloud Foundry subaccount, make sure that it uses the providers and regions that are available for provisioning an ABAP environment. For more information about the providers and regions for ABAP environment, see Regions.
+
+Procedure
+From your global account, choose New Subaccount.
+Specify a display name, for example, ABAP.
+Optional: Enter a description.
+Leave the Neo Environment checkbox deselected.
+Choose the desired infrastructure provider and region for your subaccount.
+
+You can find the available providers and regions for the ABAP environment in Regions.
+
+Enter a subdomain for your subaccount. The subdomain will become part of the URL for accessing applications that you subscribe to from this subaccount.
+Note
+
+You can choose any string of your choice. However, note that the subdomain can contain only letters, digits and hyphens (not allowed in the beginning or at the end), and must be unique across all subaccounts in the same region. Uppercase and lowercase letters can be used, however that alone does not qualify as a means to differentiate subdomains (for example, SUBDOMAIN and subdomain are considered to be the same).
+
+If your subaccount is to be used for production purposes, select the Used for production option.
+Choose Create.

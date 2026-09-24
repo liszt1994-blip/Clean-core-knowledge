@@ -1,0 +1,62 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/user-and-member-management
+Title: User and Member Management | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformBasic Platform ConceptsUser and Member Management
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+User and Member Management
+
+On SAP BTP, user management takes place at all levels from global account to environment. There are different types of users, such as depending on their roles in the company.
+
+User Accounts
+
+A user account corresponds to a particular user in an identity provider. The user is always stored in an external identity provider, such as a custom tenant of SAP Cloud Identity Services - Identity Authentication or the default identity provider.
+
+Recommendation
+
+We strongly recommend that you configure your custom tenant of SAP Cloud Identity Services as the identity provider and connect SAP Cloud Identity Services to your own corporate identity provider.
+
+For more information, see Trust and Federation with Identity Providers.
+
+User accounts enable users to log on to SAP BTP, access subaccounts, and to use applications according to the permissions granted to them.
+
+Note
+
+A user name alone doesn't determine a concrete user account with associated authorizations, as you can have users with the same user name in different identity providers. Accessible data and allowed operations also depend on the identity provider. The concrete user is identified by the combination of user name and identity provider.
+
+Example
+
+There are two users with the same user name, which is the email address here. The two users with different identity providers have different authorizations and can access different applications.
+
+julia.moore@acme.com from the custom identity provider has authorizations to access her favorite industrial applications. She needs the logon with the custom identity provider for her actual work.
+
+julia.moore@acme.com from the default identity provider has no authorizations.
+
+Before diving into the different user and member management concepts, it's important to understand the difference between the two types of users we’re referring to: platform users and business users.
+
+For more information, see Platform Users and Business Users.
+
+Exceptions
+
+There are some exceptions from the separation of platform and business users. Typical cases are the ABAP environment, which doesn't distinguish between these two types, and SAP Build Code or SAP Build applications, which developers currently access as business users.
+
+ABAP Environment
+
+Typical cases are the ABAP environment, which doesn't distinguish between these two types, and SAP Build Code or SAP Build applications, which developers currently access as business users.
+
+The user and authorization concept used in the ABAP environment is completely decoupled and independent from the authorization concept of SAP BTP or within Cloud Foundry. The ABAP environment runs within the SAP BTP, Cloud Foundry environment. Therefore, administrators or developers need the right authorizations in Cloud Foundry to create the ABAP environment or other services, which get consumed in an application running in the ABAP environment.
+
+For more information, see Administration and Operations in the ABAP Environment.
+
+Kyma Environment
+
+To enable a Kyma environment, you need the subaccount administrator role collection (see Role Collections and Roles in Global Accounts, Directories, and Subaccounts). All other authorizations and trust are managed in the Kyma cluster.
+
+Kyma uses Kubernetes Role-Based Access Control (RBAC) and assures during provisioning that a user who creates and owns a particular runtime is given the cluster-admin role. Users with the cluster-admin role can define any additional cluster roles or use those defined in Kyma and bind them to other users from Kyma dashboard or with the kubectl CLI tool. See Assign Roles in the Kyma Environment. For recommendations on setting up roles and permissions in Kyma, see Role-Based Access Control (RBAC) in Kyma.
+
+Related Information
+Working with Users
+Roles and Role Collections
+Attributes
+Trust and Federation with Identity Providers

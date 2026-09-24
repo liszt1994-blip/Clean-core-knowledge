@@ -1,0 +1,190 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/principal-propagation-from-cloud-foundry-to-neo-environment
+Title: Principal Propagation from the Multi-Cloud Foundation to the Neo Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformSecurityPrincipal PropagationPrincipal Propagation from the Multi-Cloud Foundation to the Neo …
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Principal Propagation from the Multi-Cloud Foundation to the Neo Environment
+
+Enable an application in your multi-environment subaccount (for the multi-cloud foundation) to access an OAuth-protected application in a subaccount in the Neo environment without user login (and user interaction) in the second application. For this scenario to work, the two subaccounts need to be in mutual trust, and in trust with the same identity provider. The first application will propagate its logged-in user to the second application using an OAuth2SAMLBearer destination.
+
+The graphic below illustrates the overall setup of the scenario.
+
+Prerequisites
+
+You have a user account with Administrator role in both SAP BTP subaccounts. See Managing Member Authorizations in the Neo Environment.
+
+You have a custom local service provider configuration (this means in cloud cockpit  Security  Trust  Local Service Provider
+
+you have chosen Configuration Type  Custom) in your subaccount in the Neo environment. See Configure the Local Service Provider.
+
+Both accounts have a trust configuration to the same identity provider. See:
+
+Configure Trust to the SAML Identity Provider (for the Neo environment)
+
+Establish Trust with Any SAML 2.0 Identity Provider in a Subaccount (for the multi-cloud foundation)
+
+The application in the Neo environment is protected using OAuth 2.0. See OAuth 2.0 Service.
+
+The application in the multi-environment subaccount is bound to an instance of the following services:
+
+Destination Service. See Create and Bind a Destination Service Instance.
+
+xsuaa
+
+You have deployed both applications, each in the corresponding subaccount.
+
+Note
+
+All configuration steps described in this tutorial are done using the cloud cockpit.
+
+Contents
+
+Create Trust Between the Subaccounts
+
+Create an OAuth Client
+
+Create a Destination
+
+Create Trust Between the Subaccounts
+
+Exchange keys and certificates between the subaccounts, and configure trust between them. This will enable the subaccounts to communicate using HTTP destinations.
+
+Procedure
+In the cloud cockpit, log on with the Administrator user.
+Save locally the identifying X509 certificate of the subaccount in the Cloud Foundry environment.
+In SAP BTP cockpit, navigate to the subaccount in the Cloud Foundry environment.
+Navigate to Connectivity  Destinations.
+Choose Download Trust and save the X509 certificate identifying this subaccount.
+In the subaccount in the Neo environment, create trust to the subaccount in the Cloud Foundry environment.
+Navigate to the subaccount in the Neo environment.
+Navigate to Security  Trust  Application Identity Provider.
+Choose Add Trusted Identity Provider and configure the new trust configuration settings:
+
+In the Name field, enter the following:
+
+<your Cloud Foundry domain host>/<Cloud Foundry subaccount ID>
+
+Tip
+
+You can view the Cloud Foundry domain host in cockpit  <your global account>  <your subaccount>  <your space>  Routes.
+
+Tip
+
+You can view the subaccount ID in cockpit  <your global account>  <your subaccount>  Overview.
+
+In the Signing Certificate field, enter the X509 certificate of the Cloud Foundry account.
+
+Note
+
+Make sure you remove the BEGIN CERTIFICATE and END CERTIFICATE parts.
+
+Mark the Only for IDP-initiated SSO option.
+
+Save the new trust configuration.
+
+Create an OAuth Client
+
+You need an OAuth client to get an access token for the OAuth-protected resources in the application in the Neo environment.
+
+Context
+
+For more information about working with OAuth clients, see Create an OAuth Client.
+
+Procedure
+In the cockpit, navigate to the subaccount in the Neo environment.
+Navigate to Security  OAuth  Clients, and choose Register New Client.
+Create an OAuth client with the following configuration settings:
+
+Name - the OAuth client name. You will need to provide this name as value of the Token Service User property of the destination below.
+
+Authorization Grant - choose the Authorization Code option.
+
+Mark the Confidential option, and provide a secret (password).
+
+Save the client.
+Note
+
+When creating the required OAuthSAMLBearer destination later, you will need the following information from the OAuth client:
+
+ID
+
+Secret
+
+Create a Destination
+
+Context
+Connect the two subaccounts by describing the connection properties in a destination. For more information, see Modeling Destinations.
+Procedure
+Choose the subaccount in the Cloud Foundry environment, and navigate to Connectivity  Destinations.
+Choose New Destination.
+In the new destination, provide the following information:
+
+Field
+
+Description
+
+Name
+
+Technical name of the destination. It can be used later on to get an instance of that destination. It must be unique for the global account.
+
+Description
+
+Free-text description.
+
+Type
+
+HTTP
+
+URL
+
+The URL of the protected resource in the Neo environment.
+
+Example: https://myneoapp.hana.ondemand.com/myprotectedresource/
+
+Authentication
+
+OAuth2SAMLBearerAssertion
+
+Proxy Type
+
+Internet
+
+Audience
+
+The value of the local service provider name in the subaccount in the Neo environment.
+
+Copy the value from cockpit  <your Neo subaccount>  Security  Trust  Local Service Provider  Local Service Provider Name.
+
+Client Key
+
+The ID of the OAuth client for the application in the Neo environment.
+
+Token Service URL
+
+Copy the value of Token Endpoint from the following place: cockpit  <your Neo subaccount>  Security  OAuth  Branding.
+
+Token Service User
+
+The ID of the OAuth client for the application in the Neo environment.
+
+Token Service Password
+
+The secret from the OAuth client.
+
+System User
+
+Empty.
+
+authnContextClassRef
+
+urn:oasis:names:tc:SAML:2.0:ac:classes:PreviousSession
+
+nameIdFormat
+
+urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified if the user ID will be propagated to the Neo application or nameIdFormat = urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress if the user email will be propagated to the Neo application.
+
+
+
+Save the changes.

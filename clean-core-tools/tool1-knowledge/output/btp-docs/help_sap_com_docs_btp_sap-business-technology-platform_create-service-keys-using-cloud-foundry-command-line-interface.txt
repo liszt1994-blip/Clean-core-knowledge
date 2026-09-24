@@ -1,0 +1,37 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/create-service-keys-using-cloud-foundry-command-line-interface
+Title: Create Service Keys Using the Cloud Foundry Command Line Interface | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Creating Service KeysCreate Service Keys Using the Cloud Foundry Command Line Interface
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Create Service Keys Using the Cloud Foundry Command Line Interface
+
+Use the Cloud Foundry Command Line Interface to create a service key.
+
+Prerequisites
+
+Download and install the cf CLI and log on to Cloud Foundry. For more information, see Download and Install the Cloud Foundry Command Line Interface and Log On to the Cloud Foundry Environment Using the Cloud Foundry Command Line Interface.
+
+Create a service instance. For more information, see Create Service Instances Using the Cloud Foundry Command Line Interface.
+
+Procedure
+Run the following command to create a service key:
+
+
+cf create-service-key SERVICE_INSTANCE SERVICE_KEY [-c PARAMETERS_AS_JSON]
+
+Specify the following parameters:
+
+SERVICE_INSTANCE: Name of the service instance.
+
+SERVICE_KEY: Name for the service key.
+
+-c: (Optional) Provide service-specific configuration parameters either in a valid JSON object in-line or in a parameters file. This file reference can be an absolute or relative path to a file.
+
+Results
+Local clients, apps in other spaces, or entities outside your deployment can now access your service instance with this key.
+Related Information
+Creating Service Instances
+Binding Service Instances to Applications
+About Services

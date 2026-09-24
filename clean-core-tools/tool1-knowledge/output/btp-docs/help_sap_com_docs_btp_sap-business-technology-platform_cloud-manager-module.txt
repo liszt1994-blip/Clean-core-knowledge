@@ -1,0 +1,47 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/cloud-manager-module
+Title: Cloud Manager Module | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Kyma ModulesCloud Manager Module
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Cloud Manager Module
+
+Use the Cloud Manager module to manage infrastructure providers' resources from SAP BTP, Kyma runtime.
+
+What Is Cloud Manager?
+
+The Cloud Manager module manages access to cloud providers' chosen resources and products. Once you add Cloud Manager to your Kyma cluster, the module securely brings the offered resources. Cloud Manager is strictly coupled with the cloud provider where your Kyma cluster is deployed.
+
+Remember
+
+Using certain features of the Cloud Manager module introduces additional costs. For more information, see Calculation with the Cloud Manager Module.
+
+Scope
+
+The Cloud Manager module is available on Kyma clusters running on Amazon Web Services, Google Cloud, and Microsoft Azure.
+
+Restriction
+
+Cloud Manager supports the NFS feature of Amazon Web Services and Google Cloud only.
+
+Features
+The Cloud Manager module provides the following features tailored for each of the cloud providers.
+
+NFS: Network File System (NFS) server that can be used as a ReadWriteMany (RWX) volume in the Kyma cluster.
+
+VPC Peering: Virtual Private Cloud (VPC) peering between your SAP BTP, Kyma runtime and remote cloud provider's project, account, or subscription.
+
+Redis: cloud provider-flavored cache that can be used in your Kyma cluster.
+
+Architecture
+
+Cloud Manager has read and write access to your IpRange, VpcPeering, NfsVolume, and Redis custom resources (CRs) in the Kyma cluster. The module also manages Kyma VPC networks, NFS Volume instances, and Redis instances in your cloud provider landscape in Kyma.
+
+API/Custom Resource Definitions
+
+The cloud-resources.kyma-project.io Custom Resource Definition (CRD) describes the kind and the format of data that Cloud Manager uses to configure resources. For more information, see Cloud Manager Resources.
+
+Related Information
+kyma-project.io: Cloud Manager module: Tutorials
+Calculation with the Cloud Manager Module

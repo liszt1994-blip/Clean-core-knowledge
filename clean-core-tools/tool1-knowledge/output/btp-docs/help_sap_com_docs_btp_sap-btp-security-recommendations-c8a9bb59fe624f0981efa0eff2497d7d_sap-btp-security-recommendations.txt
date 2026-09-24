@@ -1,0 +1,160 @@
+URL: https://help.sap.com/docs/btp/sap-btp-security-recommendations-c8a9bb59fe624f0981efa0eff2497d7d/sap-btp-security-recommendations
+Title: SAP BTP Security Recommendations | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP Security Recommendations
+SAP BTP Security RecommendationsEnglish
+Provide feedback on our search
+
+SAP BTP Security Recommendations
+
+These recommendations help you evaluate the security of the configuration of SAP BTP.
+
+Remember
+
+As part of the cloud shared responsibility model (restricted access), you're responsible for determining if any of these recommendations are relevant for your environment and to what extent.
+
+The security recommendations are provided as a courtesy, without a warranty, and may be subject to change. For more information, see the disclaimer.
+
+If your service is missing, see also the Security section of the your service documentation on the SAP Help Portal.
+
+See also Explanation of Table Headings and Displaying Security Recommendations.
+
+For applications and services on the SAP BTP, Neo Environment, see SAP BTP, Neo Environment Security Recommendations.
+
+Component
+
+Priority
+
+Title
+
+Default Setting or Behavior
+
+Recommendation
+
+More Information
+
+Filter:
+[No selection]
+
+Filter:
+[No selection]
+
+Component
+
+Priority
+
+Title
+
+Default Setting or Behavior
+
+Recommendation
+
+More Information
+
+Malware Scanning	Recommended	Strong Authentication for REST APIs
+
+The service supports basic authentication or mTLS to access the REST APIs.
+
+The certificate created for the mTLS binding or service key has a validity of 364 days. Otherwise the credentials for the binding or service key doesn't expire.
+
+Use mTLS to bind applications to the service in productive environments.
+
+Rotate credentials before they expire or once a year if they don't expire.
+
+Initial Setup
+
+Frequently Asked Questions
+
+Cloud Logging
+
+Critical	Setting Up Authentication with Identity Authentication service
+
+Without SAML configuration, authentication defaults to basic authentication which should not be used for production.
+
+Basic authentication suffers from inherent security vulnerabilities, interceptable and unencrypted format transmission of credentials.
+
+Set up authentication with SAP Cloud Identity Services - Identity Authentication.	Configuration Parameters for SAML
+
+Cloud Logging
+
+Recommended	Update Dependent Libraries	If you use the optional client libraries to add fields to the logs, check for updates to these libraries. We regularly provide updates to fix issues and make improvements in our code. The logging libraries are on Github as open source.	Watch the Github project for new releases and update them when new releases become available.	Include Logging Libraries
+
+Cloud Logging
+
+Recommended
+
+Monitor and update bindings
+
+Service binding credentials contain client certificates that expire after 90 days by default. After certificates’ expiration, clients cannot authenticate with the service instance anymore.
+
+Rotate client certificates:
+
+Automate your deployment process to rotate client certificates in accordance with the certificate lifetime. Once setup, regularly check that the re-binding process matches with the configured lifetime.
+
+Rotate root CA Certificate:
+
+Pay attention on when to rotate root CA Certificate: it should only be rotated if you want to invalidate all bindings at once.
+
+Ingest via OpenTelemetry API Endpoint
+
+Ingest via Kyma Runtime
+
+When to rotate the ingestion root CA certificate
+
+Identity Authentication	Critical	Default Authentication of Administrators	The default authentication method for the administration console is user name and password.	Always protect the administration console application with multifactor authentication.	Configure Risk-Based Authentication for an Application
+Identity Authentication	Recommended	Password Policies
+
+The service supports multiple levels of password security. The default setting is Standard. The main difference between Standard and Enterprise is the enforcement of password change.
+
+If these policies don't meet your corporate requirements, create custom policies.
+
+If password-based authentication is mandatory for you, we recommend Enterprise over Standard, because it’s the only option to fix leaked accounts.
+
+Better is the deactivation of passwords for employees if applicable. See BTP-IAS-0006.
+
+Configure Custom Password Policy
+Identity Authentication	Critical	Self-Registration of End Users
+
+For business-to-consumer (public) scenarios, self-registration may be required. By default, self-registration is disabled (value = internal) and can be configured per application.
+
+Corporate identity lifecycle processes make self-registration undesirable in most business-to-employee (B2E) and business-to-business (B2B) scenarios.
+
+For more information, see Scenarios
+
+Keep self-registration disabled (value = internal). Actively manage use cases that require the function.	Configure User Access to the Application
+Identity Authentication	Critical	Social Sign-On of End Users
+
+For business-to-consumer (public) scenarios, social sign-on may be required. By default, social sign-on is disabled (value = internal) and can be configured per application.
+
+Corporate identity lifecycle processes make social sign-on undesirable in most business-to-employee (B2E) and business-to-business (B2B) scenarios.
+
+For more information, see Scenarios
+
+Keep social sign-on disabled (value = internal). Actively manage use cases that require the function.	Enable or Disable Social Sign-On for an Application
+Identity Authentication	Advanced	Default Authentication of End Users	The default authentication method for end users to authenticate with the service is user name and password.	Use passwordless authentication methods. Disable password authentication for end users by setting up a risk-based authentication (RBA) rule which excludes the User Name and Password authentication method.
+
+Configure Kerberos Authentication
+
+Enable Users to Generate and Authenticate with Certificates
+
+Enable or Disable FIDO2 Biometric Authentication for an Application
+
+Configure Default Risk-Based Authentication for All Applications in the Tenant
+
+Risk-Based Authentication for an Application
+
+Identity Authentication
+
+Advanced
+
+Audit Data	The service uses the SAP Audit Log on the Cloud Foundry environment for audit logging. The retention time is 90 days.
+
+To keep audit log entries longer, download and archive the log entries regularly.
+
+See also BTP-AUD-0001.
+
+Access Audit Logs (AWS, Azure Infrastructure)
+
+Related Information
+SAP BTP Security
+Best Practices for SAP BTP

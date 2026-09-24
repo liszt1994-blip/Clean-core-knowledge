@@ -1,0 +1,59 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/availability-zones-in-kyma-environment
+Title: Availability Zones in the Kyma Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Kyma EnvironmentAvailability Zones in the Kyma Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Availability Zones in the Kyma Environment
+
+The Kyma environment uses availability zones to provide high availability and fault tolerance for your applications and workloads.
+
+Availability zones are isolated failure domains within a single geographical region, connected through low-latency networks, and operating independently with their own power, network, and cooling infrastructure. This separation minimizes the risk that a failure in one zone affects the others, and a localized issue causes widespread disruption to applications and services.
+
+High Availability
+The Kubernetes and SAP BTP, Kyma runtime configurations are optimized for production use cases. By operating on a three-availability-zone architecture, Kyma offers the high availability feature within the following enterprise plans:
+
+Standard: Amazon Web Services, Google Cloud, Microsoft Azure, and Alibaba Cloud
+
+Build Runtime: Amazon Web Services, Google Cloud, and Microsoft Azure
+
+This means that the default worker nodes are deployed in three availability zones of the respective cloud region, and thus can provide zone-level failure tolerance for Kyma and applications deployed on Kyma runtime. The Kubernetes control plane is also hosted in three availability zones. Thus, the runtime automatically manages node and zone failures for all managed components, including the Kubernetes API server.
+
+High Availability in Custom Worker Node Pools
+
+We recommend enabling high availability for additional worker node pools in production environments to enhance resilience. To ensure optimized deployment, Kyma runtime automatically selects specific availability zones during provisioning, so you cannot choose them yourself.
+
+If you disable high availability, your additional worker node pool lacks zone-level failure tolerance because it's deployed in a single, randomly selected availability zone.
+
+Caution
+
+You cannot change the high availability setting of an existing additional worker node pool. To alter this setting, you must delete and recreate the pool with the desired configuration.
+
+High availability for additional worker node pools depends on your choice of virtual machine types:
+
+For general-purpose machines, three availability zones are always available in all supported regions.
+
+For other machine types, for example, compute-intensive machines, the number of availability zones varies by region. For more information on machine types and regional availability, see Machine Type: Machine Type in Additional Worker Node Pools.
+
+High Availability in User Applications
+While high availability is guaranteed for Kubernetes and native Kyma components, it is not automatically provided for your own applications deployed on Kyma. To ensure your applications are resilient to zone failures, you must manually configure high availability by following these guidelines:
+
+Deploy multiple replicas across different availability zones.
+
+Use appropriate resource requests and limits.
+
+Configure health checks and readiness probes.
+
+Implement proper service discovery and load balancing.
+
+If you deploy with topology spread constraints to distribute the replicas across multiple availability zones, the Kubernetes scheduler distributes them across zones, ensuring that if one zone becomes unavailable, your applications continue to run on replicas in the remaining zones.
+
+For more information on building resilient applications, see Develop Resilient Applications in the Kyma Runtime.
+
+Updates and Upgrades
+To maintain high availability and reliability of the Kyma environment during updates and upgrades, the following processes are performed:
+
+Regular updates: Kyma modules are updated regularly across all availability zones to ensure no downtime. By distributing updates across zones, Kyma maintains application and workload availability during routine maintenance.
+
+Major upgrades and maintenance schedules: For critical upgrades, such as Kubernetes version changes, Kyma manages the process within the multi-zone architecture. Updates occur one node at a time across different availability zones to minimize the risk of simultaneous failures and ensure that essential services remain operational within other zones. In Kyma, necessary downtimes are planned and managed during designated periods, following the BTP maintenance window schedule. The sequential update process ensures continuous operation within unaffected zones, maintaining service integrity and platform availability.

@@ -1,0 +1,46 @@
+URL: https://help.sap.com/docs/btp/comparison-btp-runtimes/runtime-strategy
+Title: Runtime Strategy and Roadmap | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)Comparison: SAP BTP, Kyma Runtime and SAP BTP, Cloud Foundry Runt…Runtime Strategy and Roadmap
+Comparison: SAP BTP, Kyma Runtime and SAP BTP, Cloud Foundry RuntimeEnglish
+Provide feedback on our search
+
+Runtime Strategy and Roadmap
+
+Both runtime offerings are a fundamental part of SAP BTP’s runtime service offerings and are part of SAP’s long term strategy and commitment. This section shows where you find the relevant material.
+
+Runtime Strategy and Roadmap
+
+Category
+
+SAP BTP, Kyma runtime
+
+SAP BTP, Cloud Foundry runtime
+
+Strategic embedding
+
+Part of SAP BTP’s App Development Strategy
+
+Part of SAP BTP’s App Development Strategy
+
+Support for SAP Cloud Application Programming Model (CAP) as the strategic programing model.
+
+Yes
+
+For more information, see Deploy to Kyma Runtime
+
+Yes
+
+For more information, see Deploy to Cloud Foundry
+
+Roadmap
+
+SAP Road Map Explorer for SAP BTP, Kyma runtime
+
+SAP Road Map Explorer for SAP BTP, Cloud Foundry runtime
+
+Commercial Information
+
+Commercial Information for Kyma Runtime
+
+Commercial Information for Cloud Foundry Runtime

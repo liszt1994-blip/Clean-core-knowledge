@@ -1,0 +1,109 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/working-with-users
+Title: Working with Users | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Security Administration: Managing Authentication and AuthorizationWorking with Users
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Working with Users
+
+In the SAP BTP cockpit, you can see the users of your global account or subaccount, user-related identity provider information, and their authorizations. In a user's overview, you can create and delete users, and assign role collections. You can also display an overview of the role collections, where you can drill down all the way to the role, and see the application that the role belongs to.
+
+Overview
+
+All users in the global account, subaccount, directories, and environments are stored in identity providers. Users in the subaccounts of SAP BTP are either stored in the default identity provider or in a custom identity provider.
+
+SAP BTP creates a copy of the user in the global account or in the subaccount when a user-related action happens. This copy of the user is called a shadow user. Global account or subaccount administrators of SAP BTP assign role collections to shadow users. To comply with data protection and privacy regulations, administrators can be obliged to delete shadow users who belonged to employees who left the company.
+
+Remember
+
+For access tokens of subaccounts created after September 23, 2020, user IDs preserve the case that they are created in. This means that both uppercase and lowercase letters can be used. However, this does not qualify as a means to differentiate between them; for example, denise.smith@example.com and Denise.Smith@example.com are considered to be the same.
+
+Subaccounts before this date convert the user IDs to lowercase.
+
+Note
+
+User data of shadow users is regularly updated after authentication at the identity provider.
+
+When a user authenticates against SAP BTP, an authentication request is forwarded to the trusted identity provider (for example, SAP Cloud Identity Services). After successful authentication, the identity provider creates a user token based on its configuration and sends it back to SAP BTP. In SAP BTP, the user data is updated according to the token.
+
+Prerequisites
+
+You have administration rights in this global account, subaccount, or directory. For more information, see Security Administration: Managing Authentication and Authorization or Role Collections and Roles in Global Accounts, Directories, and Subaccounts.
+
+The users are stored in identity providers that are connected to SAP BTP.
+
+Default identity provider. For more information, see Default Identity Provider.
+
+Custom identity provider. For more information, see Trust and Federation with Identity Providers.
+
+Use Case
+
+Description
+
+Enable a new hire to log on to the subaccount and have access to necessary resources.
+
+If automatic creation of shadow users was switched off for this identity provider, shadow users aren't created automatically in the subaccount (see the related link). This means that the new user can't log on to the subaccount. As an administrator, create a shadow user that corresponds to the user in the identity provider and assign the necessary role collections to this user.
+
+See Create Users.
+
+If automatic creation of shadow users was switched off for this identity provider, shadow users aren't created automatically in the subaccount (see the related link). Add the user group to the role collections that are necessary for this user if the user belongs to a user group in the identity provider.
+
+See Assign User Groups to Role Collections.
+
+Enable a new hire to have access to necessary resources.
+
+A shadow user is automatically created in the subaccount. This means that the new user can log on to the subaccount, but the user doesn't have any authorizations. As an administrator, you have created new role collections or you want to use existing ones for the new hire. You grant authorizations by assigning the role collections to this user.
+
+See Assign Users to Role Collections.
+
+Enable a new hire to log on.
+
+If automatic creation of shadow users was switched off for this identity provider, shadow users aren't created automatically in the subaccount (see the related link). As an administrator, create a new shadow user in the subaccount.
+
+See Create Users.
+
+If your subaccount uses the default trust configuration, you can also create a shadow user there.
+
+See Add Users from SAP ID Service for Multi-Environment Subaccounts.
+
+Review authorizations of individual users.
+
+You want to find out which authorizations have been granted to users. To do so, access the list of all users, find the users you want to review, and check the role collection assignments. From the user's role collection, you can drill down to the roles of the role collection. You can also assign and remove role collections.
+
+See Find Users and Their Role Collection Assignments.
+
+Delete users of employees who have left the company.
+
+You want to find and delete users of employees who have left the company, but their users still exist in the system.
+
+How to find users, see Find Inactive Users.
+
+How to delete users, see Delete Users.
+
+Automate the provisioning of users.
+
+You want to provision users to SAP cloud solutions, such as SAP BTP so that you can manage your identities centrally.
+
+How to provision users to SAP BTP, see Provision Users to SAP BTP Accounts.
+
+Find users who have never logged on.
+
+You want to find users who never logged on. For example, they could be manually created shadow users with a typo in their user ID, so they don't match the user ID provided by the identity provider. They were never used, and it might make sense to delete them.
+
+See Delete Users.
+
+Delete shadows user to comply with data protection and privacy regulations.
+
+For data protection and privacy reasons, administrators might be legally obliged to delete shadow users who belonged to employees who left the company. You can find and delete the shadow users in the SAP BTP cockpit.
+
+See Delete Users.
+
+You can also delete the users using APIs.
+
+See Delete Shadow Users for Data Protection and Privacy Using APIs.
+
+Related Information
+Switch Off Automatic Creation of Shadow Users
+Security Administration: Managing Authentication and Authorization
+Role Collections and Roles in Global Accounts, Directories, and Subaccounts

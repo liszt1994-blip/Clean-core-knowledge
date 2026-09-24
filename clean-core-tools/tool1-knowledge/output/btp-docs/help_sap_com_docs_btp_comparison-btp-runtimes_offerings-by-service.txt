@@ -1,0 +1,98 @@
+URL: https://help.sap.com/docs/btp/comparison-btp-runtimes/offerings-by-service
+Title: Offerings by the Runtime Service | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)Comparison: SAP BTP, Kyma Runtime and SAP BTP, Cloud Foundry Runt…Offerings by the Runtime Service
+Comparison: SAP BTP, Kyma Runtime and SAP BTP, Cloud Foundry RuntimeEnglish
+Provide feedback on our search
+
+Offerings by the Runtime Service
+
+This section provides general information about the runtime offerings. Both runtimes in the focus of this comparison provide the same level of service.
+
+Offering
+
+Category
+
+SAP BTP, Kyma runtime
+
+SAP BTP, Cloud Foundry runtime
+
+SLA
+
+Standard SLA for cloud services, see SAP Trust Center and the Service Level Agreement for SAP Cloud Services.
+
+Standard SLA for cloud services, see SAP Trust Center and the Service Level Agreement for SAP Cloud Services.
+
+Release frequency
+
+Continuous delivery; ad-hoc patches and hotfixes
+
+Bi-weekly updates; ad-hoc patches and hotfixes
+
+Upgrades
+
+Upgrades and updates are included. Rollout depending on change type.
+
+The change type defines which of the following update/upgrade windows are being used:
+
+Major Upgrades (rarely happening, notification 4 weeks ahead of time)
+
+Continuous delivery, see Kyma Release Channels
+
+Immediate updates (urgent patches, not affecting productive applications)
+
+For more information, see Platform Updates and Notifications.
+
+Upgrades and updates are included. Rollout depending on change type.
+
+The change type defines which of the following update/upgrade windows are being used:
+
+Major Upgrades (rarely happening, notification 4 weeks ahead of time)
+
+Monthly updates
+
+Immediate updates (urgent patches, not affecting productive applications)
+
+For more information, see Platform Updates and Notifications.
+
+Operating model
+
+See Operating Model in the Kyma Environment.
+
+See Operating Model in the Cloud Foundry Environment.
+
+Incident handling
+
+See Operating Model in the Kyma Environment.
+
+See Operating Model in the Cloud Foundry Environment.
+
+Support levels
+
+All support levels
+
+All support levels
+
+Regional availability
+
+Available for Amazon Web Services, Google Cloud, and Microsoft Azure.
+
+Regions for the Kyma Environment.
+
+Datacenter Roadmap in Roadmap Explorer
+
+Region information in SAP Discovery Center
+
+Available for Amazon Web Services, Google Cloud, Microsoft Azure, and Alibaba Cloud.
+
+Regions and API Endpoints Available for the Cloud Foundry Environment
+
+Datacenter Roadmap in Roadmap Explorer
+
+Region information in SAP Discovery Center
+
+Contractually planned downtimes
+
+Only when upgrades are planned for quarterly major upgrade window (MUW). See Platform Updates and Notifications
+
+Only when upgrades are planned for quarterly major upgrade window (MUW). See Platform Updates and Notifications

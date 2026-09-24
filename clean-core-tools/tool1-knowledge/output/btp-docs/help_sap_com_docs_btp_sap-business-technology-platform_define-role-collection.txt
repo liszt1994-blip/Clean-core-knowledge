@@ -1,0 +1,26 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/define-role-collection
+Title: Define a Role Collection | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Working with Role CollectionsDefine a Role Collection
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Define a Role Collection
+
+To define a role collection, you can create a new role collection or copy an existing one. Add the roles, users, and user groups as needed.
+
+Context
+
+One way to define a role collection is to create a new role collection. After you've entered a name and description, you find the new role collection in the list of role collections. You can then add the roles you need and assign users and user groups.
+
+If you have an existing role collection that you want to use as a template, it's a good idea to copy it. The copied role collection includes all of the roles of the origin. However, it doesn't include the users or user groups. You can give it a new name and description. You can find the copy in the list of role collections and assign users and user groups.
+
+Procedure
+Open the SAP BTP cockpit.
+Go to your global account and subaccount (see Navigate in the Cockpit).
+Choose Security  Role Collections.
+To create a new role collection, choose Create. To copy an existing role collection, choose Copy at the end of the row.
+Enter a new name and description. If you copied an existing role collection, you can see the included roles.
+Save your changes.
+
+You can now add or remove roles and assign users or user groups.

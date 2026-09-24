@@ -1,0 +1,77 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/security-administration-managing-authentication-and-authorization
+Title: Security Administration: Managing Authentication and Authorization | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Account Administration in the CockpitSecurity Administration: Managing Authentication and Authorization
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Security Administration: Managing Authentication and Authorization
+
+This section describes the tasks of administrators of SAP BTP. Administrators ensure user authentication and assign authorization information to users and user groups.
+
+Since identity providers provide the users or user groups, you make then sure that there is a trust relationship between your subaccount and the identity provider. This is a prerequisite for authentication. You can manage the authorizations of the users.
+
+Authentication
+
+A user account corresponds to a particular user in an identity provider. The user is always authenticated using an external identity provider.
+
+Recommendation
+
+We recommend to use a custom tenant of SAP Cloud Identity Services. You can connect SAP Cloud Identity Services to your corporate identity provider.
+
+SAP BTP distinguishes two types of users. Platform users are usually administrators, operator, or developers. They have full access and give permissions at global account, directory, and subaccount level. Business users use the applications deployed to SAP BTP. They are, for example, end users of SaaS apps or of custom applications.
+
+For more information, see the related links.
+
+Authorization
+
+Application developers create and deploy application-based authorization artifacts for business users. Administrators use this model to manage roles, build role collections, and assign these collections to users or user groups. In this way, they control the users' permissions.
+
+To perform the functions related to authorization artifacts, account administrators can have multiple options. Here are some of the options:
+
+The SAP BTP cockpit covers all authorization functions. Its user interface offers easy-to-use and clear navigation.
+
+There is also a command line option to manage most authorization artifacts. If you prefer working in a terminal or automating operations, use the SAP BTP command line interface (btp CLI). It's suitable for repetitive tasks.
+
+Especially if you need to perform bulk operations or programmatically access the authorizations, we recommend to use the REST API for authorizations of the SAP Authorization and Trust Management service.
+
+Administrators can also use the Terraform Provider for SAP BTP within Infrastructure as Code to manage some of the authorization functions.
+
+You find the all available options and tools for managing authorizations in the account administration overview. See Account Administration.
+
+Setting Up Authorization Artifacts (Account Administrators)
+
+Task
+
+Links
+
+Assign the role collection to the users provided by an identity provider
+
+Working with Role Collections
+
+(If you do use a custom identity provider) Assign the role collections to user groups
+
+Map Role Collections to User Groups
+
+Assign the role collections to users and user groups, manage attribute mappings
+
+Mapping Role Collections
+
+Create a role collection and assign roles to it
+
+Define a Role Collection
+
+Use an existing role or create a new one using role templates
+
+Add Roles to Role Collections on the Application Level
+
+Note
+
+When users log on, their authorizations are stored in each user's current session. These authorizations are not dynamically updated and are removed from there only when the session is terminated. This means that, after changes of role collection assignments of a user, these changes only become effective after the user logged out and logged on again.
+
+Related Information
+Trust and Federation with Identity Providers
+Monitoring and Troubleshooting
+SAP Authorization and Trust Management Service
+Default Identity Provider
+User and Member Management

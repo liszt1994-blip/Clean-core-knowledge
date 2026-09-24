@@ -1,0 +1,30 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/integration-and-connectivity-f6c7368455ac4caaa27d18b3c471acba
+Title: Integration and Connectivity | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformDevelopmentDevelopment in the ABAP EnvironmentIntegration and Connectivity
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Integration and Connectivity
+
+The ABAP environment enables you to connect to other systems using different protocols. It is possible to consume services from other systems and provide services for consumption in other systems.
+
+Integration and Connectivity Development Guide
+
+Get an overview of the ABAP integration and connectivity development guide.
+SAP-Provided APIs
+
+Integrating On-Premise Systems
+
+Set up the Cloud Connector to enable communication from the ABAP environment to your on-premise systems using Remote Function Calls (RFC) and HTTP calls.
+Managing the SAP BTP ABAP environment Service Instance
+
+Integrating the ABAP Environment with SAP S/4HANA Cloud
+
+You can integrate the SAP BTP ABAP environment with an SAP S/4HANA Cloud Public Edition system. ​This allows ABAP developers to implement outbound service calls from the ABAP environment to the SAP S/4HANA Cloud Public Edition system.
+Developing Metrics for Health Monitoring
+
+Learn how you can add your own metrics to Health Monitoring in SAP Cloud ALM or SAP Focused Run.
+Accessing ABAP-Managed Data Using SQL Services for Data Integration Scenarios
+
+As a developer in the ABAP environment, you can expose CDS view entities in an ABAP system for external consumption using SQL services.

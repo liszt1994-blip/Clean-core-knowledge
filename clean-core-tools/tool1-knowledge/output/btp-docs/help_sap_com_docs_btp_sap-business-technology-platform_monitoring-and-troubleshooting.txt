@@ -1,0 +1,26 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/monitoring-and-troubleshooting
+Title: Monitoring and Troubleshooting | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformSecuritySAP Authorization and Trust Management ServiceMonitoring and Troubleshooting
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Monitoring and Troubleshooting
+
+This section provides information on troubleshooting-related activities for the SAP Authorization and Trust Management service in the Cloud Foundry environment.
+
+Tip
+
+We also recommend that you regularly check the SAP Notes and Knowledge Base for component BC-CP-CF-SEC-IAM in the SAP Support Portal. These contain information about program corrections and provide additional information.
+
+To help you troubleshoot your issue, we also recommend increasing the log verbosity of your application and application router. We provide a script to help you. If for some reason you can't use this script, increase the log verbosity manually, see related link.
+
+To troubleshoot problems with tokens from SAP Cloud Identity Services, see Logging OpenID Connect Tokens in the documentation for SAP Cloud Identity Services.
+
+Our troubleshooting information can be found in Troubleshooting for SAP Authorization and Trust Management Service. Check the individual troubleshooting topics for your error message. If you can't find your problem, create an incident in the component BC-CP-CF-SEC-IAM. For more information, see Monitoring and Troubleshooting.
+
+Related Information
+Getting Support
+Enable and Provide Application Logs
+Auditing and Logging Information for SAP Authorization and Trust Management Service
+Authorization and Access Control Cookbook

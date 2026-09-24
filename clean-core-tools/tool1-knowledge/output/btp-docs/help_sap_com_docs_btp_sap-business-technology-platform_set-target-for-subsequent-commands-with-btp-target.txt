@@ -1,0 +1,134 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/set-target-for-subsequent-commands-with-btp-target
+Title: Set a Target for Subsequent Commands with btp target | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…How to Work with the btp CLISet a Target for Subsequent Commands with btp target
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Set a Target for Subsequent Commands with btp target
+
+Set the target for command calls to a subaccount, a directory, or a global account with the btp target command.
+
+Context
+During login, the btp CLI asks you for the global account you want to log in to and this global account is then the target. This means that commands are executed in this global account unless you specify otherwise via a parameter. There are two typical use cases for the target command:
+
+If you know that you need to work in a particular subaccount or directory, you can change the target, so that you won't have to specify that subaccount's or directory's ID as a parameter with every command call.
+
+If you want to switch to another global account, you can do so by setting the target to this global account without logging in again.
+
+By setting the target to a subaccount or directory, you also target its parent entities, that is, the target hierarchy. If no parameter is specified in a command call, the btp CLI will execute the command in the innermost targeted entity where a command is applicable. If a subaccount is targeted that is inside a directory and the command is not available on subaccount level, it will be executed in the parent directory (if it's a directory command) or in the parent global account (if it's a global account command). This can be useful, for example, if you have targeted a subaccount, but want to update its parent directory. You can then execute btp update accounts/directory without specifying the directory ID.
+
+To see the current target, use btp --info or simply btp.
+
+To explicitly execute a command in a parent entity instead of in the target, you can specify this with '-dir' or '-ga' parameters without a value. The value is then taken from the target hierarchy. This can be useful, for example, if you have targeted a subaccount, but want to list the users of the parent directory. You can then execute btp list security/user -dir. Note, however, that this command is only available on a directory level if the directory is enabled to manage authorizations.
+
+Usage: btp [OPTIONS] target [PARAMS]
+
+Procedure
+Use btp target to set the target for subsequent commands.
+
+Run the command without parameters to see the children, siblings and parent of you current target. You can then select your target or navigate up and down.
+
+Enter --hierarchy as parameter to see all your global accounts with their entire account hierarchies. You can then select your target from this list.
+
+Tip
+
+If you like the --hierarchy parameter and would like to make it the default for the target command, you can define it as a configuration setting with btp set config --target.hierarchy true. If you then run btp target, the entire hierarchy of all your global accounts is shown.
+
+Specify the subaccount, directory, or global account you want to target as described in the next step.
+
+Enter one of the following parameters:
+
+Parameter
+
+Description
+
+--global-account, -ga <SUBDOMAIN>
+
+The subdomain of the global account to be targeted.
+
+--directory, -dir<ID>
+
+The ID of the directory to be targeted. You can find the directory ID by using btp get accounts/global-account --show-hierarchy.
+
+--subaccount, -sa <ID>
+
+The ID of the subaccount to be targeted. You can find the subaccount ID by using btp list accounts/subaccount.
+
+Results
+
+The CLI client displays the current target as a hierarchy. To execute a command in the targeted entity, you can omit the corresponding parameter.
+
+Example
+
+A global account can group together different directories and subaccounts that the global account administrator makes available to users. CLI commands can be executed on all levels of this account hierarchy, that is in the global account, a directory, or a subaccount, usually specified by the above-mentioned parameters. The table below shows some example commands, and explains in which account entity they can be executed and how the target mechanism can be used.
+
+Let's look at a global account that contains a directory with a targeted subaccount. With btp, the current target hierarchy is displayed like this:
+
+
+
+Current target:
+
+My Global Account (global account, subdomain: cee12xx112345-ga)
+
+└─ My Directory (directory, ID: 371eXXXX-55XX-40XX-b3XX-e9947ed9XXXX)
+
+└─ My Subaccount (subaccount, ID: d8aeXXXX-74XX-49XX-89XX-f058029eXXXX)
+
+
+
+Now, when you run commands without specifying an account entity as parameter, they are executed in the targeted subaccount or in one of its parents.
+
+Example Command
+
+Command is Available for
+
+Command is Executed in
+
+btp get accounts/available-environment
+
+--subaccount
+
+The targeted subaccount
+
+btp update accounts/directory
+
+[directory] ID
+
+Note that the directory ID is a positional parameter in this command. You can omit it when a subaccount inside the directory is targeted: btp update accounts/directory [directory ID].
+
+The parent directory of the targeted subaccount
+
+btp list accounts/available-region
+
+--global-account
+
+The parent global account of the targeted subaccount
+
+btp list security/user
+
+--global-account
+
+--directory
+
+--subaccount
+
+The targeted subaccount
+
+Tip
+
+To execute this command in a parent entity, use the -dir or -ga parameter without a value.
+
+btp list security/user --subaccount "1111XXXX-22XX-33XX-44XX-55555555XXXX"
+
+--global-account
+
+--directory
+
+--subaccount
+
+The specified subaccount, which overrides the target
+
+Related Information
+btp CLI Command Reference
+Global Accounts

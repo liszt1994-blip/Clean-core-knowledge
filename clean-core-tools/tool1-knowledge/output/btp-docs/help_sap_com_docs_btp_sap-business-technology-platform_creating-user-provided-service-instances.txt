@@ -1,0 +1,18 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/creating-user-provided-service-instances
+Title: Creating User-Provided Service Instances | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Using Services in the Cloud Foundry EnvironmentCreating User-Provided Service Instances
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Creating User-Provided Service Instances
+
+User-provided service instances enable you to use services that are not available in the marketplace with your applications running in the Cloud Foundry environment.
+
+You can create user-provided service instances using the SAP BTP cockpit or the Cloud Foundry Command Line Interface:
+
+Create User-Provided Service Instances Using the Cockpit
+
+Create User-Provided Service Instances Using the Cloud Foundry Command Line Interface
+
+Fore more information on user-provided service instances, see https://docs.cloudfoundry.org/devguide/services/user-provided.html.

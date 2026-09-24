@@ -1,0 +1,80 @@
+URL: https://help.sap.com/docs/btp/btp-developers-guide/tutorials-for-abap-cloud
+Title: Tutorials for ABAP Cloud | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP Developer's GuideDeveloping with ABAP Cloud in the SAP BTP ABAP EnvironmentTutorials for ABAP Cloud
+SAP BTP Developer's GuideEnglish
+Provide feedback on our search
+
+Tutorials for ABAP Cloud
+
+The ABAP Cloud best practices are documented in the form of step-by-step tutorials for learning how to develop and deploy full-stack transactional and analytical applications using the ABAP RESTful Application Programming Model (RAP) and embedded analytics.
+
+The exercises are based on the Travel sample application of the Flight Reference Scenario that is the best practice example for developing, deploying, and operating a full-stack application using ABAP RESTful Application Programming Model (RAP) and SAP Fiori.
+
+You can also go through the Develop a Full-Stack RAP Application Following the SAP BTP Developer’s Guide that is based on the Travel sample application. This mission has three main parts. The first part contains the RAP100 basics, for building an SAP Fiori application with RAP. The second part is for creating, developing, and integrating an SAP Fiori application. The third part builds on top of RAP100 basics and contains the intermediate tutorials, with additions such as dynamic feature control and ABAP unit tests.
+
+There are additional learning resources and certifications you can use:
+
+SAP Learning Journey: Practicing Clean Core Extensibility for SAP S/4HANA Cloud
+
+SAP Learning Journey: Acquiring Core ABAP Skills
+
+SAP Certification: SAP Certified Associate - Back-End Developer - ABAP Cloud
+
+Analytical Scenario
+
+The analytical scenario shows the end-to-end development of an analytical application. It consists of a business service exposing an analytical query and a report built with SAP Analytics Cloud. The analytical report can be used to analyze complex situations and freely interact with large amounts of data in real time.
+
+The analytical scenario is provided in the form of tutorials with beginner and intermediate experience levels:
+
+Beginner: Develop and Consume Queries on SAP Analytics Cloud
+
+Intermediate: Develop Queries Based on Booking Supplement and Consume on SAP Analytics Cloud
+
+Transactional Scenario
+
+The transactional scenario shows the end-to-end development of a transactional SAP Fiori elements list report application. It consists of an OData-based business service built with RAP and an SAP Fiori elements-based UI. It also shows the deployment of the SAP Fiori application in the ABAP environment and its integration in the local SAP Fiori launchpad for SAP BTP ABAP environment.
+
+You will develop a simple, transactional list report application, the Travel Processing application, that is used by a department responsible for processing worldwide travel for multiple agencies.
+
+The transactional scenario built with RAP is provided as a tutorial mission, which is divided into three tutorial groups with beginner and intermediate experience levels.
+
+The following beginner tutorial groups are available for the transactional scenario:
+
+Build an SAP Fiori App Using the ABAP RESTful Application Programming Model (RAP) – Basics [RAP100]
+
+Get to Know the ABAP RESTful Application Programming Model
+
+Create Database Table and Generate UI Service
+
+Enhance the Business Object Data Model and Enable OData Streams
+
+Enhance the Business Object Behavior with Unmanaged Internal Numbering
+
+Enhance the Business Object Behavior with Determinations
+
+Enhance the Business Object Behavior with Validations
+
+Create, Deploy and Integrate an SAP Fiori Elements App into SAP Fiori Launchpad for SAP BTP ABAP Environment [RAP100]
+
+Create and Deploy an SAP Fiori Elements App to SAP BTP, ABAP Environment
+
+Integrate an SAP Fiori Elements App into the SAP Fiori Launchpad for SAP BTP, ABAP Environment
+
+The advanced exercises of the transactional scenario are provided as a tutorial group. They are built on top of the exercises of the beginner tutorial groups.
+
+Build an SAP Fiori App Using the ABAP RESTful Application Programming Model (RAP) – Intermediate [RAP100]:
+
+Enhance the Business Object Behavior with Instance Actions
+
+Enhance the Business Object Behavior with Factory Action
+
+Enhance the Business Object Behavior with Dynamic Feature Control
+
+Write an ABAP Unit Test for the RAP Business Object
+
+AI Scenario
+
+The AI scenario includes the ABAP Cloud Generator and ABAP capabilities in SAP Joule for Developers, such as predictive code completion, unit test generation for ABAP Core Data Services (CDS) and ABAP code, and code explanation to speed up your development with ABAP Cloud
+
+See RAP120 - Build SAP Fiori Apps with ABAP Cloud and Joule for Developers.

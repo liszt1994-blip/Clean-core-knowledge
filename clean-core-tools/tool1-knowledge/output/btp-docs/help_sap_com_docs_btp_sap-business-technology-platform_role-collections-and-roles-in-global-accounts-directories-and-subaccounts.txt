@@ -1,0 +1,731 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/role-collections-and-roles-in-global-accounts-directories-and-subaccounts
+Title: Role Collections and Roles in Global Accounts, Directories, and Subaccounts | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Platform UsersRole Collections and Roles in Global Accounts, Directories, and S…
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Role Collections and Roles in Global Accounts, Directories, and Subaccounts
+
+SAP BTP provides a set of role collections to set up administrator access to your global account and subaccounts.
+
+Role collections group authorizations for resources and services. Your administrators assign these role collections to other platform users to create new administrators. Role collections consist of individual roles. For more information on role collections, roles, see the related link.
+
+Role collections are account-specific. Role collections that exist in the global account don’t exist in the subaccounts. Likewise, role collections in subaccounts aren’t available in the global account.
+
+Note
+
+Neo subaccounts don’t use role collections.
+
+For more information, see Managing Member Authorizations in the Neo Environment.
+
+Role Collections
+You can use the default role collections, but you can’t change or delete them. SAP BTP provides the following administrator role collections:
+
+Global Account Administrator
+
+Subaccount Administrator
+
+Directory Administrator
+
+Cloud Connector Administrator
+
+Connectivity and Destination Administrator
+
+Destination Administrator
+
+Destination Fragment Administrator
+
+Subaccount Service Administrator
+
+SAP BTP provides also viewer role collections for the global account and for subaccounts. In contrast to the administrator role collections, viewer role collections only grant read access.
+
+Global Account Viewer
+
+Subaccount Viewer
+
+Directory Viewer
+
+Administrator Role Collections
+
+If you assign the Global Account Administrator role collection to a user, this user can perform administration tasks for subaccounts, role collections, identity providers, entitlements, and regions on the level of the global account. If you assign the Global Account Viewer role collection, this user can view subaccounts, role collections, identity providers, entitlements, and regions on the level of the global account.
+
+Note
+
+You can also use the command-line interface (CLI) for SAP BTP to assign authorizations. For more information on managing authorizations, see the related link.
+
+Global Account Administrator Role Collection
+
+Roles Included
+
+Description
+
+Global Account Admin
+
+Role for global account members with read-write authorizations for core commercialization operations, such as updating global accounts, setting entitlements, and creating, updating, and deleting subaccounts.
+
+Note
+
+Users with this authorization don't automatically gain administrator authorizations in all subaccounts, but can grant themselves administrator-level access. You can opt out of this feature. For more information, see Add Members to Your Subaccount.
+
+The GlobalAccount_Admin role template contains this role. You find the role template in the SAP BTP Cockpit if you choose the cis-central!<suffix> application identifier.
+
+Example
+
+cis-central!b1
+
+Global Account Usage Reporting Viewer
+
+Role for global account members with read-only authorizations for core commercialization operations, such as viewing global account usage information.
+
+The GlobalAccount_Usage_Reporting_Viewer role template provides this role. You find the role template in the SAP BTP Cockpit if you chose the uas!<suffix> application identifier
+
+User and Role Administrator
+
+Manage authorizations, trusted identity providers, and users.
+
+The xsuaa_admin role template provides this role. You find the role template in the SAP BTP Cockpit if you choose the xsuaa!<suffix> application identifier.
+
+Example
+
+xsuaa!tl
+
+Auditlog_Auditor
+
+Read access to audit logs
+
+Auditlog_Auditor
+
+View audit logs
+
+System Landscape Administrator
+
+Administrative access to systems and scenario-related resources.
+
+The GlobalAccount_System_Landscape_Administrator role template provides this role. You find the role template in the SAP BTP Cockpit if you choose the cmp!<suffix> application identifier.
+
+Example
+
+cmp!b7
+
+If you assign the Subaccount Administrator role collection to a user, you grant a user administration permission for a subaccount.
+
+Subaccount Administrator Role Collection
+
+Roles Included
+
+Description
+
+Auditlog_Auditor
+
+Read access to audit logs
+
+Auditlog_Auditor
+
+View audit logs
+
+Cloud Connector Administrator
+
+Operate the data transmission tunnels used by the Cloud connector.
+
+Destination Administrator
+
+Manage destination configurations, certificates and subaccount trust via the Destination editor in the SAP BTP cockpit.
+
+Destination Fragment Administrator
+
+Manage destination fragments
+
+Subaccount Admin
+
+Role for subaccount members with read-write authorizations for core commercialization operations, such as viewing subaccount entitlements, and creating and deleting environment instances.
+
+Subaccount Service Administrator
+
+Administrative access to service brokers and environments on a subaccount level.
+
+User and Role Administrator
+
+Manage authorizations, trusted identity providers, and users.
+
+If you assign the Cloud Connector Administrator role collection to a user, you grant the user administration permissions for the Cloud Connector in a subaccount.
+
+Cloud Connector Administrator Role Collection
+
+Roles Included
+
+Description
+
+Cloud Connector Administrator
+
+Operate the data transmission tunnels used by the Cloud connector.
+
+If you assign the Connectivity and Destination Administrator role collection to a user, you grant the user administration permissions for the Cloud Connector and SAP Destination service in a subaccount.
+
+Connectivity and Destination Administrator Role Collection
+
+Roles Included
+
+Description
+
+Cloud Connector Administrator
+
+Operate the data transmission tunnels used by the Cloud connector.
+
+Destination Administrator
+
+Manage destination configurations, certificates and subaccount trust via the Destination editor in the SAP BTP cockpit.
+
+If you assign the Destination Administrator role collection to a user, you grant the user administration permissions for the SAP Destination service in a subaccount.
+
+Destination Administrator Role Collection
+
+Roles Included
+
+Description
+
+Destination Administrator
+
+Manage destination configurations, certificates and subaccount trust via the Destination editor in the SAP BTP cockpit.
+
+If you assign the Destination Fragment Administrator role collection to a user, you grant the user administration permissions for the management of destination fragments for the SAP Destination service in a subaccount.
+
+Destination Fragment Administrator Role Collection
+
+Roles Included
+
+Description
+
+Destination Fragment Administrator
+
+Manage destination fragments
+
+If you assign the Subaccount Service Administrator role collection to a user, you grant the user administration permissions for the Service Manager in a subaccount.
+
+Subaccount Service Administrator Role Collection
+
+Roles Included
+
+Description
+
+Subaccount Service Administrator
+
+Administrative access to service brokers and environments on a subaccount level.
+
+Viewer Role Collections
+
+If you assign the Global Account Viewer role collection to a user, you grant read access to the same information as the Global Account Administrator role collection.
+
+Global Account Viewer Role Collection
+
+Roles Included
+
+Description
+
+Global Account Viewer
+
+Role for global account members with read-only authorizations for core commercialization operations, such as viewing global accounts, subaccounts, entitlements, and regions.
+
+Global Account Usage Reporting Viewer
+
+Role for global account members with read-only authorizations for core commercialization operations, such as viewing global account usage information.
+
+Auditlog_Auditor
+
+Read access to audit logs
+
+Auditlog_Auditor
+
+View audit logs
+
+User and Role Auditor
+
+Read-only access for authorizations, trusted identity providers, and users.
+
+System Landscape Viewer
+
+Viewer access to systems and scenario-related resources.
+
+If you assign the Subaccount Viewer role collection to a user, you restrict a user's viewer permission to the subaccounts.
+
+Subaccount Viewer Role Collection
+
+Roles Included
+
+Description
+
+Auditlog_Auditor
+
+Read access to audit logs
+
+Auditlog_Auditor
+
+View audit logs
+
+Cloud Connector Auditor
+
+View the data transmission tunnels used by the Cloud connector to communicate with back-end systems.
+
+Destination Fragment Viewer
+
+View destination fragments
+
+Destination Viewer
+
+View destination configurations, certificates and subaccount trust via the Destination editor in the SAP BTP cockpit.
+
+Subaccount Service Auditor
+
+Read-only access to service brokers and environments on a subaccount level
+
+Subaccount Viewer
+
+Role for subaccount members with read-only authorizations for core commercialization operations, such as viewing subaccount entitlements, details of environment instances, and job results.
+
+User and Role Auditor
+
+Read-only access for authorizations, trusted identity providers, and users.
+
+Note
+
+To obtain permissions to view the service binding credentials, ask an administrator to create a new role collection that includes the Subaccount Viewer role collection and the Service Credentials Viewer role (see Define a Role Collection).
+
+Directory Role Collections
+
+The role collections Directory Administrator and Directory Viewer can be assigned after the creation of a directory. If you select the Enable user management checkbox, you receive the Directory Administrator role collection by default. You can't create custom role collections for directories.
+
+The Directory Administrator role collection grants a user administration permission for directories.
+
+Directory Administrator Role Collection
+
+Roles Included
+
+Description
+
+Directory Admin
+
+Role for directory members with read-write authorizations for core commercialization operations, such as updating directories, setting entitlements, and creating, updating, and deleting subaccounts.
+
+Directory Usage Reporting Viewer
+
+Role for directory members with read-only authorizations for core commercialization operations, such as viewing directory usage information.
+
+User and Role Administrator
+
+Manage authorizations, trusted identity providers, and users.
+
+The Directory Viewer role collection grants a user read access to the same information as the Directory Administrator role collection.
+
+Directory Viewer Role Collection
+
+Roles Included
+
+Description
+
+Directory Usage Reporting Viewer
+
+Role for directory members with read-only authorizations for core commercialization operations, such as viewing directory usage information.
+
+Directory Viewer
+
+Role for directory members with read-only authorizations for core commercialization operations, such as viewing directories, subaccounts, entitlements, and regions.
+
+User and Role Auditor
+
+Read-only access for authorizations, trusted identity providers, and users.
+
+Roles
+
+Create your own role collections by using the roles of the default role collections. The roles are based on role templates, which are provided by applications. The application identifier refers to the application, which provides the role templates.
+
+Example
+
+The GlobalAccount_Admin role template provides the Global Account Admin role. You find the role template in the cockpit if you choose the cis-central!<suffix> application identifier.
+
+Example
+
+cis-central!b1
+
+The following table provides the information about the roles that are available.
+
+Role Details
+
+Roles
+
+Available in
+
+Role Templates
+
+Application Identifier
+
+Application Subscriptions Viewer
+
+Subaccount
+
+Application_Subscriptions_Viewer
+
+cis-local!<suffix>
+
+Application Destination Administrator
+
+Subaccount
+
+Application_Destination_Administrator
+
+destination-xsappname!<suffix>
+
+Application Destination Viewer
+
+Subaccount
+
+Application_Destination_Viewer
+
+destination-xsappname!<suffix>
+
+Auditlog_Auditor
+
+Global account and subaccount
+
+Auditlog_Auditor
+
+auditlog-management!<suffix>
+
+Auditlog_Auditor
+
+Global account and subaccount
+
+Auditlog_Auditor
+
+auditlog-viewer-initial-content!<suffix>
+
+Cloud Connector Administrator
+
+Subaccount
+
+Cloud_Connector_Administrator
+
+connectivity!<suffix>
+
+Cloud Connector Auditor
+
+Subaccount
+
+Cloud_Connector_Auditor
+
+connectivity!<suffix>
+
+Destination Administrator
+
+Subaccount
+
+Destination_Administrator
+
+destination-xsappname!<suffix>
+
+Destination Administrator Instance
+
+Subaccount
+
+Destination_Administrator_Instance
+
+destination-xsappname!<suffix>
+
+Destination Certificate Administrator
+
+Subaccount
+
+Destination_Certificate_Administrator
+
+destination-xsappname!<suffix>
+
+Destination Certificate Instance Administrator
+
+Subaccount
+
+Destination_Certificate_Instance_Administrator
+
+destination-xsappname!<suffix>
+
+Destination Certificate Instance Viewer
+
+Subaccount
+
+Destination_Certificate_Instance_Viewer
+
+destination-xsappname!<suffix>
+
+Destination Certificate Viewer
+
+Subaccount
+
+Destination_Certificate_Viewer
+
+destination-xsappname!<suffix>
+
+Destination Configuration Administrator
+
+Subaccount
+
+Destination_Configuration_Administrator
+
+destination-xsappname!<suffix>
+
+Destination Configuration Instance Administrator
+
+Subaccount
+
+Destination_Configuration_Instance_Administrator
+
+destination-xsappname!<suffix>
+
+Destination Configuration Instance Viewer
+
+Subaccount
+
+Destination_Configuration_Instance_Viewer
+
+destination-xsappname!<suffix>
+
+Destination Configuration Viewer
+
+Subaccount
+
+Destination_Configuration_Viewer
+
+destination-xsappname!<suffix>
+
+Destination Fragment Administrator
+
+Subaccount
+
+Destination_Fragment_Administrator
+
+destination-xsappname!<suffix>
+
+Destination Fragment All Properties Administrator
+
+Subaccount
+
+Destination_Fragment_All_Properties_Administrator
+
+destination-xsappname!<suffix>
+
+Destination Fragment Instance Administrator
+
+Subaccount
+
+Destination_Fragment_Instance_Administrator
+
+destination-xsappname!<suffix>
+
+Destination Fragment Instance Viewer
+
+Subaccount
+
+Destination_Fragment_Instance_Viewer
+
+destination-xsappname!<suffix>
+
+Destination Fragment Viewer
+
+Subaccount
+
+Destination_Fragment_Viewer
+
+destination-xsappname!<suffix>
+
+Destination Subaccount Trust Administrator
+
+Subaccount
+
+Destination_Subaccount_Trust_Administrator
+
+destination-xsappname!<suffix>
+
+Destination Subaccount Trust Viewer
+
+Subaccount
+
+Destination_Subaccount_Trust_Viewer
+
+destination-xsappname!<suffix>
+
+Destination Viewer
+
+Subaccount
+
+Destination_Viewer
+
+destination-xsappname!<suffix>
+
+Destination Viewer Instance
+
+Subaccount
+
+Destination_Viewer_Instance
+
+destination-xsappname!<suffix>
+
+Directory Admin
+
+Directory
+
+Directory_Viewer
+
+cis-central!<suffix>
+
+Directory Usage Reporting Viewer
+
+Directory
+
+Directory_Usage_Reporting_Viewer
+
+uas!<suffix>
+
+Directory Viewer
+
+Directory
+
+Directory_Admin
+
+cis-central!<suffix>
+
+Global Account Admin
+
+Global account
+
+GlobalAccount_Admin
+
+cis-central!<suffix>
+
+Global Account Viewer
+
+Global account
+
+GlobalAccount_Viewer
+
+cis-central!<suffix>
+
+Global Account Usage Reporting Viewer
+
+Global account
+
+GlobalAccount_Usage_Reporting_Viewer
+
+uas!<suffix>
+
+Service Credentials Viewer
+
+Subaccount
+
+Service_Credentials_Viewer
+
+service-manager!<suffix>
+
+Service Instances Viewer
+
+Subaccount
+
+Service_Instances_Viewer
+
+service-manager!<suffix>
+
+Subaccount Admin
+
+Subaccount
+
+Subaccount_Admin
+
+cis-local!<suffix>
+
+Subaccount Service Admin
+
+Subaccount
+
+Subaccount_Service_Admin
+
+service-manager!<suffix>
+
+Subaccount Service Administrator
+
+Subaccount
+
+Subaccount_Service_Administrator
+
+service-manager!<suffix>
+
+Subaccount Service Auditor
+
+Subaccount
+
+Subaccount_Service_Auditor
+
+service-manager!<suffix>
+
+Subaccount Service Viewer
+
+Subaccount
+
+Subaccount_Service_Viewer
+
+service-manager!<suffix>
+
+Subaccount Viewer
+
+Subaccount
+
+Subaccount_Viewer
+
+cis-local!<suffix>
+
+System Landscape Administrator
+
+Global account
+
+GlobalAccount_System_Landscape_Administrator
+
+cmp!<suffix>
+
+System Landscape Viewer
+
+Global account
+
+GlobalAccount_System_Landscape_Viewer
+
+extension-service-cmp!<suffix>
+
+User and Role Administrator
+
+Global account and subaccount
+
+xsuaa_admin
+
+xsuaa!<suffix>
+
+User and Role Auditor
+
+Global account and subaccount
+
+xsuaa_auditor
+
+xsuaa!<suffix>
+
+
+Roles in Environments
+
+If you've enabled environments in your subaccount, manage the roles for those environments. For more information, see:
+
+About Roles in the Cloud Foundry Environment
+
+Assign Roles in the Kyma Environment
+
+Note
+
+The ABAP environment uses the roles of the SAP BTP, Cloud Foundry Environment.
+
+Related Information
+User and Member Management
+Working with Role Collections
+Building Roles and Role Collections for Applications
+Mapping Role Collections
+Managing Users and Their Authorizations Using the btp CLI

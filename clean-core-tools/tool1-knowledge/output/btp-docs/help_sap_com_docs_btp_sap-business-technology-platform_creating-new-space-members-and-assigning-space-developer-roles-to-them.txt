@@ -1,0 +1,29 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/creating-new-space-members-and-assigning-space-developer-roles-to-them
+Title: Creating New Space Members and Assigning Space Developer Roles to Them | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Creation of Developer UsersCreating New Space Members and Assigning Space Developer Roles to…
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Creating New Space Members and Assigning Space Developer Roles to Them
+
+For your developers, create new members in the space for the ABAP environment and assign developer roles to them.
+
+Context
+Note
+
+If you have run the booster Prepare an Account for ABAP Development, you can skip this step.
+
+Procedure
+Log on to the SAP BTP cockpit as Cloud Foundry administrator.
+Choose the tile for the Cloud Foundry subaccount.
+In the navigation area, choose Spaces.
+Choose the space for the ABAP environment.
+In the navigation area, choose Members.
+
+All members currently assigned to the space are shown in a list.
+
+Choose Add Members.
+Enter e-mail addresses of your developer users.
+You can use commas, spaces, semicolons, or line breaks to separate members.
+Select the space developer role for the users and save your changes.

@@ -1,0 +1,17 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/getting-started-in-abap-environment
+Title: Getting Started in the ABAP Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformGetting StartedGetting Started in the ABAP Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Getting Started in the ABAP Environment
+
+Get onboarded in the SAP BTP ABAP environment. Follow the workflows for trial or customer accounts.
+
+Getting Started with a Customer Account in the ABAP Environment
+
+After you have purchased a customer account, learn how to get started in the ABAP environment.
+Getting Started with Custom Code Analysis in the ABAP Environment
+
+Learn how to get started with Custom Code Analysis in the SAP BTP ABAP environment.

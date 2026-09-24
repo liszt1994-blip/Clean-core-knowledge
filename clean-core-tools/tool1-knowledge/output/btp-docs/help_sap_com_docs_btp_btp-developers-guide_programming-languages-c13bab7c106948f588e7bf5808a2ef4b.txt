@@ -1,0 +1,25 @@
+URL: https://help.sap.com/docs/btp/btp-developers-guide/programming-languages-c13bab7c106948f588e7bf5808a2ef4b
+Title: Programming Languages | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP Developer's Guide…Programming Languages, Tools, and APIsProgramming Languages
+SAP BTP Developer's GuideEnglish
+Provide feedback on our search
+
+Programming Languages
+
+SAP BTP supports many different programming languages; the availability of each depends on the development runtime you're using.
+
+Environment
+
+More Information
+
+Cloud Foundry runtime
+
+Development in the Cloud Foundry Environment
+
+Kyma runtime
+
+Development in the Kyma Environment
+
+Related Information
+SAP BTP, Serverless Runtime - Development

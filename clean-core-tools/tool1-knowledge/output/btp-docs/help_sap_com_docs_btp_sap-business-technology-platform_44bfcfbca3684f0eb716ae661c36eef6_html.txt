@@ -1,0 +1,28 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/44bfcfbca3684f0eb716ae661c36eef6.html
+Title: Administration and Operations, Neo Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP, Neo EnvironmentAdministration and Operations, Neo Environment
+SAP BTP, Neo EnvironmentEnglish
+Provide feedback on our search
+
+Administration and Operations, Neo Environment
+
+Learn about the different account administration and application operation tasks which you can perform in the Neo environment.
+
+Caution
+
+SAP Business Technology Platform, Neo environment will sunset on December 31, 2028, subject to terms of customer or partner contracts.
+
+For more information, see SAP Note 3351844 .
+
+Tip
+
+This documentation refers to SAP Business Technology Platform, Neo environment. If you are looking for documentation about other environments, see SAP Business Technology Platform .
+
+Account Administration in the Cockpit
+
+Account Administration Using the SAP BTP Command Line Interface (btp CLI)
+
+Account Administration in the Neo Console Client
+
+Application Operations in the Neo Environment

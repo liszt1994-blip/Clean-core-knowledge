@@ -1,0 +1,17 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/abap-test-cockpit
+Title: ABAP Test Cockpit | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…SAP Fiori Apps in the ABAP EnvironmentABAP Test Cockpit
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+ABAP Test Cockpit
+
+Configure ABAP Test Cockpit
+
+SAP Fiori app for editing ATC configurations.
+Approve ATC Exemptions
+
+Manage API Snapshots
+
+Custom Code Analysis

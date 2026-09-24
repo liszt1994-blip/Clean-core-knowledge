@@ -1,0 +1,111 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/kyma-env-setting-up-your-trial-account
+Title: Setting Up Your Trial Account | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Getting Started with a Trial Account in the Kyma EnvironmentSetting Up Your Trial Account
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Setting Up Your Trial Account
+
+Your global trial account is set up automatically, so that you can start using it right away. However, if one or more of the automatic steps fail, you can also finalize the setup manually by following the steps below.
+
+Create Your Trial Subaccount
+
+The first thing that is needed in the setup of your trial account is the creation of a subaccount. If this step was successful in the SAP BTP cockpit, you can directly skip to the next section.
+
+Procedure
+Navigate into your global account by choosing Enter Your Trial Account.
+Choose New Subaccount.
+Configure your trial account:
+Field	Input
+
+Display Name
+
+Note
+
+The value for this parameter is a sample one, you can provide a name of your choice.
+
+trial
+
+Description
+
+Optional
+
+Provider
+
+Desired infrastructure provider
+
+Region
+
+Desired region
+
+Subdomain
+
+<your_id>trial
+
+Example: P0123456789trial
+
+Enable beta features
+
+Optional
+
+Enables the use of beta services and applications.
+
+Custom Properties
+
+Optional
+
+You can use custom properties to identify and organize the subaccounts in your global account. For example, you can filter subaccounts by custom property in some cockpit pages.
+
+Results
+
+You have successfully set up your trial subaccount.
+
+Add Entitlements
+
+Once you have a subaccount (whether it was created automatically or you followed the steps described above), you need entitlements to get your trial up and running.
+
+Procedure
+Navigate to your subaccount by choosing its tile.
+Choose Entitlements from the left-hand side navigation.
+Choose Configure Entitlements to enter edit mode.
+Choose Add Service Plans and select all the service plans available for your subaccount.
+Note
+
+To select a service plan, choose a service from the left and tick all the service plans that appear on the right. Do that for all services.
+
+Once you've added all the service plans, you see them all in a table. Before you choose Save, for all the plans with numerical quota, choose  to increase the amount to the maximum (until the icon becomes disabled).
+Finally, choose Save to save all your changes and exit edit mode.
+Enable Trial Kyma Environment
+
+After you’ve successfully added the entitlements, you can enable your trial Kyma environment and start developing.
+
+Procedure
+Navigate to your subaccount.
+Create your Kyma environment. For details, see Creating Kyma Instances.
+Provide the name of your cluster and, optionally, a description.
+
+Wait until the cluster is provisioned and you see the link to the Kyma dashboard.
+
+Access the Kyma dashboard. For further information on the development options, see Development in the Kyma Environment.
+Results
+Your trial Kyma environment is ready to use.
+Disable Expired Trial Kyma Environment
+
+After your trial Kyma environment has expired, you must disable it to remove all the data connected to the cluster from SAP systems.
+
+Procedure
+Navigate to your subaccount.
+In the Kyma Environment section of your subaccount overview, click Delete Kyma Instance.
+Note
+
+On deletion of the expired cluster, we attempt to delete the Service Instances that you created with the cluster. If we cannot do that, you have to remove the Service Instances yourself before you disable such a Kyma Environment.
+
+Extend Trial Kyma Environment
+
+You cannot extend your trial Kyma environment. After your trial Kyma environment has expired, you must disable it on your subaccount and enable it again to create a new cluster.
+
+Procedure
+Navigate to your subaccount.
+Disable your expired Kyma environment.
+After your Kyma environment has been successfully disabled, create a new Kyma environment.

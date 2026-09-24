@@ -1,0 +1,64 @@
+URL: https://help.sap.com/docs/btp/btp-developers-guide/08b1effc53634890a525f945017e2edc.html
+Title: Extensions and Integrations | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformExtensions and Integrations
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Extensions and Integrations
+
+The extension capabilities of SAP Business Technology Platform (SAP BTP) enables developers to implement loosely coupled extension applications securely, thus implementing additional workflows or modules on top of the existing SAP cloud solution they already have.
+
+Unified Customer Landscape
+
+The Unified Customer Landscape service provides capabilities for automated extensibility and integration of SAP and third-party systems.
+
+All standard SAP solutions are offered with customizing capabilities. Additionally, customers often have their own requirements for innovative or industry-specific extensions and the extension capabilities of SAP BTP can help them build, deploy, and operate their new functionality.
+
+You can extend standard SAP solutions without disrupting their performance and core processes. When building extension applications, you can also benefit from the automation of the integration between the cloud platform and the extended SAP solutions.
+
+You can also benefit from an automated integration between SAP systems or between SAP systems and a specific service in SAP BTP.
+
+Using the Unified Customer Landscape service, you can maintain your customer landscape. The frontend representation of this service is the System Landscape page in the SAP BTP cockpit. The dedicated SAP S/4HANA Cloud Extensibility and SAP SuccessFactors Extensibility services are also part of the Unified Customer Landscape capabilities. See Maintaining Unified Customer Landscape.
+
+To get a full list of terms related to the extensibility and integration concepts in the Unified Customer Landscape area, see Extensibility and Integration Concepts.
+
+Registering and Deregistering Systems
+
+To connect a system with a global account in SAP BTP, you need to have the system listed in the System page.
+
+Adding, Registering and Deregistering Systems
+
+Integrating SAP Solutions
+
+You can integrate several systems and services as part of the common business scenario. To do that, you create a formation in the SAP BTP cockpit that includes all systems that the scenario requires. Every formation has a type related to its purpose. Using formations is a standard way to enable the communication between systems.
+
+See Integrating SAP Solutions.
+
+Extending SAP Solutions
+The extension capabilities of SAP BTP provide a standard way for extending SAP solutions and developing event-driven extensions and applications. This framework includes:
+
+Simplified, standardized and unified extensibility and configuration for the SAP solutions.
+
+Central catalog per customer for all connected SAP systems where data such as APIs, events, credentials and other is stored. You can benefit from business services and actionable events across end-to-end business processes.
+
+You have the following options to extend your SAP solution using the SAP SuccessFactors Extensibility or SAP S/4HANA Cloud Extensibility services:
+
+Extensions with automated configurations in the Cloud Foundry runtime: applicable for SAP S/4HANA Cloud, SAP Marketing Cloud, and SAP SuccessFactors.
+
+Extensions with automated configurations in the Kyma runtime: applicable for SAP S/4HANA Cloud, SAP Marketing Cloud, SAP SuccessFactors, SAP Cloud for Customer, SAP Commerce Cloud, and SAP Field Service Management.
+
+If you have to group the systems of different SAP solutions in the same business case, you can set up the connectivity between all these systems and a global account in SAP BTP in a single formation in the SAP BTP cockpit. See Automating Integrations Using Formations.
+
+See Extending SAP Solutions.
+
+Troubleshooting
+
+If you encounter a problem when extending an SAP S/4HANA Cloud or an SAP SuccessFactors system, go through the following troubleshooting information first:
+
+Troubleshooting for SAP S/4HANA Cloud Extensibility Service
+
+Troubleshooting for SAP SuccessFactors Extensibility Service
+
+Related Information
+SAP BTP Developer's Guide: Extending Existing SAP Solutions Using SAP BTP

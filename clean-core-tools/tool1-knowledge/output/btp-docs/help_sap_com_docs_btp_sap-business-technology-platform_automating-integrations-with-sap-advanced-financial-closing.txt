@@ -1,0 +1,63 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/automating-integrations-with-sap-advanced-financial-closing
+Title: Automating Integrations with SAP Advanced Financial Closing | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Formations for Business ScenariosAutomating Integrations with SAP Advanced Financial Closing
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Automating Integrations with SAP Advanced Financial Closing
+
+Use
+Note
+
+The content in this section is not relevant for China (Shanghai) and Government Cloud (US) regions.
+
+SAP Advanced Financial Closing supports you in planning, processing, monitoring, and analyzing financial closing tasks for the entities of your group. See SAP Advanced Financial Closing User Guide.
+
+To set up SAP Advanced Financial Closing with SAP S/4HANA Cloud on SAP BTP you need to have all the necessary systems included in a formation of type Integration with SAP Advanced Financial Closing in the System Landscape  Systems page of the SAP BTP cockpit.
+
+Note
+
+This documentation refers to SAP S/4HANA Cloud Public Edition. See Introduction to the Universe of SAP S/4HANA Cloud Public Edition.
+
+Rules
+
+When creating Integration with SAP Advanced Financial Closing formations, keep in mind the following rule:
+
+Only SAP S/4HANA Cloud systems that are registered with All Communication Scenarios or the Integration with SAP Advanced Financial Closing communication scenario groups, can be part of a Integration with SAP Advanced Financial Closing formation. See Register an SAP S/4HANA Cloud System in a Global Account in SAP BTP.
+
+Prerequisites
+
+You are a global account administrator, or you are a system landscape administrator. See Working with Role Collections.
+
+You have an Identity Authentication tenant. See Indentity Authentication: Initial Setup.
+
+Register the SAP S/4HANA Cloud system in the Systems page.
+
+When you register an SAP S/4HANA Cloud system, use the All Communication Scenarios or the Integration with SAP Advanced Financial Closing communication scenario groups when you get the registration token for the SAP S/4HANA Cloud system. This allows the automatic enablement of the SAP_COM_0566 communication scenario after the corresponding system is added to the formation of type Integration with SAP Advanced Financial Closing. See Register an SAP S/4HANA Cloud System in a Global Account in SAP BTP.
+
+Procedure
+
+If you have SAP Advanced Financial Closing set up in your subaccount in SAP BTP, follow these steps to configure the integration between SAP Advanced Financial Closing and SAP S/4HANA Cloud using a formation of type Integration with SAP Advanced Financial Closing.
+
+As an alternative to the steps that follow, you can use the Set Up SAP Advanced Financial Closing booster in the SAP BTP cockpit and have the end-to-end scenario set up. See SAP Advanced Financial Closing Administration Guide: Automated Setup.
+
+Note
+
+We recommend that you use the Set Up SAP Advanced Financial Closing booster.
+
+In the Systems page, find the systems of type SAP Advanced Financial Closing and SAP S/4HANA Cloud that you want to include in a formation.
+
+In the System Landscape  Formations page, create a formation of type Integration with SAP Advanced Financial Closing and include the relevant systems in it.
+
+Add any name that helps you identify your formation.
+
+In the Formation Type dropdown menu, select Integration with SAP Advanced Financial Closing.
+
+Select the SAP Advanced Financial Closing and SAP S/4HANA Cloud systems that you want to include in the formation.
+
+Review your selections and create the formation.
+
+Next Steps
+
+When the formation is created, you have SAP Advanced Financial Closing set up with SAP S/4HANA Cloud on SAP BTP. See the Next Steps section at SAP Advanced Financial Closing Administration Guide: Automated Setup.

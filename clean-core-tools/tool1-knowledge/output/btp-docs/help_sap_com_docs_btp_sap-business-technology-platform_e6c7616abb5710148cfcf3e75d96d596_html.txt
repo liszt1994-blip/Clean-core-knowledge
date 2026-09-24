@@ -1,0 +1,209 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/e6c7616abb5710148cfcf3e75d96d596.html
+Title: Cloud Connector | SAP Help Portal
+
+HomeSAP BTP ConnectivitySAP BTP ConnectivityCloud Connector
+SAP BTP ConnectivityEnglish
+Provide feedback on our search
+
+Cloud Connector
+
+Learn more about the Cloud Connector: features, scenarios and setup.
+
+Note
+
+This documentation refers to SAP BTP, multi-cloud foundation. If you are looking for information about the Neo environment, see Connectivity for the Neo Environment.
+
+Content
+
+In this Topic
+
+Hover over the elements for a description. Click an element for more information.
+
+In this Guide
+
+Hover over the elements for a description. Click an element for more information.
+
+Context
+
+The Cloud Connector:
+
+Serves as a link between SAP BTP applications and on-premises systems.
+
+Combines an easy setup with a clear configuration of the systems that are exposed to the SAP BTP.
+
+Lets you use existing on-premises assets without exposing the entire internal landscape.
+
+Runs as on-premises agent in a secured network.
+
+Acts as a reverse invoke proxy between the on-premises network and SAP BTP.
+
+Provides fine-grained control over:
+
+On-premises systems and resources that can be accessed by cloud applications.
+
+Cloud applications using the Cloud Connector.
+
+Lets you use the features that are required for business-critical enterprise scenarios.
+
+Recovers broken connections automatically.
+
+Provides audit logging of inbound traffic and configuration changes.
+
+Can be run in a high-availability setup.
+
+Back to Content
+
+Advantages
+
+Compared to the approach of opening ports in the firewall and using reverse proxies in the DMZ to establish access to on-premises systems, the Cloud Connector offers the following benefits:
+
+You don't need to configure the on-premises firewall to allow external access from SAP BTP to internal systems. For allowed outbound connections, no modifications are required.
+
+The Cloud Connector supports HTTP as well as additional protocols. For example, the RFC protocol supports native access to ABAP systems by invoking function modules.
+
+You can use the Cloud Connector to connect on-premises databases or BI tools to SAP HANA databases in the cloud.
+
+The Cloud Connector lets you propagate the identity of cloud users to on-premises systems in a secure way.
+
+Easy installation and configuration, which means that the Cloud Connector comes with a low TCO and is tailored to fit your cloud scenarios.
+
+SAP provides standard support for the Cloud Connector.
+
+Back to Content
+
+Basic Scenarios
+
+Connecting Cloud Applications to On-Premises Systems
+
+Connecting On-Premises Database Tools to SAP HANA Databases
+
+Note
+
+This section refers to the Cloud Connector installation in a standard on-premises network. Find setup options for other system environments in Extended Scenarios.
+
+Connecting Cloud Applications to On-Premises Systems
+
+Install the Cloud Connector: Installation
+
+Set up the connection between Cloud Connector, backend system and your SAP BTP subaccount : Initial Configuration, Adding and Managing Subaccounts
+
+Allow your cloud application to access a backend system on the intranet: Configure Access Control
+
+Connect your cloud application to an on-premises system:
+
+Consuming the Connectivity Service (Cloud Foundry environment)
+
+Connectivity Proxy for Kubernetes (Kubernetes workloads / Kyma environment)
+
+Back to Basic Scenarios
+
+Back to Content
+
+Connecting On-Premises Database Tools to SAP HANA Databases
+
+Restriction
+
+This scenario is only available for the Neo environment.
+
+Install and configure the Cloud Connector: Installation, Initial Configuration, Adding and Managing Subaccounts
+
+Access HANA databases on SAP BTP: Configure a Service Channel for an SAP HANA Database
+
+Connect on-premises database or BI tools to a HANA database on SAP BTP: Connect DB Tools to SAP HANA via Service Channels
+
+Note
+
+You can use service channels also for other purposes:
+
+Connect to a virtual machine on SAP BTP (Neo environment only).
+
+Configure an RFC connection from your on-premises system to S/4HANA Cloud (Neo and multi-cloud environment).
+
+Connect to a service in a Kubernetes cluster (multi-cloud environment only)
+
+See also:
+
+Using Service Channels (multi-cloud environment)
+
+Using Service Channels (Neo environment)
+
+Back to Basic Scenarios
+
+Back to Content
+
+Extended Scenarios
+
+Besides the standard setup: SAP BTP - Cloud Connector - on-premises system/network, you can also use the Cloud Connector to connect SAP BTP applications to other cloud-based environments, as long as they are operated in a way that is comparable to an on-premises network from a functional perspective. This is particularly true for infrastructure (IaaS) hosting solutions.
+
+Here's an overview of all environments in which you can or cannot set up the Cloud Connector:
+
+Cloud Connector
+
+Environment
+
+Examples
+
+Can be set up in:
+
+Note
+
+Within extended scenarios that allow a Cloud Connector setup, special procedures may apply for configuration. If so, they are mentioned in the corresponding configuration steps.
+
+Customer on-premises network (see Basic Scenarios)
+
+SAP ERP, SAP S/4HANA
+
+SAP Hosting
+
+SAP HANA Enterprise Cloud (HEC)
+
+Third-party IaaS providers (hosting)
+
+Amazon Web Services (AWS), Microsoft Azure, Google Cloud
+
+Cannot be set up in:
+
+SAP SaaS solutions
+
+SAP SuccessFactors, SAP Concur, SAP Ariba
+
+SAP cloud-based enterprise solutions
+
+SAP S/4HANA Cloud (public edition), SAP C/4HANA
+
+Third-party PaaS providers
+
+AWS, Azure, Google Cloud
+
+Third-party SaaS providers
+
+Back to Content
+
+Basic Tasks
+
+The following steps are required to connect the Cloud Connector to your SAP BTP subaccount:
+
+Install the Cloud Connector: Installation
+
+Perform the initial configuration for the Cloud Connector: Initial Configuration
+
+Register the Cloud Connector for your SAP BTP subaccount: Adding and Managing Subaccounts
+
+Back to Content
+
+What's New?
+
+Follow the SAP BTP Release Notes to stay informed about Cloud Connector and Connectivity updates.
+
+Back to Content
+
+Related Information
+Installation
+Configuration
+Administration
+Security
+Upgrade
+Update the Java VM
+Uninstallation
+Frequently Asked Questions
+REST APIs

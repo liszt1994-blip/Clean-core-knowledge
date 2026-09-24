@@ -1,0 +1,26 @@
+URL: https://help.sap.com/docs/btp/btp-admin-guide/set-up-and-plan
+Title: Set Up and Plan | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP Administrator's GuideSet Up and Plan
+SAP BTP Administrator's GuideEnglish
+Provide feedback on our search
+
+Set Up and Plan
+
+Before you begin developing your applications, make sure your organizational and landscape setup is appropriate for managing their lifecycles, and consider failover to prevent breakdowns.
+
+Creating a Governance Model
+
+One of the first and most important steps of your journey to the cloud is to establish an appropriate organizational setup and corresponding governance model. A clear and well-thought-out organizational setup makes it easier for your employees to adopt agile processes.
+Setting Up Your Account Model
+
+Learn how to set up your account model with global accounts and subaccounts, and how to use directories, spaces and namespaces to match your business and development needs.
+Setting Up Your Security and Compliance Model
+
+Applications on SAP BTP are exposed to the Internet and should therefore fulfill the highest possible security requirements to prevent unauthorized access.
+Planning Failover on SAP BTP
+
+Use a multi-data center setup and implement automatic failover to ensure the high availability of your applications in case of a data center outage.
+Managing Cost
+
+Consumption-based commercial models offer flexibility to optimize your costs. To manage these costs and avoid charges for overage, it's recommended that you monitor your usage and consumption.

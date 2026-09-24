@@ -1,0 +1,65 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/add-org-members-using-cockpit
+Title: Add Org Members | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Managing Org MembersAdd Org Members
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Add Org Members
+
+In the SAP BTP cockpit, add users as org members and assign roles to grant the users access to information, such as user and quota information in a Cloud Foundry org.
+
+Prerequisites
+You have the Org Manager role for the org in question.
+Note
+
+When you enable Cloud Foundry and the org is created, the Org Manager role is assigned automatically to you.
+
+For more information, see About Roles in the Cloud Foundry Environment.
+
+The users exist in a trusted platform identity provider.
+
+For more information, see About User Management in the Cloud Foundry Environment.
+
+Procedure
+Navigate to your subaccount in the cockpit. Make sure that Cloud Foundry is enabled. For more information, see Navigate to Orgs and Spaces.
+In the navigation area, choose Cloud Foundry  Org Members.
+The screen displays all members currently assigned to the org in a list.
+Choose Add Members.
+Enter one or more e-mail addresses.
+
+Use commas (,), spaces ( ), semicolons (;), or line breaks to separate members.
+
+Enter the Origin for the identity provider, which hosts the members you just added.
+
+The default identity provider is sap.ids. For more information, see Default Identity Provider.
+
+If the new members are platform users from a custom identity provider, enter the origin.
+
+Select the corresponding origin of the Identity Authentication tenant.
+
+Note
+
+The option to select an origin appears only if you have two or more identity providers.
+
+For more information about finding the origin, see Establish Trust and Federation of Custom Identity Providers for Platform Users.
+
+Select the org roles you want to assign.
+
+For more information, see About Roles in the Cloud Foundry Environment.
+
+Choose Add.
+Next Steps
+
+To change the roles of a member, see Edit Org Members.
+
+To remove all the roles of a member, see Delete Org Members.
+
+This action removes the member from the organization and any spaces in the org.
+
+If the users need to view or manage applications in spaces, add the users to the relevant spaces, too.
+
+For more information, see Add Space Members.
+
+Related Information
+Add Organization Members Using the Cloud Foundry Command Line Interface

@@ -1,0 +1,23 @@
+URL: https://help.sap.com/docs/btp/btp-cli-command-reference/btp-update-security-settings
+Title: btp update security/settings | SAP Help Portal
+
+Usage
+
+
+btp [OPTIONS] update security/settings [--global-account [SUBDOMAIN]] [--subaccount [ID]] [--iframe DOMAIN] [--custom-email JSON] [--default-idp-for-noninteractive-logon ORIGIN] [--treat-users-with-same-email-as-same-user BOOL] [--use-idp-user-name-in-tokens BOOL] [--home-redirect URL] [--access-token-validity DURATION] [--refresh-token-validity DURATION] [--rotate-signing-key-automatically BOOL]
+
+Parameter
+
+Description
+--global-account, -ga [SUBDOMAIN]	(Optional) The ID of the global account for which to update the security settings. [SUBDOMAIN] can be omitted if specified by 'btp target'.
+--subaccount, -sa [ID]	(Optional) The ID of the subaccount for which to update the security settings. [ID] can be omitted if specified by 'btp target'.
+--iframe DOMAIN	(Optional) The new domains of the iframe. Enter as string. To provide multiple domains, separate them by spaces.
+--custom-email JSON	(Optional) The new custom email domains. Enter inline as a valid JSON array containing the list of custom email domains.
+--default-idp-for-noninteractive-logon ORIGIN	(Optional) Sets another identity provider as default for noninteractive logon (for example, password grant flows). It makes noninteractive logon easier because you don't always have to specify the custom identity provider over the default identity provider. Use 'btp list security/trust' to retrieve the origin keys of the identity providers.
+--treat-users-with-same-email-as-same-user BOOL	(Optional) If set to true, users with the same email are treated as same users.
+--use-idp-user-name-in-tokens BOOL	(Optional) If set to true, username from the identity provider will be used in tokens.
+--home-redirect URL	(Optional) URL to which users are redirected. To avoid open redirect attacks, we recommend that you redirect to a safe and valid URL when users log out.
+--access-token-validity DURATION	(Optional) Sets the validity of the access token. You can choose a value between 1800 seconds and 86,400 seconds (between 30 minutes and 24 hours). The default value is 43,000 seconds (12 hours).
+--refresh-token-validity DURATION	(Optional) Sets the validity of the refresh token. You can choose a value between 1800 seconds and 31,536,000 seconds (between 30 minutes and one year). The default value is 604,800 seconds (7 days).
+--rotate-signing-key-automatically BOOL	(Optional) If set to true, the signing key for access tokens is rotated automatically.
+

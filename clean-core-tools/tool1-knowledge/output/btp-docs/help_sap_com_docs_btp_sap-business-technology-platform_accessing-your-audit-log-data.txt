@@ -1,0 +1,61 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/accessing-your-audit-log-data
+Title: Accessing Your Audit Log Data | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Provisioning and Updating Parameters in the Kyma EnvironmentAccessing Your Audit Log Data
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Accessing Your Audit Log Data
+
+Use the credentials stored in your Kyma cluster to query your audit log data using the SAP Audit Log Retrieval API v2.
+
+Prerequisites
+
+You have a Kyma instance created. See Creating Kyma Instances.
+
+You have the Audit Log Access (auditLogAccess) parameter enabled. See Audit Log Access.
+
+Context
+
+When you enable the Audit Log Access parameter, Kyma stores the audit log read credentials in a Kubernetes Secret named auditlog-read-credentials in the kyma-system namespace of your cluster. The Secret contains the following fields:
+
+Field
+
+Description
+
+url
+
+Base URL of the SAP Audit Log Retrieval API
+
+clientID
+
+OAuth 2.0 client ID
+
+clientSecret
+
+OAuth 2.0 client Secret
+
+tokenUrl
+
+OAuth 2.0 token endpoint
+
+Caution
+
+Enabling Audit Log Access is irreversible. Once you enable the feature, you cannot disable it.
+
+Procedure
+Connect to your Kyma cluster using kubectl. See Access a Kyma Instance Using kubectl.
+To retrieve the Secret, run:
+
+
+kubectl get secret -n kyma-system auditlog-read-credentials -o yaml
+
+Use the credentials from the Secret to authenticate against the SAP Audit Log Retrieval API v2 using OAuth 2.0 client credentials. See Create an OAuth Access Token.
+Retrieve your audit log records. See Audit Log Retrieval.
+Results
+
+You can read your audit log data from the SAP Audit Log Retrieval API v2 using the credentials stored in the auditlog-read-credentials Secret.
+
+Related Information
+Audit Log Retrieval API for Global Accounts in the Cloud Foundry Environment
+Retrieve Adit Log Data Using Audit Log CLI

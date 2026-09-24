@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>BTP 知识库 — Clean Core AI 知识问答助手</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #DADADA;
+    padding: 40px 60px;
+    font-family: Arial, "Microsoft YaHei", "PingFang SC", sans-serif;
+  }
+
+  .slide-wrapper {
+    margin-bottom: 56px;
+    box-shadow: 0 6px 28px rgba(0,0,0,0.30);
+  }
+
+  .slide {
+    width: 1280px;
+    height: 720px;
+    background: white;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ── Top bar ────────────────────────────────────── */
+  .topbar {
+    background: #002B5C;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 18px;
+  }
+
+  /* SAP logo */
+  .sap-logo-text {
+    color: white;
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    font-family: Arial, sans-serif;
+  }
+  .sap-chevron {
+    width: 0;
+    height: 0;
+    border-top: 18px solid transparent;
+    border-bottom: 18px solid transparent;
+    border-left: 22px solid #00A0DA;
+    margin-left: 6px;
+  }
+
+  /* ── Badge ──────────────────────────────────────── */
+  .badge {
+    position: absolute;
+    top: 70px;
+    left: 50px;
+    background: #1464A5;
+    color: white;
+    padding: 5px 18px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+  }
+
+  /* ── Title ──────────────────────────────────────── */
+  .slide-title {
+    position: absolute;
+    top: 104px;
+    left: 50px;
+    right: 60px;
+    font-size: 38px;
+    font-weight: 700;
+    color: #002B5C;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #1464A5;
+  }
+
+  /* ── Two-column panels ──────────────────────────── */
+  .panels {
+    position: absolute;
+    top: 178px;
+    left: 50px;
+    right: 50px;
+    bottom: 46px;
+    display: flex;
+    gap: 18px;
+  }
+
+  .panel {
+    flex: 1;
+    background: #DDEAF6;
+    padding: 22px 26px 18px;
+    border-left: 5px solid #1464A5;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .panel-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #002B5C;
+    margin-bottom: 18px;
+  }
+
+  /* ── Bullet items ───────────────────────────────── */
+  .bullet {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .sq {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    background: #1464A5;
+    margin-top: 2px;
+  }
+  .bt {
+    font-size: 15px;
+    color: #1D2D3E;
+    line-height: 1.45;
+  }
+  .bt strong { color: #002B5C; }
+
+  .sub-bullet {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin: -4px 0 10px 32px;
+  }
+  .sub-dot {
+    width: 7px; height: 7px; min-width: 7px;
+    background: #1464A5; border-radius: 50%; margin-top: 6px;
+  }
+  .sub-bt { font-size: 13.5px; color: #3A4D5C; line-height: 1.4; }
+
+  /* ── Tags ───────────────────────────────────────── */
+  .tags {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 14px;
+  }
+  .tag {
+    background: #002B5C; color: white;
+    padding: 6px 16px; font-size: 13px; font-weight: 600; border-radius: 2px;
+  }
+  .tag-blue {
+    background: #1464A5; color: white;
+    padding: 5px 13px; font-size: 13px; font-weight: 600; border-radius: 2px;
+  }
+
+  /* ── Source legend ──────────────────────────────── */
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 18px; margin-top: auto; padding-top: 12px;
+    align-items: center;
+  }
+  .legend-item { display: flex; align-items: center; gap: 7px; font-size: 13px; color: #333; }
+  .dot { width: 16px; height: 16px; border-radius: 50%; }
+  .dot-g { background: #2D8B4E; }
+  .dot-o { background: #D0691A; }
+  .dot-r { background: #B5292B; }
+  .dot-gr { background: #6D7B8A; }
+
+  /* ── Divider ────────────────────────────────────── */
+  .divider { border: none; border-top: 1px solid #B2CCE0; margin: 12px 0; }
+
+  /* ── Footer ─────────────────────────────────────── */
+  .footer {
+    position: absolute; bottom: 12px; left: 50px; right: 30px;
+    display: flex; justify-content: space-between;
+    color: #888; font-size: 13px;
+  }
+  .footer-arrows { display: flex; flex-direction: column; gap: 2px; align-items: center; }
+
+  /* ── Three-column layout (routing slide) ─────────── */
+  .panels-3 {
+    position: absolute; top: 178px; left: 50px; right: 50px; bottom: 46px;
+    display: flex; gap: 14px;
+  }
+  .panel-3 {
+    flex: 1; background: #DDEAF6;
+    padding: 18px 20px 16px;
+    border-left: 5px solid #1464A5;
+    display: flex; flex-direction: column;
+  }
+  .panel-3-center {
+    flex: 0 0 200px; background: #002B5C; color: white;
+    padding: 20px 18px; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; text-align: center; gap: 12px;
+  }
+  .panel-3-center .icon { font-size: 30px; }
+  .panel-3-center .label { font-size: 15px; font-weight: 700; line-height: 1.5; }
+  .panel-3-center .sub { font-size: 13px; color: #A8C4DE; line-height: 1.4; }
+  .intent-tag {
+    background: #1464A5; color: white;
+    padding: 4px 12px; font-size: 12px; font-weight: 700;
+    border-radius: 2px; margin-bottom: 10px; display: inline-block;
+  }
+  .panel-3-title {
+    font-size: 17px; font-weight: 700; color: #002B5C; margin-bottom: 14px;
+  }
+
+  /* ── Step number ────────────────────────────────── */
+  .step-num {
+    width: 22px; height: 22px; min-width: 22px;
+    background: #1464A5; color: white;
+    font-size: 12px; font-weight: 700;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    margin-top: 2px;
+  }
+
+  /* ── Highlight box ──────────────────────────────── */
+  .hl-box {
+    background: #002B5C; color: white;
+    padding: 10px 16px; font-size: 14px; font-weight: 600;
+    text-align: center; margin-bottom: 14px; line-height: 1.4;
+  }
+
+  /* ── Guide structure cards ──────────────────────── */
+  .guide-section {
+    display: flex; align-items: flex-start; gap: 12px; margin-bottom: 11px;
+  }
+  .guide-num {
+    width: 26px; height: 26px; min-width: 26px;
+    background: #1464A5; color: white; border-radius: 50%;
+    font-size: 13px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .guide-content .guide-head { font-size: 14px; font-weight: 700; color: #002B5C; }
+  .guide-content .guide-desc { font-size: 13px; color: #3A4D5C; margin-top: 2px; }
+
+  /* ── API card preview ───────────────────────────── */
+  .api-card-preview {
+    background: white; border: 1px solid #B2CCE0; border-left: 4px solid #1464A5;
+    padding: 9px 14px; margin-bottom: 8px;
+  }
+  .api-card-preview .api-name { font-size: 13px; font-weight: 700; color: #1464A5; }
+  .api-card-preview .api-meta { font-size: 12px; color: #666; margin-top: 3px; }
+
+  /* ── Waterfall strategy ─────────────────────────── */
+  .waterfall-step {
+    display: flex; align-items: stretch; gap: 0; margin-bottom: 10px;
+  }
+  .wf-label {
+    background: #1464A5; color: white;
+    font-size: 12px; font-weight: 700; padding: 6px 10px;
+    writing-mode: horizontal-tb; min-width: 60px; text-align: center;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .wf-body {
+    flex: 1; background: white; border: 1px solid #B2CCE0; border-left: none;
+    padding: 7px 12px;
+  }
+  .wf-title { font-size: 13.5px; font-weight: 700; color: #002B5C; }
+  .wf-desc { font-size: 12.5px; color: #444; margin-top: 2px; }
+
+</style>
+</head>
+<body>
+
+
+<!-- ════════════════════════════════════════════════════════
+     SLIDE 1 — BTP 知识库：功能概览
+     ════════════════════════════════════════════════════════ -->
+<div class="slide-wrapper">
+<div class="slide">
+
+  <div class="topbar">
+    <span class="sap-logo-text">SAP</span>
+    <div class="sap-chevron"></div>
+  </div>
+
+  <div class="badge">核心功能 07 / 10</div>
+  <div class="slide-title">BTP 知识库 — 功能概览</div>
+
+  <div class="panels">
+
+    <!-- Left -->
+    <div class="panel">
+      <div class="panel-title">BTP 知识库功能</div>
+
+      <div class="bullet">
+        <div class="sq"></div>
+        <div class="bt">智能意图识别，自动路由三种处理路径</div>
+      </div>
+      <div class="bullet">
+        <div class="sq"></div>
+        <div class="bt"><strong>BTP 服务查询</strong>：搜索 SAP Discovery Center 全量服务目录，获取定价与路线图</div>
+      </div>
+      <div class="bullet">
+        <div class="sq"></div>
+        <div class="bt"><strong>开发向导生成</strong>：输入业务场景，自动匹配 S/4HANA API + 生成 5 章完整开发指南</div>
+      </div>
+      <div class="bullet">
+        <div class="sq"></div>
+        <div class="bt"><strong>通用 BTP 问答</strong>：三级知识检索瀑布策略，覆盖 BTP 平台开发全场景</div>
+      </div>
+      <div class="bullet">
+        <div class="sq"></div>
+        <div class="bt">占位输入示例："如何开发一个采购申请应用"</div>
+      </div>
+
+      <hr class="divider">
+
+      <div class="tags">
+        <div class="tag">服务查询</div>
+        <div class="tag">开发向导</div>
+        <div class="tag">通用问答</div>
+        <div class="tag">采购</div>
+        <div class="tag">销售</div>
+        <div class="tag">财务 / HR</div>
+      </div>
+    </div>
+
+    <!-- Right -->
+    <div class="panel">
+      <div class="panel-title">多源知识融合体系</div>
+
+      <div class="bullet">
+        <div class="sq"></div>
+        <div class="bt"><strong>SAP Discovery Center（MCP）</strong><br>10 大服务类别全量目录，含定价方案、路线图、文档链接</div>
+      </div>
+      <div class="bullet">
+        <div class="sq"></div>
+        <div class="bt"><strong>AI Core 文档知识库（S3 向量检索）</strong><br>从 help.sap.com 抓取的 BTP 官方文档，按主题分块存储</div>
+      </div>
+      <div class="bullet">
+        <div class="sq"></div>
+        <div class="bt"><strong>help.sap.com（MCP 实时搜索）</strong><br>实时检索 BTP / CAP / UI5 / SAP AI 官方文档片段</div>
+      </div>
+      <div class="bullet">
+        <div class="sq"></div>
+        <div class="bt"><strong>S/4HANA API 精选列表</strong><br>按业务领域预置关键接口，含端点 / 实体 / OData 协议</div>
+      </div>
+
+      <div class="legend">
+        <div class="legend-item"><div class="dot dot-g"></div>Grounding（向量检索）</div>
+        <div class="legend-item"><div class="dot dot-o"></div>MCP（实时搜索）</div>
+        <div class="legend-item"><div class="dot dot-r"></div>AI Core（直接推理）</div>
+        <div class="legend-item"><div class="dot dot-gr"></div>No-AI（未连接）</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <span>Clean Core AI 知识问答助手</span>
+    <div class="footer-arrows">▲<br>▼</div>
+  </div>
+
+</div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════
+     SLIDE 2 — 智能意图识别与三路由分流
+     ════════════════════════════════════════════════════════ -->
+<div class="slide-wrapper">
+<div class="slide">
+
+  <div class="topbar">
+    <span class="sap-logo-text">SAP</span>
+    <div class="sap-chevron"></div>
+  </div>
+
+  <div class="badge">核心功能 08 / 10</div>
+  <div class="slide-title">智能意图识别与三路由分流</div>
+
+  <div class="panels-3">
+
+    <!-- Path 1: service -->
+    <div class="panel-3">
+      <div class="intent-tag">service</div>
+      <div class="panel-3-title">BTP 服务查询</div>
+
+      <div class="bullet">
+        <div class="step-num">1</div>
+        <div class="bt" style="font-size:14px;">解析服务关键词或业务场景</div>
+      </div>
+      <div class="bullet">
+        <div class="step-num">2</div>
+        <div class="bt" style="font-size:14px;">调用 MCP <strong>Discovery Center</strong> 搜索</div>
+      </div>
+      <div class="bullet">
+        <div class="step-num">3</div>
+        <div class="bt" style="font-size:14px;">精准查询：获取服务详情（定价/路线图）</div>
+      </div>
+      <div class="bullet">
+        <div class="step-num">4</div>
+        <div class="bt" style="font-size:14px;">广度查询：按 10 类分组汇总全量服务</div>
+      </div>
+      <div class="bullet">
+        <div class="step-num">5</div>
+        <div class="bt" style="font-size:14px;">AI Core 翻译中文 + 结构化回答</div>
+      </div>
+
+      <div style="margin-top:auto; padding-top:10px;">
+        <div class="tag-blue" style="font-size:12px;">sourceType: mcp</div>
+      </div>
+    </div>
+
+    <!-- Center: intent engine -->
+    <div class="panel-3-center">
+      <div class="icon">🧠</div>
+      <div class="label">意图识别引擎</div>
+      <div class="sub">SAP AI Core<br>Claude 模型<br>≤ 96 tokens</div>
+      <hr style="border-top:1px solid #3A6A9A; width:100%; margin:12px 0;">
+      <div style="font-size:12px; color:#A8C4DE; line-height:1.6;">
+        输入：用户查询<br>
+        输出：<br>
+        · service<br>
+        · guide<br>
+        · general<br>
+        + domain<br>
+        + scenario
+      </div>
+    </div>
+
+    <!-- Path 2: guide -->
+    <div class="panel-3">
+      <div class="intent-tag">guide</div>
+      <div class="panel-3-title">开发向导生成</div>
+
+      <div class="bullet">
+        <div class="step-num">1</div>
+        <div class="bt" style="font-size:14px;">识别业务领域（采购/销售/财务/HR/库存）</div>
+      </div>
+      <div class="bullet">
+        <div class="step-num">2</div>
+        <div class="bt" style="font-size:14px;">检索 <strong>S/4HANA API 精选列表</strong>（领域专属）</div>
+      </div>
+      <div class="bullet">
+        <div class="step-num">3</div>
+        <div class="bt" style="font-size:14px;">S3 向量知识库增强（可选）</div>
+      </div>
+      <div class="bullet">
+        <div class="step-num">4</div>
+        <div class="bt" style="font-size:14px;">AI Core 生成 5 章开发指南（4096 tokens）</div>
+      </div>
+      <div class="bullet">
+        <div class="step-num">5</div>
+        <div class="bt" style="font-size:14px;">返回 API 卡片列表 + Markdown 指南</div>
+      </div>
+
+      <div style="margin-top:auto; padding-top:10px;">
+        <div class="tag-blue" style="font-size:12px;">sourceType: grounding / ai-core</div>
+      </div>
+    </div>
+
+    <!-- Path 3: general -->
+    <div class="panel-3">
+      <div class="intent-tag">general</div>
+      <div class="panel-3-title">通用 BTP 问答</div>
+
+      <div class="bullet">
+        <div class="step-num">1</div>
+        <div class="bt" style="font-size:14px;"><strong>优先</strong>：S3 文档知识库向量检索（Grounding）</div>
+      </div>
+      <div class="bullet">
+        <div class="step-num">2</div>
+        <div class="bt" style="font-size:14px;"><strong>备选</strong>：MCP help.sap.com 实时文档搜索</div>
+      </div>
+      <div class="bullet">
+        <div class="step-num">3</div>
+        <div class="bt" style="font-size:14px;"><strong>兜底</strong>：AI Core 直接推理（无检索上下文）</div>
+      </div>
+      <div class="bullet">
+        <div class="step-num">4</div>
+        <div class="bt" style="font-size:14px;">返回带引用来源的中文答案</div>
+      </div>
+
+      <div style="margin-top:auto; padding-top:10px;">
+        <div class="tag-blue" style="font-size:12px;">sourceType: grounding / mcp / ai-core / no-ai</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <span>Clean Core AI 知识问答助手</span>
+    <div class="footer-arrows">▲<br>▼</div>
+  </div>
+
+</div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════
+     SLIDE 3 — 开发向导生成：工作原理与输出结构
+     ════════════════════════════════════════════════════════ -->
+<div class="slide-wrapper">
+<div class="slide">
+
+  <div class="topbar">
+    <span class="sap-logo-text">SAP</span>
+    <div class="sap-chevron"></div>
+  </div>
+
+  <div class="badge">核心功能 09 / 10</div>
+  <div class="slide-title">开发向导生成 — 工作原理与输出结构</div>
+
+  <div class="panels">
+
+    <!-- Left: How it works -->
+    <div class="panel">
+      <div class="panel-title">生成流程</div>
+
+      <div class="bullet">
+        <div class="sq"></div>
+        <div class="bt"><strong>6 大业务领域</strong>：采购 / 销售 / 财务 / HR / 库存 / 自定义</div>
+      </div>
+      <div class="bullet">
+        <div class="sq"></div>
+        <div class="bt"><strong>领域 API 精选</strong>：从 S/4HANA API 预置库自动匹配关键接口（OData V2 / V4）</div>
+      </div>
+      <div class="bullet">
+        <div class="sq"></div>
+        <div class="bt"><strong>知识增强（可选）</strong>：S3 向量知识库检索最相关的 BTP 文档片段</div>
+      </div>
+      <div class="bullet">
+        <div class="sq"></div>
+        <div class="bt"><strong>AI Core 编排</strong>：Claude 基于 API 列表 + Grounding 片段生成结构化指南（最多 4096 tokens）</div>
+      </div>
+      <div class="bullet">
+        <div class="sq"></div>
+        <div class="bt"><strong>API 卡片输出</strong>：每个 API 含端点、实体、协议、官方文档链接、弃用状态</div>
+      </div>
+
+      <hr class="divider">
+
+      <div class="tags">
+        <div class="tag">采购申请</div>
+        <div class="tag">销售订单</div>
+        <div class="tag">财务凭证</div>
+        <div class="tag">HR 员工</div>
+        <div class="tag">库存管理</div>
+      </div>
+    </div>
+
+    <!-- Right: Output structure -->
+    <div class="panel">
+      <div class="panel-title">指南输出结构（5 章节）</div>
+
+      <div class="guide-section">
+        <div class="guide-num">1</div>
+        <div class="guide-content">
+          <div class="guide-head">前置条件（Prerequisites）</div>
+          <div class="guide-desc">所需 BTP 服务、凭据配置、环境准备</div>
+        </div>
+      </div>
+      <div class="guide-section">
+        <div class="guide-num">2</div>
+        <div class="guide-content">
+          <div class="guide-head">架构设计（Architecture）</div>
+          <div class="guide-desc">整体技术方案、服务拓扑与数据流</div>
+        </div>
+      </div>
+      <div class="guide-section">
+        <div class="guide-num">3</div>
+        <div class="guide-content">
+          <div class="guide-head">开发步骤（Development Steps）</div>
+          <div class="guide-desc">7 步以上详细实施步骤，含代码示例与配置说明</div>
+        </div>
+      </div>
+      <div class="guide-section">
+        <div class="guide-num">4</div>
+        <div class="guide-content">
+          <div class="guide-head">API 深度解析（API Deep-Dive）</div>
+          <div class="guide-desc">关键 API 端点、请求/响应示例、鉴权方式</div>
+        </div>
+      </div>
+      <div class="guide-section">
+        <div class="guide-num">5</div>
+        <div class="guide-content">
+          <div class="guide-head">常见问题（FAQ）</div>
+          <div class="guide-desc">开发中高频问题与最佳实践建议</div>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <div style="font-size:13.5px; color:#002B5C; font-weight:700; margin-bottom:8px;">附：相关 API 卡片清单（点击跳转官方文档）</div>
+      <div class="api-card-preview">
+        <div class="api-name">📦 Purchase Order (MM) — OData V4</div>
+        <div class="api-meta">/sap/opu/odata4/sap/api_purchaseorder_2 · PurchaseOrder, PurchaseOrderItem</div>
+      </div>
+      <div class="api-card-preview">
+        <div class="api-name">🛒 Purchase Requisition (MM) — OData V2</div>
+        <div class="api-meta">/sap/opu/odata/sap/API_PURCHASEREQ_PROCESS_SRV · PurchaseRequisition</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <span>Clean Core AI 知识问答助手</span>
+    <div class="footer-arrows">▲<br>▼</div>
+  </div>
+
+</div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════
+     SLIDE 4 — BTP 服务查询 & 通用问答
+     ════════════════════════════════════════════════════════ -->
+<div class="slide-wrapper">
+<div class="slide">
+
+  <div class="topbar">
+    <span class="sap-logo-text">SAP</span>
+    <div class="sap-chevron"></div>
+  </div>
+
+  <div class="badge">核心功能 10 / 10</div>
+  <div class="slide-title">BTP 服务查询 &amp; 通用 BTP 问答</div>
+
+  <div class="panels">
+
+    <!-- Left: BTP Service Search -->
+    <div class="panel">
+      <div class="panel-title">BTP 服务查询</div>
+
+      <div class="hl-box">数据来源：SAP Discovery Center（MCP 工具）</div>
+
+      <div class="bullet">
+        <div class="sq"></div>
+        <div class="bt">关键词搜索 BTP Discovery Center，自动识别广度 / 精准两种查询模式</div>
+      </div>
+
+      <div class="bullet">
+        <div class="sq"></div>
+        <div class="bt"><strong>广度查询</strong>（如"BTP有哪些服务"）</div>
+      </div>
+      <div class="sub-bullet">
+        <div class="sub-dot"></div>
+        <div class="sub-bt">并发检索 10 大类别 + 17 关键词搜索</div>
+      </div>
+      <div class="sub-bullet">
+        <div class="sub-dot"></div>
+        <div class="sub-bt">AI Core 翻译中文描述，按类别分组输出</div>
+      </div>
+
+      <div class="bullet">
+        <div class="sq"></div>
+        <div class="bt"><strong>精准查询</strong>（如"SAP Integration Suite 定价"）</div>
+      </div>
+      <div class="sub-bullet">
+        <div class="sub-dot"></div>
+        <div class="sub-bt">获取服务详情：定价方案 / 路线图 / 文档链接</div>
+      </div>
+      <div class="sub-bullet">
+        <div class="sub-dot"></div>
+        <div class="sub-bt">AI 结合详情数据生成结构化中文回答</div>
+      </div>
+      <div class="sub-bullet">
+        <div class="sub-dot"></div>
+        <div class="sub-bt">无结果时自动 AI 重写关键词重试</div>
+      </div>
+
+      <div class="tags">
+        <div class="tag">Integration Suite</div>
+        <div class="tag">ABAP Cloud</div>
+        <div class="tag">CAP</div>
+        <div class="tag">Kyma</div>
+      </div>
+    </div>
+
+    <!-- Right: General Q&A -->
+    <div class="panel">
+      <div class="panel-title">通用 BTP 问答 — 三级检索瀑布</div>
+
+      <div class="waterfall-step">
+        <div class="wf-label" style="background:#2D8B4E;">Level 1</div>
+        <div class="wf-body">
+          <div class="wf-title">S3 文档知识库（向量语义检索）</div>
+          <div class="wf-desc">SAP AI Core Document Grounding · help.sap.com BTP 全量文档 · 语义最近邻搜索</div>
+        </div>
+      </div>
+
+      <div class="waterfall-step">
+        <div class="wf-label" style="background:#D0691A;">Level 2</div>
+        <div class="wf-body">
+          <div class="wf-title">MCP help.sap.com 实时搜索（备选）</div>
+          <div class="wf-desc">实时检索 btp-cloud-platform / cap / ui5 / sap-artificial-intelligence 文档</div>
+        </div>
+      </div>
+
+      <div class="waterfall-step">
+        <div class="wf-label" style="background:#B5292B;">Level 3</div>
+        <div class="wf-body">
+          <div class="wf-title">AI Core 直接推理（兜底回答）</div>
+          <div class="wf-desc">无检索上下文时，Claude 基于模型知识直接回答，声明来源为 ai-core</div>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <div class="bullet">
+        <div class="sq"></div>
+        <div class="bt">回答附带来源标识 Badge 与引用文档链接（citation numbers）</div>
+      </div>
+      <div class="bullet">
+        <div class="sq"></div>
+        <div class="bt">支持 BTP / CAP / UI5 / AI 服务 / Kyma / ABAP 环境全场景问答</div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <span>Clean Core AI 知识问答助手</span>
+    <div class="footer-arrows">▲<br>▼</div>
+  </div>
+
+</div>
+</div>
+
+
+</body>
+</html>

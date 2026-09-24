@@ -1,0 +1,29 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/logging-on-to-administration-launchpad-of-abap-environment
+Title: Logging on to the Administration Launchpad of the ABAP Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Creation of Additional Administrator Users (Optional)Logging on to the Administration Launchpad of the ABAP Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Logging on to the Administration Launchpad of the ABAP Environment
+
+To add another user as administrator for the ABAP instance, log on to the administration launchpad of the ABAP environment.
+
+Prerequisites
+
+You are the administrator who has created the ABAP system (see Creating an ABAP System).
+
+Procedure
+In the SAP BTP cockpit, go to the Cloud Foundry subaccount for the ABAP environment as administrator.
+Choose the space in the Cloud Foundry subaccount.
+In the navigation area, choose Services  Service Instance.
+Choose the service instance for the ABAP environment.
+Choose View Dashboard.
+
+The logon window for the administration launchpad of the ABAP environment opens.
+
+If you are using the custom Identity Authentication service for SAP BTP, you don't need to enter your user and password, but choose the available link of the custom Identity Authentication service and log on.
+If you need to enter your user and password, remember to log on with the right user that was defined before (see Creating an ABAP System).
+Results
+
+The administration launchpad opens. You can now proceed with creating an employee record for the administrator.

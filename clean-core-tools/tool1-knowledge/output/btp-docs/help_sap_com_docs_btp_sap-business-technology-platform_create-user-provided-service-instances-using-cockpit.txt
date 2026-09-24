@@ -1,0 +1,14 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/create-user-provided-service-instances-using-cockpit
+Title: Create User-Provided Service Instances Using the Cockpit | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Creating User-Provided Service InstancesCreate User-Provided Service Instances Using the Cockpit
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Create User-Provided Service Instances Using the Cockpit
+
+Note
+
+The content of this page has moved to a new location.
+
+To learn how to create user-provided service instances using the cockpit, see Creating User-Provided Service Instances in Cloud Foundry.

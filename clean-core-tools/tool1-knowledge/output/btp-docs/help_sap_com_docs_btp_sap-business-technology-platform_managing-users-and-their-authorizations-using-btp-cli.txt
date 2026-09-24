@@ -1,0 +1,179 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/managing-users-and-their-authorizations-using-btp-cli
+Title: Managing Users and Their Authorizations Using the btp CLI | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Commands in the btp CLIManaging Users and Their Authorizations Using the btp CLI
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Managing Users and Their Authorizations Using the btp CLI
+
+User authorizations are managed by assigning role collections to users (for example, Subaccount Administrator). Use the SAP BTP command-line interface (btp CLI) to manage roles and role collections, and to assign role collections to users.
+
+Tip
+
+All of these commands can be executed in the global account, a directory, or in a subaccount. To choose the level, use the btp target command. See Set a Target for Subsequent Commands with btp target.
+
+Managing Users and Assigning Role Collections
+
+Role collections are user-related authorizations that allow access to resources and services. You give users permissions by assigning role collections to them. All users in the global accounts, directories, and subaccounts are stored in identity providers, either in the default or in a custom identity provider. When the first role collection assignment to a user happens, SAP BTP creates a copy of this user in the global account, directory, or subaccount. This copy of the user is called shadow user.
+
+When you do the first role collection assignment to a user through the btp CLI, such a shadow user is created by default. If you want to prevent this, you need to pass the --create-user-if-missing parameter with value false.
+
+See Role Collections and Roles in Global Accounts, Directories, and Subaccounts and User and Member Management.
+
+Task
+
+Run the command ...
+
+Command help
+
+List users
+
+btp list security/user
+
+btp list security/user
+
+Get details about a specific user, including role collections
+
+btp get security/user
+
+btp get security/user
+
+Delete a user
+
+btp delete security/user
+
+btp delete security/user
+
+Assign a role collection to a user, user group, or to an attribute
+
+btp assign security/role-collection
+
+btp assign security/role-collection
+
+Unassign a role collection from a user, user group, or from an attribute
+
+btp unassign security/role-collection
+
+btp unassign security/role-collection
+
+Managing Roles
+
+A role is an instance of a role template; you can build a role based on a role template and assign the role to a role collection. See Add Roles to Role Collections on the Application Level.
+
+Task
+
+Run the command ...
+
+Command help
+
+List apps
+
+btp list security/app
+
+btp list security/app
+
+Get details about a specific application
+
+btp get security/app
+
+To get the ID of a specific app, run btp list security/app
+
+.
+
+btp get security/app
+
+List roles
+
+btp list security/role
+
+btp list security/role
+
+Get details about a specific role
+
+btp get security/role
+
+btp get security/role
+
+Create a role
+
+btp create security/role
+
+btp create security/role
+
+Delete a role
+
+btp delete security/role
+
+btp delete security/role
+
+Add a role to a role collection
+
+btp add security/role
+
+btp add security/role
+
+Remove a role from a role collection
+
+btp remove security/role
+
+btp remove security/role
+
+Managing Role Collections
+
+Role collections consist of roles, which, in turn, are based on role templates. Role collections are specific to account entities, that is, there are different role collections in global accounts, subaccounts, and directories. There are predefined role collections, such as Global Account Administrator and Subaccount Viewer. For more information, see Role Collections and Roles in Global Accounts, Directories, and Subaccounts and Working with Role Collections.
+
+Task
+
+Run the command ...
+
+Command help
+
+List role collections
+
+btp list security/role-collection
+
+btp list security/role-collection
+
+Get details about a specific role collection
+
+btp get security/role-collection
+
+btp get security/role-collection
+
+Create a role collection
+
+btp create security/role-collection
+
+btp create security/role-collection
+
+Change the description of a role collection
+
+btp update security/role-collection
+
+btp update security/role-collection
+
+Delete a role collection
+
+btp delete security/role-collection
+
+btp delete security/role-collection
+
+Parent topic: Commands in the btp CLI
+
+Related Information
+Working with Global Accounts, Directories, and Subaccounts Using the btp CLI
+Setting Entitlements Using the btp CLI
+Working with Environments Using the btp CLI
+Working with Multitenant Applications Using the btp CLI
+Working with External Resource Providers Using the btp CLI
+Managing Trust from SAP BTP to an SAP Cloud Identity Services Tenant
+Managing Signing Keys for Access Tokens
+Managing Security Settings
+Managing API Credentials for Calling REST APIs of SAP Authorization and Trust Management Service
+Working with Resources of the SAP Service Manager Using the btp CLI
+Working with Multi-Region Disaster Recovery Using the btp CLI
+Security Administration: Managing Authentication and Authorization
+Set a Target for Subsequent Commands with btp target
+Role Collections and Roles in Global Accounts, Directories, and Subaccounts
+btp CLI Command Reference

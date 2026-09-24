@@ -1,0 +1,28 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/add-roles-to-role-collection
+Title: Add Roles to a Role Collection | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Define a Role CollectionAdd Roles to a Role Collection
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Add Roles to a Role Collection
+
+You can add roles to a role collection.
+
+Context
+
+The roles are derived from role templates that are provided by applications. For more information, see the related links.
+
+Procedure
+Open the SAP BTP cockpit.
+Go to your global account and subaccount (see Navigate in the Cockpit).
+Choose Security  Role Collections.
+To add roles, choose the role collection name.
+Go to the Roles section and choose Edit.
+To add a role to the role collection, choose the input field. The role selection screen opens.
+Use the dropdown list or the F4 function key under Role Name to display the roles that are available. The roles are sorted alphabetically. Choose the role you want to add. You can also select multiple roles from the list below.
+Choose Add.
+Save your changes.
+Related Information
+Role Collections and Roles in Global Accounts, Directories, and Subaccounts
+Protecting Your Application

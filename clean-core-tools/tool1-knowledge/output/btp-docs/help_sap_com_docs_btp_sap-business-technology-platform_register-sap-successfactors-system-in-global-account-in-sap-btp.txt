@@ -1,0 +1,149 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/register-sap-successfactors-system-in-global-account-in-sap-btp
+Title: Register an SAP SuccessFactors System in a Global Account in SAP BTP | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformExtensions and IntegrationsAdding, Registering and Deregistering SystemsRegister an SAP SuccessFactors System in a Global Account in SAP …
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Register an SAP SuccessFactors System in a Global Account in SAP BTP
+
+To connect an SAP SuccessFactors system with a global account in SAP BTP, you need to register the system in the corresponding global account.
+
+Prerequisites
+
+See Adding, Registering and Deregistering Systems.
+
+You are an administrator of the global account where you want to register your SAP SuccessFactors system.
+
+You have a dedicated SAP SuccessFactors company instance.
+
+You have a user with permissions to access Extension Center in SAP SuccessFactors Admin Center that include:
+
+Admin Access to MDF OData API permission from the Metadata Framework category
+
+Create Integration with SAP BTP permission from the Manage Extensions on SAP BTP category
+
+To assign these permissions to your user, you might need the help of an administrator.
+
+To get a user with the respective permissions, follow these steps:
+
+Make sure you have an access to the SAP SuccessFactors Admin Center. See Permission to Access Admin Center.
+
+Add your user to an already existing group or create a new dedicated group and add your user. See Creating Dynamic Permission Groups.
+
+Use an already existing role or create a new dedicated role. See Creating Permission Roles.
+
+Assign the respective permissions to your role. See Assigning Permissions to a Role.
+
+Add your role to the dedicated group. See Assigning Roles to Groups.
+
+To fully activate the permissions, log out and log in again to the SAP SuccessFactors company instance.
+
+Context
+
+The registration process is based on a registration token that is used for the pairing of the SAP SuccessFactors company and the corresponding global account in SAP BTP. You create the token in the global account, and then start the automated registration process on the SAP SuccessFactors company side using this token.
+
+Note
+
+When registering SAP SuccessFactors systems, you can have up to 1000 tokens per global account ready to be used. Tokens that are already used to register an SAP SuccessFactors system are not included in this number.
+
+This means that you cannot have more than 1000 systems in the Systems list of type SAP SuccessFactors with an empty status and generated token that is not used yet.
+
+The registration process has the following states displayed in the cockpit:
+
+No status displayed in the Status column - the registration token for an SAP system has been created but the registration on the respective SAP solution system side has not been performed or completed.
+
+Registered - the registration token has been used and the automated registration process has been successfully completed. The system can be assigned to a formation on the Formations page in the cockpit.
+
+Error while Registering - the registration has failed. Remove the system and then add it to the Systems list and try to register it again
+
+Deregistering - а deregistration process has started in the SAP BTP cockpit. As a result, the connection between the SAP solution system and the global account in SAP BTP is removed. The system remains in the list and you can register it again later on.
+
+Once a system is registered, you can deregister it only after removing it from all entitlement configurations and formations it takes part in.
+
+Error while Deregistering - the deregistration has failed. Try to deregister the system again. If the problem persists, report a case in the BC-NEO-EXT-SF component.
+
+Removing - a system removal process has started in the SAP BTP cockpit. As a result, the link between the SAP solution and SAP BTP is destroyed and the system is removed from the list. To register the system again, first you must add it to the list anew, and then initiate the registration procedure.
+
+Once a system is registered, you can only remove it if you first deregister it.
+
+Note
+You will not be able to remove a system if its status is one of the following:
+
+Registered
+
+You first need to deregister the system.
+
+Deregistering
+
+Error while Deregistering
+
+Try to deregister the system again.
+
+Error while Removing - the system removal has failed. Try to remove the system again. If the problem persists, report a case in the BC-NEO-EXT-SF component.
+
+Note
+
+When registering a system or creating a formation, the data you provide in the given input fields is not encrypted with your customer managed key. The data you enter is only encrypted at rest.
+
+Procedure
+In the SAP BTP cockpit, navigate to your global account, and then choose System Landscape  Systems.
+On the Systems page, choose Add System.
+In the Type dropdown list, select SAP SuccessFactors.
+Enter a name for the system you want to register.
+Note
+
+Use only printable ASCII characters.
+
+Tip
+
+We recommend that you indicate the type of the system when specifying the system name. For example, <mysystem>-SuccessFactors. This helps you identify the system type when assigning systems to a formation.
+
+Choose Add.
+Choose Get Token.
+
+The system generates the registration token.
+
+Copy the registration token and send it to the tenant administrator for the respective SAP SuccessFactors system. You need it for configuring the integration on the extended SAP SuccessFactors system side.
+
+You can also get the registration token later, once the system appears in the list on the Systems page.
+
+The registration token is valid for 7 days after it has been generated. When a token is not used within its validity period, it is no longer valid and cannot be used for registering an SAP SuccessFactors system. If the validity of the token expires before you use it to configure the integration on the SAP SuccessFactors system side and complete the registration, you need to get a new token. You can then copy it and use it to complete the registration.
+Note
+
+A token can be used only once, for registering a single SAP SuccessFactors system.
+
+Close the wizard.
+
+The SAP SuccessFactors system appears in the list of systems on the Systems page. Its Status field is empty because the registration process is not yet completed.
+
+Start the automated integration process on the SAP SuccessFactors company side:
+Note
+
+If you do not have permissions to access the Extension Center for the corresponding SAP SuccessFactors system, you need to send the registration token to a user with such permissions who will configure the integration on the SAP SuccessFactors system side. For the requires permissions, check the prerequisites.
+
+In SAP SuccessFactors Admin Center, navigate to Extension Center.
+
+On the Extensions on SAP BTP tab page, navigate to the Add Integration with SAP BTP screen area, and paste the registration token in the Integration Token input field.
+
+Choose Add.
+
+The system appears in the integration list in the Multi-Cloud Environment screen area, and the status of the integration is displayed in the Integration Status column. To refresh the status of the process, choose the Check Status icon. Wait for the integration to finish.
+
+In the cockpit, check the status of the registration process. To do so, navigate to your global account, and on the Systems page, check if the status of the SAP System has changed to Registered.
+
+If you are already on the Systems page, refresh the page to check if the status has changed.
+
+Note
+
+You can register a system only once with the same name per global account.
+
+Note
+
+You cannot migrate the registered SAP SuccessFactors systems between global accounts.
+
+If you want to start using another global account, you will have to register your SAP SuccessFactors systems again.
+
+Related Information
+Adding, Registering and Deregistering Systems
+Deregister or Removе a System

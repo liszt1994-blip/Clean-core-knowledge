@@ -1,0 +1,78 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/developing-java-in-cloud-foundry-environment
+Title: Developing Java in the Cloud Foundry Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Development LanguagesDeveloping Java in the Cloud Foundry Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Developing Java in the Cloud Foundry Environment
+
+Find selected information for Java development on SAP BTP, Cloud Foundry and references to more detailed sources.
+
+Usage
+
+To use a buildpack, specify its name when deploying a Java application to SAP BTP, Cloud Foundry. For example:
+
+
+
+cf push -f <PATH_TO_APP_MANIFEST> -b sap_java_buildpack_jakarta
+
+
+cf push -f <PATH_TO_APP_MANIFEST> -b sap_java_buildpack
+
+
+cf push -f <PATH_TO_APP_MANIFEST> -b java_buildpack
+
+You can also use the buildpack or buildpacks attribute to specify it in the manifest.yml file:
+
+
+
+---
+applications:
+- name: <APP_NAME>
+
+buildpacks:
+
+- sap_java_buildpack_jakarta
+
+...
+
+or in the mtad.yml file of your archive:
+
+
+
+...
+modules:
+
+- name: <APP_NAME>
+
+type: java.tomcat
+
+path: <path_to_archive>
+
+properties:
+
+...
+
+parameters:
+
+...
+
+memory: 512M
+
+buildpack: sap_java_buildpack_jakarta
+...
+What's New
+
+To check the latest news and updates about SAP Java Buildpack, go to its release notes: What's New for SAP Java Buildpack
+
+Troubleshooting
+
+If you encounter an issue while using SAP Java Buildpack, you can create an incident for your specific problem, using support component BC-CP-CF-BLDP.
+
+Related Information
+Buildpacks
+Customizing the JVM Settings
+Logging and Tracing
+Debugging Java Applications
+Bill of Materials (BOM)

@@ -1,0 +1,168 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/multitarget-applications-in-cloud-foundry-environment
+Title: Multitarget Applications in the Cloud Foundry Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Deploying to the Cloud Foundry EnvironmentMultitarget Applications in the Cloud Foundry Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Multitarget Applications in the Cloud Foundry Environment
+
+A multitarget application (MTA) is essentially a single application that consists of multiple parts. These parts are created using various technologies and share the same lifecycle.
+
+The MTA developers outline the intended outcomes using the MTA model. This model consists of MTA modules, MTA resources, and the interdependencies between them. Afterward, the SAP Cloud Deployment service validates it, orchestrates the necessary actions, and automates the MTA deployment. The outcome is the formation of Cloud Foundry applications, services, and the generation of SAP specific content. For more information about the Multitarget Application model, see the official specification documents The Multitarget Application Model v.2 and The Multitarget Application Model v.3.
+
+You can create and deploy a multitarget application in the Cloud Foundry environment as described below by following different approaches that can yield the same result:
+
+Using SAP Web IDE Full-Stack as described in Developing Multitarget Applications - both the development descriptor mta.yaml and the deployment descriptor mtad.yaml are created automatically. The mta.yaml is generated when you create the application project, and the mtad.yaml file is created when you build the project.
+
+Note
+
+You may still need to edit the development descriptor.
+
+Development descriptors are used to generate MTA deployment descriptors, which define the required deployment data. That is, the MTA development descriptor data specifies what you want to build, how to build it, while the deployment descriptor data specifies as what and how to deploy it.
+
+Using Business Application Studio - the flow is similar to WebIDE but the development is done from BAS.
+
+Using the Cloud MTA Build Tool. Afterward, you deploy the MTA using the Cloud Foundry Command Line Interface.
+
+Note
+
+An MTA development descriptor mta.yaml is required. You have to create it manually.
+
+Manually - create the required files manually and deploy them using the Cloud Foundry Command Line Interface
+Note
+
+An MTA development descriptor mta.yaml is not explicitly required. In this case, a deployment descriptor is maintained instead.
+
+Create the required files using an IDE of your choice.
+
+To produce your custom artifacts, use a build technology of your choice.
+
+Maintain your deployment descriptor document (mtad.yaml).
+
+(Optional) If you want to have an MTA archive package, use the mbt assemble. For more information, see Cloud MTA Build Tool (MBT).
+
+Use the cf deploy command to deploy the MTA package or directly from the build result directory.
+
+To learn more about
+
+See
+
+Multitarget Application deployment descriptor
+
+Defining Multitarget Application Deployment Descriptors for Cloud Foundry
+
+Multitarget Application archive
+
+Defining Multitarget Application Archives
+
+Multitarget Application extension descriptor
+
+Defining MTA Extension Descriptors
+
+Multitarget Application structure
+
+Multitarget Application Structure
+
+How to deploy the Multitarget Application
+
+Multitarget Application Plugin for Cloud Foundry Command Line Interface
+
+Terms and Concepts
+Terms and Concepts
+
+Term
+
+Description
+
+Multitarget application (MTA)
+
+An application comprised of multiple software modules, which are created with different technologies and deployed to different runtimes.
+
+Development descriptor
+
+A YAML file named mta.yaml that contains a list of all entities, such as modules, resources, and properties that belong to an application or are used by it at runtime, and the dependencies between them. It is automatically generated when an MTA project is created or modified, or when a module is added or removed. The developer needs to edit the descriptor manually to define resources, properties, and dependencies, as well as fill in missing information.
+
+Deployment descriptor
+
+A YAML file named mtad.yaml that contains a list of all entities which is created from either SAP Web IDE Full-Stack, SAP Business Application Studio, Cloud MTA Build Tool or manually. This file is similar to Development Descriptor but is used from the SAP Cloud Deployment service.
+
+Module
+
+A self-contained application of a certain type, which is developed, packaged and deployed.
+
+Module type
+
+A type that defines the structure and the development technology of a module. You can see a list of the module types at Modules.
+
+Resource
+
+Any resource, such as an external service that is required by a module at runtime but not provided by the module itself.
+
+Property
+
+A property (key-value pair) of an application, module, or resource, that is used during deployment or at runtime.
+
+Parameter
+
+A reserved variable belonging to a module or resource, whose value is used during deployment or at runtime.
+
+Dependency
+
+A relationship between a module and another module, resource, or property, such as provides and requires.
+
+provides: indicates the properties or parameters that are provided by a module or resource to other modules.
+
+requires: indicates other modules or resources that are required by a module in order to run.
+
+MTA archive (MTAR)
+
+Archive containing a deployment descriptor, the module and resource binaries, and configuration files. The archive follows the JAR file specification.
+
+Prerequisites and Restrictions
+Prerequisites
+
+You need the Space Developer role to deploy multitarget applications in the Cloud Foundry environment. For more information, see About Roles in the Cloud Foundry Environment.
+
+Restrictions
+You have to consider the following limits for the MTA artifacts, which can be handled by the SAP Cloud Deployment service:
+
+Maximum size of the MTA archive: 4 GB
+
+Maximum size of MTA module content: 1 GB
+
+Maximum size of MTA resource content: 1 MB
+
+Maximum size of MTA descriptors (mtad.yaml and MANIFEST.MF): 1 MB
+
+Limitations for transport scenarios via SAP Cloud Transport Management, where one transport import with multiple transport requests results into a single deployment process in SAP Cloud Deployment service with multiple MTAs:
+
+The total size of all MTA archives in a single import request cannot exceed 20GB.
+
+The maximum number of MTA archives used in a single import request cannot exceed 100.
+
+Limitations for transport scenarios via the Enhanced Change and Transport System (CTS+), where one transport import with multiple transport requests results into a single deployment process in SAP Cloud Deployment service with multiple MTAs:
+
+The total size of all MTA archives in multiple transport requests per one import cannot exceed 4GB.
+
+The maximum number of MTA archives used in a single import request cannot exceed 500.
+
+Unsupported Cloud Foundry Features
+In addition to the features that are not supported by the Cloud Foundry environment on SAP BTP (See Supported and Unsupported Cloud Foundry Features), MTA deployment in Cloud Foundry currently does not support these features as well:
+
+Sidecars. See https://docs.cloudfoundry.org/devguide/sidecars.html.
+
+Route services. See https://docs.cloudfoundry.org/services/route-services.html.
+
+Metadata. See https://docs.cloudfoundry.org/adminguide/metadata.html.
+
+Per-route options. See https://docs.cloudfoundry.org/devguide/custom-per-route-options.html.
+
+Note
+
+These features might be implemented in the future. For the latest information, follow the release notes regarding Multitarget Applications for Cloud Foundry in What’s New for SAP Business Technology Platform.
+
+Related Information
+JAR File Specification
+Cloud MTA Build Tool
+Release Notes for Multitarget Applications for Cloud Foundry

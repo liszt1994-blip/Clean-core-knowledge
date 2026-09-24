@@ -1,0 +1,22 @@
+URL: https://help.sap.com/docs/btp/btp-developers-guide/deliver
+Title: Deliver | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP Developer's GuideDeveloping with CAP in the SAP BTP, Cloud Foundry and SAP BTP, Ky…Deliver
+SAP BTP Developer's GuideEnglish
+Provide feedback on our search
+
+Deliver
+
+Now that you have completed your design for the required user experience of your application along with the appropriate application architecture, it’s time to deliver what you have designed. In other words, set up the development and test landscape, develop and test your application and finally release it to the productive environment. This applies to the first release of the application. From then on, you could apply a similar approach for subsequent releases, or preferably, move to a mode of continuous feature delivery, whereby additional features are researched with users, designed, developed and then deployed once ready, without having to be bundled in a new release of the entire application. See:
+
+You start by setting up the landscape in SAP BTP. See Set Up.
+
+Then, you continue with the development, choosing the programming language, runtimes, tools and others. Have in mind that depending on the programming model, there are some specifics. See:
+
+Develop
+
+There are sample applications presented in tutorials and end-to-end scenarios, called missions:
+
+Tutorials and Reference Sample for Full-Stack Multitenant SaaS Applications for Partners
+
+Tutorials for SAP Cloud Application Programming Model

@@ -1,0 +1,83 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/btp-getting-support
+Title: Getting Support | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformGetting Support
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Getting Support
+
+To get help, use the available support channels provided by SAP for Me.
+
+Note
+
+This section is applicable for all multicloud environments. To find which environments are available in your region, see Regions.
+
+Prerequisites
+
+Before you report a case, ensure the following:
+
+Check Platform Status
+
+Running on the AWS, Azure, or GCP regions: visit SAP Trust Center. You can check:
+
+availability by service on Cloud Status tab page;
+
+availability by region on the Data Center tab page.
+
+Running on the China (Shanghai) region: check China (Shanghai) region status page.
+
+Running on the Government Cloud (US) region: planned downtimes and outage communication are sent through e-mail to the initial administrator of your global account.
+
+Check Tools Versions
+
+Make sure that you have the latest versions of the tools you're using (recommended), or at least the versions you're using are still supported. For more information, see SAP Development Tools.
+
+Note
+
+Trial users can ask for support by posting a question in SAP Community. However, they should first check for answers in SAP Community.
+
+Try Out Built-In Support Within SAP BTP Cockpit
+
+When using SAP BTP cockpit as an S-user, try Built-In Support to get customer help within the cockpit. See Built-In Support.
+
+Learn the Best Practices and Offerings
+
+Familiarize with the guidelines how to engage with support. See Support from SAP Best Practices and Offerings.
+
+Procedure
+
+To report a case in SAP for Me, proceed as follows:
+
+Open SAP for Me and log on.
+
+Open the Services & Support dashboard.
+
+(Optional) You can use the Knowledge Search tab for existing solutions in:
+
+SAP Notes & KBAs
+
+SAP Community
+
+SAP Support Portal
+
+Product Documentation
+
+Use the Get Support application within SAP for Me to get assistance via the available support channels.
+
+For more information about the specifics of each support channel and to learn how to report technical issues, see Get Support Application.
+
+For any other non-technical assistance, see Customer Interaction Center.
+
+Creating a Support User
+
+Sometimes you might need to create a support user to troubleshoot issues in your system. For more information about how and when to create a support user, see 3543065 - Best Practices for Creating Support Users in Your BTP System.
+
+Related Information
+Users and Authorizations for SAP One Support Launchpad
+Gather Support Information
+Platform Updates and Notifications
+Cloud Availability Center
+Road Map for Cloud Foundry Environment
+Road Map for Kyma Runtime
+Road Map for ABAP Environment

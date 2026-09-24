@@ -1,0 +1,38 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/developing-with-sap-cloud-application-programming-model
+Title: Developing with the SAP Cloud Application Programming Model | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Developing Applications and ServicesDeveloping with the SAP Cloud Application Programming Model
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Developing with the SAP Cloud Application Programming Model
+
+The SAP Cloud Application Programming Model (CAP) is a framework of languages, libraries, and tools for building enterprise-grade services and applications. It guides developers along a ‘golden path’ of proven best practices and a great wealth of out-of-the-box solutions to recurring tasks.
+
+Use Core Data Services (CDS) to build data models and service definitions on a conceptual level. These CDS models are used as inputs for the data, service, and UI layers. They're then translated to native artifacts, for example SQL database schemas, and interpreted to automatically serve requests at runtime.
+
+In summary, CDS is used as a business level data definition source, and to generate the artifacts at the persistence layer. It’s used to define visual aspects relating to the data, with those definitions (annotations) defining the UI layer. And it's used to generate the application service layer.
+
+We provide seamless integration with the Cloud Foundry environment on SAP Business Technology Platform. This makes it easier for you to deploy your application and consume platform services.
+
+The programming model is compatible with any development environment, but we recommend using the SAP Business Application Studio.
+
+The following graphic shows the relationship between CAP, SAP Business Technology Platform, platform services, and development tools:
+
+Overview of the SAP Cloud Application Programming Model
+
+Best Practices
+
+To help you create concise and comprehensible models with CDS, we have put together a list of best practices.
+Core Data Services (CDS) Language Reference Documentation
+
+CDS is the backbone of the SAP Cloud Application Programming Model (CAP). It provides the means to declaratively capture service definitions and data models, queries, and expressions in plain (JavaScript) object notations. CDS features to parse from a variety of source languages and to compile them into various target languages.
+Developing Business Applications Using Java
+
+The CAP Java SDK enables developing SAP Cloud Application Programming Model (CAP) applications in Java. While the SAP Business Application Studio provides excellent support to develop CAP Java applications, you can also develop locally with your tool of choice, for example Eclipse.
+Developing Business Applications Using Node.js
+
+Develop a sample business service using Core Data Services (CDS), Node.js, and SQLite, by using the SAP Cloud Application Programming Model (CAP). Develop on your local environment and deploy to the Cloud.
+References
+
+Find additional references in the following sections.

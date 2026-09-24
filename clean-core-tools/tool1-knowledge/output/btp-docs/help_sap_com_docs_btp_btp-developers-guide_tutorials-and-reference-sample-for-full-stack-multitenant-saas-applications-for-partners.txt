@@ -1,0 +1,48 @@
+URL: https://help.sap.com/docs/btp/btp-developers-guide/tutorials-and-reference-sample-for-full-stack-multitenant-saas-applications-for-partners
+Title: Tutorials and Reference Sample for Full-Stack Multitenant SaaS Applications for Partners | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP Developer's GuideDeveloping with CAP in the SAP BTP, Cloud Foundry and SAP BTP, Ky…Build and Run Multitenant SaaS Applications for Partners Who Are …Tutorials and Reference Sample for Full-Stack Multitenant SaaS Ap…
+SAP BTP Developer's GuideEnglish
+Provide feedback on our search
+
+Tutorials and Reference Sample for Full-Stack Multitenant SaaS Applications for Partners
+
+Full-Stack Multitenant SaaS Applications for Partners
+
+The Poetry Slam Manager application is a reference for SAP partners that provides you with a recommended way to becoming a SaaS provider of multitenant applications based on the SAP BTP. See Partner Reference Application 'Poetry Slam Manager' on GitHub.
+
+The guidance covers building, running, and integrating scalable full-stack cloud applications using the SAP Cloud Application Programming Model (CAP) and adheres to the development recommendations set out in the SAP BTP Developer’s Guide. It includes an ERP-agnostic design that lets you deliver your application as a side-by-side extension to consumers using any SAP solution, such as SAP S/4HANA Cloud, SAP Business One, and SAP Business ByDesign.
+
+By using services in SAP BTP and the SAP Cloud Application Programming Model (CAP), your application meets SAP standards for enterprise-class business solutions and empowers you to focus on your application domain.
+
+The reference application and its tutorials cover a wide range of services and components in SAP BTP. You can find a list of all services in the bill of materials of the partner reference application on GitHub. See Bill of Materials on GitHub.
+
+The tutorials in the repository follow an incremental development approach, guiding users through the development journey. They cover:
+
+Developing the core application with a focus on business models and logic.
+
+Enhancing the application to a multi-customer (multitenant) solution.
+
+Integrating with various ERP backends.
+
+Adding more features to the application.
+
+Extending the application.
+
+To cater to customer-specific and industry-specific requirements, an extensibility feature is provided as part of incremental development approach, guiding users through extension journey. See Partner Reference Application Extension.
+
+Customer-Specific Extension
+
+The Partner Reference Application Extension demonstrates how to achieve this customer flexibility by extending the Poetry Slam Manager application with enhanced catering management capabilities. By leveraging the SAP Business Technology Platform (SAP BTP) and the SAP Cloud Application Programming Model (CAP). It enables partners to build extensions that address the unique needs of individual customers while preserving the core application's functionality for other tenants and adhering to SAP standards for scalability, security, and enterprise readiness.
+
+The Partner Reference Application Extension showcases the platform's flexibility and extensibility with features such as:
+
+Seamless integration with the base application
+
+Granular tenant-specific configurations to deliver personalized experiences
+
+Consistent user experience across extended and core functionality
+
+Secure multitenant architecture, ensuring data isolation and performance scalability
+
+See Partner Reference Application Extension.

@@ -1,0 +1,31 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/tools-programming-models-programming-languages-and-apis
+Title: Tools, Programming Models, Programming Languages, and APIs | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformBasic Platform ConceptsTools, Programming Models, Programming Languages, and APIs
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Tools, Programming Models, Programming Languages, and APIs
+
+SAP BTP provides various programming languages and tools for your development project.
+
+Tools
+
+SAP BTP includes many tools to help you develop and manage applications, and connect them to your on-premise systems.
+Programming Languages
+
+SAP BTP supports many different programming languages; the availability of each depends on the development environment you're using.
+Programming Models
+
+Continuous Integration and Delivery (CI/CD)
+
+Configure and run predefined continuous integration and delivery (CI/CD) pipelines that automatically build, test, and deploy your code changes to speed up your development and delivery cycles.
+APIs
+
+Discover and consume APIs to manage, build, and extend the core capabilities of SAP BTP.
+Cloud Management Tools
+
+Cloud management tools represent the group of technologies designed for managing SAP BTP.
+Prerequisites and Restrictions
+
+Find a list of the product prerequisites and restrictions for SAP BTP.

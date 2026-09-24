@@ -1,0 +1,40 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/tasks-on-demand
+Title: Tasks On Demand | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Adding Authentication and AuthorizationTasks On Demand
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Tasks On Demand
+
+Here you can find information regarding the available extended tasks for creating authorization artifacts, as well as the process of configuring redirect URLs.
+
+In addition, as an application developer, you may want to create role collections for immediate use. For example, to deliver role collections that administrators can use in the SAP BTP cockpit and easily assign to users in an onboarding process.
+
+Update a Service Instance
+
+You can update a service instance from the xsuaa service using the service broker.
+Sharing and Unsharing Service Instances
+
+You can share service instances of the SAP Authorization and Trust Management service across multiple spaces or environments. This has the advantage that you don’t need to create separate service instances in multiple spaces or environments.
+Compatible Changes in the Security Descriptor File
+
+If you update a service instance, you can add, change, and/or delete scopes, attributes, and role templates. Whenever you change role templates, you adapt roles that are derived from the changed role template.
+Retrieve Credentials for Remote Applications
+
+You need to get the credentials of a service instance for an application that runs outside SAP BTP.
+Configure Redirect URLs for Browser Logout
+
+To avoid open redirect attacks, direct users to a safe and valid URL when they log out.
+Create Role Collections with Predefined Roles
+
+As an application developer, you want to create role collections for immediate use. You want to deliver role collections that administrators can use in the cockpit, and easily assign to users, for example in an onboarding process.
+Validation and Revocation of Access Tokens
+
+To confirm that access tokens were truly issued by the SAP Authorization and Trust Management service and are still valid, applications check the tokens for validity.
+Include Tokens from Corporate Identity Providers or SAP Cloud Identity Services in Tokens of the SAP Authorization and Trust Management Service
+
+In scenarios where your SAP BTP application interacts with applications that don't support tokens issued by the SAP Authorization and Trust Management service, but require a token from a corporate identity provider or SAP Cloud Identity Services, you can configure SAP Authorization and Trust Management service to include this token.
+Best Practices When Handling Access Tokens
+
+Calls to SAP Authorization and Trust Management service can fail for many reasons, including network latency, connection errors, service downtime, idle connections closed by routing components and so on. The following sections provide recommendations on when to retry connections and the caching of tokens.

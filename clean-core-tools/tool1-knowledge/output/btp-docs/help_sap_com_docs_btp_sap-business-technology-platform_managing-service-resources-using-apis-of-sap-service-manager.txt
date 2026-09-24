@@ -1,0 +1,16 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/managing-service-resources-using-apis-of-sap-service-manager
+Title: Managing Service Resources Using the APIs of the SAP Service Manager | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Account Administration Using APIsManaging Service Resources Using the APIs of the SAP Service Mana…
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Managing Service Resources Using the APIs of the SAP Service Manager
+
+Use the APIs of the SAP Service Manager to work with environments, service brokers, service instances, service bindings, service plans, and service offerings.
+
+SAP Service Manager is the central registry for service brokers and platforms in SAP BTP.
+
+The service allows you to consume platform capabilities in any connected runtime environment, track the creation and managing of service instances, and share services and service instances between different environments.
+
+For the list of the available APIs, see Working with SAP Service Manager APIs.

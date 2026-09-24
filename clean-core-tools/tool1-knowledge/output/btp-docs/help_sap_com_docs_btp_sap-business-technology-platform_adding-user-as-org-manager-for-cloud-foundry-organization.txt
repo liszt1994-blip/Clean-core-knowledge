@@ -1,0 +1,24 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/adding-user-as-org-manager-for-cloud-foundry-organization
+Title: Adding a User as Org Manager for the Cloud Foundry Organization | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Creation of Additional Administrator Users (Optional)Adding a User as Org Manager for the Cloud Foundry Organization
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Adding a User as Org Manager for the Cloud Foundry Organization
+
+After you have created a Cloud Foundry organization for the ABAP environment, you can add more users as organization managers.
+
+Context
+Note
+
+If you have run the booster Prepare an Account for ABAP Development and entered additional administrators, you can skip these steps.
+
+Procedure
+Log on to the SAP BTP cockpit as administration user for Cloud Foundry.
+Go to your subaccount for the ABAP environment.
+From the navigation area, choose Org Members.
+Choose Add Members.
+Enter the user’s e-mail address in the E-mails field.
+Select the checkbox for org manager.
+Choose OK.

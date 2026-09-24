@@ -1,0 +1,28 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/setup-of-custom-identity-service
+Title: Setup of a Custom Identity Service | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Getting Started with a Customer Account in the ABAP EnvironmentSetup of a Custom Identity Service
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Setup of a Custom Identity Service
+
+For your business users in the ABAP environment, you set up a custom identity service.
+
+Custom Identity Service for the ABAP Environment
+
+For platform users such as the administrator, the default identity provider is SAP ID Service, which is set up by default. For the business users in the ABAP environment, you must set up a custom identity service. For example, the users of your deployed application or users of subscribed apps or services, such as SAP Business Application Studio, are business users. For more information about platform and business users in the ABAP environment, see User Types.
+
+In this documentation, a custom trust configuration is described using SAP Cloud Identity Services - Identity Authentication. The Identity Authentication service is a cloud solution for identity lifecycle management for SAP BTP applications. You can set up SAP BTP as a service provider, and Identity Authentication service as an identity provider.
+
+Identity Authentication Service as Proxy
+
+If you have your own custom identity providers at your company, you can use SAP Cloud Identity Services - Identity Authentication as a proxy. For more information about setting up the Identity Authentication service as a proxy, see Establish Trust and Federation Between UAA and Identity Authentication and Configure Trust with Corporate Identity Provider.
+
+More Information
+
+This documentation describes the basic trust concepts and helps you to get started with a simple landscape. To learn more about trust setup with custom identity providers, check the following, more detailed documentation:
+
+For more information about trust in SAP BTP, see Trust and Federation with Identity Providers.
+
+For more information about the Identity Authentication service, see Overview and Initial Setup.

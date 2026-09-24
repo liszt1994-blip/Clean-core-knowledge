@@ -1,0 +1,67 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/development-in-cloud-foundry-environment
+Title: Development in the Cloud Foundry Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformDevelopmentDevelopment in the Cloud Foundry Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Development in the Cloud Foundry Environment
+
+Learn more about developing applications on the SAP BTP, Cloud Foundry environment.
+
+Overview
+
+SAP BTP, Cloud Foundry environment is an open Platform-as-a-Service (PaaS) targeted at microservice development and orchestration.
+
+Develop polyglot applications
+
+Build on open standards with SAP Java, Node.js, and Python buildpacks or bring your own language with community buildpacks for PHP, Ruby, Go.
+
+Manage the lifecycle of applications
+
+Start, stop, scale, and configure distributed cloud applications using standard Cloud Foundry tools, our web-based administration user interface for SAP BTP, and dev-ops capabilities.
+
+Optimize development and operations
+
+Use the rich set of SAP BTP services including messaging, persistence, and many other capabilities, such as built-in security, compliance, elastic scale, and high-availability setup.
+
+Use the application programming model
+
+Use programming languages, libraries, and APIs tailored for full-stack application development.
+
+Manage Cloud Foundry orgs and spaces
+
+Create and delete Cloud Foundry orgs and spaces and add members. Create, assign, and change space quota plans.
+
+Use built-in cloud-native capabilities
+
+Utilize cloud-native principles built into the platform, such as containerization and multitenancy, to create resilient, portable, and efficient applications.
+
+The following graphic is designed to help you find the information you need for your programming purposes. The bottom row represents the tools, frameworks, services, and deployment options recommended by SAP. If you want full flexibility you can also bring your own development tools and languages, as shown in the top row.
+
+Development Options Overview
+
+This image is interactive. Hover over each area for a description. Click highlighted areas for more information.
+
+The Recommended Path
+
+This development approach offers guidance for important development decisions and features proven best practices recommended by SAP. You can follow a model path for application and service development that is based on the Cloud Application Programming Model (CAP). When working with CAP, we recommend using Java and Node.js because they receive the highest level of tool support and are well suited for most use cases. This path provides you with a list of key aspects to consider, but the order shown in these steps isn't mandatory. You can adapt the steps as you wish to better fit your use case.
+
+Choose Your Own Path
+
+Because of the polyglot nature of the Cloud Foundry environment, you're also free to choose your own approach. You're not forced to use one language exclusively, but can choose between Java, Node.js, and Python. Concerning tools you can either use the Cloud Foundry Command Line Interface (CF CLI) or other tools to develop and deploy your application. You're also free to decide if you want to develop and deploy your applications in the multitarget format (MTA).
+
+For more information on the supported programming languages, see:
+
+Developing Java in the Cloud Foundry Environment
+
+Developing Node.js in the Cloud Foundry Environment
+
+Developing Python in the Cloud Foundry Environment
+
+If you already have monolithic applications running on SAP BTP and are looking for a way to run them in the Cloud Foundry environment, read our migration best practice guide. See Migrating from the Neo Environment to the Multi-Cloud Foundation for SAP BTP (Cloud Foundry and Kyma).
+
+Related Information
+Cloud Foundry Environment
+Troubleshooting App Deployment and Health
+SAP BTP, Cloud Foundry Runtime

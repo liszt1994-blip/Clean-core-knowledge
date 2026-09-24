@@ -1,0 +1,46 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/add-space-members-using-cloud-foundry-command-line-interface
+Title: Add Space Members Using the Cloud Foundry Command Line Interface | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Org Administration Using the Cloud Foundry CLIAdd Space Members Using the Cloud Foundry Command Line Interface
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Add Space Members Using the Cloud Foundry Command Line Interface
+
+You can use the Cloud Foundry Command Line Interface (cf CLI) to add space members and assign roles to them.
+
+Prerequisites
+
+The Space Manager role for the space.
+
+The users exist in a trusted platform identity provider.
+
+All users of Cloud Foundry UAA are stored in identity providers, either in the default or in a custom identity provider. UAA needs a copy of the user, sometimes called a shadow user. You assign the shadow user authorizations to access resources in UAA. When a user authenticates, UAA forwards the request to the identity provider.
+
+To specify which identity provider hosts the user, use the --origin option. For more information about finding the origin key, see the trust configuration documentation.
+
+For more information, see Trust and Federation with Identity Providers.
+
+Download and install the cf CLI and log on to Cloud Foundry. For more information, see Download and Install the Cloud Foundry Command Line Interface and Log On to the Cloud Foundry Environment Using the Cloud Foundry Command Line Interface.
+
+Context
+
+Space members are organization members who have specific roles in a space.
+
+Org members can only be added by an Org Manager. This means that if you only have the Space Manager role, you can’t add space members that aren’t known to the org. To do that, you must first ask your Org Manager to add the users as org members with no roles. Once this is done, you can add them as space members following the steps below.
+
+If you’re the Org Manager, you don’t need to first add the users as org members with no roles. Since you have the permissions necessary to add users to the org, when you add a new user as a space member, that user automatically becomes part of the org as well.
+
+Procedure
+Enter the following string, specifying the user name, the name of the organization, the name of the space, and the role:
+
+
+cf set-space-role USERNAME ORG SPACE ROLE 
+Next Steps
+To remove a space role from a user, enter the following string, specifying the user name, the name of the organization, the name of the space, and the role:
+
+
+cf unset-space-role USERNAME ORG SPACE ROLE 
+Related Information
+Supported Tools and Services When Using Custom Identity Providers for Platform Users
+Add Space Members Using the Cockpit

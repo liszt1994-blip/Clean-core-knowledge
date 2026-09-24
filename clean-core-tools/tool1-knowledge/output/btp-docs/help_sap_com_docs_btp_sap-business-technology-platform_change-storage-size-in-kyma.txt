@@ -1,0 +1,38 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/change-storage-size-in-kyma
+Title: Change Storage Size in Kyma | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformAdministration and OperationsAdministration and Operations in the Kyma EnvironmentChange Storage Size in Kyma
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Change Storage Size in Kyma
+
+If the amount of data for the applications in your Kyma environment grows, you can expand the storage size for your customer data by resizing the respective Persistent Volume Claim (PVC).
+
+Prerequisites
+
+Your user has the authorizations to change PVC resources.
+
+Your workload uses a Persistent Volume, managed by a PVC.
+
+Context
+
+In a Kubernetes cluster, your customer data is stored in volumes. A “Persistent Volume Claim” (PVC) manages that volume for you and defines the size of storage. As the amount of customer data grows, you must adjust the PVC accordingly.
+
+Procedure
+Go to Kyma dashboard and select the correct namespace and workload.
+Find the PVC you want to resize and enter the desired new size of the volume.
+Save your changes.
+
+The PVC shows the condition type Resizing. Wait until the PVC switches to condition type FileSystemResizePending. This may take a few minutes.
+
+Restart your workload by restarting all related Pods.
+Results
+The storage size for your customer data has been adjusted to your needs.
+Next Steps
+
+Remember to back up your customer data.
+
+Related Information
+Kubernetes: Expanding Persistent Volumes Claims
+Kyma Environment Backup

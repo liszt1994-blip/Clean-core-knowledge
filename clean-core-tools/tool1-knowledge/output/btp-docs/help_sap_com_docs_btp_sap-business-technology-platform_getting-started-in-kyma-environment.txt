@@ -1,0 +1,48 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/getting-started-in-kyma-environment
+Title: Getting Started in the Kyma Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformGetting StartedGetting Started in the Kyma Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Getting Started in the Kyma Environment
+
+As an administrator, you must perform several steps to set up a fully operational Kyma environment to which you can connect the chosen SAP solutions.
+
+Prerequisites
+
+To perform administrative and development tasks, you need a global account and one or several subaccounts for which you can provision the Kyma environment. For details, see Creating Kyma Instances.
+
+The subaccount must have the following entitlements assigned:
+
+Kyma environment (added by the subaccount manager)
+
+Service Manager (added by default). However, if you removed the entitlement, you must add it again in your subaccount
+
+For details, see Configure Entitlements and Quotas for Subaccounts.
+
+Procedure
+Set up a Kubernetes cluster with the project "Kyma" to connect and extend SAP systems: Creating Kyma Instances
+Add the modules you'd like to use: Kyma Modules.
+Assign the roles to users to allow the administrators to manage Kyma and the developers to create Functions: Assign Roles in the Kyma Environment
+Caution
+
+Assign the roles before the users start using the Kyma dashboard. Not granting the roles results in an error.
+
+Use the Kyma environment to integrate external systems: Register an SAP Customer Experience System
+
+You have the following options:
+
+Integrate a CX system and the Kyma environment, so that the Functions you develop can use the system's API and receive business events.
+
+Integrate an SAP S/4 HANA Cloud system to use the services it provides to extend your applications.
+
+After you've integrated externals systems, the developers can start working on their Functions.
+
+Extend SAP S/4HANA Cloud by developing event-driven extensions and applications: Extending SAP S/4HANA Cloud in the Cloud Foundry and Kyma Environment
+Group several solutions into one formation to meet the requirements of your business scenario: Including SAP Systems in a Formation
+Results
+You have set up the Kyma environment and connected it as required.
+Next Steps
+
+After the administrator has set up the Kyma environment, the developers can access it through the Kyma dashboard. After logging on, developers can start creating extensions for the SAP systems either from the Kyma dashboard or from the terminal after downloading the kubeconfig file with the cluster configuration. For details, see Development in the Kyma Environment.

@@ -1,0 +1,233 @@
+URL: https://help.sap.com/docs/btp
+Title: SAP Business Technology Platform (SAP BTP) | SAP Help Portal | SAP Help Portal
+
+Home
+SAP Business Technology Platform (SAP BTP)English
+
+Extend and personalize SAP applications or integrate and connect entire landscapes with SAP BTP. Unleash your business users to connect processes and experiences, decide confidently with integrity and continuous business innovation.
+
+Provide feedback on our search
+
+Favorite
+Download PDF
+Share
+SAP BTP Fundamentals
+
+Explore foundational resources for SAP BTP that help you manage the platform effectively.
+
+Getting Started
+
+Gain insights into the essentials and first steps of using SAP BTP.
+
+Basic Platform Concepts
+
+Understand the concepts relevant for managing the platform.
+
+Manage and Operate Accounts and Applications
+
+Learn about administering accounts and applications effectively.
+
+Development
+
+Discover how to create and implement projects using the SAP BTP runtimes.
+
+Security
+
+Inform yourself about ensuring data protection and safety on SAP BTP.
+
+Feature Scope Description for SAP BTP, Cloud Foundry, ABAP, and Kyma Environments
+
+Get an overview of the features available in the Cloud Foundry, ABAP, and Kyma environments.
+
+SAP BTP Adoption Framework(Information published on SAP site)
+
+Explore the SAP BTP Adoption Framework, which provides a central access point for architects, developers and administrators to build and run enterprise-grade solutions on SAP BTP.
+
+Stay Current
+
+Discover the latest features and updates for SAP BTP.
+
+What's New for SAP BTP
+
+Stay updated on the latest features and updates.
+
+SAP Community(Information published on SAP site)
+
+Engage with the SAP community for inspiration, collaboration, and product news.
+
+Release Navigator(Information published on SAP site)
+
+Find consolidated release resources and schedules for SAP BTP products and services.
+
+What's New for SAP BTP (SAP Sovereign Cloud Offerings)
+
+Stay updated on the latest features and updates for sovereign cloud offerings.
+
+Recommended for Administrators
+
+Get advice and tips on optimizing SAP BTP usage and administration within your organization. For service-specific administration, access the service documentation directly.
+
+SAP BTP Administrator's Guide
+
+Plan your account and security model, and set up your landscape and lifecycle management for running applications on SAP BTP.
+
+SAP BTP Security Recommendations
+
+Adopt recommended security measures when architecting solutions.
+
+SAP BTP Multi-Region Guide
+
+Optimize your BTP architecture with effective strategies to set up a multi-region framework, ensuring seamless failover and minimizing downtime for mission-critical applications.
+
+Recommended for Developers
+
+Access step-by-step tutorials and documentation crafted specifically for developers working with SAP BTP. For service-specific development, access the service documentation directly.
+
+SAP BTP Developer’s Guide
+
+Explore SAP BTP Developer’s Guide to help you in developing, delivering, and integrating business applications.
+
+Preparing and Testing Your Solution for Third-Party Cookie Deprecation
+
+Get your SAP BTP solution tested for the upcoming Google Chrome third-party cookie deprecation.
+
+Getting and Applying a Deprecation Trial Token for the Third-Party Cookie Deprecation
+
+Learn about the deprecation trial for the upcoming Google Chrome third-party cookie deprecation and how to get and apply a deprecation trial token for your solution.
+
+Tutorials(Information published on SAP site)
+
+Explore step-by-step tutorials and get started quickly.
+
+APIs, Business Processes, Integrations(Information published on SAP site)
+
+Access the APIs, business processes, and integrations available for SAP BTP.
+
+DevOps with SAP BTP
+
+Explore how DevOps practices can enhance your workflow.
+
+Recommended for Solution Designers
+
+Find architecture tips and real-world SAP BTP use cases that help you design efficient solutions.
+
+Comparison: SAP BTP, Kyma Runtime and SAP BTP, Cloud Foundry Runtime
+
+Learn about the Kyma and Cloud Foundry runtimes, their similarities, synergies, and differences.
+
+Discovery Center Missions(Information published on SAP site)
+
+Implement use cases with step-by-step guidance.
+
+Migrating from the Neo Environment to the Multi-Cloud Foundation for SAP BTP (Cloud Foundry and Kyma)
+
+Learn how to migrate your scenarios from the Neo environment to the multi-cloud foundation.
+
+Application Development and Automation
+
+Create apps faster, automate processes, and scale without limits.
+
+ABAP Environment
+
+Business Application Studio
+
+Cloud Logging
+
+Cloud Portal Service
+
+Document Management Service
+
+Forms Service by Adobe
+
+Intelligent Situation Automation
+
+Market Rates, Bring Your Own Rates
+
+Market Rates, Refinitiv
+
+Mobile Services
+
+View all
+Integration
+
+Connect and automate your processes.
+
+Advanced Event Mesh
+
+Cloud Integration Automation Service
+
+Connectivity
+
+Event Mesh
+
+Integration Suite
+
+Cloud Integration for Data Services
+
+SAP Cloud Application Event Hub
+
+Master Data Integration
+
+Data and Analytics
+
+Maximize the value of SAP data and deliver trusted insights.
+
+Data Quality Services
+Master Data Governance, Cloud Edition
+Object Store
+
+PostgreSQL
+
+Redis
+
+SAP Analytics Cloud
+
+SAP ASE Service
+
+SAP Data Intelligence Cloud
+
+SAP Datasphere
+
+SAP HANA Cloud
+
+View all
+Foundation
+
+Operate and secure your applications.
+
+Agent Activation for Dynatrace
+
+Application Autoscaler
+
+Application Logging Service
+
+Audit Log Service
+
+Authorization and Trust Management Service
+
+Automation Pilot
+
+Cloud Foundry Runtime
+
+Cloud Identity Services
+
+Cloud Transport Management
+
+Content Agent Service
+
+View all
+Artificial Intelligence
+
+Infuse artificial intelligence in your apps in a scalable and responsible fashion.
+
+Data Attribute Recommendation
+
+SAP Document AI
+
+Personalized Recommendation
+
+SAP AI Core
+
+SAP AI Launchpad
+
+SAP Translation Hub

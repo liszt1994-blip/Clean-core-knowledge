@@ -1,0 +1,20 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/audit-log-retention-for-cloud-foundry-environment
+Title: Audit Log Retention for the Cloud Foundry Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Audit Logging in the Cloud Foundry EnvironmentAudit Log Retention for the Cloud Foundry Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Audit Log Retention for the Cloud Foundry Environment
+
+The audit log data is stored on a subaccount level. The access to the stored audit log data is strictly restricted - only authorized stakeholders can preview, retrieve, and download their audit log data.
+
+Note
+
+Currently, configuring retention period is allowed only on a subaccount level. Configuring custom retention period on a global account level is not available yet.
+
+There are two main categories of retention of audit data, divided by the source of generation:
+
+Retention of Audit Data written from SAP BTP Applications and Services (SAP-generated)
+
+Retention of Audit Data written from Customer’s BTP Applications (Customer-generated)

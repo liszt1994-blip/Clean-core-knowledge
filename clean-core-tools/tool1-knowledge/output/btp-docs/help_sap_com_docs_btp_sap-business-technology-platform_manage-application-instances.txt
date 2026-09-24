@@ -1,0 +1,36 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/manage-application-instances
+Title: Manage Application Instances | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Application Operations in the Cloud Foundry EnvironmentManage Application Instances
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Manage Application Instances
+
+To increase the availability of your Cloud Foundry application, you can run multiple instances of it. In the SAP BTP cockpit, you can add or remove application instances, or change the size of their memory and disk.
+
+Prerequisites
+
+You must have one application deployed in your Cloud Foundry space.
+
+You have the Space Developer or Space Supporter role.
+
+Procedure
+In the SAP BTP cockpit, navigate to the Applications page in your Cloud Foundry space.
+Choose the application whose instances you want to manage.
+On the Application Overview page, you can:
+
+Change Configuration to update the memory size and the disk size of all instances of your application.
+
+Note
+
+Each instance of the application receives the size in megabytes you have specified. You can allocate instance memory up to the available space memory limit.
+
+Bind Application Autoscaler to scale your application by binding it to the Application Autoscaler service. Once it's bound, you can access the Application Autoscaler dashboard from the Instances Configuration section.
+
+Add Instance to start an additional instance of your application.
+
+Remove Instance to remove one of the running instances of your application.
+
+Related Information
+Deploy an Application

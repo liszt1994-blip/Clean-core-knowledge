@@ -1,0 +1,2581 @@
+=== BTP Documentation: integration ===
+
+URL: https://help.sap.com/docs/btp/btp-admin-guide/integrate-and-test
+Title: Integrate and Test | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP Administrator's GuideIntegrate and Test
+SAP BTP Administrator's GuideEnglish
+Provide feedback on our search
+
+Integrate and Test
+
+Test and integrate your application with other solutions.
+
+Performing Integration Tests
+
+In contrast to unit tests that are performed locally on your development subaccount without any external dependencies in the develop and build phase, integration tests target the interplay of a complete system, spanning several single components and units potentially spread throughout a hybrid landscape. Integration tests verify that all building blocks work together, meet specified requirements, and fulfill the targeted business case. They should therefore then be executed on your test infrastructure or in your test subaccount after the integration into an existing landscape has taken place. This ensures that the interplay with backend functionalities is verified. In a CI/CD setup, note that such integration tests are part of the pipeline.
+
+Integration Tests for SAPUI5
+
+One Page Acceptance Tests (OPA5) is an API for SAPUI5 controls. It hides asynchronicity and eases access to SAPUI5 elements. This makes OPA especially helpful for testing user interactions, integration with SAPUI5, navigation, and data binding. See Integration Testing with One Page Acceptance Tests (OPA5).
+
+Integrating Your Application
+
+SAP BTP offers various options for integrating your cloud application with other cloud and on-premise solutions.
+
+Cloud Connector
+
+If you want an application running on SAP BTP to access data from your on-premise back-end system, we recommend that you use the Cloud Connector. It's an on-premise piece of software that you'll need to install in your on-premise landscape, within the firewall. Once it's configured and paired with your SAP BTP subaccount, a secure tunnel is established between SAP BTP (and all the services and applications that run on it) and the Cloud Connector. Communication between SAP BTP and the back-end system is routed via the Cloud Connector through a secure SSL tunnel.
+
+We recommend that you use the Cloud Connector if your use case requires any of the following:
+
+Point-to-point connectivity and programmatic integration
+
+Connectivity with cloud applications from on-premise systems, without mediation, such as for mapping, routing, or security
+
+Data replication from on-premise databases or Business Intelligence tools to SAP HANA databases running in the cloud
+
+On-premise system integration using SAP Cloud Integration
+
+For more information, see Cloud Connector.
+
+SAP Cloud Integration
+SAP Cloud Integration (Cloud Integration) supports end-to-end process integration across cloud and on-premise applications (cloud to cloud and cloud to on-premise integration). It provides the following features:
+
+Core runtime for processing, transforming, and routing of messages to be exchanged between your systems
+
+Out-of-the-box connectivity support (IDoc, SFTP, SOAP/HTTPS, SAP SuccessFactors, OData, HTTPS)
+
+Security features such as content encryption and certificate-based communication
+
+SAP Cloud Integration offers full flexibility for the manner in which messages are exchanged between your systems. We recommend that you use the Cloud Connector if you require any of the following (or if you don't require on-premise-based middleware, such as SAP Process Orchestration):
+
+Compliance scenarios, such as e-invoicing and payroll
+
+Graphical model of integration flow
+
+More than a few systems to be integrated, and you'd like to managed integrations centrally, rather than having to manually code applications when connections change
+
+Individual messages to be processed during integration
+
+Integration with third-party solutions
+
+For more information, see SAP Cloud Integration.
+
+Cloud Integration Automation Service
+
+If you're planning on integrating your SAP BTP application into a hybrid landscape, you can also leverage the Cloud Integration Automation service that is offered for selected integration scenarios. This service provides a guided workflow that uses customer-specific system information, reusable configuration settings between tasks, and automated execution capabilities, thereby reducing the manual work for your scenario integration. For more information, see Cloud Integration Automation Service.
+
+Related Information
+Blog Post: SAP Cloud Integration: When to use which tool
+Blog Post: Using SAP Analytics Cloud Connector with SAP Cloud Integration
+Blog Post: Cloud Integration Automation Service - What is it?
+Blog Post: Cloud Integration Automation Service: Step-by-Step
+
+---
+
+URL: https://help.sap.com/docs/btp/btp-developers-guide/08b1effc53634890a525f945017e2edc.html
+Title: Extensions and Integrations | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformExtensions and Integrations
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Extensions and Integrations
+
+The extension capabilities of SAP Business Technology Platform (SAP BTP) enables developers to implement loosely coupled extension applications securely, thus implementing additional workflows or modules on top of the existing SAP cloud solution they already have.
+
+Unified Customer Landscape
+
+The Unified Customer Landscape service provides capabilities for automated extensibility and integration of SAP and third-party systems.
+
+All standard SAP solutions are offered with customizing capabilities. Additionally, customers often have their own requirements for innovative or industry-specific extensions and the extension capabilities of SAP BTP can help them build, deploy, and operate their new functionality.
+
+You can extend standard SAP solutions without disrupting their performance and core processes. When building extension applications, you can also benefit from the automation of the integration between the cloud platform and the extended SAP solutions.
+
+You can also benefit from an automated integration between SAP systems or between SAP systems and a specific service in SAP BTP.
+
+Using the Unified Customer Landscape service, you can maintain your customer landscape. The frontend representation of this service is the System Landscape page in the SAP BTP cockpit. The dedicated SAP S/4HANA Cloud Extensibility and SAP SuccessFactors Extensibility services are also part of the Unified Customer Landscape capabilities. See Maintaining Unified Customer Landscape.
+
+To get a full list of terms related to the extensibility and integration concepts in the Unified Customer Landscape area, see Extensibility and Integration Concepts.
+
+Registering and Deregistering Systems
+
+To connect a system with a global account in SAP BTP, you need to have the system listed in the System page.
+
+Adding, Registering and Deregistering Systems
+
+Integrating SAP Solutions
+
+You can integrate several systems and services as part of the common business scenario. To do that, you create a formation in the SAP BTP cockpit that includes all systems that the scenario requires. Every formation has a type related to its purpose. Using formations is a standard way to enable the communication between systems.
+
+See Integrating SAP Solutions.
+
+Extending SAP Solutions
+The extension capabilities of SAP BTP provide a standard way for extending SAP solutions and developing event-driven extensions and applications. This framework includes:
+
+Simplified, standardized and unified extensibility and configuration for the SAP solutions.
+
+Central catalog per customer for all connected SAP systems where data such as APIs, events, credentials and other is stored. You can benefit from business services and actionable events across end-to-end business processes.
+
+You have the following options to extend your SAP solution using the SAP SuccessFactors Extensibility or SAP S/4HANA Cloud Extensibility services:
+
+Extensions with automated configurations in the Cloud Foundry runtime: applicable for SAP S/4HANA Cloud, SAP Marketing Cloud, and SAP SuccessFactors.
+
+Extensions with automated configurations in the Kyma runtime: applicable for SAP S/4HANA Cloud, SAP Marketing Cloud, SAP SuccessFactors, SAP Cloud for Customer, SAP Commerce Cloud, and SAP Field Service Management.
+
+If you have to group the systems of different SAP solutions in the same business case, you can set up the connectivity between all these systems and a global account in SAP BTP in a single formation in the SAP BTP cockpit. See Automating Integrations Using Formations.
+
+See Extending SAP Solutions.
+
+Troubleshooting
+
+If you encounter a problem when extending an SAP S/4HANA Cloud or an SAP SuccessFactors system, go through the following troubleshooting information first:
+
+Troubleshooting for SAP S/4HANA Cloud Extensibility Service
+
+Troubleshooting for SAP SuccessFactors Extensibility Service
+
+Related Information
+SAP BTP Developer's Guide: Extending Existing SAP Solutions Using SAP BTP
+
+---
+
+URL: https://help.sap.com/docs/btp/btp-developers-guide/84ddc25bf6024506b9c56fbbe4438169.html
+Title: Integrate and Test | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP Administrator's GuideIntegrate and Test
+SAP BTP Administrator's GuideEnglish
+Provide feedback on our search
+
+Integrate and Test
+
+Test and integrate your application with other solutions.
+
+Performing Integration Tests
+
+In contrast to unit tests that are performed locally on your development subaccount without any external dependencies in the develop and build phase, integration tests target the interplay of a complete system, spanning several single components and units potentially spread throughout a hybrid landscape. Integration tests verify that all building blocks work together, meet specified requirements, and fulfill the targeted business case. They should therefore then be executed on your test infrastructure or in your test subaccount after the integration into an existing landscape has taken place. This ensures that the interplay with backend functionalities is verified. In a CI/CD setup, note that such integration tests are part of the pipeline.
+
+Integration Tests for SAPUI5
+
+One Page Acceptance Tests (OPA5) is an API for SAPUI5 controls. It hides asynchronicity and eases access to SAPUI5 elements. This makes OPA especially helpful for testing user interactions, integration with SAPUI5, navigation, and data binding. See Integration Testing with One Page Acceptance Tests (OPA5).
+
+Integrating Your Application
+
+SAP BTP offers various options for integrating your cloud application with other cloud and on-premise solutions.
+
+Cloud Connector
+
+If you want an application running on SAP BTP to access data from your on-premise back-end system, we recommend that you use the Cloud Connector. It's an on-premise piece of software that you'll need to install in your on-premise landscape, within the firewall. Once it's configured and paired with your SAP BTP subaccount, a secure tunnel is established between SAP BTP (and all the services and applications that run on it) and the Cloud Connector. Communication between SAP BTP and the back-end system is routed via the Cloud Connector through a secure SSL tunnel.
+
+We recommend that you use the Cloud Connector if your use case requires any of the following:
+
+Point-to-point connectivity and programmatic integration
+
+Connectivity with cloud applications from on-premise systems, without mediation, such as for mapping, routing, or security
+
+Data replication from on-premise databases or Business Intelligence tools to SAP HANA databases running in the cloud
+
+On-premise system integration using SAP Cloud Integration
+
+For more information, see Cloud Connector.
+
+SAP Cloud Integration
+SAP Cloud Integration (Cloud Integration) supports end-to-end process integration across cloud and on-premise applications (cloud to cloud and cloud to on-premise integration). It provides the following features:
+
+Core runtime for processing, transforming, and routing of messages to be exchanged between your systems
+
+Out-of-the-box connectivity support (IDoc, SFTP, SOAP/HTTPS, SAP SuccessFactors, OData, HTTPS)
+
+Security features such as content encryption and certificate-based communication
+
+SAP Cloud Integration offers full flexibility for the manner in which messages are exchanged between your systems. We recommend that you use the Cloud Connector if you require any of the following (or if you don't require on-premise-based middleware, such as SAP Process Orchestration):
+
+Compliance scenarios, such as e-invoicing and payroll
+
+Graphical model of integration flow
+
+More than a few systems to be integrated, and you'd like to managed integrations centrally, rather than having to manually code applications when connections change
+
+Individual messages to be processed during integration
+
+Integration with third-party solutions
+
+For more information, see SAP Cloud Integration.
+
+Cloud Integration Automation Service
+
+If you're planning on integrating your SAP BTP application into a hybrid landscape, you can also leverage the Cloud Integration Automation service that is offered for selected integration scenarios. This service provides a guided workflow that uses customer-specific system information, reusable configuration settings between tasks, and automated execution capabilities, thereby reducing the manual work for your scenario integration. For more information, see Cloud Integration Automation Service.
+
+Related Information
+Blog Post: SAP Cloud Integration: When to use which tool
+Blog Post: Using SAP Analytics Cloud Connector with SAP Cloud Integration
+Blog Post: Cloud Integration Automation Service - What is it?
+Blog Post: Cloud Integration Automation Service: Step-by-Step
+
+---
+
+URL: https://help.sap.com/docs/btp/btp-developers-guide/continuous-integration-and-delivery-ci-cd
+Title: Continuous Integration and Delivery (CI/CD) | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP Developer's Guide…Programming Languages, Tools, and APIsContinuous Integration and Delivery (CI/CD)
+SAP BTP Developer's GuideEnglish
+Provide feedback on our search
+
+Continuous Integration and Delivery (CI/CD)
+
+Configure and run predefined continuous integration and delivery (CI/CD) pipelines that automatically build, test, and deploy your code changes to speed up your development and delivery cycles.
+
+Note
+
+For links to all SAP solutions for CI/CD, blog posts, presentations, and tutorials, have a look at our Continuous Integration and Delivery by SAP overview.
+
+Continuous integration (CI) describes a software development process, in which various team members integrate their contributions frequently into a single main line. Before each integration, the changes are verified through builds and automated testing. Thereby, you can detect errors as quickly as possible and prevent integration problems before completing the development.
+
+The continuous delivery (CD) concept expands on the one of continuous integration. It adds the aspect that any change that has successfully passed the tests is immediately ready to be deployed to production, both from a technical and a qualitative point of view.
+
+The following graphic shows the basic flow for continuous integration and delivery:
+
+Continuous Integration Basic Flow
+
+For more information about the continuous integration and continuous delivery concepts, see What Are Continuous Integration and Continuous Delivery?.
+
+Use
+
+Depending on your use case, you can choose between different CI/CD pipelines to help you implement continuous integration and delivery in your software development.
+
+SAP Continuous Integration and Delivery lets you configure and run predefined pipelines for the development of the following applications:
+
+Configure a Cloud Foundry Environment Job
+
+Create an SAP Continuous Integration and Delivery job for SAP Fiori and SAP Cloud Application Programming Model projects in the Cloud Foundry environment.
+
+Configure an SAP Fiori for the ABAP Platform Job
+
+Create an SAP Continuous Integration and Delivery job for SAP Fiori projects for the ABAP platform.
+
+Configure an SAP Integration Suite Artifacts Job
+
+Create an SAP Continuous Integration and Delivery job for SAP Integration Suite artifacts.
+
+To learn more about the CI/CD pipelines supported by SAP Continuous Integration and Delivery and the stages each pipeline can comprise, see Configuring Jobs.
+Get Started with CI/CD
+
+SAP Continuous Integration and Delivery provides an easy, UI-guided way to set up the service and configure and run your pipelines, without hosting your own Jenkins instance.
+
+To set up SAP Continuous Integration and Delivery:
+
+Enable the service in the SAP BTP cockpit.
+
+Assign either the Administrator or Developer role to your user.
+
+Enable the API usage to connect SAP Continuous Integration and Delivery to other services, if necessary.
+
+To configure SAP Continuous Integration and Delivery:
+
+Note
+
+Only administrators of SAP Continuous Integration and Delivery can configure the service.
+
+Configure credentials for connecting SAP Continuous Integration and Delivery to other services (for example, GitHub, GitLab, Bitbucket Server, or Azure Repos to clone your sources, and SAP BTP to deploy your built application).
+
+Add your repository.
+
+Now you can create and modify your CI/CD jobs and monitor their outcome. If you want to automate your builds, you can configure a webhook between your repository and the service. You can create and modify timed triggers for your jobs, if necessary.
+
+For more information, see Initial Setup and Configuration.
+
+Automate the Provisioning of Resources Needed to Create a Kyma Cluster
+
+Integrate the Terraform module, which uses the Terraform provider for SAP BTP, into CI/CD pipelines, so you can automate the provisioning of resources needed to create a Kyma cluster, deploy applications, run tests, and tear down the resources when they are no longer required. As there is no need to have resources running continuously, this approach reduces operational costs.
+
+See Terraforming Kyma Runtimes.
+
+Learn and Get Certified
+Depending on your learning goals and level of expertise, you can choose from the following offerings:
+
+Exploring DevOps with SAP BTP
+
+Learn how to efficiently apply DevOps practices to your development projects on SAP BTP.
+
+Efficient DevOps with SAP
+
+This openSAP course introduces general DevOps approaches and key principles. Learn about the basic CI/CD principles (week 1) and how to deliver cloud applications using CI/CD (week 3).
+
+Continuous Integration and Delivery Introduction Guide
+
+The CI/CD Introduction Guide provides you with basic knowledge for setting up and implementing continuous integration and delivery processes. It gives an overview of the concepts and principles of CI/CD, explains both procedures and their relation, and helps you plan your own CI/CD process.
+
+---
+
+URL: https://help.sap.com/docs/btp/btp-developers-guide/introducing-continuous-integration-and-delivery-ci-cd
+Title: Introducing Continuous Integration and Delivery (CI/CD) | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP Developer's GuideUnderstanding Available TechnologyIntroducing Continuous Integration and Delivery (CI/CD)
+SAP BTP Developer's GuideEnglish
+Provide feedback on our search
+
+Introducing Continuous Integration and Delivery (CI/CD)
+
+The acronym CI/CD combines two proven DevOps concepts for automation, which are integral to application development and build on each other: Continuous Integration (CI) and Continuous Delivery (CD).
+
+Continuous Integration (CI)
+
+The following video provides a brief introduction to Continuous Integration:
+
+Open this video in a new window
+
+CI describes a software development process in which various team members frequently integrate their contributions into a single main line. Before each integration, the changes are verified through builds and automated testing. The more code you need to integrate, the harder it becomes, and the more problems may arise. Therefore, it is ideal to perform small integrations more often – in other words, continuously. This allows you to detect errors as quickly as possible and prevents integration problems from building up until the end of the development cycle.
+
+The following figure shows the basic flow for Continuous Integration:
+
+Basic Flow for Continuous Integration
+The Continuous Integration basic flow comprises the following steps:
+
+The Developer writes code and pushes the code changes to a repository on a central source code management system (SCM).
+
+The Source Code Management System triggers the Continuous Integration (CI) server.
+
+The Continuous Integration server runs automated builds and tests, then immediately sends feedback about the outcomes to the developer.
+
+As you can see from the figure, Continuous Integration is a cyclical process. As soon as the CI server sends its feedback to the developer, the flow starts over. The developers either correct their previous code change, which must then be built and tested again, or they start working on an entirely new one.
+
+Continuous Delivery (CD)
+
+The concept of Continuous Delivery (CD) expands on that of Continuous Integration. It adds the aspect that any change successfully passing the tests is immediately ready for deployment to production, both from a technical and qualitative perspective.
+
+The following figure shows the relation between Continuous Integration and Continuous Delivery:
+
+Relation Between CI and CD
+
+The Continuous Delivery process ensures that the most current version is successfully built, tested, and provided in a shippable format. Based on the release decision by the development team or delivery manager, it can be shipped to customers or deployed to production at any time.
+
+Continuous Integration Principles
+
+The Continuous Integration process, which forms the foundation of the Continuous Integration and Delivery (CI/CD) concepts, is based on several principles. For a clearer understanding, check out the following lesson from the "Discovering DevOps with SAP BTP" learning journey, where three of these principles are explained using an analogy: Explaining Continuous Integration Principles
+
+For detailed explanations of all CI principles, refer to the following documentation: Continuous Integration Principles
+
+Related Information
+Explaining the Continuous Integration and Delivery Process Flow
+Continuous Integration and Delivery Process Flows
+Explaining Actors in a CI/CD Process Flow 
+Actors in a CI/CD Process Flow
+SAP Continuous Integration and Delivery
+
+SAP Continuous Integration and Delivery is a service on SAP BTP that helps development teams collaborate more effectively, improve the quality of their software, and accelerate their delivery process. It provides pre-built CI/CD pipelines tailored for SAP-specific use cases, which can be connected to a source repository to automatically build, test, and deploy code changes. This helps identify and prevent integration problems early in the development process.
+
+The following video provides a brief introduction to SAP Continuous Integration and Delivery:
+
+Open this video in a new window
+
+The Continuous Integration & Delivery service focuses on two key benefits: Simplicity and Flexibility.
+
+Simplicity
+
+SAP Continuous Integration and Delivery stands out for its ease of use, offering predefined CI/CD pipelines that can be used right out of the box. These pipelines require minimal configuration, making them accessible even for users without extensive CI/CD expertise. Additionally, the service includes all the necessary infrastructure, eliminating the need for users to manage it themselves.
+
+Flexibility
+
+SAP Continuous Integration and Delivery provides a high degree of flexibility, allowing users to customize pipelines with additional commands, credentials, and variables. This flexibility ensures the service not only covers standard use cases but also addresses more complex scenarios. Users can expand their pipelines with various tasks executed before or after specific stages, using additional commands. Moreover, extra credentials and variables allow for further customization of CI/CD jobs.
+
+For a detailed overview and various demos on how to create CI/CD jobs in SAP Continuous Integration and Delivery, take a look at the following lesson in the 'Discovering DevOps with SAP BTP' learning journey: Creating a Basic CI/CD Job with SAP Continuous Integration and Delivery
+
+Related Information
+SAP Continuous Integration and Delivery
+What Is SAP Continuous Integration and Delivery
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/automating-integrations-with-sap-advanced-financial-closing
+Title: Automating Integrations with SAP Advanced Financial Closing | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Formations for Business ScenariosAutomating Integrations with SAP Advanced Financial Closing
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Automating Integrations with SAP Advanced Financial Closing
+
+Use
+Note
+
+The content in this section is not relevant for China (Shanghai) and Government Cloud (US) regions.
+
+SAP Advanced Financial Closing supports you in planning, processing, monitoring, and analyzing financial closing tasks for the entities of your group. See SAP Advanced Financial Closing User Guide.
+
+To set up SAP Advanced Financial Closing with SAP S/4HANA Cloud on SAP BTP you need to have all the necessary systems included in a formation of type Integration with SAP Advanced Financial Closing in the System Landscape  Systems page of the SAP BTP cockpit.
+
+Note
+
+This documentation refers to SAP S/4HANA Cloud Public Edition. See Introduction to the Universe of SAP S/4HANA Cloud Public Edition.
+
+Rules
+
+When creating Integration with SAP Advanced Financial Closing formations, keep in mind the following rule:
+
+Only SAP S/4HANA Cloud systems that are registered with All Communication Scenarios or the Integration with SAP Advanced Financial Closing communication scenario groups, can be part of a Integration with SAP Advanced Financial Closing formation. See Register an SAP S/4HANA Cloud System in a Global Account in SAP BTP.
+
+Prerequisites
+
+You are a global account administrator, or you are a system landscape administrator. See Working with Role Collections.
+
+You have an Identity Authentication tenant. See Indentity Authentication: Initial Setup.
+
+Register the SAP S/4HANA Cloud system in the Systems page.
+
+When you register an SAP S/4HANA Cloud system, use the All Communication Scenarios or the Integration with SAP Advanced Financial Closing communication scenario groups when you get the registration token for the SAP S/4HANA Cloud system. This allows the automatic enablement of the SAP_COM_0566 communication scenario after the corresponding system is added to the formation of type Integration with SAP Advanced Financial Closing. See Register an SAP S/4HANA Cloud System in a Global Account in SAP BTP.
+
+Procedure
+
+If you have SAP Advanced Financial Closing set up in your subaccount in SAP BTP, follow these steps to configure the integration between SAP Advanced Financial Closing and SAP S/4HANA Cloud using a formation of type Integration with SAP Advanced Financial Closing.
+
+As an alternative to the steps that follow, you can use the Set Up SAP Advanced Financial Closing booster in the SAP BTP cockpit and have the end-to-end scenario set up. See SAP Advanced Financial Closing Administration Guide: Automated Setup.
+
+Note
+
+We recommend that you use the Set Up SAP Advanced Financial Closing booster.
+
+In the Systems page, find the systems of type SAP Advanced Financial Closing and SAP S/4HANA Cloud that you want to include in a formation.
+
+In the System Landscape  Formations page, create a formation of type Integration with SAP Advanced Financial Closing and include the relevant systems in it.
+
+Add any name that helps you identify your formation.
+
+In the Formation Type dropdown menu, select Integration with SAP Advanced Financial Closing.
+
+Select the SAP Advanced Financial Closing and SAP S/4HANA Cloud systems that you want to include in the formation.
+
+Review your selections and create the formation.
+
+Next Steps
+
+When the formation is created, you have SAP Advanced Financial Closing set up with SAP S/4HANA Cloud on SAP BTP. See the Next Steps section at SAP Advanced Financial Closing Administration Guide: Automated Setup.
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/automating-integrations-with-sap-ariba-central-invoice-management
+Title: Automating Integrations with SAP Ariba Central Invoice Management | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Formations for Business ScenariosAutomating Integrations with SAP Ariba Central Invoice Management
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Automating Integrations with SAP Ariba Central Invoice Management
+
+Use
+Note
+
+The content in this section is not relevant for China (Shanghai) and Government Cloud (US) regions.
+
+SAP Ariba Central Invoice Management on SAP BTP provides a unified solution for receiving and managing supplier invoices, with connection to different backend systems like SAP S/4HANA Cloud.
+
+Using a formation of type Integration with SAP Ariba Central Invoice Management, you automatically set up an integration between systems of type SAP Ariba Central Invoice Management and SAP S/4HANA Cloud.
+
+Note
+
+This documentation refers to SAP S/4HANA Cloud Public Edition. See Introduction to the Universe of SAP S/4HANA Cloud Public Edition.
+
+Rules
+
+When creating formations of type Integration with SAP Ariba Central Invoice Management, keep in mind the following rules:
+
+System of type SAP Ariba Central Invoice Management can be included in at most one Integration with SAP Ariba Central Invoice Management formation.
+
+Formation of type Integration with SAP Ariba Central Invoice Management can contain exactly one system of type SAP Ariba Central Invoice Management.
+
+System of type SAP S/4HANA Cloud can be included in at most one Integration with SAP Ariba Central Invoice Management formation when creating this formation.
+
+When registering the SAP S/4HANA Cloud system, you have to choose one of the following communication scenario groups:
+
+All Communication Scenarios
+
+Integration with SAP Ariba Central Invoice Management
+
+See Register an SAP S/4HANA Cloud System in a Global Account in SAP BTP.
+
+Prerequisites
+
+You are a global account administrator, or you are a system landscape administrator. See Working with Role Collections.
+
+You have a system of type SAP Ariba Central Invoice Management in the Systems list. This system is auto-discovered because it is associated with your global account and has been discovered and added automatically to the list based on information of the existing system landscape.
+
+You have registered the SAP S/4HANA Cloud system that you are going to include in the formation of type Integration with SAP Ariba Central Invoice Management.
+
+When you register an SAP S/4HANA Cloud system, use the All Communication Scenarios or the Integration with SAP Ariba Central Invoice Management communication scenario groups when you get the registration token for the SAP S/4HANA Cloud system. This allows the automatic enablement of the SAP_COM_0897, SAP_COM_0516, and SAP_COM_0531 communication scenarios after the corresponding system is added to the formation of type Integration with SAP Ariba Central Invoice Management. See Register an SAP S/4HANA Cloud System in a Global Account in SAP BTP.
+
+You have created a formation of type Integration with SAP Master Data Integration and have included in it the SAP Ariba Central Invoice Management and the SAP S/4HANA Cloud systems. See Enabling Integration with SAP Master Data Integration.
+
+Procedure
+
+As an alternative to the steps that follow, you can use the Set Up SAP Ariba Central Invoice Management booster in the SAP BTP cockpit and have the end-to-end scenario set up. The booster includes:
+
+Creating new subaccounts
+
+Creating required service instances and subscriptions
+
+Configuring all the required business integrations with the Identity Authentication service, SAP Master Data Integration, and SAP S/4HANA Cloud
+
+Tip
+
+We recommend that you use the Set Up SAP Ariba Central Invoice Management booster.
+
+In the System Landscape  Systems page of the SAP BTP cockpit, browse the already added systems in your system landscape.
+
+The SAP S/4HANA Cloud and the SAP Ariba Central Invoice Management systems you are going to include in this formation must not be part of another formation.
+
+In the System Landscape  Formations page, create a formation of type Integration with SAP Ariba Central Invoice Management and include the relevant systems in it.
+
+Add any name that helps you identify your formation.
+
+In the Formation Type dropdown menu, select Integration with SAP Ariba Central Invoice Management.
+
+Choose Next Step.
+
+Select the SAP Ariba Central Invoice Management system that you want to include in the formation.
+
+Select the other systems that you want to include. In the list you can select only systems that are allowed to be included in this formation.
+
+Choose Next Step.
+
+Review your selections and create the formation.
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/btp-extensions
+Title: Extensions and Integrations | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformExtensions and Integrations
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Extensions and Integrations
+
+The extension capabilities of SAP Business Technology Platform (SAP BTP) enables developers to implement loosely coupled extension applications securely, thus implementing additional workflows or modules on top of the existing SAP cloud solution they already have.
+
+Unified Customer Landscape
+
+The Unified Customer Landscape service provides capabilities for automated extensibility and integration of SAP and third-party systems.
+
+All standard SAP solutions are offered with customizing capabilities. Additionally, customers often have their own requirements for innovative or industry-specific extensions and the extension capabilities of SAP BTP can help them build, deploy, and operate their new functionality.
+
+You can extend standard SAP solutions without disrupting their performance and core processes. When building extension applications, you can also benefit from the automation of the integration between the cloud platform and the extended SAP solutions.
+
+You can also benefit from an automated integration between SAP systems or between SAP systems and a specific service in SAP BTP.
+
+Using the Unified Customer Landscape service, you can maintain your customer landscape. The frontend representation of this service is the System Landscape page in the SAP BTP cockpit. The dedicated SAP S/4HANA Cloud Extensibility and SAP SuccessFactors Extensibility services are also part of the Unified Customer Landscape capabilities. See Maintaining Unified Customer Landscape.
+
+To get a full list of terms related to the extensibility and integration concepts in the Unified Customer Landscape area, see Extensibility and Integration Concepts.
+
+Registering and Deregistering Systems
+
+To connect a system with a global account in SAP BTP, you need to have the system listed in the System page.
+
+Adding, Registering and Deregistering Systems
+
+Integrating SAP Solutions
+
+You can integrate several systems and services as part of the common business scenario. To do that, you create a formation in the SAP BTP cockpit that includes all systems that the scenario requires. Every formation has a type related to its purpose. Using formations is a standard way to enable the communication between systems.
+
+See Integrating SAP Solutions.
+
+Extending SAP Solutions
+The extension capabilities of SAP BTP provide a standard way for extending SAP solutions and developing event-driven extensions and applications. This framework includes:
+
+Simplified, standardized and unified extensibility and configuration for the SAP solutions.
+
+Central catalog per customer for all connected SAP systems where data such as APIs, events, credentials and other is stored. You can benefit from business services and actionable events across end-to-end business processes.
+
+You have the following options to extend your SAP solution using the SAP SuccessFactors Extensibility or SAP S/4HANA Cloud Extensibility services:
+
+Extensions with automated configurations in the Cloud Foundry runtime: applicable for SAP S/4HANA Cloud, SAP Marketing Cloud, and SAP SuccessFactors.
+
+Extensions with automated configurations in the Kyma runtime: applicable for SAP S/4HANA Cloud, SAP Marketing Cloud, SAP SuccessFactors, SAP Cloud for Customer, SAP Commerce Cloud, and SAP Field Service Management.
+
+If you have to group the systems of different SAP solutions in the same business case, you can set up the connectivity between all these systems and a global account in SAP BTP in a single formation in the SAP BTP cockpit. See Automating Integrations Using Formations.
+
+See Extending SAP Solutions.
+
+Troubleshooting
+
+If you encounter a problem when extending an SAP S/4HANA Cloud or an SAP SuccessFactors system, go through the following troubleshooting information first:
+
+Troubleshooting for SAP S/4HANA Cloud Extensibility Service
+
+Troubleshooting for SAP SuccessFactors Extensibility Service
+
+Related Information
+SAP BTP Developer's Guide: Extending Existing SAP Solutions Using SAP BTP
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/continuous-integration-and-delivery-ci-cd
+Title: Continuous Integration and Delivery (CI/CD) | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformBasic Platform ConceptsTools, Programming Models, Programming Languages, and APIsContinuous Integration and Delivery (CI/CD)
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Continuous Integration and Delivery (CI/CD)
+
+Configure and run predefined continuous integration and delivery (CI/CD) pipelines that automatically build, test, and deploy your code changes to speed up your development and delivery cycles.
+
+Note
+
+For links to all SAP solutions for CI/CD, blog posts, presentations, and tutorials, have a look at our Continuous Integration and Delivery by SAP overview.
+
+Continuous integration (CI) describes a software development process, in which various team members integrate their contributions frequently into a single main line. Before each integration, the changes are verified through builds and automated testing. Thereby, you can detect errors as quickly as possible and prevent integration problems before completing the development.
+
+The continuous delivery (CD) concept expands on the one of continuous integration. It adds the aspect that any change that has successfully passed the tests is immediately ready to be deployed to production, both from a technical and a qualitative point of view.
+
+The following graphic shows the basic flow for continuous integration and delivery:
+
+Continuous Integration Basic Flow
+
+For more information about the continuous integration and continuous delivery concepts, see What Are Continuous Integration and Continuous Delivery?.
+
+Use
+
+Depending on your use case, you can choose between different CI/CD pipelines to help you implement continuous integration and delivery in your software development.
+
+SAP Continuous Integration and Delivery lets you configure and run predefined pipelines for the development of the following applications:
+
+Configure a Cloud Foundry Environment Job
+
+Create an SAP Continuous Integration and Delivery job for SAP Fiori and SAP Cloud Application Programming Model projects in the Cloud Foundry environment.
+
+Configure an SAP Fiori for the ABAP Platform Job
+
+Create an SAP Continuous Integration and Delivery job for SAP Fiori projects for the ABAP platform.
+
+Configure an SAP Integration Suite Artifacts Job
+
+Create an SAP Continuous Integration and Delivery job for SAP Integration Suite artifacts.
+
+To learn more about the CI/CD pipelines supported by SAP Continuous Integration and Delivery and the stages each pipeline can comprise, see Configuring Jobs.
+Get Started with CI/CD
+
+SAP Continuous Integration and Delivery provides an easy, UI-guided way to set up the service and configure and run your pipelines, without hosting your own Jenkins instance.
+
+To set up SAP Continuous Integration and Delivery:
+
+Enable the service in the SAP BTP cockpit.
+
+Assign either the Administrator or Developer role to your user.
+
+Enable the API usage to connect SAP Continuous Integration and Delivery to other services, if necessary.
+
+To configure SAP Continuous Integration and Delivery:
+
+Note
+
+Only administrators of SAP Continuous Integration and Delivery can configure the service.
+
+Configure credentials for connecting SAP Continuous Integration and Delivery to other services (for example, GitHub, GitLab, Bitbucket Server, or Azure Repos to clone your sources, and SAP BTP to deploy your built application).
+
+Add your repository.
+
+Now you can create and modify your CI/CD jobs and monitor their outcome. If you want to automate your builds, you can configure a webhook between your repository and the service. You can create and modify timed triggers for your jobs, if necessary.
+
+For more information, see Initial Setup and Configuration.
+
+Automate the Provisioning of Resources Needed to Create a Kyma Cluster
+
+Integrate the Terraform module, which uses the Terraform provider for SAP BTP, into CI/CD pipelines, so you can automate the provisioning of resources needed to create a Kyma cluster, deploy applications, run tests, and tear down the resources when they are no longer required. As there is no need to have resources running continuously, this approach reduces operational costs.
+
+See Terraforming Kyma Runtimes.
+
+Learn and Get Certified
+Depending on your learning goals and level of expertise, you can choose from the following offerings:
+
+Exploring DevOps with SAP BTP
+
+Learn how to efficiently apply DevOps practices to your development projects on SAP BTP.
+
+Efficient DevOps with SAP
+
+This openSAP course introduces general DevOps approaches and key principles. Learn about the basic CI/CD principles (week 1) and how to deliver cloud applications using CI/CD (week 3).
+
+Continuous Integration and Delivery Introduction Guide
+
+The CI/CD Introduction Guide provides you with basic knowledge for setting up and implementing continuous integration and delivery processes. It gives an overview of the concepts and principles of CI/CD, explains both procedures and their relation, and helps you plan your own CI/CD process.
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/deregistering-or-removing-sap-system
+Title: Deregister or Removе a System | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformExtensions and IntegrationsAdding, Registering and Deregistering SystemsDeregister or Removе a System
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Deregister or Removе a System
+
+When you no longer need the system to be paired with your global account, you can deregister or remove.
+
+Prerequisites
+
+You are a global account administrator, or you are a system landscape administrator of the global account where you want to deregister or remove your system. See Working with Role Collections.
+
+You have manually added your system as a record to the list on the Systems page. See Adding, Registering and Deregistering Systems.
+
+Context
+Note
+
+The content in this section is not relevant for China (Shanghai) and Government Cloud (US) regions.
+
+Deregistering an SAP systems of type SAP SuccessFactors, SAP S/4HANA Cloud, SAP Marketing Cloud and SAP systems from the SAP Customer Experience portfolio means that the connectivity between this system and the global account is disabled and extension scenarios cannot be established, while removing a system means that this system is no longer part of the systems list. You can deregister or remove a system from the Actions column, or from the System Details page that you access when selecting the system from the system landscape list. You can remove only manually added systems.
+
+The deregistration and the removal processes have the following states displayed in the cockpit:
+
+Deregistering - a deregistration process has started. As a result, the connectivity between the SAP system of type SAP SuccessFactors, SAP S/4HANA Cloud, SAP Marketing Cloud or SAP systems from the SAP Customer Experience portfolio and SAP BTP is disabled and extension scenarios cannot be established. The system remains in the systems list and you can register it again later on.
+
+Once a system of type SAP SuccessFactors, SAP S/4HANA Cloud, SAP Marketing Cloud and SAP systems from the SAP Customer Experience portfolio is registered, you can deregister it only after deleting its entitlement configurations and excluding it from the formations it takes part in.
+
+Error while Deregistering - the deregistration has failed. Try to deregister the system again. If the problem persists, you have to report a case in one of the components mentioned below.
+
+Removing - a system removal process has started in the SAP BTP cockpit. As a result, the SAP systems of type SAP SuccessFactors, SAP S/4HANA Cloud, SAP Marketing Cloud and SAP systems from the SAP Customer Experience portfolio is deregistered, and then, it is removed from the systems list completely. To register the system again, first, you must add it to the list anew, and then, initiate the registration procedure. This state also applies to other manually added SAP or third-party systems that you are removing.
+
+Once a system is registered, you can only remove it if you first deregister it.
+
+Error while Removing - the system removal has failed. Try to deregister the system again. If the problem persists, you have to report a case in one of the components mentioned below.
+
+Note
+If the deregistration, or removal errors persist, report a case in one of the following components depending on the system type:
+
+SAP SuccessFactors - BC-NEO-EXT-SF
+
+SAP S/4HANA Cloud - BC-NEO-EXT-S4C
+
+All other system types - BC-CP-MP
+
+Procedure
+In the cockpit, navigate to your global account, and then choose System Landscape  Systems .
+On the Systems page, select the SAP or third-party system you want to deregister or remove.
+
+To deregister a system, choose  (Deregister system) from the Actions column, or choose Deregister System from the System Details page that you access when selecting the system from the system landscape list.
+
+You can deregister only registered systems.
+Note
+
+If your system is of type SAP S/4HANA Cloud, SAP SuccessFactors, or part of the SAP Customer Experience portfolio and you deregister this system, you can register back the same system's tenant and not a different one.
+
+To remove a system, choose  (Remove system) from the Actions column, or choose Remove System from the System Details page that you access when selecting the system from the system landscape list.
+
+Before removing a system from the list, first you have to check all configurations that this system is part of, such as entitlements and formations. Then, you have to deregister it and after that you will be able to remove it from the Systems page. If you try to remove a system before deregistering it, a dialog will appear and will ask you to deregister the system first.
+
+Note
+
+You can only remove manually added systems. Depending on their discovery mode the systems that are added to the list either are Manually added (registered manually by following the procedure in the prerequisites), or Auto-discovered (added to the list automatically, based on information of the existing system landscape), or part of the Subaccount/<my-subaccount> (automatically added, based on the information of the SAP BTP subaccount).
+
+You cannot remove Auto-discovered systems from the list.
+
+Results
+
+The system has been deregistered or removed as a record from the list on the Systems page in the SAP BTP cockpit.
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/enabling-data-ingestion-for-industry-cloud-solutions
+Title: Automating Integrations with Data Ingestion for Industry Cloud Solutions | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Formations for Business ScenariosAutomating Integrations with Data Ingestion for Industry Cloud So…
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Automating Integrations with Data Ingestion for Industry Cloud Solutions
+
+Use
+Note
+
+The content in this section is not relevant for China (Shanghai) and Government Cloud (US) regions.
+
+SAP’s industry cloud provides specialized industry-focused solutions to help you optimize, extend, and transform your core business processes. Developed by SAP and SAP partners and based on SAP Business Technology Platform (SAP BTP), industry cloud solutions integrate with SAP S/4HANA Cloud and SAP Business Network. They help you take advantage of the latest industry-relevant innovations and extend existing capabilities in an efficient way. For a list of all industry cloud solutions published by SAP, see SAP Store.
+
+Data ingestion for industry cloud solutions allows supported industry cloud solutions to consume data from a shared data foundation instead of integrating with the source systems individually. This helps to simplify solution implementation, increase operational visibility, and improve data quality. For a list of all industry cloud solutions published by SAP that support data ingestion, see Data Integration Overview.
+
+To set up on SAP BTP systems that support data ingestion and are part of the industry cloud solutions published by SAP, you need to include them in a formation of type Data Ingestion for Industry Cloud Solutions. When you create a new formation of type Data Ingestion for Industry Cloud Solutions, a system of type Data Ingestion for Industry Cloud Solutions is automatically added to the System Landscape  Systems page and included in this formation.
+
+Rules
+
+When creating Data Ingestion for Industry Cloud Solutions formations, keep in mind the following rules:
+
+Only systems that are part of the industry cloud solutions, support data ingestion, and are provisioned from SAP for Me can be included in formations of type Data Ingestion for Industry Cloud Solutions.
+
+System that is part of the industry cloud solutions published by SAP are included in at most one Data Ingestion for Industry Cloud Solutions formation.
+
+System of type Data Ingestion for Industry Cloud Solutions is automatically registered and included in the Data Ingestion for Industry Cloud Solutions formation.
+
+System of type Data Ingestion for Industry Cloud Solutions cannot be excluded from the Data Ingestion for Industry Cloud Solutions formation. Once you delete this formation, the Data Ingestion for Industry Cloud Solutions system is automatically deleted.
+
+Prerequisites
+
+You are a global account administrator, or you are a system landscape administrator. See Working with Role Collections.
+
+Procedure
+
+In the System Landscape  Systems page of the SAP BTP cockpit, browse the already added systems that are part of the industry cloud solutions published by SAP in your customer system landscape.
+
+The system that is part of the industry cloud solutions published by SAP and that you want to include in this formation must not be part of another formation.
+
+In the System Landscape  Formations page, create a formation of type Data Ingestion for Industry Cloud Solutions and include the relevant systems in it.
+
+Add any name that helps you identify your formation.
+
+In the Formation Type dropdown menu, select Data Ingestion for Industry Cloud Solutions.
+
+Select the systems that you want to include in the formation.
+
+Review your selections and create the formation.
+
+Related Information
+Data Integration Overview
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/enabling-integration-with-sap-master-data-integration
+Title: Enabling Integration with SAP Master Data Integration | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Formations for Services in SAP BTPEnabling Integration with SAP Master Data Integration
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Enabling Integration with SAP Master Data Integration
+
+Use
+Note
+
+The content in this section is not relevant for China (Shanghai) and Government Cloud (US) regions.
+
+SAP Master Data Integration service is a central master data hub. Applications integrate with SAP Master Data Integration to synchronize their local master data databases with the master data database of the central hub. In a typical setup, there is exactly one tenant of SAP Master Data Integration for each landscape. See What Is Master Data Integration?.
+
+Using a formation of type Integration with SAP Master Data Integration, you automatically set up an integration between systems of type SAP Master Data Integration and other systems or applications, for example SAP S/4HANA Cloud.
+
+Note
+
+This documentation refers to SAP S/4HANA Cloud Public Edition. See Introduction to the Universe of SAP S/4HANA Cloud Public Edition.
+
+Rules
+
+When creating formations of type Integration with SAP Master Data Integration, keep in mind the following rules:
+
+System of type SAP Master Data Integration can be included in at most one Integration with SAP Master Data Integration formation.
+
+Formation of type Integration with SAP Master Data Integration can contain exactly one system of type SAP Master Data Integration.
+
+System of type SAP S/4HANA Cloud can be included in at most one Integration with SAP Master Data Integration formation.
+
+When registering the SAP S/4HANA Cloud system, you have to choose one of the following communication scenario groups:
+
+All Communication Scenarios
+
+Integration with SAP Master Data Integration
+
+Integration with SAP Ariba Central Invoice Management
+
+See Register an SAP S/4HANA Cloud System in a Global Account in SAP BTP.
+
+Prerequisites
+
+You are a global account administrator, or you are a system landscape administrator. See Working with Role Collections.
+
+You have a system of type SAP Master Data Integration in the Systems list. This system is auto-discovered because it is associated with your global account and has been discovered and added automatically to the list based on information of the existing system landscape.
+
+You have registered the SAP S/4HANA Cloud system that you are going to include in the formation of type Integration with SAP Master Data Integration.
+
+When you register an SAP S/4HANA Cloud system, use the All Communication Scenarios or the Integration with SAP Master Data Integration communication scenario groups when you get the registration token for the SAP S/4HANA Cloud system. This allows the automatic enablement of the SAP_COM_0008, SAP_COM_0091, SAP_COM_0659, and SAP_COM_0594 communication scenarios after the corresponding system is added to the formation of type Integration with SAP Master Data Integration.
+
+Procedure
+
+In the System Landscape  Systems page of the SAP BTP cockpit, browse the already added systems in your system landscape.
+
+The SAP S/4HANA Cloud and the SAP Master Data Integration systems you are going to include in this formation must not be part of another formation.
+
+In the System Landscape  Formations page, create a formation of type Integration with SAP Master Data Integration and include the relevant systems in it.
+
+Add any name that helps you identify your formation.
+
+In the Formation Type dropdown menu, select Integration with SAP Master Data Integration.
+
+Choose Next Step.
+
+Select the SAP Master Data Integration system that you want to include in the formation.
+
+Select the other systems that you want to include. In the list you can select only systems that are allowed to be included in this formation.
+
+Choose Next Step.
+
+Review your selections and create the formation.
+
+Next Steps
+
+Depending on the specific scenario, the next steps would be different. For example, if an SAP Ariba Central Invoice Management system is included in a formation of type Integration with SAP Master Data Integration, then continue with the steps described in Automating Integrations with SAP Ariba Central Invoice Management.
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/enabling-sap-ariba-buying
+Title: Automating Integrations with SAP Ariba Buying | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Formations for Business ScenariosAutomating Integrations with SAP Ariba Buying
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Automating Integrations with SAP Ariba Buying
+
+Use
+Note
+
+The content in this section is not relevant for China (Shanghai) and Government Cloud (US) regions.
+
+SAP Ariba Buying offers procurement users a unique buying experience through a guided process. SAP Ariba Buying provides buyers an easy process to shop for items. Buyers can search for, view and purchase items that are available in the connected shopping sites, or request items from suppliers. SAP Ariba Buying also helps buyers to track their purchase requests.
+
+To set up SAP Ariba Buying with SAP S/4HANA Cloud on SAP BTP you need to have all the necessary systems included in a formation of type Integration with SAP Ariba Buying in the System Landscape  Systems page of the SAP BTP cockpit.
+
+Note
+
+This documentation refers to SAP S/4HANA Cloud Public Edition. See Introduction to the Universe of SAP S/4HANA Cloud Public Edition.
+
+Rules
+
+When creating Integration with SAP Ariba Buying formations, keep in mind the following rules:
+
+SAP S/4HANA Cloud systems can be included in at most one Integration with SAP Ariba Buying formation.
+
+Only SAP S/4HANA Cloud systems that are registered with All Communication Scenarios or Integration with SAP Ariba Buying communication scenario group can be part of a Integration with SAP Ariba Buying formation. See Register an SAP S/4HANA Cloud System in a Global Account in SAP BTP.
+
+Prerequisites
+
+You are a global account administrator, or you are a system landscape administrator. See Working with Role Collections.
+
+You have an Identity Authentication tenant. See Indentity Authentication: Initial Setup.
+
+(Optional: if you are using the Set Up SAP Ariba Buying booster in the SAP BTP cockpit, this step will be automatically done by the booster.) Check that you have a system of type SAP Ariba Buying in the Systems page. This system is added through a subscription in SAP BTP cockpit associated with a given subaccount. The subscription has been discovered and added automatically through the subaccount. To have a system of type SAP Ariba Buying in the Systems page, you need to:
+
+You have subscribed to SAP Ariba Buying. See Get a Subscription to SAP Ariba Buying.
+
+You have subscribed to the services required for SAP Ariba Buying. See Subscribe to Services Required for SAP Ariba Buying.
+
+Check that you have a system of type SAP S/4HANA Cloud in the Systems page. This system is auto-discovered because it is associated with your global account and has been discovered and added automatically to the list based on information of the existing system landscape.
+
+Note
+
+If you don't find your system of type SAP S/4HANA Cloud in the Systems page, add this system manually. See Register an SAP S/4HANA Cloud System in a Global Account in SAP BTP.
+
+Register the SAP S/4HANA Cloud system in the Systems page.
+
+When you register an SAP S/4HANA Cloud system, use the All Communication Scenarios or the Integration with SAP Ariba Buying communication scenario group when you get the registration token for the SAP S/4HANA Cloud system. This allows the automatic enablement of the communication scenarios SAP_COM_0545 and SAP_COM_0A00 after the corresponding system is added to the formation of type Integration with SAP Ariba Buying. See Register an SAP S/4HANA Cloud System in a Global Account in SAP BTP.
+
+Procedure
+
+If you have SAP Ariba Buying set up in your subaccount in SAP BTP, follow these steps to configure the integration between SAP Ariba Buying and SAP S/4HANA Cloud using a formation of type Integration with SAP Ariba Buying.
+
+If you want to have the end-to-end setup automatically, including creating the formation, use the Set Up SAP Ariba Buying booster in the SAP BTP cockpit to guide you through the steps to configure SAP Ariba Buying in your subaccount and integrate it with SAP S/4HANA Cloud.
+
+In the Systems page, find the systems of type SAP Ariba Buying and SAP S/4HANA Cloud that you want to include in a formation.
+
+The SAP S/4HANA Cloud system you are going to include in this formation must not be part of another formation.
+
+In the System Landscape  Formations page, create a formation of type Integration with SAP Ariba Buying and include the relevant systems in it.
+
+Add any name that helps you identify your formation.
+
+In the Formation Type dropdown menu, select Integration with SAP Ariba Buying.
+
+Select the SAP Ariba Buying and SAP S/4HANA Cloud systems that you want to include in the formation.
+
+Review your selections and create the formation.
+
+Next Steps
+
+When the formation is created, you have SAP Ariba Buying set up with SAP S/4HANA Cloud on SAP BTP.
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/enabling-sap-collaboration-manager
+Title: Automating Integrations with SAP Collaboration Manager | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Formations for Business ScenariosAutomating Integrations with SAP Collaboration Manager
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Automating Integrations with SAP Collaboration Manager
+
+Use
+Note
+
+The content in this section is not relevant for China (Shanghai) and Government Cloud (US) regions.
+
+SAP Collaboration Manager is a chat solution that is integrated into the SAP Fiori launchpad, enabling you to accomplish tasks quickly in your business applications. Collaborate with colleagues on activities, create notes and chats, and share attachments and screenshots.
+
+To set up SAP Collaboration Manager with SAP S/4HANA Cloud on SAP BTP, you need to have all the necessary systems included in a formation of type Integration with SAP Collaboration Manager in the System Landscape  Systems page of the SAP BTP cockpit.
+
+Note
+
+This documentation refers to SAP S/4HANA Cloud Public Edition. See Introduction to the Universe of SAP S/4HANA Cloud Public Edition.
+
+Rules
+
+When creating Integration with SAP Collaboration Manager formations, keep in mind the following rule:
+
+Only SAP S/4HANA Cloud systems that are registered with the All Communication Scenarios communication scenario group can be part of a Integration with SAP Collaboration Manager formation. See Register an SAP S/4HANA Cloud System in a Global Account in SAP BTP.
+
+Prerequisites
+
+You are a global account administrator, or you are a system landscape administrator. See Working with Role Collections.
+
+You have an Identity Authentication tenant. See Identity Authentication: Initial Setup.
+
+You have an SAP Collaboration Manager subscription. See Subscribe to SAP Collaboration Manager.
+
+Register the SAP S/4HANA Cloud system in the Systems page.
+
+When you register an SAP S/4HANA Cloud system, use the All Communication Scenarios communication scenario group when you get the registration token for the SAP S/4HANA Cloud system. This allows the automatic enablement of the SAP_COM_0835 communication scenario after the corresponding system is added to the formation of type Integration with SAP Collaboration Manager. See Register an SAP S/4HANA Cloud System in a Global Account in SAP BTP.
+
+Procedure
+
+If you have SAP Collaboration Manager set up in your subaccount in SAP BTP, follow these steps to configure the integration between SAP Collaboration Manager and SAP S/4HANA Cloud using a formation of type Integration with SAP Collaboration Manager.
+
+As an alternative to the steps that follow, you can use the SAP Collaboration Manager booster in the SAP BTP cockpit and have the end-to-end scenario set up. See Run the SAP Collaboration Manager Booster.
+
+Note
+
+We recommend that you use the SAP Collaboration Manager booster.
+
+In the Systems page, find the systems of type SAP Collaboration Manager and SAP S/4HANA Cloud that you want to include in a formation.
+
+In the System Landscape  Formations page, create a formation of type Integration with SAP Collaboration Manager and include the relevant systems in it.
+
+Add any name that helps you identify your formation.
+
+In the Formation Type dropdown menu, select Integration with SAP Collaboration Manager.
+
+Select the SAP Collaboration Manager and SAP S/4HANA Cloud systems that you want to include in the formation.
+
+Review your selections and create the formation.
+
+Next Steps
+
+When the formation is created, you have SAP Collaboration Manager set up with SAP S/4HANA Cloud on SAP BTP. Then, follow the next steps at Run the SAP Collaboration Manager Booster: Next Steps.
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/enabling-sap-start
+Title: Automating Integrations with SAP Start | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Formations for Business ScenariosAutomating Integrations with SAP Start
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Automating Integrations with SAP Start
+
+Use
+Note
+
+The content in this section is not relevant for China (Shanghai) and Government Cloud (US) regions.
+
+SAP Build Work Zone, standard edition is a predefined central entry point for accessing SAP cloud business solutions that are integrated with it, such as SAP S/4HANA Cloud.
+
+To set up SAP Build Work Zone, standard edition with SAP S/4HANA Cloud on SAP BTP you need to have all the necessary systems included in a formation of type Integration with SAP Start in the System Landscape  Systems page of the SAP BTP cockpit.
+
+Note
+
+This documentation refers to SAP S/4HANA Cloud Public Edition. See Introduction to the Universe of SAP S/4HANA Cloud Public Edition.
+
+Rules
+
+When creating Integration with SAP Start formations, keep in mind the following rules:
+
+SAP Build Work Zone system can be included in at most one Integration with SAP Start formation.
+
+At most one SAP Build Work Zone system can be included in an Integration with SAP Start formation.
+
+Only SAP S/4HANA Cloud systems that are registered with All Communication Scenarios or Integration with SAP Start communication scenario group can be part of a Integration with SAP Start formation. See Register an SAP S/4HANA Cloud System in a Global Account in SAP BTP.
+
+Prerequisites
+
+You are a global account administrator, or you are a system landscape administrator. See Working with Role Collections.
+
+You have an Identity Authentication tenant. See Indentity Authentication: Initial Setup.
+
+(Optional: if you are using the Integration with SAP Start booster in the SAP BTP cockpit, this step will be automatically done by the booster.) Check that you have a system of type SAP Build Work Zone in the Systems page. This system is added through a subscription in SAP BTP cockpit associated with a given subaccount. The subscription has been discovered and added automatically through the subaccount.
+
+Check that you have a system of type SAP S/4HANA Cloud in the Systems list in the Systems page. This system is auto-discovered because it is associated with your global account and has been discovered and added automatically to the list based on information of the existing system landscape.
+
+Note
+
+If you don't find your system of type SAP S/4HANA Cloud in the Systems list, add this system manually. See Register an SAP S/4HANA Cloud System in a Global Account in SAP BTP.
+
+Register the SAP S/4HANA Cloud system in the Systems list in the System Landscape page.
+
+When you register an SAP S/4HANA Cloud system, use the Integration with SAP Start communication scenario group when you get the registration token for the SAP S/4HANA Cloud system. This allows the automatic enablement of the communication scenario SAP_COM_0647 after the corresponding system is added to the formation of type Integration with SAP Start.
+
+See Register an SAP S/4HANA Cloud System in a Global Account in SAP BTP.
+
+Procedure
+
+If you have SAP Build Work Zone set up in your subaccount in SAP BTP, follow these steps to configure the integration between SAP Build Work Zone and SAP S/4HANA Cloud using a formation of type Integration with SAP Start.
+
+If you want to have the end-to-end setup automatically, including creating the formation, use the Integration with SAP Start booster in the SAP BTP cockpit to guide you through the steps to configure SAP Build Work Zone in your subaccount and integrate it with SAP S/4HANA Cloud.
+
+In the SAP BTP cockpit, in the Systems page, find the systems of type SAP Build Work Zone and SAP S/4HANA Cloud that you want to include in a formation.
+
+The SAP Build Work Zone system you are going to include in this formation must not be part of another formation.
+
+In the System Landscape  Formations page, create a formation of type Integration with SAP Start and include the relevant systems in it.
+
+Add any name that helps you identify your formation.
+
+In the Formation Type dropdown menu, select Integration with SAP Start.
+
+Select the SAP Build Work Zone and SAP S/4HANA Cloud systems that you want to include in the formation.
+
+Review your selections and create the formation.
+
+Next Steps
+
+When the formation is created, you have SAP Build Work Zone set up with SAP S/4HANA Cloud on SAP BTP. Then, set up SAP Task Center. See Post-Setup Tasks.
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/enabling-sap-subscription-billing
+Title: Automating Integrations with SAP Subscription Billing | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Formations for Business ScenariosAutomating Integrations with SAP Subscription Billing
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Automating Integrations with SAP Subscription Billing
+
+Use
+Note
+
+The content in this section is not relevant for China (Shanghai) and Government Cloud (US) regions.
+
+SAP Subscription Billing is a public cloud solution that supports innovative, subscription-based business models. It enables flexible definition of product prices and automates processes such as subscription generation, rating, and preparation of billing data. SAP Subscription Billing offers comprehensive management of subscriptions throughout their life cycle. See SAP Subscription Billing.
+
+To set up SAP Subscription Billing with SAP S/4HANA Cloud on SAP BTP you need to have all the necessary systems included in a formation of type Integration with SAP Subscription Billing in the System Landscape  Systems page of the SAP BTP cockpit.
+
+Note
+
+This documentation refers to SAP S/4HANA Cloud Public Edition. See Introduction to the Universe of SAP S/4HANA Cloud Public Edition.
+
+Rules
+
+When creating Integration with SAP Subscription Billing formations, keep in mind the following rule:
+
+Formation of type Integration with SAP Subscription Billing can contain exactly one system of type SAP Subscription Billing and one system of type SAP S/4HANA Cloud.
+
+System of type SAP Subscription Billing can be included in at most one Integration with SAP Subscription Billing formation.
+
+System of type SAP S/4HANA Cloud can be included in at most one Integration with SAP Subscription Billing formation when creating this formation.
+
+Only SAP S/4HANA Cloud systems that are registered with All Communication Scenarios or the Integration with SAP Subscription Billing communication scenario groups, can be part of an Integration with SAP Subscription Billing formation. See Register an SAP S/4HANA Cloud System in a Global Account in SAP BTP.
+
+Prerequisites
+
+You are a global account administrator, or you are a system landscape administrator. See Working with Role Collections.
+
+Register the SAP S/4HANA Cloud system in the Systems page.
+
+When you register an SAP S/4HANA Cloud system, use the All Communication Scenarios or the Integration with SAP Subscription Billing communication scenario groups when you get the registration token for the SAP S/4HANA Cloud system. This allows the automatic enablement of the SAP_COM_0845 and SAP_COM_0642 communication scenarios after the corresponding system is added to the formation of type Integration with SAP Subscription Billing. See Register an SAP S/4HANA Cloud System in a Global Account in SAP BTP.
+
+Procedure
+
+If you have SAP Subscription Billing set up in your subaccount in SAP BTP, follow these steps to configure the integration between SAP Subscription Billing and SAP S/4HANA Cloud using a formation of type Integration with SAP Subscription Billing.
+
+In the Systems page, find the systems of type SAP Subscription Billing and SAP S/4HANA Cloud that you want to include in a formation.
+
+The SAP S/4HANA Cloud and the SAP Subscription Billing systems you are going to include in this formation must not be part of another formation.
+
+In the System Landscape  Formations page, create a formation of type Integration with SAP Subscription Billing and include the relevant systems in it.
+
+Add any name that helps you identify your formation.
+
+In the Formation Type dropdown menu, select Integration with SAP Subscription Billing.
+
+Select the SAP Subscription Billing and SAP S/4HANA Cloud systems that you want to include in the formation.
+
+Review your selections and create the formation.
+
+Next Steps
+
+When the formation is created, you have SAP Subscription Billing set up with SAP S/4HANA Cloud on SAP BTP. Continue with your setup activities for the integration scope item 57Z or 5IK. See:
+
+Setup Guide for 57Z (Subscription Management with Sales Billing)
+
+Setup Guide for 5IK (Subscription Management with Convergent Invoicing)
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/enabling-system-landscape-for-sap-integration-suite
+Title: Setting Up System Landscape for SAP Integration Suite | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Formations for ExtensibilitySetting Up System Landscape for SAP Integration Suite
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Setting Up System Landscape for SAP Integration Suite
+
+Use
+Note
+
+The content in this section is not relevant for China (Shanghai) and Government Cloud (US) regions.
+
+A registered SAP S/4HANA Cloud system in the SAP BTP cockpit can expose consumption bundles that contain APIs and events. You can easily discover and consume the APIs exposed by the SAP S/4HANA Cloud systems in your system landscape when you develop and extend applications on SAP BTP, Cloud Foundry environment. To do this, first you need to enable connectivity between your system landscape in SAP BTP cockpit and SAP Integration Suite. The integration requires performing several configuration steps starting with configuration on a global account level, and then, configuration on a subaccount level.
+
+Note
+
+This documentation refers to SAP S/4HANA Cloud Public Edition. See Introduction to the Universe of SAP S/4HANA Cloud Public Edition.
+
+Rules
+
+When creating Integration with SAP Integration Suite formations, keep in mind the following rule:
+
+At most one system of type SAP Integration Suite can be included in one Integration with SAP Integration Suite formation.
+
+Prerequisites
+
+You are a global account administrator, or you are a system landscape administrator. See Working with Role Collections.
+
+You have a subscription to SAP Integration Suite. See Subscribing and Configuring Initial Access to SAP Integration Suite.
+Note
+
+Every time you create a subscription to a new SAP Integration Suite tenant, the system type for the tenant is automatically defined as SAP Integration Suite.
+
+Procedure
+The following procedure outlines the steps you need to perform to consume the APIs of registered SAP S/4HANA Cloud systems within SAP Integration Suite.
+
+Add and then register an SAP system of type SAP S/4HANA Cloud in the System Landscape  Systems page of SAP BTP cockpit.
+
+To expose information about its APIs and events and show this information on the Systems page, an SAP system of type SAP S/4HANA Cloud must be registered in the SAP BTP cockpit. Only when registered, the system communicates information about its APIs and other technical details across the landscape. See Register an SAP S/4HANA Cloud System in a Global Account in SAP BTP.
+
+In the System Landscape  Formations page, create a formation of type Integration with SAP Integration Suite and include the SAP S/4HANA Cloud systems you want to expose to SAP Integration Suite. See Automating Integrations Using Formations.
+
+Note
+
+In the formation type Integration with SAP Integration Suite, you can include only SAP systems of type SAP S/4HANA Cloud.
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/extending-sap-solutions-using-automated-configurations
+Title: Extending SAP Solutions | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformExtensions and IntegrationsExtending SAP Solutions
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Extending SAP Solutions
+
+The extension capabilities of SAP Business Technology Platform (SAP BTP) enables developers to implement loosely coupled extension applications securely, thus implementing additional workflows or modules on top of the existing SAP cloud solution they already have.
+
+Overview
+Note
+
+The content in this section is not relevant for China (Shanghai) and Government Cloud (US) regions.
+
+With the automated configuration you have the following key benefits:
+
+A way of extending standard SAP solutions without disrupting their performance and core processes
+
+Frameworks that offer simplified, standardized, and unified extensibility and configuration for SAP solutions
+
+A central repository for solutions' APIs, events, credentials, and other data, thereby ensuring easy access to services while creating your extensions
+
+You can also use dedicated formations that help you integrate automaticatically the SAP solution you want to extend with runtimes and tools you might need. See:
+
+Setting Up System Landscape for Kyma
+
+Setting Up System Landscape for SAP Build
+
+Setting Up System Landscape for SAP Integration Suite
+
+Setting Up System Landscape for SAP Business Application Studio
+
+Process Flow
+
+You can use the extension capabilities of SAP BTP to implement additional workflows or modules on top of your existing SAP solutions. You can extend one or more SAP solutions grouped together in a common business case.
+
+To enable the integration, you need to:
+
+Connect the corresponding SAP system with the global account.
+
+For systems of type SAP S/4HANA Cloud, SAP Marketing Cloud, SAP SuccessFactors and SAP systems from the SAP Customer Experience portfolio, during the pairing process you create an registration token which is then used by the SAP system administrator to configure the registration on the SAP system side. See Adding, Registering and Deregistering Systems.
+
+For systems of type different than SAP S/4HANA Cloud, SAP Marketing Cloud, SAP SuccessFactors and SAP systems from the SAP Customer Experience portfolio, the SAP system is already registered when it's part of the Systems page. However, in the Status column, there is no status shown. See Adding, Registering and Deregistering Systems.
+
+For third-party systems, the system is already registered when it's part of the Systems page. However, in the Status column, there is no status shown. See Register a Third-Party System.
+
+Note
+
+You cannot migrate the registered SAP systems between global accounts.
+
+If you want to start using another global account, you will have to register your SAP systems again.
+
+Optional: Group SAP systems so that they can be extended in a business scenario at one go.
+
+To do so, you create a formation containing one or more different systems assigned to a common subaccount. See Automating Integrations Using Formations.
+
+Make the SAP system accessible in the subaccounts in which you want to build your extension applications.
+
+For systems of type SAP S/4HANA Cloud, SAP Marketing Cloud, and SAP SuccessFactors, configure the entitlements and assign the corresponding quota and service plans to the subaccounts where the extension applications will reside. The service plans define the access to the corresponding SAP solution APIs. See:
+
+Configure the Entitlements for the SAP S/4HANA Cloud Extensibility Service
+
+Configure the Entitlements for the SAP SuccessFactors Extensibility Service
+
+For the systems of type different than SAP S/4HANA Cloud, SAP Marketing Cloud, and SAP SuccessFactors, you can continue with developing your extension application.
+
+For systems of type SAP S/4HANA Cloud, SAP Marketing Cloud, and SAP SuccessFactors, configure the communication flow for the extension application.
+
+To be able to consume the SAP S/4HANA Cloud, SAP Marketing Cloud, and SAP SuccessFactors APIs, you need to create a service instance for the corresponding SAP solution system. During the creation of the service instance, you configure the communication flow between the subaccount and the corresponding SAP solution. An HTTP destination which contains the binding properties for establishing the connection is automatically generated.
+
+After you have created the service instance, you have two options to configure the extension application's connectivity to the corresponding SAP solution:
+
+Consume the HTTP destination
+
+Bind the service instance to the extension application
+
+Related Information
+Extending SAP S/4HANA Cloud in the Cloud Foundry and Kyma Environment
+Extending SAP SuccessFactors in the Cloud Foundry and Kyma Environment
+Extending SAP Customer Experience Products in the Kyma Environment
+Extending SAP Marketing Cloud in the Cloud Foundry and Kyma Environment
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/including-sap-systems-in-formation
+Title: Automating Integrations Using Formations | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformExtensions and IntegrationsIntegrating SAP SolutionsAutomating Integrations Using Formations
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Automating Integrations Using Formations
+
+You can use the automated integration that allows you to include various SAP systems into a formation and thus combine diverse SAP solutions into an extended business scenario.
+
+Prerequisites
+
+You are a global account administrator, or you are a system landscape administrator. See Working with Role Collections.
+
+The SAP solution systems that you want to include to a formation must be listed in the Systems page. See Adding, Registering and Deregistering Systems.
+
+Context
+Note
+
+The content in this section is not relevant for China (Shanghai) and Government Cloud (US) regions.
+
+A formation is a logical grouping of SAP systems following a business scenario. Formations allow you to combine SAP solution systems to simplify the connectivity setup and to provide a unified view of all components required for the implementation of your integration or extension scenario. There are three formation types: formations for business scenarios, for integrating with a specific service in SAP BTP, and for extensibility.
+
+When creating a formation in the SAP BTP cockpit, you include the systems of the different SAP solutions you want to extend. If your business case features more than one SAP solution system, you can use the corresponding button to include additional systems in the formation. You can start the dialog as many times and add systems to your formation as you want.
+
+A formation can have the following status values:
+
+Ready
+
+The formation has been added as a record to the list and all registered systems are included successfully.
+
+Draft
+
+Not all the systems were included when creating the formation. Include all the missing systems and choose Finalize Formation.
+
+Action Required
+
+The formation has been created but you cannot use it productively yet.
+
+Based on the formation type and the subaccount that you specified, it might require an SAP BTP Kyma environment instance or an SAP Business Application Studio subscription. Although the SAP BTP cockpit allows you to create such a formation, to enable and make use of it, you must also create the respective instance or subscription.
+
+Synchronizing
+
+Systems that are included in the formation are currently synchronizing in the background.
+
+Error
+
+An error occurred while some of the systems that are included in the formation were synchronizing in the background. In this case, report an incident in the BC-CP-MP component.
+
+When you include systems in a formation, these systems are synchronized in the background. If an error occurs, you can resynchronize these systems to restart the synchronization process. To do that, choose Resynchronize for the particular formation. You will have this action available only for formations that are in status Error.
+
+If you want to reconfigure the systems in a formation from scratch without excluding them, you have to choose Reset and Resynchronize. You will have this action available only for formations that have no status in SAP BTP cockpit and their formation type is Side-by-Side Extensibility with Kyma.
+
+Note
+
+When registering a system or creating a formation, the data you provide in the given input fields is not encrypted with your customer managed key. The data you enter is only encrypted at rest.
+
+Procedure
+Open the SAP BTP cockpit and navigate to your global account.
+Choose System Landscape
+
+Formations.
+Choose Create Formation.
+
+The Create Formation dialog opens. There, in a wizard, you can create a formation and include one or more SAP systems to it.
+
+On the General Information step of the wizard, enter the following information:
+Enter a unique formation name.
+
+The formation name must be up to 128 symbols which can be lowercase or uppercase Latin letters, numbers, hyphens, spaces, or underscores only. The name must start and end with an alphanumeric character.
+
+Specify a type for the formation.
+
+The formation type defines the use case.
+
+Depending on the type, a list of systems that can be included in this formation is loaded at the following step of the wizard.
+
+Choose Next Step.
+On the Include Systems step, select one or more systems that you want to include in the newly created formation, and then, choose Next Step.
+
+The wizard prefilters the systems that were added to the Systems page and are valid for the formation type that you specified at the previous step.
+
+On the Review step, double check your entries before you create the formation.
+
+If you want to make any changes, either you can edit the corresponding section directly, or use the Previous button.
+
+Choose Create.
+Optionally, you can include additional systems to the newly created formation, by choosing Include System.
+
+On the systems list that opens, select a system, and then, choose Include.
+
+Results
+Note
+
+When you delete a formation, several activities are performed at one go. First, the systems are excluded from the formation. Then, the subaccount is unassigned. Finally, the formation is deleted from the Formations page completely.
+
+To restore a deleted formation, first you must create it anew, and then, include all of its systems again, one by one.
+
+Next Steps
+
+Once the formation is ready, you might need to configure additionally some of the systems that are part of this formation. You get the configuration details from the formation and then you go to the respective system and add these details. Such a system is the SAP S/4HANA Cloud Private Edition. To get the configuration details, you have to:
+
+In the Formations page, select the formation you are working with.
+
+Choose the system that needs additional configuration to open its details. In this example, this is the SAP S/4HANA Cloud Private Edition system.
+
+Go to the Configuration for System... Provided By section and in the Actions column, choose  (Syntax).
+
+You get the configuration details in a visual or in a JSON format. Copy the details that you need.
+
+Depending on the system type, use the details you've copied to configure the system.
+
+Related Information
+Automating Integrations with SAP Ariba Buying
+Automating Integrations with SAP Start
+Automating Integrations with Data Ingestion for Industry Cloud Solutions
+Automating Integrations with SAP Ariba Central Invoice Management
+Automating Integrations with SAP Subscription Billing
+Automating Integrations with SAP Collaboration Manager
+Automating Integrations with SAP Advanced Financial Closing
+Enabling Joule
+Enabling Events Exchange Between SAP Cloud Systems
+Enabling Integration with SAP Master Data Integration
+Setting Up System Landscape for Kyma
+Setting Up System Landscape for SAP Build
+Setting Up System Landscape for SAP Integration Suite
+Setting Up System Landscape for SAP Business Application Studio
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/integrating-sap-solutions
+Title: Integrating SAP Solutions | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformExtensions and IntegrationsIntegrating SAP Solutions
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Integrating SAP Solutions
+
+You can integrate several systems and services as part of the common business scenario. To do that, you create a formation in the SAP BTP cockpit that includes all systems that the scenario requires.
+
+A formation is a logical grouping of SAP systems that can be integrated as part of a business scenario. Formations allow you to combine SAP solution systems to simplify the connectivity setup and to provide a unified view of all components required for the implementation of your integration or extension scenario. To create a fully functional formation, you have to include SAP solution systems. You do this configuration once and you can change it anytime.
+
+See Automating Integrations Using Formations.
+
+Use Cases
+Integrate SAP Systems to Achieve a Business Scenario
+
+This formation use case enables some of the SAP systems included in such a formation to communicate with each other.
+
+These are the formations types following this use case:
+
+Integration with SAP Ariba Buying. See Automating Integrations with SAP Ariba Buying.
+
+Integration with SAP Start. See Automating Integrations with SAP Start.
+
+Data Ingestion for Industry Cloud Solutions. See Automating Integrations with Data Ingestion for Industry Cloud Solutions.
+
+Integration with SAP Ariba Central Invoice Management. See Automating Integrations with SAP Ariba Central Invoice Management.
+
+Integration with SAP Subscription Billing. See Automating Integrations with SAP Subscription Billing.
+
+Integration with SAP Collaboration Manager. See Automating Integrations with SAP Collaboration Manager.
+
+Integration with SAP Ariba Central Invoice Management. See Automating Integrations with SAP Advanced Financial Closing.
+
+Integrate SAP Systems with a Service in SAP BTP
+
+There are formations dedicated to automate the integration between supported SAP systems and a service in SAP BTP. In this use case the topology is a star topology where the service is in the center and is communicating with every SAP system that is included in the formation. The formation type is related to the service. The SAP systems that are included do not communicate between each other.
+
+These are the formations types following this use case:
+
+Integration with Joule. See Enabling Joule.
+
+Eventing Between SAP Cloud Systems. See Enabling Events Exchange Between SAP Cloud Systems.
+
+Integration with SAP Master Data Integration. See Enabling Integration with SAP Master Data Integration.
+
+Integrate SAP Systems to Achieve an Extensibility Scenario
+
+Automated configuration allows you to extend SAP solutions without affecting their core functions. It also provides a central repository for APIs and data, ensuring easy access to services for developing extensions.
+
+These are the formations types following this use case:
+
+Side-by-Side Extensibility with Kyma. See Setting Up System Landscape for Kyma.
+
+Integration with SAP Build. See Setting Up System Landscape for SAP Build.
+
+Integration with SAP Integration Suite. See Setting Up System Landscape for SAP Integration Suite.
+
+Developing with SAP Business Application Studio. See Setting Up System Landscape for SAP Business Application Studio.
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/maintaining-unified-customer-landscape
+Title: Maintaining Unified Customer Landscape | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformExtensions and IntegrationsMaintaining Unified Customer Landscape
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Maintaining Unified Customer Landscape
+
+Use
+Note
+
+The content in this section is not relevant for China (Shanghai) and Government Cloud (US) regions.
+
+Unified Customer Landscape is a service that offers customer landscape management capabilities. The frontend representation of this service is the System Landscape page in the SAP BTP cockpit. The dedicated SAP S/4HANA Cloud Extensibility and SAP SuccessFactors Extensibility services are also part of the Unified Customer Landscape capabilities.
+
+Customer Landscape Discovery
+
+The System Landscape page of the SAP BTP cockpit gives you a visual overview of your SAP and third-party systems associated with the given global account or a subaccount. There are different ways to add systems in the Systems  Systems page: manually or automatically. If a system of your solution is associated with your global account or through a subscription in SAP BTP cockpit associated with a given subaccount, it will appear in the list automatically. Otherwise, you have to add your system manually. Systems are added to the list in one of the following ways:
+
+Auto-Discovered
+
+An auto-discovered system is a system (associated with the given global account) that has been discovered and added automatically to the list based on information of the existing system landscape. Any SAP system of the supported system types that is associated with the same customer ID, with which your global account in SAP BTP is associated, will be added automatically in the system landscape list.
+
+Subaccount/<my-subaccount>
+
+Specifies that the system has been added through a subscription in SAP BTP cockpit associated with a given subaccount. The subscription has been discovered and added automatically through the subaccount.
+
+Manually-Added
+
+Specifies that the system has been added to the list manually by the global account administrator, using the Add System button and completing the wizard. The system has been associated with the global account in SAP BTP.
+
+See Adding, Registering and Deregistering Systems.
+
+Integration and Extensibility
+
+Unified Customer Landscape also helps you integrate and extend your SAP S/4HANA Cloud, SAP Ariba, SAP SuccessFactors, and other SAP and third-party systems in one single experience.
+
+In the SAP BTP cockpit, you get a comprehensive overview of all your systems associated with your customer ID. These systems can be registered or auto discovered. They are conveniently listed as a record in the Systems list. Moreover, Unified Customer Landscape lets you integrate one or more systems in a common business case by including these systems in a formation.
+
+See:
+
+Automating Integrations Using Formations
+
+Extending SAP S/4HANA Cloud in the Cloud Foundry and Kyma Environment
+
+Extending SAP Marketing Cloud in the Cloud Foundry and Kyma Environment
+
+Extending SAP SuccessFactors in the Cloud Foundry and Kyma Environment
+
+Extending SAP Customer Experience Products in the Kyma Environment
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/merging-sap-systems
+Title: Mergе SAP Systems | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformExtensions and IntegrationsAdding, Registering and Deregistering SystemsMergе SAP Systems
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Mergе SAP Systems
+
+Merging the SAP systems allows you to reduce the duplicate systems in the list. You can merge auto-discovered SAP systems without assigned status in a target system that has already been registered.
+
+Prerequisites
+
+You are a global account administrator, or you are a system landscape administrator of the global account where you want to deregister or remove your SAP system. See Working with Role Collections.
+
+You have registered the target SAP system. See Adding, Registering and Deregistering Systems.
+
+Context
+
+The logic of the SAP BTP cockpit enables it to discover SAP systems across your landscape and add them automatically on the Systems page. If you have already added these systems manually at a given point in time and you have registered them, the auto-discovered systems might create duplicate entries in the list. To avoid duplicates and streamline the list of systems, you can merge the auto-discovered SAP systems with your manually added systems. The logic automatically detects duplicates based on their URL and system type. Note that you can only merge auto-discovered SAP systems without assigned status in a target system that has already been registered. That is, you cannot merge registered auto-discovered systems.
+
+Procedure
+In the cockpit, navigate to your global account, and then choose System Landscape  Systems .
+On the Systems page, find the auto-discovered SAP system you want to merge.
+Under the Actions column, choose the  (Merge system) button.
+
+Alternatively, you can choose the system from the list to open the System Details view, and then, choose the Merge System button on the top-right corner.
+
+The Merge System dialog opens.
+
+In the Target System dropdown menu, find and select the SAP system, in which you want to merge your system.
+Choose Merge.
+Results
+
+The auto-discovered system has been merged in the target system. That is, all individual properties of the system were recorded in the target system and the common properties were preserved. At the end, the duplicate (auto-discovered) system has been removed as a record from the list on the Systems page in the SAP BTP cockpit.
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/register-microsoft-365-copilot-for-joule-system
+Title: Register a Microsoft 365 Copilot for Joule System | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformExtensions and IntegrationsAdding, Registering and Deregistering SystemsRegister a Microsoft 365 Copilot for Joule System
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Register a Microsoft 365 Copilot for Joule System
+
+Prerequisites
+
+You are a global account administrator, or you are a system landscape administrator of the global account where you want to add a system of type Microsoft 365 Copilot for Joule. See Working with Role Collections.
+
+Context
+Note
+
+The content in this section is not relevant for China (Shanghai) and Government Cloud (US) regions.
+
+You can integrate Microsoft 365 Copilot with Joule so that your users have conversational interactions that include content about integrated SAP systems. To do that, you have to add a system of type Microsoft 365 Copilot for Joule in a formation of type Integration with Joule. See Integrating Joule with Microsoft 365 Copilot.
+
+Procedure
+In the cockpit, navigate to your global account, and then choose System Landscape  Systems .
+On the Systems page, choose Add System.
+In the Add System wizard:
+In the Type dropdown list, select Microsoft 365 Copilot for Joule.
+Enter a name for the system you want to register.
+Note
+
+Use only printable ASCII characters.
+
+Tip
+
+We recommend that you indicate the type of the system when specifying the system name.
+
+In the System ID field, enter the ID which corresponds to the Microsoft Entra Tenant ID. To see how to get this ID, see section Get the Tenant ID of Your Microsoft Entra ID Tenant of the Configuring SAP Cloud Identity Services and Microsoft Entra ID for Joule blog post.
+Choose Add.
+Results
+
+The system has been added as a record to the list on the Systems page in the SAP BTP cockpit and you have added the respective APIs or events.
+
+If you no longer need it, you can remove the system. See Deregister or Removе a System.
+
+Next Steps
+Create a new Integration with Joule formation or use an already existing one and include in the system in this formation. See Enabling Joule.
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/register-sap-customer-experience-system
+Title: Register an SAP Customer Experience System | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformExtensions and IntegrationsAdding, Registering and Deregistering SystemsRegister an SAP Customer Experience System
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Register an SAP Customer Experience System
+
+Register an SAP Customer Experience system to connect it with a global account in SAP BTP.
+
+Prerequisites
+
+See Adding, Registering and Deregistering Systems.
+
+You are an administrator of the global account where you want to register your SAP Customer Experience system.
+
+To configure the integration on the SAP Customer Experience system side, you need to be an administrator of the SAP Customer Experience tenant.
+
+Context
+
+The registration process is based on a registration token that is used for the pairing of the SAP Customer Experience system and the corresponding global account. You create the token in the global account, and then the tenant administrator of the respective SAP Customer Experience system uses the token to start the automated registration process on the SAP Customer Experience system side.
+
+The registration process has the following states displayed in the cockpit:
+
+No status displayed in the Status column - the registration token for an SAP system has been created but the registration on the respective SAP solution system side has not been performed or completed.
+
+Registered - the registration token has been used and the automated registration process has been successfully completed. The system can be assigned to a formation on the Formations page in the cockpit.
+
+Error while Registering - the registration has failed. Remove the system and then add it to the Systems list and try to register it again
+
+Deregistering - а deregistration process has started in the SAP BTP cockpit. As a result, the connection between the SAP solution system and the global account in SAP BTP is removed. The system remains in the list and you can register it again later on.
+
+Once a system is registered, you can deregister it only after removing it from all entitlement configurations and formations it takes part in.
+
+Error while Deregistering - the deregistration has failed. Try to deregister the system again. If the problem persists, report a case in the BC-CP-MP component.
+
+Removing - a system removal process has started in the SAP BTP cockpit. As a result, the link between the SAP solution and SAP BTP is destroyed and the system is removed from the list. To register the system again, first you must add it to the list anew, and then initiate the registration procedure.
+
+Once a system is registered, you can only remove it if you first deregister it.
+
+Note
+You will not be able to remove a system if its status is one of the following:
+
+Registered
+
+You first need to deregister the system.
+
+Deregistering
+
+Error while Deregistering
+
+Try to deregister the system again.
+
+Error while Removing - the system removal has failed. Try to remove the system again. If the problem persists, report a case in the BC-CP-MP component.
+
+Note
+
+When registering a system or creating a formation, the data you provide in the given input fields is not encrypted with your customer managed key. The data you enter is only encrypted at rest.
+
+Procedure
+In the cockpit, navigate to your global account, and then choose System Landscape  Systems.
+On the Systems page, choose Add System.
+In the Type dropdown list, select the system type.
+
+The following SAP Customer Experience systems are supported:
+
+SAP Commerce Cloud
+
+SAP Field Service Management
+
+SAP Cloud for Customer
+
+Enter a name for the system you want to register.
+Note
+
+Use only printable ASCII characters.
+
+Tip
+
+We recommend that you indicate the type of the system when specifying the system name. For example, <mysystem>-S/4HANA-cloud. This helps you identify the system type when assigning systems to a formation.
+
+Choose Add.
+Choose Get Token.
+
+The system generates the registration token.
+
+Copy the registration token and send it to the tenant administrator for the respective SAP Customer Experience system. You need it for configuring the integration on the extended SAP Customer Experience system side.
+
+You can also get the registration token later, once the system appears in the list on the Systems page.
+
+The integration token is valid for 10 minutes after it has been generated. When a token is not used within its validity period, it is no longer valid and cannot be used for registering a system. If the validity of the token expires before you use it to configure the integration on the SAP Customer Experience system side and complete the registration, you need to get a new token. You can then copy it and use it to complete the registration.
+Note
+
+A registration token can be used only once, for registering a single SAP Customer Experience system.
+
+Close the wizard.
+
+The SAP Customer Experience system appears in the list of systems on the Systems page. Its Status field is empty because the registration process is not yet completed.
+
+(Recommended) Follow the steps in Automating Integrations Using Formations before proceeding with the registration on the SAP Customer Experience side.
+Configure the integration on the SAP Customer Experience system side. See Extending SAP Customer Experience Products in the Kyma Environment.
+Check the status of the registration process. To do so, in the cockpit navigate to your global account, and in the Systems panel, check if the status of the SAP Customer Experience system has changed to Registered.
+
+If you are already in the Systems panel, refresh the page to check if the status has changed.
+
+Results
+
+Once you use the integration token to connect your SAP Customer Experience system, all of the exposed services and events are propagated to the Kyma runtime.
+
+Related Information
+Adding, Registering and Deregistering Systems
+Deregister or Removе a System
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/register-sap-marketing-cloud-system-in-global-account-in-sap-btp
+Title: Register an SAP Marketing Cloud System in a Global Account in SAP BTP | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformExtensions and IntegrationsAdding, Registering and Deregistering SystemsRegister an SAP Marketing Cloud System in a Global Account in SAP…
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Register an SAP Marketing Cloud System in a Global Account in SAP BTP
+
+To connect an SAP Marketing Cloud system with a global account in SAP BTP, you need to register the system in the corresponding global account.
+
+Prerequisites
+
+See Adding, Registering and Deregistering Systems
+
+You are an administrator of the global account where you want to register your SAP Marketing Cloud system.
+
+To configure the integration on the SAP Marketing Cloud system side, you need to be an administrator of the SAP Marketing Cloud tenant.
+
+Context
+
+The registration process is based on a registration token that is used for the pairing of the SAP Marketing Cloud system and the corresponding global account. You create the token in the global account, and then the tenant administrator of the respective SAP Marketing Cloud system uses the token to start the automated registration process on the SAP Marketing Cloud system side.
+
+Note
+
+When registering SAP Marketing Cloud systems, you can have up to 1000 tokens per global account ready to be used. Tokens that are already used to register an SAP Marketing Cloud system are not included in this number.
+
+This means that you cannot have more than 1000 systems in the Systems page of type SAP Marketing Cloud with an empty status and generated token that is not used yet.
+
+The registration process has the following states displayed in the cockpit:
+
+No status displayed in the Status column - the registration token for an SAP system has been created but the registration on the respective SAP solution system side has not been performed or completed.
+
+Registered - the registration token has been used and the automated registration process has been successfully completed. The system can be assigned to a formation on the Formations page in the cockpit.
+
+Error while Registering - the registration has failed. Remove the system and then add it to the Systems list and try to register it again
+
+Deregistering - а deregistration process has started in the SAP BTP cockpit. As a result, the connection between the SAP solution system and the global account in SAP BTP is removed. The system remains in the list and you can register it again later on.
+
+Once a system is registered, you can deregister it only after removing it from all entitlement configurations and formations it takes part in.
+
+Note
+
+You will not be able to deregister a system if its status is one of the following:
+
+Error while Registering
+
+Deregistering
+
+Error while Deregistering - the deregistration has failed. Try to deregister the system again. If the problem persists, report a case in the BC-NEO-EXT-S4C component..
+
+Removing - a system removal process has started in the SAP BTP cockpit. As a result, the link between the SAP solution and SAP BTP is destroyed and the system is removed from the list. To register the system again, first you must add it to the list anew, and then initiate the registration procedure.
+
+Once a system is registered, you can only remove it if you first deregister it.
+
+Note
+You will not be able to remove a system if its status is one of the following:
+
+Registered
+
+You first need to deregister the system.
+
+Deregistering
+
+Error while Deregistering
+
+Error while Removing - the system removal has failed. Try to remove the system again. If the problem persists, report a case in the BC-NEO-EXT-S4C component.
+
+Note
+
+When registering a system or creating a formation, the data you provide in the given input fields is not encrypted with your customer managed key. The data you enter is only encrypted at rest.
+
+Note
+
+You cannot migrate the registered SAP Marketing Cloud systems between global accounts.
+
+If you want to start using another global account, you will have to register your SAP Marketing Cloud systems again.
+
+Note
+
+You can have the same SAP Marketing Cloud system registered in two global accounts:
+
+If the two global accounts belong to the same Customer ID, then the SAP Marketing Cloud system will be auto discovered in both global accounts.
+
+In this case, if you register the SAP Marketing Cloud system in one of the global accounts, it will appear registered in the other global account as well. If the communications scenario group with which the SAP Marketing Cloud system has been registered in the first global account works for the use case in the second global account, then you can use the same system in a formation in the second global account as well.
+
+If the use case in the second global account requires a different communication scenario group, you have to add the SAP Marketing Cloud system manually in this global account and register it with the necessary communication scenario group.
+
+If the two global accounts belong to different Customer IDs, the SAP Marketing Cloud system will be auto discovered in one of the global account and need to be added manually in the other. Then, you register the system for each of the global accounts.
+
+Procedure
+In the cockpit, navigate to your global account, and then choose System Landscape  Systems.
+On the Systems page, choose Add System.
+In the Type dropdown list, select SAP Marketing Cloud.
+Enter a name for the system you want to register.
+Note
+
+Use only printable ASCII characters.
+
+Tip
+
+We recommend that you indicate the type of the system when specifying the system name. For example, <mysystem>-S/4HANA-cloud. This helps you identify the system type when assigning systems to a formation.
+
+Choose Add.
+Choose Get Token.
+
+The system generates the registration token.
+
+Copy the registration token and send it to the tenant administrator for the respective SAP Marketing Cloud system. You need it for configuring the integration on the extended SAP Marketing Cloud system side.
+
+You can also get the registration token later, once the system appears in the list on the Systems page.
+
+The registration token is valid for 7 days after it has been generated. When a token is not used within its validity period, it is no longer valid and cannot be used for registering an SAP Marketing Cloud system. If the validity of the token expires before you use it to configure the integration on the SAP Marketing Cloud system side and complete the registration, you need to get a new token. You can then copy it and use it to complete the registration.
+Note
+
+A registration token can be used only once, for registering a single SAP Marketing Cloud system.
+
+Close the wizard.
+
+The SAP Marketing Cloud system appears in the list of systems on the Systems page. Its Status field is empty because the registration process is not yet completed.
+
+Start the automated registration process on the SAP Marketing Cloud system side. To do so, proceed as described in as described in Trigger the Registration in the SAP Marketing Cloud Tenant.
+Note
+
+You can register a system with the same name only once per global account. Once you have started a registration process for a system with a specified name you can no longer register a system with the same name and connect it with the same global account.
+
+Check the status of the registration process. To do so, in the cockpit navigate to your global account, and on the Systems page, check if the status of the SAP Marketing Cloud system has changed to Registered.
+
+If you are already on the Systems page, refresh the page to check if the status has changed.
+
+Next Steps
+
+Trigger the Registration in the SAP Marketing Cloud Tenant
+
+Related Information
+Adding, Registering and Deregistering Systems
+Deregister or Removе a System
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/register-sap-s-4hana-cloud-system-in-global-account-in-sap-btp
+Title: Register an SAP S/4HANA Cloud System in a Global Account in SAP BTP | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformExtensions and IntegrationsAdding, Registering and Deregistering SystemsRegister an SAP S/4HANA Cloud System in a Global Account in SAP B…
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Register an SAP S/4HANA Cloud System in a Global Account in SAP BTP
+
+To connect an SAP S/4HANA Cloud Public Edition system with a global account in SAP BTP, you need to register the system in the corresponding global account.
+
+Prerequisites
+
+See Adding, Registering and Deregistering Systems.
+
+You are an administrator of the global account where you want to register your SAP S/4HANA Cloud system.
+
+To configure the integration on the SAP S/4HANA Cloud system side, you need to be an administrator of the SAP S/4HANA Cloud tenant.
+
+Context
+Note
+
+This documentation refers to SAP S/4HANA Cloud Public Edition. See Introduction to the Universe of SAP S/4HANA Cloud Public Edition.
+
+The registration process is based on a registration token that is used for the pairing of the SAP S/4HANA Cloud system and the corresponding global account. You create the token in the global account, and then the tenant administrator of the respective SAP S/4HANA Cloud system uses the token to start the automated registration process on the SAP S/4HANA Cloud system side.
+
+Note
+
+When registering SAP S/4HANA Cloud systems, you can have up to 1000 tokens per global account ready to be used. Tokens that are already used to register an SAP S/4HANA Cloud system are not included in this number.
+
+This means that you cannot have more than 1000 systems in the Systems page of type SAP S/4HANA Cloud with an empty status and generated token that is not used yet.
+
+Note
+
+You cannot migrate the registered SAP S/4HANA Cloud systems between global accounts.
+
+If you want to start using another global account, you will have to register your SAP S/4HANA Cloud systems again.
+
+Note
+
+You can have the same SAP S/4HANA Cloud system registered in two global accounts:
+
+If the two global accounts belong to the same Customer ID, then the SAP S/4HANA Cloud system will be auto discovered in both global accounts.
+
+In this case, if you register the SAP S/4HANA Cloud system in one of the global accounts, it will appear registered in the other global account as well. If the communications scenario group with which the SAP S/4HANA Cloud system has been registered in the first global account works for the use case in the second global account, then you can use the same system in a formation in the second global account as well.
+
+If the use case in the second global account requires a different communication scenario group, you have to add the SAP S/4HANA Cloud system manually in this global account and register it with the necessary communication scenario group.
+
+If the two global accounts belong to different Customer IDs, the SAP S/4HANA Cloud system will be auto discovered in one of the global account and need to be added manually in the other. Then, you register the system for each of the global accounts.
+
+The registration process has the following states displayed in the cockpit:
+
+No status displayed in the Status column - the registration token for an SAP system has been created but the registration on the respective SAP solution system side has not been performed or completed.
+
+Registered - the registration token has been used and the automated registration process has been successfully completed. The system can be assigned to a formation on the Formations page in the cockpit.
+
+Error while Registering - the registration has failed. Remove the system and then add it to the Systems list and try to register it again.
+
+Deregistering - а deregistration process has started in the SAP BTP cockpit. As a result, the connection between the SAP solution system and the global account in SAP BTP is removed. The system remains in the list and you can register it again later on.
+
+Once a system is registered, you can deregister it only after removing it from all entitlement configurations and formations it takes part in.
+
+Note
+
+You will not be able to deregister a system if its status is one of the following:
+
+Error while Registering
+
+Deregistering
+
+Error while Deregistering - the deregistration has failed. Try to deregister the system again. If the problem persists, report a case in the BC-NEO-EXT-S4C component.
+
+Removing - a system removal process has started in the SAP BTP cockpit. As a result, the link between the SAP solution and SAP BTP is destroyed and the system is removed from the list. To register the system again, first you must add it to the list anew, and then initiate the registration procedure.
+
+Once a system is registered, you can only remove it if you first deregister it.
+
+Note
+You will not be able to remove a system if its status is one of the following:
+
+Registered
+
+You first need to deregister the system.
+
+Deregistering
+
+Error while Deregistering
+
+Try to deregister the system again.
+
+Error while Removing - the system removal has failed. Try to removе the system again. If the problem persists, report a case in the BC-NEO-EXT-S4C component.
+
+Note
+
+When registering a system or creating a formation, the data you provide in the given input fields is not encrypted with your customer managed key. The data you enter is only encrypted at rest.
+
+Procedure
+In the cockpit, navigate to your global account, and then choose System Landscape  Systems.
+Check if your SAP S/4HANA Cloud system has been auto-discovered and is already in the Systems page. If yes, then continue with step 3.e. and get the registration token.
+Note
+
+If your SAP S/4HANA Cloud system is auto-discovered and you still add it manually and then finish the registration process with the manually added system, you can merge the two entries. See Mergе SAP Systems.
+
+On the Systems page, choose Add System.
+In the Type dropdown list, select SAP S/4HANA Cloud.
+Enter a name for the system you want to register.
+Note
+
+Use only printable ASCII characters.
+
+Tip
+
+We recommend that you indicate the type of the system when specifying the system name. For example, <mysystem>-S/4HANA-cloud. This helps you identify the system type when assigning systems to a formation.
+
+Choose Add.
+In the Communication Scenario Groups dropdown menu, select one of the following options:
+
+All Communication Scenarios: to create any of the communication scenarios in SAP S/4HANA Cloud.
+
+Eventing Between SAP Cloud Systems: to allow the automatic enablement of the SAP_COM_0892 communication scenario in SAP S/4HANA Cloud.
+
+Integration with SAP Start: to allow the automatic enablement of the SAP_COM_0647 communication scenario in SAP S/4HANA Cloud.
+
+Integration with SAP Ariba Buying: to allow the automatic enablement of the SAP_COM_0545 and SAP_COM_0A00 communication scenarios in SAP S/4HANA Cloud.
+
+Integration with SAP Master Data Integration: to allow the automatic enablement of the SAP_COM_0008, SAP_COM_0091, SAP_COM_0659, and SAP_COM_0594 communication scenarios in SAP S/4HANA Cloud.
+
+Integration with SAP Ariba Central Invoice Management: to allow the automatic enablement of the SAP_COM_0897, SAP_COM_0516, SAP_COM_0531, SAP_COM_0008, SAP_COM_0091, SAP_COM_0659, and SAP_COM_0594 communication scenarios in SAP S/4HANA Cloud.
+
+Integration with SAP Subscription Billing: to allow the automatic enablement of the SAP_COM_0642, SAP_COM_0845, SAP_COM_0861, SAP_COM_0095, SAP_COM_0008, SAP_COM_0009, SAP_COM_0092, SAP_COM_0884, SAP_COM_0892, and SAP_COM_0165 communication scenarios in SAP S/4HANA Cloud.
+
+Integration with SAP Advanced Financial Closing: to allow the automatic enablement of the SAP_COM_0566 communication scenario in SAP S/4HANA Cloud.
+
+Integration with SAP Master Data Governance: to allow the automatic enablement of the SAP_COM_0659 communication scenario in SAP S/4HANA Cloud.
+
+Choose Get Token.
+
+The system generates the registration token.
+
+Copy the registration token and send it to the tenant administrator for the respective SAP S/4HANA Cloud system. You need it for configuring the integration on the extended SAP S/4HANA Cloud system side.
+
+You can also get the registration token later, once the system appears in the list on the Systems page.
+
+The registration token is valid for 7 days after it has been generated. When a token is not used within its validity period, it is no longer valid and cannot be used for registering an SAP S/4HANA Cloud system. If the validity of the token expires before you use it to configure the integration on the SAP S/4HANA Cloud system side and complete the registration, you need to get a new token. You can then copy it and use it to complete the registration.
+Note
+
+A registration token can be used only once, for registering a single SAP S/4HANA Cloud system.
+
+Close the wizard.
+
+The SAP S/4HANA Cloud system appears in the list of systems on the Systems page. Its Status field is empty because the registration process is not yet completed.
+
+Start the automated registration process on the SAP S/4HANA Cloud system side. To do so, proceed as described in as described in Trigger the Registration in the SAP S/4HANA Cloud Tenant.
+Note
+
+You can register a system with the same name only once per global account. Once you have started a registration process for a system with a specified name you can no longer register a system with the same name and connect it with the same global account.
+
+Check the status of the registration process. To do so, in the cockpit navigate to your global account, and on the Systems page, check if the status of the SAP S/4HANA Cloud system has changed to Registered.
+
+If you are already on the Systems page, refresh the page to check if the status has changed.
+
+Next Steps
+
+Trigger the Registration in the SAP S/4HANA Cloud Tenant
+
+Related Information
+Adding, Registering and Deregistering Systems
+Deregister or Removе a System
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/register-sap-successfactors-system-in-global-account-in-sap-btp
+Title: Register an SAP SuccessFactors System in a Global Account in SAP BTP | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformExtensions and IntegrationsAdding, Registering and Deregistering SystemsRegister an SAP SuccessFactors System in a Global Account in SAP …
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Register an SAP SuccessFactors System in a Global Account in SAP BTP
+
+To connect an SAP SuccessFactors system with a global account in SAP BTP, you need to register the system in the corresponding global account.
+
+Prerequisites
+
+See Adding, Registering and Deregistering Systems.
+
+You are an administrator of the global account where you want to register your SAP SuccessFactors system.
+
+You have a dedicated SAP SuccessFactors company instance.
+
+You have a user with permissions to access Extension Center in SAP SuccessFactors Admin Center that include:
+
+Admin Access to MDF OData API permission from the Metadata Framework category
+
+Create Integration with SAP BTP permission from the Manage Extensions on SAP BTP category
+
+To assign these permissions to your user, you might need the help of an administrator.
+
+To get a user with the respective permissions, follow these steps:
+
+Make sure you have an access to the SAP SuccessFactors Admin Center. See Permission to Access Admin Center.
+
+Add your user to an already existing group or create a new dedicated group and add your user. See Creating Dynamic Permission Groups.
+
+Use an already existing role or create a new dedicated role. See Creating Permission Roles.
+
+Assign the respective permissions to your role. See Assigning Permissions to a Role.
+
+Add your role to the dedicated group. See Assigning Roles to Groups.
+
+To fully activate the permissions, log out and log in again to the SAP SuccessFactors company instance.
+
+Context
+
+The registration process is based on a registration token that is used for the pairing of the SAP SuccessFactors company and the corresponding global account in SAP BTP. You create the token in the global account, and then start the automated registration process on the SAP SuccessFactors company side using this token.
+
+Note
+
+When registering SAP SuccessFactors systems, you can have up to 1000 tokens per global account ready to be used. Tokens that are already used to register an SAP SuccessFactors system are not included in this number.
+
+This means that you cannot have more than 1000 systems in the Systems list of type SAP SuccessFactors with an empty status and generated token that is not used yet.
+
+The registration process has the following states displayed in the cockpit:
+
+No status displayed in the Status column - the registration token for an SAP system has been created but the registration on the respective SAP solution system side has not been performed or completed.
+
+Registered - the registration token has been used and the automated registration process has been successfully completed. The system can be assigned to a formation on the Formations page in the cockpit.
+
+Error while Registering - the registration has failed. Remove the system and then add it to the Systems list and try to register it again
+
+Deregistering - а deregistration process has started in the SAP BTP cockpit. As a result, the connection between the SAP solution system and the global account in SAP BTP is removed. The system remains in the list and you can register it again later on.
+
+Once a system is registered, you can deregister it only after removing it from all entitlement configurations and formations it takes part in.
+
+Error while Deregistering - the deregistration has failed. Try to deregister the system again. If the problem persists, report a case in the BC-NEO-EXT-SF component.
+
+Removing - a system removal process has started in the SAP BTP cockpit. As a result, the link between the SAP solution and SAP BTP is destroyed and the system is removed from the list. To register the system again, first you must add it to the list anew, and then initiate the registration procedure.
+
+Once a system is registered, you can only remove it if you first deregister it.
+
+Note
+You will not be able to remove a system if its status is one of the following:
+
+Registered
+
+You first need to deregister the system.
+
+Deregistering
+
+Error while Deregistering
+
+Try to deregister the system again.
+
+Error while Removing - the system removal has failed. Try to remove the system again. If the problem persists, report a case in the BC-NEO-EXT-SF component.
+
+Note
+
+When registering a system or creating a formation, the data you provide in the given input fields is not encrypted with your customer managed key. The data you enter is only encrypted at rest.
+
+Procedure
+In the SAP BTP cockpit, navigate to your global account, and then choose System Landscape  Systems.
+On the Systems page, choose Add System.
+In the Type dropdown list, select SAP SuccessFactors.
+Enter a name for the system you want to register.
+Note
+
+Use only printable ASCII characters.
+
+Tip
+
+We recommend that you indicate the type of the system when specifying the system name. For example, <mysystem>-SuccessFactors. This helps you identify the system type when assigning systems to a formation.
+
+Choose Add.
+Choose Get Token.
+
+The system generates the registration token.
+
+Copy the registration token and send it to the tenant administrator for the respective SAP SuccessFactors system. You need it for configuring the integration on the extended SAP SuccessFactors system side.
+
+You can also get the registration token later, once the system appears in the list on the Systems page.
+
+The registration token is valid for 7 days after it has been generated. When a token is not used within its validity period, it is no longer valid and cannot be used for registering an SAP SuccessFactors system. If the validity of the token expires before you use it to configure the integration on the SAP SuccessFactors system side and complete the registration, you need to get a new token. You can then copy it and use it to complete the registration.
+Note
+
+A token can be used only once, for registering a single SAP SuccessFactors system.
+
+Close the wizard.
+
+The SAP SuccessFactors system appears in the list of systems on the Systems page. Its Status field is empty because the registration process is not yet completed.
+
+Start the automated integration process on the SAP SuccessFactors company side:
+Note
+
+If you do not have permissions to access the Extension Center for the corresponding SAP SuccessFactors system, you need to send the registration token to a user with such permissions who will configure the integration on the SAP SuccessFactors system side. For the requires permissions, check the prerequisites.
+
+In SAP SuccessFactors Admin Center, navigate to Extension Center.
+
+On the Extensions on SAP BTP tab page, navigate to the Add Integration with SAP BTP screen area, and paste the registration token in the Integration Token input field.
+
+Choose Add.
+
+The system appears in the integration list in the Multi-Cloud Environment screen area, and the status of the integration is displayed in the Integration Status column. To refresh the status of the process, choose the Check Status icon. Wait for the integration to finish.
+
+In the cockpit, check the status of the registration process. To do so, navigate to your global account, and on the Systems page, check if the status of the SAP System has changed to Registered.
+
+If you are already on the Systems page, refresh the page to check if the status has changed.
+
+Note
+
+You can register a system only once with the same name per global account.
+
+Note
+
+You cannot migrate the registered SAP SuccessFactors systems between global accounts.
+
+If you want to start using another global account, you will have to register your SAP SuccessFactors systems again.
+
+Related Information
+Adding, Registering and Deregistering Systems
+Deregister or Removе a System
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/register-system-of-type-sap-btp-application
+Title: Register a System of Type SAP BTP Application | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformExtensions and IntegrationsAdding, Registering and Deregistering SystemsRegister a System of Type SAP BTP Application
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Register a System of Type SAP BTP Application
+
+Prerequisites
+
+You are a global account administrator, or you are a system landscape administrator of the global account where you want to add your SAP BTP Application system. See Working with Role Collections.
+
+Context
+Note
+
+The content in this section is not relevant for China (Shanghai) and Government Cloud (US) regions.
+
+You can connect an application you've developed and deployed in SAP BTP with a global account in SAP BTP. To do that, you add a system representing your application to the list in the System Landscape  Systems page. The system type you use is SAP BTP Application. You also have to provide the namespace which is unique for this system. A unique system ID is automatically assigned to any system of type SAP BTP Application. For systems of type SAP BTP Application, this completes the registration process and you have your system registered with SAP BTP. Even though the system of type SAP BTP Application is registered directly, no status is displayed.
+
+When you have a systems of your application listed in the Systems page, you can include it in different formations depending on your needs.
+
+Procedure
+In the cockpit, navigate to your global account, and then choose System Landscape  Systems .
+On the Systems page, choose Add System.
+In the Add System wizard:
+In the Type dropdown list, select SAP BTP Application.
+Enter a name for the system you want to register.
+Note
+
+Use only printable ASCII characters.
+
+In the System ID field, there is an automatically assigned ID which is unique for this system.
+In the System Namespace, enter a unique technical identifier to avoid global ID and name conflicts. It covers vendor, system (application or service), authority namespaces and optionally further sub-context namespaces.
+Choose Add.
+Related Information
+Declaring System APIs and Events as Dependencies for Business Scenarios
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/registering-sap-system
+Title: Adding, Registering and Deregistering Systems | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformExtensions and IntegrationsAdding, Registering and Deregistering Systems
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Adding, Registering and Deregistering Systems
+
+To connect an SAP system with a global account in SAP BTP, you need to register the system. You can also add and work with a third-party systems.
+
+Prerequisites
+
+You are a global account administrator, or you are a system landscape administrator of the global account where you want to register your SAP system. See Working with Role Collections.
+
+Before adding your system, make sure it's not already auto-discovered and listed automatically in the System Landscape  Systems page.
+
+Registering SAP Systems
+Note
+
+The content in this section is not relevant for China (Shanghai) and Government Cloud (US) regions.
+
+For some system types, such as SAP SuccessFactors, SAP S/4HANA Cloud, SAP Marketing Cloud and SAP systems from the SAP Customer Experience portfolio, adding a system to the list in the Systems page is just the first step of the system registration process. When you have only added a system, the system is not yet registered in the SAP BTP global account. That is, the required configuration on the system side has not been performed, and therefore, the newly added system cannot exchange or expose its technical details, metadata, APIs, or events. Only when the registration process is complete and the system is registered with SAP BTP, it can exchange the relevant information and enable the extension scenario.
+
+If your system is associated with the given global account, this system is discovered and added automatically to the Systems page based on information of the existing system landscape. Any SAP system that is associated with the same customer ID, with which your global account in SAP BTP is associated, will be auto-discovered.
+
+Note
+
+If a given SAP system is missing on the Systems page, it may be associated with a different customer ID on the SAP BTP global account you are working in. In this case, you need to add the system manually, and then, register it.
+
+Note
+
+You cannot migrate the registered SAP systems between global accounts.
+
+If you want to start using another global account, you will have to register your SAP systems again.
+
+For systems of type SAP SuccessFactors, SAP S/4HANA Cloud, SAP Marketing Cloud and SAP systems from the SAP Customer Experience portfolio, the registration of the newly added systems is based on a registration token. The registration token is used for the pairing of the system and the corresponding global account. After you add a system, you can get the token in the SAP BTP cockpit. Then, you can use it to configure the integration on the corresponding system side. By using the registration token on the system side and registering the system, the system administrator allows the integration of the system with SAP BTP.
+
+When you add an SAP system of type SAP SuccessFactors, SAP S/4HANA Cloud, SAP Marketing Cloud and SAP systems from the SAP Customer Experience portfolio, it appears in the system landscape list as a record with empty (or initialized) status. The system gets a Registered status, only when a token is issued and the registration is complete on the corresponding system side. In general, the Registered status means that the communication between the system and SAP BTP has been established. However, depending on the system and its requirements, additional configuration might be needed for the enablement of a fully functional extension scenario. The additional configuration, depending on the system type, is outlined in the corresponding documents listed in the Related Information section.
+
+Note
+
+When registering SAP systems of the same type, you can have up to 1000 tokens per global account ready to be used. Tokens that are already used to register an SAP system are not included in this number.
+
+This means that you cannot have more than 1000 systems in the Systems list of the same type with an empty status and generated token that is not used yet.
+
+For system types different than SAP SuccessFactors, SAP S/4HANA Cloud, SAP Marketing Cloud and SAP systems from the SAP Customer Experience portfolio, when adding a system in the Systems page, this system is registered directly but no status is displayed.
+
+The registration process has the following states displayed in the cockpit:
+
+No status displayed in the Status column - the registration token for an SAP system of type SAP SuccessFactors, SAP S/4HANA Cloud, SAP Marketing Cloud or SAP systems from the SAP Customer Experience portfolio has been created but the registration on the respective SAP system side has not been performed or completed yet. For systems with type other than SAP SuccessFactors, SAP S/4HANA Cloud, SAP Marketing Cloud and SAP systems from the SAP Customer Experience portfolio are registered when added to the Systems page but no status has been displayed. Only systems that require a registration token to be registered have the status Registered when this token has been used.
+
+Registered - the registration token for systems of type SAP SuccessFactors, SAP S/4HANA Cloud, SAP Marketing Cloud and SAP systems from the SAP Customer Experience portfolio has been used and the automated registration process has been successfully completed. The systems of these types can be assigned to a formation on the Formations page in the cockpit. All other system types are registered without a registration token and can be assigned to a formation.
+
+Error while Registering - the registration has failed.
+
+Note
+
+If a system is in status Error while Registering, delete it and register it again.
+
+If the registration error persists, report a case in one of the following components depending on the system type:
+
+SAP SuccessFactors - BC-NEO-EXT-SF
+
+SAP S/4HANA Cloud - BC-NEO-EXT-S4C
+
+All other system types - BC-CP-MP
+
+Note
+
+When registering a system or creating a formation, the data you provide in the given input fields is not encrypted with your customer managed key. The data you enter is only encrypted at rest.
+
+Procedure
+
+In the cockpit, navigate to your global account, and then choose System Landscape  Systems.
+
+On the Systems page, choose Add System.
+
+Note
+
+Before adding your system, make sure it's not already auto-discovered and listed automatically in the Systems page. Some of the SAP systems have additional configurations described in dedicated procedures. See:
+
+Register an SAP S/4HANA Cloud System in a Global Account in SAP BTP
+
+Register an SAP Marketing Cloud System in a Global Account in SAP BTP
+
+Register an SAP SuccessFactors System in a Global Account in SAP BTP
+
+Register an SAP Customer Experience System
+
+In the Add System wizard:
+
+In the Type dropdown list, select the system type.
+
+Enter a name for the system you want to register.
+
+Note
+
+Use only printable ASCII characters.
+
+Tip
+
+We recommend that you indicate the type of the system when specifying the system name. For example, <mysystem>-commerce-cloud. This helps you identify the system type when assigning systems to a formation.
+
+Choose Add.
+
+For systems of type SAP SuccessFactors, SAP S/4HANA Cloud, SAP Marketing Cloud and SAP systems from the SAP Customer Experience portfolio, choose Get Token.
+
+A registration token is generated for this system.
+
+Systems of type different than SAP SuccessFactors, SAP S/4HANA Cloud and SAP systems from the SAP Customer Experience portfolio don't need a registration token, they are automatically registered when added to the Systems page. Their status is empty but you can consider them as registered.
+
+Copy the registration token. You need the token to complete the integration on the respective SAP solution system side.
+
+Close the wizard.
+
+Result
+
+The system has been added as a record to the list on the Systems page in the SAP BTP cockpit. For systems of type SAP SuccessFactors, SAP S/4HANA Cloud and SAP systems from the SAP Customer Experience portfolio, a registration token for connecting the corresponding SAP solution with the global account in SAP BTP has been generated. Systems of type other than SAP SuccessFactors, SAP S/4HANA Cloud and SAP systems from the SAP Customer Experience portfolio, are automatically registered, no additional configurations are required.
+
+Note
+
+Registration tokens have different validity periods that depend on the system type. For more information about token expiry, see the corresponding documentation at the Related Links section.
+
+Next Steps
+For SAP systems of type SAP SuccessFactors, SAP S/4HANA Cloud, SAP Marketing Cloud and SAP systems from the SAP Customer Experience portfolio, use the registration token to complete the registration on the respective SAP system side. See:
+
+Trigger the Registration in the SAP S/4HANA Cloud Tenant
+
+Trigger the Registration in the SAP Marketing Cloud Tenant
+
+Register an SAP SuccessFactors System in a Global Account in SAP BTP
+
+Register an SAP Customer Experience System
+
+You can assign the system to a formation on the Formations page, as follows:
+
+SAP systems of type SAP Commerce Cloud, SAP Cloud for Customer, and SAP Field Service Management can be assigned to a formation directly before the integration is complete on the respective SAP Customer Experience system side. However, to enable the API access, you first need to complete the integration.
+
+For systems of type SAP S/4HANA Cloud, SAP Marketing Cloud and SAP SuccessFactors, you first need to configure the integration on the respective SAP system side.
+
+For systems of type other than SAP S/4HANA Cloud, SAP Marketing Cloud and SAP SuccessFactors and SAP systems from the SAP Customer Experience portfolio, after adding these systems in the Systems list, you can directly include them in a formation.
+
+See Automating Integrations Using Formations.
+
+If you no longer need it, you can deregister or remove the system depending on its status. See Deregister or Removе a System.
+
+Registering Third-Party Systems
+
+You add a third-party system to the list in the System Landscape  Systems page. At this point you provide all the required details for this system: its type, provider, URL, and system ID. For third-party systems, this completes the registration process and you have your third-party system registered with SAP BTP. Even though the third-party system is registered directly, no status is displayed.
+
+See Register a Third-Party System.
+
+Deregistering Systems
+
+Deregistering an SAP or third-party system means that the connectivity between this system and the global account is disabled and extension scenarios cannot be established, while removing a system means that this system is no longer part of the system landscape list. You can deregister or remove a system from the Actions column, or from the System Details page that you access when selecting the system from the system landscape list.
+
+See Deregister or Removе a System.
+
+Merging Systems
+
+If you have already added these systems manually at a given point in time and you have registered them, the auto-discovered systems might create duplicate entries in the list. To avoid duplicates and streamline the list of systems, you can merge automatically the auto-discovered SAP systems with your manually added systems.
+
+See Mergе SAP Systems.
+
+Related Information
+Extending SAP S/4HANA Cloud in the Cloud Foundry and Kyma Environment
+Extending SAP Marketing Cloud in the Cloud Foundry and Kyma Environment
+Extending SAP SuccessFactors in the Cloud Foundry and Kyma Environment
+Extending SAP Customer Experience Products in the Kyma Environment
+Register an SAP Integrated Business Planning System in a Global Account in SAP BTP
+Register a Microsoft 365 Copilot for Joule System
+Register a System of Type SAP BTP Application
+Register a Third-Party System
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/registering-third-party-system
+Title: SAP Help Portal | SAP Online Help
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformExtensions and IntegrationsAdding, Registering and Deregistering SystemsRegister a Third-Party System
+SAP Business Technology Platform
+Provide feedback on our search
+
+Register a Third-Party System
+
+To connect a third-party systems, for example a Google system, with a global account in SAP BTP, you first need to create a system type for this system and then to add a system of this new type to the Systems page.
+
+Prerequisites
+
+You are a global account administrator, or you are a system landscape administrator of the global account where you want to add your third-party system. See Working with Role Collections.
+
+Context
+Note
+
+The content in this section is not relevant for China (Shanghai) and Government Cloud (US) regions.
+
+To add a third-party system to the list in the Systems tab in the System Landscape  Systems page, first you need go to the System Types tab to create a system type for this third-party system. At this point you provide all the required details for this system type: its name, namespace, and provider. Then, you add systems of this new type. For third-party systems, this completes the registration process and you have your third-party system registered with SAP BTP. Even though the third-party system is registered directly, no status is displayed.
+
+When you have this system added in the Systems tab in the Systems page, you can select it and open its system details. There, you specify in the consumption bundles the APIs, and the events. A consumption bundle organizes a set of related APIs and events into a single group for consumption purposes and expresses information about how the APIs and events that it contains can be accessed. All APIs and events that are part of the same consumption bundle need to be accessible through the same set of credentials.
+
+Note
+
+You cannot migrate the added third-party systems between global accounts.
+
+If you want to start using another global account, you will have to add your systems again.
+
+Note
+
+When adding a system or creating a formation, the data you provide in the given input fields is not encrypted with your customer managed key. The data you enter is only encrypted at rest.
+
+Procedure
+In the cockpit, navigate to your global account, and then choose System Landscape  Systems .
+Go to the System Types tab, and choose Create System Type.
+In the Create System Type dialog:
+In the Name field, enter the name of the system type you are creating. Later on, this name will appear in the System Type dropdown menu when you add a system of this type.
+
+Use a user-friendly name and reflect as best as possible the commercial name of the product or system. For example, Google Workspace.
+
+In the Namespace field, specify the namespace of the system type. It must start with customer.*. For example, customer.google.workspace.
+In the Provider field, enter the actual organization that provides the given system type. For example, Google.
+Choose Create.
+Go to the Systems tab, and choose Add System.
+In the Add System wizard:
+In the System Type dropdown list, select the system type you have created for your third-party system.
+Enter a name for the system you want to register.
+Note
+
+Use only printable ASCII characters.
+
+Choose Add.
+(Optional) Find this system in the Systems list and open its system details. Choose Add Consumption Bundle and fill in the following properties:
+
+Consumption Bundle Name: add a meaningful name
+
+Description:
+
+Credentials Type: choose between OAuth and Basic
+
+If you choose OAuth, fill in these properties:
+
+Client ID
+
+Client Secret
+
+URL: this is the token URL, that is used for obtaining OAuth tokens through the client ID and the client secret.
+
+If you choose Basic, fill in these properties:
+
+User
+
+Password
+
+Choose Add. Open the consumption bundle from the list.
+
+(Optional) If you want to add APIs, choose Add API and fill in the following properties:
+
+API Name: add a meaningful name.
+
+Description: this field is optional.
+
+URL
+
+Specification: this is the file containing the specification. The file format depends on the specification type. For OpenAPI, you can use YAML and JSON. For OData, you can use JSON and XML.
+
+Type: this is the type of the specification. The API specification type can be OpenAPI or OData.
+
+(Optional) If you want to add events, choose Add Event and fill in the following properties:
+
+Event Name: add a meaningful name.
+
+Description: this field is optional.
+
+Specification: this is the file containing the specification. The file format can be JSON and YAML.
+
+Type: this is the type of the specification. The event specification type can be only AsyncAPI.
+
+Results
+
+The system has been added as a record to the list on the Systems tab in the Systems page in the SAP BTP cockpit and you have added the respective APIs or events.
+
+If you no longer need it, you can remove the system depending on its status. See Deregister or Removе a System.
+
+---
+

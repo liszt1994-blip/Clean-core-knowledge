@@ -1,0 +1,26 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/adding-user-as-space-manager-for-cloud-foundry-space
+Title: Adding a User as Space Manager for the Cloud Foundry Space | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Creation of Additional Administrator Users (Optional)Adding a User as Space Manager for the Cloud Foundry Space
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Adding a User as Space Manager for the Cloud Foundry Space
+
+After you have created a Cloud Foundry space for the ABAP environment, you can add more users as space managers.
+
+Context
+Note
+
+If you have run the booster Prepare an Account for ABAP Development and entered users as additional administrators, you can skip these steps.
+
+Procedure
+Log on to the SAP BTP cockpit as administration user for Cloud Foundry.
+Go to your subaccount for the ABAP environment.
+Choose Spaces.
+Choose the Cloud Foundry space in the Cloud Foundry org.
+In the navigation area, choose Members.
+Choose Add Members.
+Enter the user’s e-mail address in the E-mails field.
+Select the checkbox for space manager.
+Choose OK.

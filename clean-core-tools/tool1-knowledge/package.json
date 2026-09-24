@@ -9,22 +9,44 @@
     "node-fetch": "^2.7.0",
     "pdf-parse": "^2.4.5",
     "pdf2json": "^4.0.3",
-    "pdfjs-dist": "^5.4.296"
+    "pdfjs-dist": "^5.4.296",
+    "pdfkit": "^0.15.2",
+    "puppeteer": "^25.3.0"
   },
   "devDependencies": {
     "@sap/cds-dk": "^8.0.0",
     "jest": "^29.0.0",
+    "pptxgenjs": "^4.0.1",
     "supertest": "^6.0.0"
   },
   "scripts": {
     "start": "cds-serve",
     "dev": "cds watch --open knowledge/webapp/index.html",
-    "test": "jest"
+    "test": "jest",
+    "sync-docs": "node scripts/sync-btp-docs.js",
+    "download-apis": "node scripts/download-sap-apis.js",
+    "crawl-btp": "node scripts/crawl-btp-docs.js",
+    "crawl-btp-puppeteer": "node scripts/crawl-btp-puppeteer.js",
+    "merge-btp-docs": "node scripts/merge-btp-docs.js",
+    "txt-to-pdf": "node scripts/txt-to-pdf.js",
+    "test-crawl": "node scripts/test-crawl-single.js",
+    "gen-cleancore-pdf": "node scripts/generate-cleancore-pdf.js"
   },
   "cds": {
     "requires": {
       "auth": "dummy"
     },
-    "server": "./server.js"
+    "server": "./server.js",
+    "watch": {
+      "ignored": [
+        "docs/objectReleaseInfoLatest.json",
+        "docs/objectClassifications_SAP.json",
+        "docs/*.pdf",
+        "docs/*.pptx",
+        "docs/*.html",
+        "output/**",
+        "scripts/**"
+      ]
+    }
   }
 }

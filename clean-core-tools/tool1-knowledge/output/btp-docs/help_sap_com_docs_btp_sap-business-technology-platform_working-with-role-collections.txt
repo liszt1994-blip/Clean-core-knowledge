@@ -1,0 +1,61 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/working-with-role-collections
+Title: Working with Role Collections | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Security Administration: Managing Authentication and AuthorizationWorking with Role Collections
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Working with Role Collections
+
+As an administrator, you group application roles in role collections. You then assign role collections to application users.
+
+Application developers have defined application-specific role templates in the security descriptor file. The role templates contain the role definitions. You can assign the role to a role collection.
+
+Tip
+
+Application developers can even directly define role collections with default roles. For more information, see Create Role Collections with Predefined Roles.
+
+Typically, these role collections provide authorizations for certain types of users, for example, sales representatives.
+
+Once you have created a role collection, you can pick the roles that apply to the typical job of a sales representative. Since the roles are application-based, you must reference the application to see which roles come with the role template of this application. You are free to add roles from multiple applications to your role collection.
+
+Finally, you assign the role collection directly to users or indirectly to attributes such as groups. For more information, see the related link.
+
+Prerequisites
+
+Your user has administration rights in this subaccount and or global account. For more information, see Security Administration: Managing Authentication and Authorization or Role Collections and Roles in Global Accounts, Directories, and Subaccounts.
+
+The roles defined by your application developers in the application security descriptor are available in the SAP BTP cockpit. For more information, see Adding Authentication and Authorization.
+
+The users are stored in identity providers that are connected to SAP BTP.
+
+Default identity provider (SAP ID service). For more information, see Default Identity Provider.
+
+Custom identity provider. For more information, see User Management in SAP Cloud Identity Services.
+
+Note
+
+SAP BTP provides default role collections. You can use the default role collections, but you can’t change or delete them. For this reason, the Delete icon of a default role collection is grayed out.
+
+You can perform the following tasks:
+
+Define a Role Collection
+
+Add Roles to a Role Collection
+
+Delete Roles from a Role Collection
+
+Assigning Role Collections to Users or User Groups
+
+Assign Users to Role Collections
+
+Delete Users from Role Collections
+
+Assign User Groups to Role Collections
+
+Delete User Groups from Role Collections
+
+Related Information
+Security Administration: Managing Authentication and Authorization
+Role Collections and Roles in Global Accounts, Directories, and Subaccounts
+Limits for Technical Artifacts of the SAP Authorization and Trust Management Service

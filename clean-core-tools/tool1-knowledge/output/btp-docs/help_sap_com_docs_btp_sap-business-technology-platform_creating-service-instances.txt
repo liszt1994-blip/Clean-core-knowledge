@@ -1,0 +1,18 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/creating-service-instances
+Title: Creating Service Instances | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Using Services in the Cloud Foundry EnvironmentCreating Service Instances
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Creating Service Instances
+
+Use the SAP BTP cockpit or the Cloud Foundry Command Line Interface to create service instances:
+
+Create Service Instances Using the Cockpit
+
+Create Service Instances Using the Cloud Foundry Command Line Interface
+
+You can also create service instances by declaring them as part of your multitarget application (MTA). To learn how to do that, have a look at the service creation parameters.
+
+Service Instance Parameters

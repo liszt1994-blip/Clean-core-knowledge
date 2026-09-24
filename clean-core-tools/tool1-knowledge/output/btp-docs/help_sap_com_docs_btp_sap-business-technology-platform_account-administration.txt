@@ -1,0 +1,34 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/account-administration
+Title: Account Administration | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformAdministration and OperationsAccount Administration
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Account Administration
+
+Learn how to manage global accounts, directories, and subaccounts on SAP BTP using different tools.
+
+Account Administration in the Cockpit
+
+Account Administration Using the SAP BTP Command Line Interface (btp CLI)
+
+Account Administration Using Joule in the Cockpit
+
+Account Administration Using APIs
+
+Account Administration Using Infrastructure as Code
+
+Once your account model is set up, you can move on to managing the different environments you plan to use:
+
+Administration and Operations in the Cloud Foundry Environment
+
+Administration and Operations in the ABAP Environment
+
+Administration and Operations in the Kyma Environment
+
+Related Information
+Account Model
+Entitlements and Quotas
+User and Member Management
+Environments

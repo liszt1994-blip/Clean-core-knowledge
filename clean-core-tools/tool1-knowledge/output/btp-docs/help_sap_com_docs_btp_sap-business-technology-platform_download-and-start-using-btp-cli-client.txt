@@ -1,0 +1,35 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/download-and-start-using-btp-cli-client
+Title: Download and Start Using the btp CLI Client | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Account Administration Using the SAP BTP Command Line Interface (…Download and Start Using the btp CLI Client
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Download and Start Using the btp CLI Client
+
+To use the SAP BTP command line interface (btp CLI), you need to download the client first.
+
+Context
+
+Each client version is supported for at least one year. Most of the updates to the btp CLI don't require a new client installation, but are made available through the btp CLI server so that you can use them in your installed version of the client. Using the latest version of the client ensures that you don't miss out on any new features or security updates. If you already have the client installed, you can see which version you have by simply entering btp.
+
+To stay informed about features, client releases, as well as client deprecations and discontinuations, check out the What's New for SAP Business Technology Platform page on SAP Help Portal (filtered for SAP BTP Command Line Interface).
+
+The client is available for 64-bit versions of the following operating systems:
+
+Microsoft Windows (amd64)
+
+Apple macOS (amd64 and arm64)
+
+Linux (amd64 and arm64)
+
+There are various ways of downloading the client for each operating system, as explained below.
+
+Related Information
+How to Work with the btp CLI
+Command Syntax of the btp CLI
+Set a Target for Subsequent Commands with btp target
+btp CLI Command Reference
+Get the btp CLI Client for Microsoft Windows (amd64)
+Get the btp CLI Client for Apple macOS (amd64 and arm64)
+Get the btp CLI Client for Linux (amd64 and arm64)

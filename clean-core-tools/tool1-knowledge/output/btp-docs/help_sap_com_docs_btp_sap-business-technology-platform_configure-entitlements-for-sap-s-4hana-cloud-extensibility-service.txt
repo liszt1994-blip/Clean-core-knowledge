@@ -1,0 +1,41 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/configure-entitlements-for-sap-s-4hana-cloud-extensibility-service
+Title: Configure the Entitlements for the SAP S/4HANA Cloud Extensibility Service | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Extending SAP S/4HANA Cloud in the Cloud Foundry and Kyma Environ…Configure the Entitlements for the SAP S/4HANA Cloud Extensibilit…
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Configure the Entitlements for the SAP S/4HANA Cloud Extensibility Service
+
+Configure the required entitlements to make the APIs of the registered SAP S/4HANA Cloud system accessible in your subaccount in which your extension applications will reside.
+
+Prerequisites
+
+You are an administrator of the global account in SAP BTP.
+
+The subaccount is in the SAP BTP, Cloud Foundry environment with enabled Cloud Foundry, or Kyma, or both capabilities.
+
+You have registered an SAP S/4HANA Cloud system. See Register an SAP S/4HANA Cloud System in a Global Account in SAP BTP.
+
+Context
+
+An entitlement is your right to provision and consume a resource. In other words, the entitlement is the respective service plan, api-access or messaging, that you're entitled to use.
+
+Procedure
+In the SAP BTP cockpit, navigate to your global account.
+In the navigation area, choose Entitlements  Entity Assignments.
+On the Entity Assignments screen, select your subaccount in the Subaccounts/Directories field.
+Choose Edit, and then choose Add Service Plans.
+Select the SAP S/4HANA Cloud Extensibility service.
+Note
+
+To have the SAP S/4HANA Cloud Extensibility service in the list, you need to have registered at least one SAP S/4HANA Cloud system.
+
+In the Service Details area, select the system you have registered. In the Available Plans area, select the required service plans, and then choose Add Service Plan.
+Note
+
+For more information about the available service plans for SAP S/4HANA Cloud Extensibility service, see Supported Service Plans for SAP S/4HANA Cloud.
+
+Choose Save.
+Related Information
+Configure Entitlements and Quotas for Subaccounts

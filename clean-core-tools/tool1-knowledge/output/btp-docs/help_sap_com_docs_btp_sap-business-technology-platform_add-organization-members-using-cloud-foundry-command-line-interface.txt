@@ -1,0 +1,66 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/add-organization-members-using-cloud-foundry-command-line-interface
+Title: Add Organization Members Using the Cloud Foundry Command Line Interface | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Org Administration Using the Cloud Foundry CLIAdd Organization Members Using the Cloud Foundry Command Line Int…
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Add Organization Members Using the Cloud Foundry Command Line Interface
+
+You can use the Cloud Foundry Command Line Interface (cf CLI) to add organization members and assign roles to them.
+
+Prerequisites
+
+The Cloud Foundry environment is enabled.
+
+Enable it in the SAP BTP cockpit. For more information, see Create a Subaccount.
+
+The Org Manager role for the org in question.
+
+Note
+
+You automatically have the Org Manager role in an org that you created.
+
+The user exists in the UAA.
+
+All users are stored in identity providers, either in the default or in a custom identity provider. Cloud Foundry needs a copy of the user, sometimes called a shadow user. To create the shadow user, choose one of the following options:
+
+The user has been added from the cockpit.
+
+For more information, see Add Org Members.
+
+The user has already logged on to the Cloud Foundry environment.
+
+For example: cf login -a https://api.cf.eu20.hana.ondemand.com
+Note
+
+The landscape the user logs on to must be the same as the landscape where the subaccount is located. See the overview page of your subaccount for the API endpoint.
+
+You have the e-mail addresses of the members that you want to add.
+
+The user must already exist in the connected identity provider. For more information, see Trust and Federation with Identity Providers.
+
+Download and install the cf CLI and log on to Cloud Foundry. For more information, see Download and Install the Cloud Foundry Command Line Interface and Log On to the Cloud Foundry Environment Using the Cloud Foundry Command Line Interface.
+
+Context
+
+This task is meant for the OrgManager and OrgAuditor roles. To add members with the OrgUser role, follow the procedure described in Add Space Members Using the Cloud Foundry Command Line Interface.
+
+Procedure
+Enter the following command, specifying the user name, the name of the organization, and the role:
+
+
+cf set-org-role <USERNAME> <ORG> <ROLE>
+
+
+cf set-org-role julie.armstrong@example.com account_subaccount-47v2w8dj OrgAuditor
+
+Next Steps
+To remove an org role from a user, enter the following string, specifying the user name, the name of the organization, and the role:
+
+
+cf unset-org-role <USERNAME> <ORG> <ROLE> 
+Related Information
+Supported Tools and Services When Using Custom Identity Providers for Platform Users
+About Roles in the Cloud Foundry Environment
+Managing Org Members Using the Cockpit

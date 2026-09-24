@@ -1,0 +1,58 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/log-on-manually-with-custom-identity-provider
+Title: Log On Manually With a Custom Identity Provider | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Log On with a Custom Identity Provider to the Cloud Foundry Envir…Log On Manually With a Custom Identity Provider
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Log On Manually With a Custom Identity Provider
+
+To log on to Cloud Foundry, using a custom identity provider, use the single sign-on option of the CF CLI.
+
+Prerequisites
+
+You've configured the login screen to display your custom identity provider.
+
+For more information, see Log on with a Browser to the Cloud Foundry CLI and Service Dashboards.
+
+You know the origin key of the identity provider.
+
+For more information, see Establish Trust and Federation of Custom Identity Providers for Platform Users.
+
+Context
+During logon, the system provides you with a URL to your custom identity provider for you to enter in a web browser. If you’re already logged on to your custom identity provider, the system provides a temporary authentication code to complete your logon. If you don't have an active session with your custom identity provider, you need to log on to receive the temporary authentication code.
+Procedure
+Open a command line.
+Set the target API endpoint to endpoint of your subaccount.
+
+
+cf api https://api.cf.<region>.hana.ondemand.com
+Sample Code
+
+
+cf api https://api.cf.eu10.hana.ondemand.com
+Log on to the Cloud Foundry environment with single sign-on:
+
+
+cf login --sso
+
+The command-line interface displays a login URL and prompts you to enter a temporary authentication code.
+
+Open the URL that is provided on the screen to go to the logon screen.
+
+If this is the first time you're logging on or your browser cache has been cleaned of cookies, you're prompted to provide the origin key of your custom identity provider or choose the default identity provider.
+
+Otherwise, the sign-in page lists your accounts on custom identity providers with which you previously logged on.
+
+Choose the account of your identity provider.
+
+If you don't have an active session yet, you’re prompted to log on to your identity provider.
+
+After you’ve successfully logged on, you receive a temporary authentication code.
+
+Enter the passcode.
+
+You’ve logged on successfully. You can now choose your org.
+
+Related Information
+Log on with a Browser to the Cloud Foundry CLI and Service Dashboards

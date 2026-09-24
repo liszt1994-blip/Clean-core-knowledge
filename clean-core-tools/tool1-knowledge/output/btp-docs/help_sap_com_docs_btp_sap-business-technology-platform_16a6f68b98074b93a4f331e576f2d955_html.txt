@@ -1,0 +1,28 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/16a6f68b98074b93a4f331e576f2d955.html
+Title: Standard Plan for Cloud Foundry Runtime (Consumption-Based) | SAP Help Portal
+
+HomeSAP BTP, Cloud Foundry RuntimeSAP BTP, Cloud Foundry Runtime…Standard Plan for Cloud Foundry RuntimeStandard Plan for Cloud Foundry Runtime (Consumption-Based)
+SAP BTP, Cloud Foundry RuntimeEnglish
+Provide feedback on our search
+
+Standard Plan for Cloud Foundry Runtime (Consumption-Based)
+
+Learn how to set up the standard plan for SAP BTP, Cloud Foundry runtime in the consumption-based commercial model.
+
+Overview
+Setting up the standard plan for SAP BTP, Cloud Foundry runtime in the consumption-based model involves one mandatory task and one optional task:
+
+Mandatory: A subaccount administrator enables the Cloud Foundry environment with the standard plan, creating a Cloud Foundry org. For more information about the procedure, see Enabling Standard Plan for Cloud Foundry Runtime (Consumption-Based).
+
+Caution
+
+In the consumption-based commercial model, a default runtime memory quota of 200 GB that can be used with the plan standard is automatically assigned to every subaccount. This doesn't mean that you can use the runtime memory for free, as you're going to be billed based on the actual usage. In the consumption-based commercial model, the quota represents a limit on how much runtime memory all the applications in the Cloud Foundry org can use at any given time.
+
+A global account administrator can change the default quota as described in (optional) Adjusting Runtime Memory Quota for Cloud Foundry Runtime (Consumption-Based).
+
+Optional: A global account administrator can change the default runtime memory quota of 200 GB using the service Cloud Foundry Runtime (APPLICATION_RUNTIME) and its service plan MEMORY. For more information about the procedure, see (optional) Adjusting Runtime Memory Quota for Cloud Foundry Runtime (Consumption-Based).
+
+These tasks are independent of one another and can be done in any order.
+
+Related Information
+What Is the Consumption-Based Commercial Model?

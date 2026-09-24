@@ -1,0 +1,2305 @@
+=== BTP Documentation: abap-environment ===
+
+URL: https://help.sap.com/docs/btp/btp-admin-guide/11d62652aa2b4600a0fa136de0789648.html
+Title: ABAP Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformBasic Platform ConceptsEnvironmentsABAP Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+ABAP Environment
+
+The ABAP environment allows you to create extensions for ABAP-based products, such as SAP S/4HANA Cloud, and develop new cloud applications. You can transform existing ABAP-based custom code or extensions to the cloud.
+
+The ABAP environment is based on the latest ABAP platform cloud release that is also used for SAP S/4HANA Cloud. It leverages the innovations provided by SAP HANA. The software stack contains standard technology components that are familiar from the standalone Application Server ABAP. The ABAP environment supports the ABAP RESTful Application Programming Model including SAP Fiori and Core Data Services (CDS). SAP services and APIs are offered according to the new approach of released objects. The ABAP environment can be integrated with other SAP BTP services, such as SAP Destination service, SAP Build Work Zone, standard edition, SAP Build Process Automation, and SAP Interactive Forms by Adobe.
+
+Each ABAP system in the ABAP environment utilizes a dedicated SAP HANA database, which is provided by the SAP HANA Cloud service and managed by the ABAP environment. The database is linked 1:1 to the ABAP system.
+
+For information about regional availability, see Regions and API Endpoints for the ABAP Environment.
+
+Related Information
+Getting Started in the ABAP Environment
+Development in the ABAP Environment
+Administration and Operations in the ABAP Environment
+Using Free Service Plans
+Discovery Center
+SAP Community
+SAP Road Map Explorer
+Learning Journey
+Tutorials
+
+---
+
+URL: https://help.sap.com/docs/btp/btp-admin-guide/5c7b17d68bb7427d93ff2086f01b2a55.html
+Title: ABAP Lifecycle Management | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformDevelopmentDevelopment in the ABAP EnvironmentABAP Lifecycle Management
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+ABAP Lifecycle Management
+
+This chapter helps you to plan and set up your landscape and lifecycle management by describing how software components can be used and which possibilities you have for transportation of development objects and business configuration.
+
+---
+
+URL: https://help.sap.com/docs/btp/btp-developers-guide/abap-cloud
+Title: Developing with ABAP Cloud in the SAP BTP ABAP Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP Developer's GuideDeveloping with ABAP Cloud in the SAP BTP ABAP Environment
+SAP BTP Developer's GuideEnglish
+Provide feedback on our search
+
+Developing with ABAP Cloud in the SAP BTP ABAP Environment
+
+Overview
+
+ABAP Cloud is SAP’s cloud-ready development model, used in the SAP BTP ABAP environment to build upgrade-stable extensions, services, and applications using released APIs and a restricted, cloud-safe ABAP language version. These are the main elements of the SAP BTP ABAP environment:
+
+Core Data Services (CDS) for data modeling and embedded analytics
+
+ABAP RESTful Application Programming Model (RAP) for service-based applications
+
+Cloud-ready ABAP language version (restricted to released statements and APIs)
+
+Released public SAP APIs and extension points for upgrade-stable extensibility and automation
+
+ABAP Development Tools for Eclipse as the development environment
+
+Reuse services and libraries, including number ranges, application jobs, the ABAP-integrated SAP Fiori launchpad, and a UI repository for SAPUI5 and SAP Fiori elements UIs
+
+Extensibility Options
+
+These are the extensibility options on SAP BTP:
+
+Low-Code / No-Code: SAP Build Apps, SAP Process Automation, SAP Build Work Zone
+
+Pro-Code: SAP Build Code (CAP for JavaScript/TypeScript) and SAP BTP ABAP Environment (ABAP Cloud development)
+
+SAP BTP Developer's Guide focuses on the pro-code option on SAP BTP for building robust, cloud-ready extensions using ABAP Cloud. See Develop.
+
+Integration in SAP Build
+
+With SAP BTP ABAP environment integrated into SAP Build, you as a developer can create, access, and monitor ABAP Cloud projects directly from the SAP Build lobby, alongside low-code and CAP projects. This integration fosters fusion development, bridging ABAP and non-ABAP worlds and allows seamless collaboration across technologies within a single extensibility suite.
+
+The SAP BTP ABAP environment brings the general advantages of the side-by-side approach:
+
+Independent lifecycle and workload management
+
+Separate user management and authorizations
+
+Integration across multiple backend systems
+
+Partner options to offer multitenant SaaS solutions or add-on product
+
+Related Information
+Strengths and Benefits of the Runtimes and Their Programming Models
+Design
+Develop
+Deploy
+Build and Run ABAP Applications for Partners Who Are Independent Software Vendors
+Tutorials for ABAP Cloud
+
+---
+
+URL: https://help.sap.com/docs/btp/btp-developers-guide/build-and-run-application-for-partners-who-are-independent-software-vendors
+Title: Build and Run ABAP Applications for Partners Who Are Independent Software Vendors | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP Developer's GuideDeveloping with ABAP Cloud in the SAP BTP ABAP EnvironmentBuild and Run ABAP Applications for Partners Who Are Independent …
+SAP BTP Developer's GuideEnglish
+Provide feedback on our search
+
+Build and Run ABAP Applications for Partners Who Are Independent Software Vendors
+
+Partner Deployment Options
+
+As a partner, you can choose between multitenant SaaS and add-on product options for deploying your application. See the dedicated section at SAP BTP ABAP Environment with ABAP Cloud.
+
+Landscape Portal for Partners
+
+The Landscape Portal is the central tool for partners to manage, deploy, and operate their solutions in SAP BTP ABAP environment. It supports both multitenant SaaS applications and add-on deployment options and provides all the necessary features for lifecycle management and product delivery.
+
+Key functions and considerations:
+
+Product building and deployment:
+
+To offer a solution in another global account in SAP BTP, whether it’s a different account you own (for example, DEV vs. PROD) or a customer account—a Product must be built using the Landscape Portal.
+
+The Product serves as the deployment unit and allows controlled installation and lifecycle management.
+
+Familiarity with the Landscape Portal features is essential for managing all deployment steps, including smaller intermediate steps that may be required for registration, building, and publishing.
+
+Lifecycle management:
+
+abapGit is only recommended for importing development objects from on-premise systems to BTP or for backup purposes. It is not supported for transporting objects between BTP systems.
+
+For system-to-system transports within BTP (for example, DEV → TEST), use the Manage Software Components app, which relies on gCTS.
+
+Lifecycle management and tenant strategy (multitenant vs. single tenant) are independent decisions that must be defined separately.
+
+Technical requirements and dependencies:
+
+At least one Software Component is required as a deployment unit for any solution.
+
+A registered ABAP namespace is mandatory for all objects in a Product; using Y* or Z* objects is only allowed if the solution remains within the same global account in SAP BTP and only the Manage Software Components app is used.
+
+Multiple global accounts in SAP BTP require building an add-on product to ensure proper deployment.
+
+By consolidating all partner-related operations in the Landscape Portal, partners can efficiently manage solution delivery, maintain lifecycle governance, and ensure smooth deployment across multiple accounts and tenants.
+
+Related Information
+SAP BTP ABAP Environment with ABAP Cloud
+Partner Reference Application 'Music Festival Manager'
+SAP Community: Building Partner Products on SAP BTP ABAP Environment
+
+---
+
+URL: https://help.sap.com/docs/btp/btp-developers-guide/deploy-abap
+Title: Deploy | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP Developer's GuideDeveloping with ABAP Cloud in the SAP BTP ABAP EnvironmentDeploy
+SAP BTP Developer's GuideEnglish
+Provide feedback on our search
+
+Deploy
+
+After you have developed your application or service and have written the necessary tests, it's time to deploy and transport them to SAP BTP ABAP environment using proven ABAP lifecycle management. CI/CD, git integration, and a dedicated transport environment for key users on the SAP Fiori launchpad are supported out of the box.
+
+Common Setup
+
+The basic deployment unit is the software component, managed via the Manage Software Components administration application. Each software component has an automatically managed git repository via gCTS for transport management. You can import software components into test and production systems.
+
+This common setup is sufficient for customers operating their own applications.
+
+For more information, see:
+
+Software Components
+
+Manage Software Components
+
+Additional Considerations for Partners
+
+Partners can offer and deploy their solutions in two different ways within the SAP BTP ABAP environment:
+
+Multitenant SaaS solution
+
+You offer your solution as a cloud service operated in your own global accout in SAP BTP
+
+Each customer subscribes to your service
+
+You are responsible for development, operations, monitoring, and infrastructure costs
+
+Customers can adapt the solution using key-user extensibility (tenant-aware adaptations such as custom fields and logic)
+
+Add-on product
+
+You offer your solution as an add-on product
+
+Your customers must have their own instance of the SAP BTP ABAP environment
+
+The installation and lifecycle management (upgrades, patches) are in the customer’s responsibility
+
+The installation is performed by the customer via the Landscape Portal, which is part of the SAP BTP ABAP environment
+
+Customers can enhance and extend your product using ABAP Development Tools (ADT) and developer extensibility
+
+For both delivery models, partners build their solutions based on software components and manage them through the Landscape Portal. The Landscape Portal provides a unified environment to:
+
+Build, register, and publish partner products,
+
+Manage software lifecycles such as installation, upgrades, and patches, and
+
+Support the setup of multitenant SaaS solutions or add-on products for customers and other partners.
+
+For more information about managing partner solutions, see Landscape Portal.
+
+Related Information
+ABAP Cloud: Background Concepts and Overview: Deploy
+
+---
+
+URL: https://help.sap.com/docs/btp/btp-developers-guide/design-abap
+Title: Design | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP Developer's GuideDeveloping with ABAP Cloud in the SAP BTP ABAP EnvironmentDesign
+SAP BTP Developer's GuideEnglish
+Provide feedback on our search
+
+Design
+
+In ABAP you decide and prepare during the design phase for each ABAP Cloud use case: transactional, analytical, and integration. ABAP Cloud follows a model-driven architecture that standardizes the programming model and tooling to deliver efficiency, scalability, and consistency from the database layer to business service exposure.
+
+ABAP Cloud Design Principles
+
+ABAP Cloud builds on the strengths of powerful frameworks and a standardized architecture for different use cases, aiming at saving as much implementation time as possible while providing you with flexibility - you can model your business processes with apps and services based on your business requirements along predefined technical processes. As much as possible is handled by the frameworks to decrease the probability of consistency errors during runtime. This standardized and consistent architecture across all apps and services developed with ABAP Cloud has many advantages from development perspective:
+
+Model-driven and standardized: A common architecture and powerful frameworks cover routine technical tasks, reducing boilerplate and runtime inconsistencies while giving you flexibility to shape business processes.
+
+Productivity and scale: Once you learn the ABAP Cloud development model, patterns and artifacts are reused across apps and services, decreasing effort for every additional implementation.
+
+Maintainability and testability: Consistent structure improves code quality. Built-in mock frameworks for data models and events support automated tests and help prevent regressions at all test levels.
+
+High abstraction: Low‑level infrastructure concerns are handled by the frameworks. Cloud-optimized ABAP languages such as the Data Definition Language (DDL) and Entity Manipulation Language (EML) align closely with data modeling and the ABAP development process.
+
+Typical Development Use Case Patterns
+
+We recommend implementing the following use case patterns on SAP BTP:
+
+Customer-focused applications and extensions (loosely coupled)
+
+Decoupled lifecycle from the core system
+
+Separate user groups without SAP S/4HANA Cloud access
+
+Independent workload management
+
+Hub scenarios consolidating data from multiple backend systems for cloud use
+
+Partner solutions
+
+Create and operate multitenant SaaS applications on SAP BTP
+
+Develop Add-On Products that customers can install directly in their own SAP BTP ABAP environment
+
+Other use cases
+
+Develop mobile applications or business process automation that connect multiple systems
+
+Build extensions requiring scalability and elasticity independent of the SAP S/4HANA Cloud system
+
+Analyze ABAP code using the ABAP Test Cockpit (ATC) with integrated SAP Code Vulnerability Analyzer (CVA) checks for static quality assurance and to evaluate the impact of custom code during the transition to a clean core
+
+Benefits of the Model-Driven Approach
+
+A standardized architecture approach has the following benefits:
+
+Faster delivery and easier reuse
+
+A standardized stack scales across many apps and services. Clear separation of concerns between data model behavior and service exposure makes the same domain model usable for transactional and analytical scenarios.
+
+Interoperability by design
+
+Implementations follow the same technical rules, contracts, and process flows. You can design end-to-end processes without reinventing authorization, locking, or consistency mechanisms for each step.
+
+Basic Design-Time Architecture
+
+Get to know the basics of the design-time architecture:
+
+Three-tier structure
+
+All programming aspects build on a three-tier architecture covering data access, domain model and implementation, and service exposure. This design is derived from the transactional aspect and applied consistently across use cases.
+
+Multipurpose Core Data Service (CDS) models
+
+The same CDS-based domain model can serve multiple purposes. With aspect‑specific annotations, you can expose the model as both an OData service (transactional) and an Information Access (InA) service (analytical).
+
+Related Information
+ABAP Cloud: Background Concepts and Overview: Design
+
+---
+
+URL: https://help.sap.com/docs/btp/btp-developers-guide/develop-abap
+Title: Develop | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP Developer's GuideDeveloping with ABAP Cloud in the SAP BTP ABAP EnvironmentDevelop
+SAP BTP Developer's GuideEnglish
+Provide feedback on our search
+
+Develop
+
+There are certain requirements and key considerations for the develop phase across the main programming model aspects you have to take into account: building new applications and services, integrating with external systems, extending existing solutions, localizing content, and documenting outcomes.
+
+Develop Applications, Extensions and Services with ABAP Cloud
+
+You can build new applications and services from scratch or extend existing SAP or custom services in an upgrade-safe way. To create a new application or service, implement the domain-specific model and business logic that fit your selected use case. Domain-specific data models based on the RAP architecture blueprint bring extensibility as a built-in quality. Extensibility follows an opt-in approach: the original data model or service must explicitly enable each extensibility option.
+
+Develop an Application from Scratch
+
+Once you select the use case, transactional, analytical, or integration, implement the domain model and logic step by step:
+
+Model the domain: Define the domain-specific data model and its relationships. Align with the RAP architecture blueprint to enable upgrade-safe extensibility and consistent semantics.
+
+Implement business behavior: Add the domain-specific logic for validations, determinations, actions, and consistency management according to your transactional or analytical use case.
+
+Expose services: Define and bind services to make your domain capabilities consumable (for example, via OData). Ensure the service contract reflects your use case and performance needs.
+
+Secure access: Configure authorization and access control for services and data. Assign the proper scopes and roles to restrict access according to business and compliance needs.
+
+Build the UI: Develop SAP Fiori applications that consume your services. Use metadata-driven annotations to rapidly produce UIs and support navigation, search, and value helps.
+
+Ensure quality: Add automated tests and static checks to maintain quality throughout development and delivery.
+
+Developing a Sustainable Test Strategy
+
+Automated software testing is essential to ensure reliability, stability, and quality. It helps detect defects early and prevents regressions, allowing you to add features with confidence that existing functionality remains intact.
+
+Test levels supported by ABAP Cloud: Unit tests, integration tests, and end-to-end validations to guarantee quality throughout the development process.
+
+Test-driven development (TDD): ABAP Cloud supports test-driven development, enabling you to validate functional correctness in all stages of development.
+
+Built-in capabilities: Use ABAP Unit to write executable tests for data models, behavior, and business events; use the ABAP Test Cockpit (ATC) to enforce coding standards and detect quality issues.
+
+Develop SAP S/4HANA Cloud Extension Applications
+
+When developing extensions for SAP S/4HANA Cloud, there are two fundamental extensibility options: on-stack and side-by-side.
+
+On-stack extensibility refers to extensions that run directly within the SAP S/4HANA Cloud system – sharing the same database, system, and lifecycle. In this area:
+
+Key-User Extensibility (Low-Code): Field extensions or simple custom logic created directly in SAP S/4HANA Cloud using ABAP Cloud and in-app tools.
+
+Developer Extensibility (Pro-Code): Custom development directly in SAP S/4HANA Cloud using ABAP Cloud, which is cloud-ready and clean core compliant by design – this is technically ensured by the ABAP Cloud development model. In on-premise and private cloud systems, classic ABAP can still be used, but it is not clean core by default and therefore not recommended for new extensions.
+
+Side-by-side extensibility uses SAP BTP where you deploy your extension applications. These extension applications run decoupled from the core system, with a separate runtime, lifecycle, and data center. This approach is ideal for:
+
+Loosely coupled customer extensions and applications
+
+Partner solutions, especially multitenant SaaS solutions or add-on product
+
+You usually choose side-by-side development when:
+
+Extensions need to be decoupled from the SAP S/4HANA Cloud lifecycle
+
+New or external user groups require access without touching the core system
+
+Independent workload and scalability are required
+
+Extensions integrate multiple backend systems, also called hub scenarios
+
+Partners aim to deliver multitenant SaaS or add-on product solutions
+
+On-stack extensions remain relevant for deeply integrated SAP S/4HANA Cloud scenarios.
+
+Recommendations
+
+We recommend that you:
+
+Connect your ABAP Cloud system to Eclipse with ABAP Development Tools (ADT).
+
+Build OData services using RAP optimized for SAP HANA Cloud.
+
+Perform static code analysis with ABAP Test Cloud, including Code Vulnerability Analyzer (CVA) security checks, without additional licensing fees.
+
+Use central ABAP Test Cloud on SAP BTP to govern custom code across side-by-side developments, private cloud, and on-premise systems.
+
+Leverage the Analyze Custom Code application for side-by-side code inspection, custom code migration, or clean core initiatives.
+
+Related Information
+ABAP Cloud: Background Concepts and Overview: Develop
+ABAP Cloud: Background Concepts and Overview: Test
+
+---
+
+URL: https://help.sap.com/docs/btp/btp-developers-guide/sap-btp-abap-environment-with-abap-cloud
+Title: SAP BTP ABAP Environment with ABAP Cloud | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP Developer's GuideStrengths and Benefits of the Runtimes and Their Programming Mode…SAP BTP ABAP Environment with ABAP Cloud
+SAP BTP Developer's GuideEnglish
+Provide feedback on our search
+
+SAP BTP ABAP Environment with ABAP Cloud
+
+SAP BTP ABAP environment is a modern cloud offering for side-by-side extensions that uses the ABAP Cloud development model for cloud-ready extensions.
+
+Aligned Development Model
+
+The ABAP Cloud development model is used both in SAP BTP ABAP environment and natively within SAP S/4HANA. This enables a consistent development experience across side-by-side and on-stack extensions, allowing you to use the same tools, patterns, and lifecycle processes.
+
+See ABAP Cloud Development Model.
+
+Reuse of Existing ABAP Code
+
+Existing ABAP logic from legacy or on-premise systems can be adapted and reused in the SAP BTP ABAP environment using tools such as the Custom Code Migration App and the ABAP Test Cockpit (ATC). This reduces redevelopment effort and accelerates cloud adoption.
+
+The Custom Code Migration App analyzes legacy code, identifies non-compliant elements such as unreleased APIs or obsolete statements, and helps prioritize necessary adaptations. See Custom Code Analysis.
+
+The ABAP Test Cockpit validates the refactored code against ABAP Cloud rules to ensure code quality. See ABAP Test Cockpit.
+
+Typical use cases include migrating stable custom logic, refactoring extensions to released APIs, and reusing business logic while modernizing UIs or integrations. See ABAP Integration and Connectivity.
+
+Seamless SAP S/4HANA Cloud Integration
+
+SAP BTP ABAP Environment follows the same identity, access, and connectivity concepts as SAP S/4HANA Cloud, including SAP Identity Authentication Service, OData, and RFC. This ensures seamless interoperability and simplifies user, role, and permission management across systems.
+
+ABAP Cloud provides a unified integration approach: connections are configured the same way regardless of the target system (SAP BTP services, SAP S/4HANA Cloud, or approved external APIs). Using the service consumption model, ABAP automatically generates client code and data structures from service definitions, allowing developers to focus on core business logic.
+
+The environment also includes numerous pre-built communication scenarios—connectors to SAP BTP services and SAP S/4HANA Cloud APIs—to accelerate setup and follow cloud-compliant integration practices.
+
+See Integrating the ABAP Environment with SAP S/4HANA Cloud.
+
+Partner Deployment Options
+Mutitenancy
+
+Multitenancy in the ABAP environment enables application providers to develop and operate ABAP solutions in a software-as-a-service (SaaS) model on SAP BTP. Multiple consumers can be provisioned within the same ABAP system. The application provider is responsible for operating the solution and covering the required SAP BTP resources, while consumers use the software-as-a-service.
+
+See Multitenancy in the ABAP Environment.
+
+Add-On Product as an On-Stack Option
+
+An add-on product is a newly available software delivery option that allows partners to provide their solution as a software offering rather than a service. It is installed and operated directly in the customer’s own SAP BTP ABAP environment, giving the customer full control over lifecycle management, operations, and data governance. This option is particularly suited for scenarios where customers want to run the solution in their own environment or need to perform comprehensive enhancements using both developer extensibility and key user extensibility. The add-on product is made available to customers through the SAP Store, and partners must have a valid SAP PartnerEdge, Build contract to deliver their solution as an add-on product.
+
+Customers using SAP BTP ABAP environment can browse for available add-on products in the SAP Store, register for the solution, and deploy it directly into their system using the Landscape Portal.
+
+Both multitenant SaaS and add-on products options are fully supported and can be selected based on the customer’s and partner’s specific needs.
+
+Tool Support for Partners via Landscape Portal
+
+The Landscape Portal acts as the central cockpit for partners to manage ABAP systems, tenants, and SaaS and add-on product operations. It offers system overviews, product and version lifecycle management, deployment pipelines, and monitoring functions. The portal also supports multitenant SaaS scenarios, enabling efficient administration across landscapes.
+
+The Landscape Portal provides integrated tooling for partners to build, test, and deploy their products, making it a key enabler for delivering both SaaS and add-on products offerings.
+
+See Landscape Portal.
+
+Reuse Services
+
+In ABAP, reuse services are standard, cross-application building blocks you can call (via function modules, classes, or frameworks) instead of reinventing common functionality. Common services like application jobs, logging, forms, emails, change documents, and workflow are provided out of the box, enabling rapid development and standardization.
+
+These services are designed to be reused across applications, ensuring consistency, reliability, and reduced development effort.
+
+See Released Components and Objects and Understanding Available Technology.
+
+Stability Checks Before the Upgrade
+
+The SAP BTP ABAP environment provides a pre-upgrade option that enables customers and partners to verify the stability of their custom applications up to four weeks before the standard release upgrade. This helps detect potential regressions and ensures compatibility in a controlled environment.
+
+The pre-upgrade option is executed on nominated non-production systems during a planned downtime. It mirrors the standard upgrade process, including hotfixes. To use this option, the relevant systems must be registered in the Landscape Portal.
+
+See Landscape Portal.
+
+SAP Fiori Launchpad Integration
+
+The SAP Fiori launchpad is fully integrated with SAP BTP ABAP Environment, enabling you to run and expose UI applications without deploying a separate front-end server. Users can launch applications directly from the same system that hosts your ABAP code, providing a single, consistent entry point.
+
+The launchpad offers role-based access, navigation, and personalization features, allowing users to organize applications according to their workflow. Predefined groups and catalogs help structure applications, while deep linking and parameterized launches ensure smooth navigation across multiple applications.
+
+This integration simplifies development and deployment, reduces operational complexity, and provides a seamless user experience across the ABAP environment.
+
+See SAP Fiori Launchpad for SAP BTP ABAP Environment.
+
+Code Quality and Security Compliance
+
+High-quality ABAP Cloud code is ensured using ABAP Unit for dynamic tests and ABAP Test Cockpit (ATC) for static analysis.
+
+ABAP Unit allows developers to write automated tests to verify functional correctness and prevent regressions. Test coverage should be measured before releasing transports, with high coverage helping to identify issues and improve robustness.
+
+ABAP Test Cockpit checks code for syntax, performance, standards adherence, and ABAP Unit results. The default check variant ABAP_CLOUD_DEVELOPMENT_DEFAULT includes recommended checks for ABAP Cloud and executes unit tests. Variants can be customized, and ABAP Test Cockpit can be run manually or scheduled.
+
+ABAP Test Cockpit integrates with transports, blocking release for high-priority findings. Exemptions can be requested for planned corrections or false positives.
+
+The ABAP Test Cockpit Configurator app allows setting default variants, adjusting priorities, and defining handling of pseudo comments or pragmas.
+
+See Tips and Tricks (ABAP Core) and Assuring Quality of ABAP Code.
+
+Integrated Technical Monitoring Tools
+
+The SAP BTP ABAP environment offers advanced monitoring capabilities to track system and application health, performance, and resource usage. It integrates seamlessly with CI/CD pipelines, enabling automated deployment, quality checks, and proactive issue detection. This ensures smooth operations and supports both developers and administrators in maintaining reliable applications.
+
+See https://help.sap.com/docs/sap-btp-abap-environment/abap-environment/technical-monitoring.
+
+Security
+
+Security in SAP BTP ABAP environment is natively aligned with SAP roles, authentication mechanisms, and governance models. Built-in controls and standards support secure development and operations, protecting applications and data while simplifying user and role management.
+
+See ABAP Development Tools for Eclipse: Security Guide.
+
+Analytics and Core Data Services Support
+
+SAP BTP ABAP environment leverages Core Data Services (CDS) to enable semantic data modeling and advanced analytics. As a developer, you can create high-performance analytical applications directly within the ABAP environment, using CDS views, annotations, and built-in analytical features without leaving the platform.
+
+See Integrating SAP Analytics Cloud.
+
+Full Transport and Lifecycle Management
+
+In the SAP BTP ABAP environment, ABAP code can be transported and versioned using gCTS and abapGit:
+
+gCTS is the modern, recommended mechanism for moving objects between ABAP systems within a global account and runs under the hood of the Manage Software Components application.
+
+abapGit is an open-source Git client, supports use cases such as migrating on-premise code to the cloud, transferring code between cloud systems or to on-premise, exporting code when a system is decommissioned, and enabling distributed development or testing scenarios.
+
+Both tools help maintain code quality, track changes, and support collaborative development across ABAP landscapes.
+
+See Transport Mechanisms.
+
+---
+
+URL: https://help.sap.com/docs/btp/btp-developers-guide/tutorials-for-abap-cloud
+Title: Tutorials for ABAP Cloud | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP Developer's GuideDeveloping with ABAP Cloud in the SAP BTP ABAP EnvironmentTutorials for ABAP Cloud
+SAP BTP Developer's GuideEnglish
+Provide feedback on our search
+
+Tutorials for ABAP Cloud
+
+The ABAP Cloud best practices are documented in the form of step-by-step tutorials for learning how to develop and deploy full-stack transactional and analytical applications using the ABAP RESTful Application Programming Model (RAP) and embedded analytics.
+
+The exercises are based on the Travel sample application of the Flight Reference Scenario that is the best practice example for developing, deploying, and operating a full-stack application using ABAP RESTful Application Programming Model (RAP) and SAP Fiori.
+
+You can also go through the Develop a Full-Stack RAP Application Following the SAP BTP Developer’s Guide that is based on the Travel sample application. This mission has three main parts. The first part contains the RAP100 basics, for building an SAP Fiori application with RAP. The second part is for creating, developing, and integrating an SAP Fiori application. The third part builds on top of RAP100 basics and contains the intermediate tutorials, with additions such as dynamic feature control and ABAP unit tests.
+
+There are additional learning resources and certifications you can use:
+
+SAP Learning Journey: Practicing Clean Core Extensibility for SAP S/4HANA Cloud
+
+SAP Learning Journey: Acquiring Core ABAP Skills
+
+SAP Certification: SAP Certified Associate - Back-End Developer - ABAP Cloud
+
+Analytical Scenario
+
+The analytical scenario shows the end-to-end development of an analytical application. It consists of a business service exposing an analytical query and a report built with SAP Analytics Cloud. The analytical report can be used to analyze complex situations and freely interact with large amounts of data in real time.
+
+The analytical scenario is provided in the form of tutorials with beginner and intermediate experience levels:
+
+Beginner: Develop and Consume Queries on SAP Analytics Cloud
+
+Intermediate: Develop Queries Based on Booking Supplement and Consume on SAP Analytics Cloud
+
+Transactional Scenario
+
+The transactional scenario shows the end-to-end development of a transactional SAP Fiori elements list report application. It consists of an OData-based business service built with RAP and an SAP Fiori elements-based UI. It also shows the deployment of the SAP Fiori application in the ABAP environment and its integration in the local SAP Fiori launchpad for SAP BTP ABAP environment.
+
+You will develop a simple, transactional list report application, the Travel Processing application, that is used by a department responsible for processing worldwide travel for multiple agencies.
+
+The transactional scenario built with RAP is provided as a tutorial mission, which is divided into three tutorial groups with beginner and intermediate experience levels.
+
+The following beginner tutorial groups are available for the transactional scenario:
+
+Build an SAP Fiori App Using the ABAP RESTful Application Programming Model (RAP) – Basics [RAP100]
+
+Get to Know the ABAP RESTful Application Programming Model
+
+Create Database Table and Generate UI Service
+
+Enhance the Business Object Data Model and Enable OData Streams
+
+Enhance the Business Object Behavior with Unmanaged Internal Numbering
+
+Enhance the Business Object Behavior with Determinations
+
+Enhance the Business Object Behavior with Validations
+
+Create, Deploy and Integrate an SAP Fiori Elements App into SAP Fiori Launchpad for SAP BTP ABAP Environment [RAP100]
+
+Create and Deploy an SAP Fiori Elements App to SAP BTP, ABAP Environment
+
+Integrate an SAP Fiori Elements App into the SAP Fiori Launchpad for SAP BTP, ABAP Environment
+
+The advanced exercises of the transactional scenario are provided as a tutorial group. They are built on top of the exercises of the beginner tutorial groups.
+
+Build an SAP Fiori App Using the ABAP RESTful Application Programming Model (RAP) – Intermediate [RAP100]:
+
+Enhance the Business Object Behavior with Instance Actions
+
+Enhance the Business Object Behavior with Factory Action
+
+Enhance the Business Object Behavior with Dynamic Feature Control
+
+Write an ABAP Unit Test for the RAP Business Object
+
+AI Scenario
+
+The AI scenario includes the ABAP Cloud Generator and ABAP capabilities in SAP Joule for Developers, such as predictive code completion, unit test generation for ABAP Core Data Services (CDS) and ABAP code, and code explanation to speed up your development with ABAP Cloud
+
+See RAP120 - Build SAP Fiori Apps with ABAP Cloud and Joule for Developers.
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-abap-restful-application-programming-model/abap-restful-application-programming-model
+Title: ABAP RESTful Application Programming Model | SAP Help Portal
+
+HomeABAP CloudABAP RESTful Application Programming Model
+ABAP RESTful Application Programming ModelVersion: SAP BTP ABAP environmentEnglish
+Provide feedback on our search
+
+ABAP RESTful Application Programming Model
+
+The ABAP RESTful Application Programming Model (in short RAP) defines the architecture for efficient end-to-end development of intrinsically SAP HANA-optimized OData services (such as Fiori apps) in ABAP Cloud. RAP supports the development of all types of transactional Fiori applications as well as publishing Web APIs. It is based on technologies and frameworks such as Core Data Services (CDS) for defining semantically rich data models and a service model infrastructure for creating OData services with bindings to an OData protocol and ABAP-based application services for custom logic and SAPUI5-based user interfaces – as shown in the figure below.
+
+More information on how RAP relates to ABAP Cloud and on its role in the ABAP Cloud development model is available in the ABAP Cloud concepts guide.
+
+Architecture Overview
+
+For more information, refer to Learning About RAP.
+
+Classification of ABAP RESTful Application Programming Model within the Evolution of ABAP Programming Model
+
+This image is interactive. Hover over each area for a description. Click highlighted areas for more information.
+
+ For more information about the evolution of the ABAP programming model, read this blog on the community portal.
+
+RAP in Simple Terms
+
+The RESTful Application Programming model is part of ABAP Cloud. ABAP Cloud consists of different documentation sets for the different use cases. The following graphics give you an overview of all available guides for the different scenarios. To get more an overview of ABAP Cloud, see ABAP Cloud Development Model.
+
+This guide describes the ABAP RESTful application programming model (RAP) that you use to build transactional apps in ABAP Cloud. RAP deals with how data and the related business logic are modeled to implement transactional OData services for SAP Fiori apps or Web APIs.
+
+More Details about RAP
+ABAP Language Version
+
+The present documentation is based on ABAP for Cloud Development. All described features are applicable using the restricted set of language elements and repository objects that are released for cloud development. For cloud products, only the language version ABAP for Cloud Development is available. In classic ABAP development environments you can choose the ABAP language version. Developing RAP applications with ABAP for Cloud Development is recommended for all ABAP development environments as this is key for your developments to be upgrade-stable, cloud-ready, software-architecture-driven and thus future-proven.
+
+For more information about the ABAP language versions, see ABAP Language Versions (ABAP Keyword Documentation).
+
+Validity of Documentation
+
+The ABAP RESTful Application Programming Model guide is valid for the following products:
+
+SAP S/4HANA Cloud Public Edition
+
+SAP BTP ABAP environment
+
+Note
+
+To highlight the specifics for SAP BTP and SAP S/4HANA Cloud releases, the  icon is used.
+
+This documentation reflects the latest feature scope of ABAP development tools for Eclipse (ADT) that is shipped with the latest backend versions of the supported SAP products.
+
+Prerequisites
+
+To start developing with the ABAP RESTful Application Programming Model, make sure you meet the prerequisites. See Prerequisites.
+
+Constraints
+
+The current version of the ABAP RESTful Application Programming Model still has some constraints for certain features. For a detailed list, see Development Constraints.
+
+The ABAP RESTful Application Programming Model and ABAP Cloud
+
+The ABAP RESTful Application Programming Model (RAP) was designed to improve upon the ABAP Programming Model for SAP Fiori. RAP was designed to incorporate lessons learned from the previous model. RAP enhanced key architectural concepts that are now integral to ABAP Cloud, like separating the business logic implementation and protocol-specific parts. RAP allows you, for example, to expose the same RAP business object for OData V2 and OData V4. This means that the same implementation can be used for multiple business services, which increases efficiency and reusability. This became a best practice for other scenarios, including embedded analytics and integration services. The ABAP Cloud development model incorporated all best practices from RAP, starting with an architecture blueprint based on a model-driven approach.
+
+In ABAP Cloud, you develop transactional apps and services with RAP. For more information about the different use cases in ABAP Cloud, see Broad Use Case Coverage in the ABAP Cloud: Background Concepts and Overview.
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/abap-environment
+Title: ABAP Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformBasic Platform ConceptsEnvironmentsABAP Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+ABAP Environment
+
+The ABAP environment allows you to create extensions for ABAP-based products, such as SAP S/4HANA Cloud, and develop new cloud applications. You can transform existing ABAP-based custom code or extensions to the cloud.
+
+The ABAP environment is based on the latest ABAP platform cloud release that is also used for SAP S/4HANA Cloud. It leverages the innovations provided by SAP HANA. The software stack contains standard technology components that are familiar from the standalone Application Server ABAP. The ABAP environment supports the ABAP RESTful Application Programming Model including SAP Fiori and Core Data Services (CDS). SAP services and APIs are offered according to the new approach of released objects. The ABAP environment can be integrated with other SAP BTP services, such as SAP Destination service, SAP Build Work Zone, standard edition, SAP Build Process Automation, and SAP Interactive Forms by Adobe.
+
+Each ABAP system in the ABAP environment utilizes a dedicated SAP HANA database, which is provided by the SAP HANA Cloud service and managed by the ABAP environment. The database is linked 1:1 to the ABAP system.
+
+For information about regional availability, see Regions and API Endpoints for the ABAP Environment.
+
+Related Information
+Getting Started in the ABAP Environment
+Development in the ABAP Environment
+Administration and Operations in the ABAP Environment
+Using Free Service Plans
+Discovery Center
+SAP Community
+SAP Road Map Explorer
+Learning Journey
+Tutorials
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/abap-test-cockpit-configurator
+Title: Configure ABAP Test Cockpit | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…ABAP Test CockpitConfigure ABAP Test Cockpit
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Configure ABAP Test Cockpit
+
+SAP Fiori app for editing ATC configurations.
+
+Purpose
+The Configure ABAP Test Cockpit app enables you to maintain ATC configurations using SAP Fiori launchpad.
+Note
+
+The Configure ABAP Test Cockpit app enables you to maintain multiple configurations. Edits done in transactions ATC and SCI only affect the active configuration.
+
+Key Features
+
+Assign a check variant.
+
+Change priorities.
+
+Set priority levels that block or interrupt transport releases.
+
+Set a default configuration.
+
+Set handling of pseudo comments and pragmas.
+
+Access Information
+
+For more information about how to provide access to users and how to implement this app, see Enable Usage of the Configure ABAP Test Cockpit App.
+
+Component for Customer Incidents
+
+BC-DWB-TOO-ATF
+
+Supported Device Types
+
+Desktop
+
+Related Information
+Enable Usage of the Configure ABAP Test Cockpit App
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/abap-test-cockpit
+Title: ABAP Test Cockpit | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…SAP Fiori Apps in the ABAP EnvironmentABAP Test Cockpit
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+ABAP Test Cockpit
+
+Configure ABAP Test Cockpit
+
+SAP Fiori app for editing ATC configurations.
+Approve ATC Exemptions
+
+Manage API Snapshots
+
+Custom Code Analysis
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/administration-and-operations-in-abap-environment
+Title: Administration and Operations in the ABAP Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformAdministration and OperationsAdministration and Operations in the ABAP Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Administration and Operations in the ABAP Environment
+
+As an administrator in the ABAP environment, you have different tools and features available that support you in your daily work.
+
+Task Examples
+As an administrator in the ABAP environment, you focus on administration and operational tasks that aren't managed by SAP. Such tasks can include, for example:
+
+Account and organization management, including identity and access management for your users
+
+Monitoring of performance issues and exceptions in your own applications
+
+Such a monitoring includes response times of application-related communication endpoints, SQL statements issued by the application, application jobs, or ABAP runtime errors originating from custom code.
+
+System sizing, including a regular review of the overall resource utilization
+
+Such a system sizing can include a daily check of resource utilization peaks and a monthly check of resource utilization trends.
+
+Software lifecycle of custom applications (add-on updates or custom transports)
+
+Tenant management if you manage multi-tenant custom applications
+
+Monitoring of integrations with other cloud or on-premise based services
+
+Tools, Apps, and Functions: Overview
+
+Here's an overview of tools, apps, and functions that are available to you to perform administration and operations tasks, such as the following:
+
+Task	Tools, Apps, or Functions
+
+Managing accounts and organizations
+
+As an administrator in the ABAP environment, you can create additional accounts for users. In addition, you can manage orgs, spaces, and space quota plans to organize your subaccount into smaller units. You use the tools for account and org administration from the Cloud Foundry environment for this purpose.
+
+For more information, see the following:
+
+Account Administration in the Cockpit
+
+Org Administration Using the Cockpit
+
+Org Administration Using the Cloud Foundry CLI
+
+For more information about business roles in the ABAP environment, see Business Catalogs and Business Roles.
+
+Performing administration tasks, such as identity and access management, business configuration, communication management, and more
+
+In the Fiori launchpad, you can find apps that support you as an administrator or developer with various operational tasks. For more information, see SAP Fiori Apps in the ABAP Environment.
+
+Performing technical operations, such as monitoring the performance of your systems as well as the exhaustion of your purchased service volume
+
+You can use tools such as the technical monitoring cockpit, health monitoring, and more. There’s also guidance available for the most common tasks in technical operations and for system sizing. For more information, see Technical Operations.
+
+Operating communications when you integrate your system or solution with other systems to enable data exchange in your ABAP environment
+
+For more information, see Communication Operations.
+
+Performing lifecycle management operations and system administration tasks such as
+
+stopping currently unused systems and scheduling (regularly recurring) stop/starts for a system to save resource usage.
+
+restoring recently deleted tenants that are still in retention time.
+
+monitoring operations.
+
+TheLandscape Portal functions as a central tool for providers to perform lifecycle management operations and system admininistation tasks, seeManage System Hibernation,Restore Consumer Tenants, Operations Dashboard.
+
+Getting notifications about planned maintenance events and about unplanned service outages
+
+Register for the Cloud Availability Center. For more information, see the information about the Cloud Availability Center on SAP Support Portal.
+
+Operating cloud-centric SAP solution landscapes
+
+SAP Cloud ALM is the central entry point to operate cloud-centric SAP solution landscapes. You can use it for the following:
+
+Central monitoring of service level indicators (real user monitoring, job monitoring, exception monitoring)
+
+Central monitoring of key performance indicators for system and applications (health monitoring)
+
+Alert notifications (currently limited to SAP-defined metrics of the health monitoring framework)
+
+For more information about the available metrics for health monitoring, see Central Health Monitoring Using SAP Focused Run and SAP Cloud ALM.
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/application-jobs-2
+Title: Application Jobs | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…SAP Fiori Apps in the ABAP EnvironmentApplication Jobs
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Application Jobs
+
+Find out more about application jobs in SAP and how they can be helpful.
+
+Many business activities have to be run periodically. To avoid starting these activities manually each time, you can create application job templates and schedule them as application jobs in the Application Jobs app.
+
+An application job template can be scheduled as an application job. In the scheduling dialog, you as a business user can determine a periodic start condition (such as every first Monday of the month at 1:00), and you can set appropriate parameter values for the application job execution. The application job will then be run automatically without further manual interaction, whenever the start condition is fulfilled.
+
+SAP also offers the Application Job Templates app. In this app, you can create new templates by saving an existing template with new parameter values. You can also connect existing templates to multistep templates. Running a multistep template means running all steps sequentially.
+
+Application Jobs
+
+Application Job Templates
+
+Maintain Job Users
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/creating-abap-system
+Title: Creating an ABAP System | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…ABAP Environment: Initial SettingsCreating an ABAP System
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Creating an ABAP System
+
+Create a service instance for the ABAP environment from the Service Marketplace.
+
+Prerequisites
+
+You have increased the quota for the ABAP environment. See Increasing the Quota for the ABAP Environment.
+
+Context
+Note
+
+If you have run the booster Prepare an Account for ABAP Development, you can also skip this step.
+
+For more information about creating service instances, see Create Service Instances Using the Cockpit.
+
+Procedure
+
+Log on to the SAP BTP cockpit and navigate to the Cloud Foundry subaccount. See Navigate in the Cockpit .
+
+From the navigation area, choose Services  Service Marketplace.
+
+You see a list of all services that are available to you.
+
+Choose ABAP environment.
+
+Choose Create.
+
+A wizard opens that helps you create your instance.
+
+Tip
+
+To see a list of all instances that have already been created in your subaccount, choose Services  Instances and Subscriptions from the navigation area. Here, you can also create a new ABAP environment instance.
+
+Select the standard service plan.
+
+Choose Cloud Foundry as your runtime environment.
+
+Select a space.
+
+Enter a CLI-friendly instance name, and choose Next.
+
+The instance name identifies the service instance in the Cloud Foundry environment. Specify an instance name that is unique among all the service instances in a space and only contains alphanumeric characters (A-Z, a-z), periods, underscores, and hyphens.
+
+Provide additional instance parameters for the configuration by either using the default form or by uploading a JSON file from your computer or by specifying the parameters in JSON format. Here is a list of all parameters:
+
+Parameter (technical name in parenthesis)	Description	Available in Service Plans
+
+ABAP Runtime Size per Application Server
+
+(size_of_application_server)
+
+The ABAP Runtime Size per Application Server refers to the size of a single ABAP application server in an ABAP environment service instance. It's specified in ABAP compute units (ACUs), with one ACU representing 16 GB. This parameter doesn't consume additional abap_compute_unit quota. Instead, it determines the distribution of the quota defined via the total ABAP runtime size among the application servers. Possible values are 0.5, 2, or 'auto', which is the default.
+
+A higher value results in fewer, but larger, application servers. Conversely, a lower number results in more, but smaller, application servers for the same total ABAP runtime size. If 'auto' is chosen, then 0.5 ACU is assigned per application server if size_of_runtime is < 4 for systems without elastic scaling, or size_of_runtime < 8 for systems with elastic scaling. Otherwise, 2 ACUs are assigned per application server.
+
+Every ABAP environment instance has between 2 and 32 application servers of the same size each (except for instances with a single application server, see the note below). Therefore, the possible value for the ABAP runtime size per application server depends on the total ABAP runtime size. For instance, size_of_application_server = 2 can only be set if the size_of_runtime is at least 4 ACUs. On the other hand, size_of_application_server = 0.5 can only be set if the size_of_runtime isn't higher than 8 ACUs.
+
+To decide what value to choose, consider the following:
+
+Servers of size 0.5 ACUs allow more fine-granular scaling and are suitable for most use cases.
+
+Larger servers allow slightly more user sessions per ACU. This might be more efficient in systems with very high ACU consumption. They're also a precondition for some exceptional use cases, such as ATC checks for very large ABAP programs.
+
+For more information, see ABAP Compute Units.
+Caution
+
+Instances with a Total ABAP Runtime Size of 0.5 ACU always have only one application server with an ABAP Runtime Size per Application Server of 0.5 ACU. This is an exception to the standard setup in which every service instance runs with at least two application servers. While having instances with a total ABAP runtime size of 0.5 ACU lowers costs, it also increases the likelihood of short outages and shouldn't be used for production systems.
+
+standard
+
+build-runtime
+
+saas_oem
+
+ABAP System Description
+
+(description)
+
+The ABAP system description is optional.
+
+standard
+
+build-runtime
+
+saas_oem
+
+free
+
+ABAP System ID
+
+(sapsystemname)
+
+The ABAP system ID must consist of exactly three alphanumeric characters. Only uppercase letters are allowed. The first character must be a letter (not a digit). The ID does not have to be technically unique.
+
+standard
+
+build-runtime
+
+saas_oem
+
+free
+
+Admin Email Address
+
+(admin_email)
+
+The admin email address is used to create the initial user for the ABAP system automatically, including the assignment of the administrator role to this user. You can access the ABAP environment system only with this specified user. By default, the email address is used as subject name identifier.
+
+standard
+
+build-runtime
+
+saas_oem
+
+free
+
+Admin Employee ID
+
+(admin_employee_id)
+
+The admin employee ID is an optional parameter used to provide the employee ID for the initial user. You can either set it directly by using this parameter during instance creation or after instance creation in the Maintain Employees Fiori application of the ABAP environment service instance. Once set, it cannot be changed anymore. The employee ID must only contain uppercase letters, digits, underscores, hyphens and periods, and must not be longer than 60 characters.
+
+standard
+
+build-runtime
+
+saas_oem
+
+free
+
+Admin User Name
+
+(admin_user_name)
+
+The admin user name is an optional parameter used to provide the user name for the initial user. It must be provided if the login attribute is set to user_name (see below).
+
+standard
+
+build-runtime
+
+saas_oem
+
+Customer-Managed Keys
+
+(customer_managed_keys)
+
+The customer-managed keys parameter defines whether or not to integrate the ABAP environment instance and its SAP HANA Cloud database with the SAP Key Management Service (KMS). The enablement of this integration allows you to manage the encryption keys via SAP KMS.
+
+The integration with SAP KMS is established on the level of the SAP BTP subaccount where the ABAP environment instance is created.
+
+For more information, see Integration with SAP Key Management Service.
+
+Caution
+
+Once the integration is enabled, it can't be disabled anymore.
+
+standard
+
+build-runtime
+
+Development System
+
+(is_development_allowed)
+
+The development system checkbox is checked by default. By using this setting, you can control the changeability of development objects in the system. If you want to protect all your customer-related software components and ABAP namespaces against manual changes via ABAP development tools for Eclipse, uncheck the box. This setting is used for test and productive systems, where changes must be imported only. For information about which business catalogs are available in development systems only, see Business Catalogs for Development Tasks. This setting determines the automatic selection of the respective system upgrade approach by SAP. Non-development systems are automatically chosen for the downtime-optimized release upgrade and hotfix import procedures. Please refer to this blog post for further information: Downtime-Optimized Upgrades and Hotfix Collection Imports for Production.
+
+standard
+
+build-runtime
+
+saas_oem
+
+Elastic Scaling of the ABAP Application Server
+
+(elastic)
+
+The elastic scaling of the ABAP application server parameter defines whether or not to adapt the number of ABAP application servers dynamically, depending on the system load.
+
+By default, the checkbox is not checked (elastic = false), and the service instance will have a fixed number of ABAP application servers with a total ABAP runtime size as defined by the parameter Total ABAP Runtime Size (see above).
+
+If you enable elastic scaling by checking the checkbox (elastic = true), application servers will be automatically added to the service instance when the load increases and removed when the load decreases. More specifically, the number of application servers will scale between the number of ACUs (ABAP compute units) needed for two application servers as a minimum (1 ACU if size_of_application_server = 0.5 or 4 ACU if size_of_application_server = 2), and the number of ACUs configured in the Total ABAP Runtime Size parameter (see above) as a maximum.
+
+This feature considerably helps in cost-saving as charges are only levied based on the actually allocated ACUs, and not on the configured maximum. Still, to ensure that defined quotas are not exceeded, the maximum number of ACUs that is set in the Total ABAP Runtime Size parameter is allocated from the available ACU quota for the entire duration that the service instance is provisioned.
+
+The scaling typically occurs within a couple of minutes. Especially when a service instance is scaled down, there is a grace period of a few minutes to allow the completion of short-lived requests. Before enabling elastic scaling in production, we advise to test your typical workload patterns and monitor the embededed Health Monitoring app to verify the suitability of this cost-saving measure. Maintaining a higher number of statically configured ACUs might be better for handling sudden large spikes in the system load.
+
+standard
+
+build-runtime
+
+saas_oem
+
+HANA Cloud Disk Size
+
+The HANA Cloud disk size refers to the disk size in GB of the SAP HANA Cloud database used by the ABAP environment service instance. If the parameter is set to auto, the SAP HANA Cloud storage size is set to the minimal value 40 * size_of_persistence + 40. The maximum allowed value is 120 * size_of_persistence + 40. If you set a higher value, it will consume 0.002 HANA compute units (HCU) for any GB exceeding the minimal default size of the persistence disk. Therefore, the HCU ratio of additional storage disk to RAM is 1 : 31.25 per GB (as 1 HCU = 16 GB).
+
+standard
+
+build-runtime
+
+saas_oem
+
+HANA Cloud Memory Size
+
+(size_of_persistence)
+
+The HANA Cloud memory size refers to the memory size of the SAP HANA Cloud database used by the ABAP environment service instance. The size is specified in number of HANA compute units that should be used from the quota plan hana_compute_unit, with one HANA compute unit representing a block size of 16 GB for the underlying SAP HANA Cloud instance. The supported number of hana_compute_unit per HANA instance is 2, 4, 8, 16, 32, or 64.
+
+standard
+
+build-runtime
+
+saas_oem
+
+Login Attribute
+
+(login_attribute)
+
+Using an email address as subject name identifier might not be possible if the e-mail address is ambiguous across users, or if the trusted identity provider configured for authentication in the subaccount of the ABAP environment instance is already configured with the subject name identifier Login Name. In this case, you can change the login attribute to user_name. In addition, provide the user name for the initial user in the
+
+(admin_user_name)
+
+admin user name (see above).
+Caution
+
+Currently, it's only possible to change the login attribute when creating a new ABAP system. To change the settings afterwards, please open a ticket on component BC-CP-ABA.
+
+standard
+
+build-runtime
+
+saas_oem
+
+free
+
+Multi-Availability Zones
+
+(multi_availability_zones)
+
+The Multi-Availability Zones define the level of resilience of the ABAP environment service instance. When enabled, the ABAP application servers are distributed across multiple availability zones to increase resilience, and two SAP HANA Cloud database instances are created in different zones with synchronous replication and automatic takeover in a case of failure. Additionally, system components are restarted with higher priority than for single-zone systems. Enabling this option doesn't change the ABAP compute unit (ACU) consumption, but doubles the HANA compute unit (HCU) consumption due to the second database instance.
+
+For more information, see Resilience of an ABAP Environment System.
+
+standard
+
+build-runtime
+
+saas_oem
+
+Total ABAP Runtime Size
+
+(size_of_runtime)
+
+The Total ABAP runtime size refers to the runtime size of the ABAP environment service instance. This is the sum of the runtime size of all ABAP application servers of an ABAP environment service instance. The size is specified in number of ABAP compute units that should be used from the quota plan abap_compute_unit, with one ABAP compute unit representing 16 GB. The supported number of abap_compute_unit is 0.5, 1, 1.5, 2, 3, 4, 4.5, 6, 8, 16, 24, 32, or 64. The total ABAP runtime size has to be less or equal to twice the size of the SAP HANA Cloud memory size (size_of_runtime ≤ 2 * size_of_persistence).
+
+For more information, see ABAP Compute Units.
+
+The total ABAP runtime size should be a whole-number multiple, ranging from 2 to 32 times the size of the ABAP runtime size per application server. This is because each ABAP environment instance contains between 2 and 32 application servers, all of the same size (except for instances with a single application server, see the note below). For example, if the size_of_application_server is 2, the size_of_runtime should be at least 4 ACUs. Conversely, if the size_of_application_server is 0.5, the size_of_runtime shouldn't exceed 8 ACUs. Another example: if the size_of_application_server is 2, setting the size_of_runtime to 5 won't work. This is because a total runtime size of 5 ACUs can't be split into three application servers with 2 ACUs each.
+
+Caution
+
+Instances with a Total ABAP Runtime Size of 0.5 ACU always have only one application server with an ABAP Runtime Size per Application Server of 0.5 ACU. This is an exception to the standard setup in which every service instance runs with at least two application servers. While having instances with a total ABAP runtime size of 0.5 ACU lowers costs, it also increases the likelihood of short outages and shouldn't be used for production systems.
+
+standard
+
+build-runtime
+
+saas_oem
+
+Note
+
+Make sure that you don't choose more compute units than you have assigned to your subaccount for the ABAP environment (see Increasing the Quota for the ABAP Environment).
+
+For more information about ABAP system sizing and Native Storage Extension for selected SAP HANA tables, see ABAP System Sizing and Native Storage Extension for the ABAP Environment.
+
+Caution
+
+Be aware that not all parameters can be changed if you update your ABAP system. For a list of updatable parameters, see Updating an ABAP System.
+
+Choose Next to review and verify your instance details.
+
+Choose Create.
+
+The ABAP environment instance is being set up, which might take up to 60 minutes. Wait for an email that is sent when the setup is completed and the system up and running. The email is sent to the email address that you specified as admin email in the previous steps.
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/custom-code-migration
+Title: Custom Code Analysis | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…ABAP Test CockpitCustom Code Analysis
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Custom Code Analysis
+Purpose
+
+As of releases SAP S/4HANA Cloud Public Edition 2508, SAP BTP ABAP environment 2508 and SAP S/4HANA Cloud Private Edition and SAP S/4HANA 2025, the Custom Code Migration app is split into two tiles. There's the Analyze Custom Code app for the custom code analysis use case and the Custom Code Migration app for the migration to SAP S/4HANA use case. If you have the Quality Manager – Software Development business role, you'll find the Analyze Custom Code app on the Fiori launchpad. If you have the Project Manager – IT business role, you'll find the Custom Code Migration app.
+
+These apps enable you to create three different kinds of projects:
+
+SAP S/4HANA Migration Project:
+
+Analyze custom code that shall be migrated from an existing product like SAP Business Suite to a new product such as SAP S/4HANA 2025. To evaluate the custom objects to be adapted, it performs the SAP S/4HANA custom code checks.
+
+SAP BTP Analysis Project:
+
+Analyze custom code for readiness to run in SAP BTP ABAP environment.
+
+Custom Code Analysis Project:
+
+Analyze custom code with arbitrary ATC check variants. See Performing a Custom Code Analysis.
+
+In addition, this app supports you with identifying unused custom code based on your collected usage data. This enables you to remove unused custom code during a system conversion to SAP S/4HANA.
+
+Key Features
+
+Analysis of custom code:
+
+Graphical representation of custom code analysis results
+
+Results can be filtered by various categories, such as quick fix availability, scope and usage data.
+
+Options to handle findings after anaylsis (see Process Findings After Analysis)
+
+Scoping:
+
+Based on usage data, you can define the ABAP custom code that needs to be migrated to SAP S/4HANA.
+
+This app creates a deletion transport in order to delete unused ABAP source code during the system conversion to SAP S/4HANA.
+
+SAP Joule for Developers, ABAP AI Capabilities:
+
+As of SAP BTP ABAP environment release 2602, you have the option to activate an AI-powered feature in the Custom Code Analysis app: The ATC Explain capability enables you to get an explanation of your ATC findings in-app.
+
+Note
+
+To leverage Joule's capabilities, you need to purchase an additional license: For SAP BTP ABAP environment, SAP S/4HANA Cloud Public Edition, and SAP S/4HANA Cloud Private Edition, see SAP note 3571857 .
+
+Access Information
+
+For more information on how to enable this app, see Enable Usage of the Analyze Custom Code App.
+
+Component for Customer Incidents
+
+BC-DWB-CEX
+
+Supported Device Types
+
+Desktop
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/development-in-abap-environment
+Title: Development in the ABAP Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformDevelopmentDevelopment in the ABAP Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Development in the ABAP Environment
+
+Learn more about developing applications in the ABAP environment.
+
+Overview
+
+The ABAP environment is a platform as a service that allows you to extend existing ABAP-based applications and develop ABAP cloud apps decoupled from the digital core. You can leverage your ABAP know-how in the cloud and reuse existing ABAP assets by writing your source code with ABAP Development Tools for Eclipse.
+
+The ABAP environment enables you to expose:
+
+OData services. See ABAP RESTful Application Programming Model.
+
+HTTP services. See Working with the HTTP Service Editor.
+
+SQL services. See Data Federation Using the SQL Service.
+
+RFC function modules. See Providing an RFC Service.
+
+SOAP provider model. See Providing a SOAP Service.
+
+With your ABAP applications, you can consume:
+
+HTTP services (HTTP client). See Outbound HTTP Administration Tasks.
+
+OData services (service consumption model). See Developing a UI Service with Access to a Remote Service.
+
+Remote Function Calls (RFC). See Outbound RFC Administration Tasks.
+
+On-premise systems via Cloud Connector. See Integrating On-Premise Systems.
+
+SOAP-based Web services. See Outbound SOAP Administration Tasks.
+
+Technical Limits and Boundary Conditions for ABAP Applications
+
+For elasticity, operability and protection reasons, the runtime of API or UI requests to ABAP applications is limited. After 10 minutes, running requests are automatically canceled. Tasks requiring longer runtimes have to be executed in Application Jobs, as background processes via the background processing framework (bgPF), or need to be split into smaller work packages. For an optimal user experience, all ABAP applications, including application jobs, have to be prepared to be interrupted and restarted even earlier than the maximum runtime. This allows to provide a continuous application service, unimpacted from scaling operations, maintenance activities or even infrastructure failures.
+
+Development Resources
+
+ABAP RESTful Application Programming Model
+
+ABAP Development Tools for Eclipse: User Guide
+
+ABAP CDS Development User Guide
+
+Generative AI in ABAP Cloud
+
+ABAP Keyword Documentation
+
+ABAP Lifecycle Management
+
+Connect to the ABAP System
+
+Providing an HTTP Service
+
+Integrating On-Premise Systems
+
+Supported Protocols and Authentication Methods
+
+Inbound Communication
+
+Working with abapGit
+
+Related Information
+Eclipse Tool for the ABAP Environment
+Learning Journey
+Manage Software Components
+Video Tutorials
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/getting-started-as-developer-in-abap-environment
+Title: Getting Started as a Developer in the ABAP Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Getting Started with a Customer Account in the ABAP EnvironmentGetting Started as a Developer in the ABAP Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Getting Started as a Developer in the ABAP Environment
+
+Learn about your first steps to get started as a developer in the ABAP environment.
+
+Note
+
+This documentation informs you about the first steps as a developer and assumes that the necessary steps for setting up the ABAP environment are done. For more information about how to set up the ABAP environment and getting started as an administrator, see Getting Started with a Customer Account in the ABAP Environment.
+
+Developing Applications: Overview
+
+This image is interactive. Hover over each area for a description. Click highlighted areas for more information.
+
+Download and install ABAP Development Tools (ADT) from https://tools.hana.ondemand.com/#abap. See Video Tutorial: Configure ABAP Development Tools.
+
+Note
+
+SAP GUI is not supported in the ABAP environment. You can only use ADT as your development environment.
+
+Create an ABAP cloud project with ADT to connect to the ABAP system in the ABAP environment (see Connect to the ABAP System).
+
+Develop your application (see Development in the ABAP Environment). To learn more about how to develop applications, see Tutorial: Create Your First ABAP Console Application and Video Tutorial: Create Application.
+
+More Information About Development in the ABAP Environment
+
+For more information about ABAP development, see Development in the ABAP Environment.
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/getting-started-in-abap-environment
+Title: Getting Started in the ABAP Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformGetting StartedGetting Started in the ABAP Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Getting Started in the ABAP Environment
+
+Get onboarded in the SAP BTP ABAP environment. Follow the workflows for trial or customer accounts.
+
+Getting Started with a Customer Account in the ABAP Environment
+
+After you have purchased a customer account, learn how to get started in the ABAP environment.
+Getting Started with Custom Code Analysis in the ABAP Environment
+
+Learn how to get started with Custom Code Analysis in the SAP BTP ABAP environment.
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/getting-started-with-custom-code-analysis-in-abap-environment
+Title: Getting Started with Custom Code Analysis in the ABAP Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformGetting StartedGetting Started in the ABAP EnvironmentGetting Started with Custom Code Analysis in the ABAP Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Getting Started with Custom Code Analysis in the ABAP Environment
+
+Learn how to get started with Custom Code Analysis in the SAP BTP ABAP environment.
+
+You want to use the SAP BTP ABAP environment to analyze your custom code remotely in your SAP ECC or SAP S/4HANA systems? This documentation will help you gain insight into all the options to work with the ABAP Test Cockpit (ATC) in the SAP BTP ABAP environment.
+
+The following list covers all possible use cases and will guide you to the respective documentation chapters providing more details on each use case.
+
+Configure ABAP Test Cockpit: Use this app to maintain ATC configurations using the SAP Fiori launchpad.
+
+For more information on this app, see ABAP Test Cockpit Configurator.
+
+To learn how to enable the app, see Enable Usage of the ABAP Test Cockpit Configurator App.
+
+Custom Code Analysis: If you want to check your custom code in your on-premise system remotely using the SAP BTP ABAP environment as the central check system, you need to set up the Analyze Custom Code app on the SAP Fiori launchpad.
+
+To enable the Analyze Custom Code app, see Enable Usage of the Custom Code Migration App.
+
+To learn all about custom code migration, see the Custom Code Migration Guide for SAP S/4HANA 2023.
+
+ATC Developer Scenario: You can use a system in the SAP BTP ABAP environment as a central check system to run ATC checks from an on-premise system against this system. To do this, a number of configurations will be necessary.
+
+To learn how to use the ATC as a central check system, see Configuring Remote ATC Using a Central Check System.
+
+To learn how to set up the ATC developer scenario, see Configuring the ATC Developer Scenario.
+
+Working with Exemptions: Learn about your options to exempt your ATC findings.
+
+To learn how to enable the Approve ATC Exemptions app to be able to exempt the findings from your custom code analysis, see Enable Usage of the Approve ATC Exemptions App.
+
+For more information on the Approve ATC Exemptions app, see Approve ATC Exemptions.
+
+Schedule Custom Code Analysis: The Schedule Custom Code Analysis app enables you to schedule projects created in the Analyze Custom Code app as application jobs. With this functionality, the analyses can be performed once or periodically.
+
+To learn more about the app and how to enable it, see Schedule Custom Code Analysis.
+
+Maintain the Baseline: In the Analyze Custom Code app, it is now possible to maintain the ATC baseline. This means that you can add/remove custom code project check results to/from the baseline​ and choose whether you would like to exempt your findings, suppress your findings or reduce their priority. After adding findings to the baseline, they won't appear in the subsequent check results of the custom code project.
+
+To learn more about the baseline functionality in the Analyze Custom Code app, see Custom Code Migration.
+
+Related Information
+SAP BTP ABAP environment
+Custom Code Analysis
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/getting-started-with-customer-account-in-abap-environment
+Title: Getting Started with a Customer Account in the ABAP Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformGetting StartedGetting Started in the ABAP EnvironmentGetting Started with a Customer Account in the ABAP Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Getting Started with a Customer Account in the ABAP Environment
+
+After you have purchased a customer account, learn how to get started in the ABAP environment.
+
+Note
+
+This documentation informs you about the first steps as an administrator in the ABAP environment. For more information about getting started as a developer, see Getting Started as a Developer in the ABAP Environment.
+
+1. Logging on to SAP BTP
+
+After you have purchased your customer account, you will receive an e-mail with a link to the home page of SAP BTP and the logon data as administrator for the global account.
+
+Log on to SAP BTP.
+
+You are now in the SAP BTP cockpit.
+
+Navigate to your global account.
+
+2. Automated Initial Setup Using a Booster (Optional)
+
+This image is interactive. Hover over each area for a description. Click highlighted areas for more information.
+
+To set up a development system quickly, you can use the booster Prepare an Account for ABAP Development. The interactive booster guides you through the process of setting up your subaccounts, configuring entitlements, assigning members, and so on. For more information, see Using a Booster to Automate the Setup of the ABAP Environment (Optional).
+
+Using a booster is optional. If you don't use the booster, you must perform more steps manually.
+
+3. Manual Setup
+
+Even if you have used the booster, some manual setup steps are still required. In the following, steps that are performed by the booster are indicated.
+
+a. Setting Up Your Account Model
+
+This image is interactive. Hover over each area for a description. Click highlighted areas for more information.
+
+(Not required if you have used the booster):
+
+Create a subaccount for ABAP environment in your global account (see Creating a Cloud Foundry Subaccount for the ABAP Environment ).
+
+This allows you to further break down your account model and structure it according to your business needs.
+
+(Not required if you have used the booster):
+
+Create organizations and spaces (see Creating a Cloud Foundry Organization and Space).
+
+If you want to learn more about subaccounts, orgs, and spaces, and how they relate to each other, see Account Model.
+
+b. Setting Up the ABAP System
+
+This image is interactive. Hover over each area for a description. Click highlighted areas for more information.
+
+(Not required if you have used the booster):
+
+Before you can start using resources such as services or application runtimes, you must manage your entitlements and add quotas to your subaccount (see Increasing the Quota for the ABAP Environment ).
+
+(Not required if you have used the booster):
+
+Optionally, if your developers want to deploy their own apps in Cloud Foundry, increase the quota for the Cloud Foundry runtime (see Increasing the Quota for the Cloud Foundry Runtime (Optional)).
+
+(Not required if you have used the booster):
+
+Create your ABAP system (see Creating an ABAP System).
+
+(Not required if you have used the booster):
+
+Subscribe to the Web access for ABAP SaaS application to get direct browser access to your instances in the ABAP environment (see Subscribing to the Web Access for ABAP).
+
+This also allows you to access the administration launchpad including your own SAP Fiori applications. You only have to subscribe once for each subaccount.
+
+c. Creating Administrator and Developer Users
+
+This image is interactive. Hover over each area for a description. Click highlighted areas for more information.
+
+Optionally, you can create additional administrator users for the ABAP environment as follows:
+
+(Not required if you have used the booster):
+
+Add users as administrators of the Cloud Foundry organization that you created for the ABAP environment (see Adding a User as Org Manager for the Cloud Foundry Organization).
+
+(Not required if you have used the booster):
+
+Add the users as managers for the Cloud Foundry space that you created for the ABAP environment (see Adding a User as Space Manager for the Cloud Foundry Space ).
+
+Log on to the administration launchpad (see Logging on to the Administration Launchpad of the ABAP Environment).
+
+Create employee records for the new administrators (see Creating an Employee Record for a New Administrator).
+
+Assign the administrator role for the ABAP environment to the new users (see Assigning the ABAP Environment Administrator Role to the New Administrator User).
+
+For your developers, create business users and assign them to the developer business role as follows:
+
+(Not required if you have used the booster):
+
+Create new members for the space that you created for the ABAP environment and assign developer roles to the new members (see Creating New Space Members and Assigning Space Developer Roles to Them).
+
+Create employee records for the new developer users (see Creating an Employee Record for a New Developer).
+
+Assign the ABAP developer users to the ABAP developer role (see Assigning the ABAP Developer User to the ABAP Developer Role).
+
+4. What's Next
+
+After the initial setup of the ABAP environment, your developers can now develop applications using ABAP Development Tools. You can tell your developers to get started (see Getting Started as a Developer in the ABAP Environment).
+
+As next steps, you can optionally set up additional tools for your developers or ensure the integration with other systems:
+
+If your developers need a UI development tool, set up SAP Business Application Studio (see Setup of UI Development in SAP Business Application Studio (Optional)).
+
+As a default identity service in the ABAP environment, you get SAP ID. You might want to set up a custom identity service (see Setup of a Custom Identity Service).
+
+As an alternative to SAP Business Application Studio, you can also set up SAP Web IDE (see Setup of UI Development in SAP Web IDE (Optional)).
+
+This image is interactive. Hover over each area for a description. Click highlighted areas for more information.
+
+Related Information
+Learning Journey
+Discovery Center
+SAP Community
+SAP Road Map Explorer
+Video Tutorials
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/increasing-quota-for-abap-environment
+Title: Increasing the Quota for the ABAP Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…ABAP Environment: Initial SettingsIncreasing the Quota for the ABAP Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Increasing the Quota for the ABAP Environment
+
+Before you can create a service instance for the ABAP environment, you must assign some of the available quota to the subaccount for the ABAP environment.
+
+Context
+Note
+
+If you have run the booster Prepare an Account for ABAP Development, you can skip this step.
+
+If you are working in an enterprise account, you need to add quotas to the services that you purchased in your subaccount before they can appear in the service marketplace. For more information, see Configure Entitlements and Quotas for Subaccounts.
+
+Procedure
+Log on to the SAP BTP cockpit as administrator.
+Go to your global account.
+From the navigation area, choose Entitlements  Entity Assignments.
+Enter the subaccount for the ABAP environment and choose Go.
+Choose Configure Entitlements.
+Choose Add Service Plans.
+
+In the following popup, the available entitlements for this subaccount are shown.
+
+For the ABAP environment entitlement, select the plans abap_compute_unit, standard, and hana_compute_unit.
+
+With the selection of the standard service plan, you can size the ABAP runtime and the SAP HANA memory independently from each other. To be able to do your sizing, you must also select the quota plans abap_compute_unit and hana_compute_unit.
+
+Choose Add 3 Service Plans.
+On the following screen, increase the quotas in the abap_compute_unit service plan at least by 1 and in the hana_compute_unit service plan at least by 2.
+
+The minimum configuration of 1 ABAP compute unit and 2 HANA compute units is sufficient in many cases to create one service instance for the ABAP environment. If you need more resources, choose higher quotas. Keep in mind that increasing the SAP HANA Cloud storage using the parameter size_of_persistence_disk consumes 0.002 HANA compute units for each GB that exceeds the minimal size of the persistence disk.
+
+Choose Save.
+Results
+
+After you have assigned an entitlement for the three plans with respective quotas to your subaccount, you can create an ABAP system. This is the point where you can then decide how many blocks of ABAP compute units and HANA compute units you want to assign to your new system. See Creating an ABAP System.
+
+Related Information
+ABAP Compute Units
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/integrating-abap-environment-with-sap-s-4hana-cloud
+Title: Integrating the ABAP Environment with SAP S/4HANA Cloud | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Integration and ConnectivityIntegrating the ABAP Environment with SAP S/4HANA Cloud
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Integrating the ABAP Environment with SAP S/4HANA Cloud
+
+You can integrate the SAP BTP ABAP environment with an SAP S/4HANA Cloud Public Edition system. ​This allows ABAP developers to implement outbound service calls from the ABAP environment to the SAP S/4HANA Cloud Public Edition system.
+
+Context
+
+Developers in SAP BTP ABAP environment would like to access data from business services in SAP S/4HANA Cloud Public Edition as part of their applications.
+
+This documentation provides you with a high-level description of how to integrate the two systems and how to implement service calls from SAP BTP ABAP environment to SAP S/4HANA Cloud Public Edition. This is complemented by a tutorial group that provides a detailed, step-by-step description based on an example.
+
+Overview of Implementation Activities
+
+To set up remote connectivity it is necessary to perform some steps in both involved systems, as the connection must be enabled by both communication partners.
+
+In the scenario that we are considering, an SAP S/4HANA Cloud Public Edition service is called from SAP BTP ABAP environment. In other words, SAP S/4HANA Cloud Public Edition is the inbound communication partner, while SAP BTP ABAP environment is the outbound communication partner.
+
+Following, you can find an overview of necessary steps, grouped by the executing persona.
+
+Developer in SAP BTP ABAP environment
+
+Create a communication scenario
+
+As a developer you create an outbound service that represents the service of an SAP S/4HANA Cloud Public Edition system. You add this outbound service to a communication scenario and maintain the supported authentication method.
+
+Create a service consumption model
+
+As a developer you can use the metadata of a given service to create a service consumption model. Although not strictly necessary, this greatly simplifies the consumption of the remote service from your ABAP code.
+
+Implement the application
+
+The actual service call itself needs to be implemented. This can be part of a frontend application, API service, application job, console application, etc. The communication artifacts and the service consumption model are reused to create compact and understandable code.
+
+Administrator in SAP S/4HANA Cloud Public Edition
+
+Expose the service
+
+As administrator you need to make the required service available for remote access. To do so, you create a communication arrangement for a scenario containing the API as an inbound service. Along with the arrangement, you define a communication system and an inbound communication user that shall be used to establish the connection.
+
+Configure the outbound communication
+
+As administrator you create a communication arrangement based on the scenario implemented by the developer. The arrangement is tied to a communication system that identifies the SAP S/4HANA Cloud Public Edition system as the target host.
+
+Tutorial group Integrate the SAP BTP ABAP environment with SAP S/4HANA Cloud, public edition shows how to consume the business partner OData API service in SAP S/4HANA Cloud Public Edition from a console application in SAP BTP ABAP environment using basic authentication (communication user) and OAuth 2.0 SAML Bearer Assertion (propagation of business user).
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/integrating-on-premise-systems
+Title: Integrating On-Premise Systems | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Integration and ConnectivityIntegrating On-Premise Systems
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Integrating On-Premise Systems
+
+Set up the Cloud Connector to enable communication from the ABAP environment to your on-premise systems using Remote Function Calls (RFC) and HTTP calls.
+
+Concept
+
+For each subaccount, a Connectivity service instance is set up automatically in the SAP provider account. To use this instance, activate the Cloud Connector in your communication system.
+
+In this scenario, you must connect the Cloud Connector to and configure trust for your Cloud Foundry subaccount as described in SAP BTP Connectivity: Cloud Connector.
+
+Restriction
+
+This scenario requires a Cloud Connector as of version 2.12.3 or higher.
+
+Note
+
+For more information on the deprecated scenario that uses the Connectivity service in the Neo environment, see Create a Communication Arrangement for Cloud Connector Integration (Deprecated).
+
+After you have completed the setup, a connection from the ABAP environment tenant to an on-premise system is established in the following order:
+
+The ABAP environment tenant requests to open the tunnel connection through the Connectivity service.
+
+The Connectivity service tells the Cloud Connector to open the connection to this specific ABAP environment tenant using the admin connection.
+
+The Cloud Connector opens a tunnel connection to the ABAP environment tenant using its public tenant URL.
+
+After the tunnel is established, it can be used for actual data connection using RFC and HTTP(S) protocols.
+
+Next Steps
+
+To set up your actual data connections between your ABAP environment and on-premise systems, you must enable the required Cloud Connector in your communication system. See Enable On-Premise Connectivity.
+
+Troubleshooting
+
+In case of issues using the Cloud Connector, see Cloud Connector Troubleshooting for a troubleshooting guide.
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/integration-and-connectivity-f6c7368455ac4caaa27d18b3c471acba
+Title: Integration and Connectivity | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformDevelopmentDevelopment in the ABAP EnvironmentIntegration and Connectivity
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Integration and Connectivity
+
+The ABAP environment enables you to connect to other systems using different protocols. It is possible to consume services from other systems and provide services for consumption in other systems.
+
+Integration and Connectivity Development Guide
+
+Get an overview of the ABAP integration and connectivity development guide.
+SAP-Provided APIs
+
+Integrating On-Premise Systems
+
+Set up the Cloud Connector to enable communication from the ABAP environment to your on-premise systems using Remote Function Calls (RFC) and HTTP calls.
+Managing the SAP BTP ABAP environment Service Instance
+
+Integrating the ABAP Environment with SAP S/4HANA Cloud
+
+You can integrate the SAP BTP ABAP environment with an SAP S/4HANA Cloud Public Edition system. ​This allows ABAP developers to implement outbound service calls from the ABAP environment to the SAP S/4HANA Cloud Public Edition system.
+Developing Metrics for Health Monitoring
+
+Learn how you can add your own metrics to Health Monitoring in SAP Cloud ALM or SAP Focused Run.
+Accessing ABAP-Managed Data Using SQL Services for Data Integration Scenarios
+
+As a developer in the ABAP environment, you can expose CDS view entities in an ABAP system for external consumption using SQL services.
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/logging-on-to-administration-launchpad-of-abap-environment
+Title: Logging on to the Administration Launchpad of the ABAP Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Creation of Additional Administrator Users (Optional)Logging on to the Administration Launchpad of the ABAP Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Logging on to the Administration Launchpad of the ABAP Environment
+
+To add another user as administrator for the ABAP instance, log on to the administration launchpad of the ABAP environment.
+
+Prerequisites
+
+You are the administrator who has created the ABAP system (see Creating an ABAP System).
+
+Procedure
+In the SAP BTP cockpit, go to the Cloud Foundry subaccount for the ABAP environment as administrator.
+Choose the space in the Cloud Foundry subaccount.
+In the navigation area, choose Services  Service Instance.
+Choose the service instance for the ABAP environment.
+Choose View Dashboard.
+
+The logon window for the administration launchpad of the ABAP environment opens.
+
+If you are using the custom Identity Authentication service for SAP BTP, you don't need to enter your user and password, but choose the available link of the custom Identity Authentication service and log on.
+If you need to enter your user and password, remember to log on with the right user that was defined before (see Creating an ABAP System).
+Results
+
+The administration launchpad opens. You can now proceed with creating an employee record for the administrator.
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/manage-api-snapshots
+Title: Manage API Snapshots | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…ABAP Test CockpitManage API Snapshots
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Manage API Snapshots
+
+With this app you can create API snapshots of your software components. An API snapshot is a snapshot of the external interface of all released objects within a software component. This snapshot should be taken when the released objects within the software component must be kept stable. API snapshots allow you to run compatibility checks for your released objects using the ATC check API Release: Compatibility of Released APIs (API_COMPATIBILITY).
+
+Key Features
+
+You can use this app to:
+
+Create API snapshots to be able to use them in the compatibility check
+
+Set the check-relevance of API snapshots
+
+Regenerate the snapshots of selected APIs
+
+Regenerate the snapshots of all failed APIs
+
+Regenerate already existing API snapshots completely
+
+Download and upload API snapshots
+
+Display the changes made to your API snapshots
+
+Display the included APIs
+
+Supported Device Types
+
+Desktop
+
+Tablet
+
+Component for Customer Incidents
+
+If you need support or experience issues, please report an incident under component BC-SRV-APS-EXT-REL.
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/regions-and-api-endpoints-for-abap-environment
+Title: Regions and API Endpoints for the ABAP Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformBasic Platform ConceptsRegionsRegions and API Endpoints for the ABAP Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Regions and API Endpoints for the ABAP Environment
+
+IaaS Provider
+
+Region
+
+Region Name
+
+Technical Key
+
+Technical Key of IaaS Provider
+
+NAT IPs (egress, IPs for requests from an ABAP System)
+
+API Endpoint
+
+Domain
+
+Cockpit Logon
+
+IaaS Provider
+
+Region
+
+Region Name
+
+Technical Key
+
+Technical Key of IaaS Provider
+
+NAT IPs (egress, IPs for requests from an ABAP System)
+
+API Endpoint
+
+Domain
+
+Cockpit Logon
+
+Amazon Web Services
+
+ap10	Australia (Sydney)	cf-ap10	ap-southeast-2
+
+54.153.226.137, 54.153.194.85, 54.79.209.86, 13.238.93.75
+
+api.cf.ap10.hana.ondemand.com	ap10.hana.ondemand.com	https://apac.cockpit.btp.cloud.sap/
+
+Amazon Web Services
+
+br10	Brazil (Sao Paulo)	cf-br10	sa-east-1
+
+52.67.140.201, 54.207.133.145, 15.229.97.244, 18.228.92.201
+
+api.cf.br10.hana.ondemand.com	br10.hana.ondemand.com	https://amer.cockpit.btp.cloud.sap/
+
+Amazon Web Services
+
+ca10	Canada (Montreal)	cf-ca10	ca-central-1
+
+15.222.180.159, 15.222.175.12, 52.60.183.108, 3.97.94.144
+
+api.cf.ca10.hana.ondemand.com	ca10.hana.ondemand.com	https://amer.cockpit.btp.cloud.sap/
+
+Amazon Web Services
+
+eu10	Europe (Frankfurt)	cf-eu10	eu-central-1
+
+3.126.219.206, 63.177.3.125, 18.197.217.237, 18.198.153.44, 18.157.206.182, 52.57.94.154, 3.74.95.163, 18.156.20.40, 3.70.85.193, 3.76.177.92, 18.196.196.117,3.127.41.81, 3.69.221.68, 63.177.166.147, 3.67.230.143, 3.74.106.119, 18.199.199.153, 3.78.46.180, 3.71.168.30, 18.192.255.16
+
+cf-eu10: api.cf.eu10.hana.ondemand.com
+
+cf-eu10-002: api.cf.eu10-002.hana.ondemand.com
+
+cf-eu10-003: api.cf.eu10-003.hana.ondemand.com
+
+cf-eu10-004: api.cf.eu10-004.hana.ondemand.com
+
+cf-eu10-005: api.cf.eu10-005.hana.ondemand.com
+
+cf-eu10-006: api.cf.eu10-006.hana.ondemand.com
+
+cf-eu10: eu10.hana.ondemand.com
+
+cf-eu10-002: eu10-002.hana.ondemand.com
+
+cf-eu10-003: eu10-003.hana.ondemand.com
+
+cf-eu10-004: eu10-004.hana.ondemand.com
+
+cf-eu10-005: eu10-005.hana.ondemand.com
+
+cf-eu10-006: eu10-006.hana.ondemand.com
+
+https://emea.cockpit.btp.cloud.sap/
+
+Amazon Web Services
+
+eu11
+
+Europe (Frankfurt) EU Access
+
+cf-eu11	eu-central-1
+
+18.157.200.44, 3.121.238.156, 3.67.47.252, 18.195.136.83, 3.120.9.225, 3.68.253.186
+
+api.cf.eu11.hana.ondemand.com	eu11.hana.ondemand.com	https://eu-access.cockpit.btp.cloud.sap/
+
+Amazon Web Services
+
+jp10	Japan (Tokyo)	cf-jp10	ap-northeast-1
+
+35.75.28.56, 35.74.196.78, 35.74.158.17, 54.250.128.197, 52.196.122.86
+
+api.cf.jp10.hana.ondemand.com	jp10.hana.ondemand.com	https://apac.cockpit.btp.cloud.sap/
+
+Amazon Web Services
+
+ap11	Singapore	cf-ap11	ap-southeast-1
+
+54.179.221.168, 18.140.151.124, 54.254.21.208, 54.251.135.238
+
+api.cf.ap11.hana.ondemand.com	ap11.hana.ondemand.com	https://apac.cockpit.btp.cloud.sap/
+
+Amazon Web Services
+
+ap12	South Korea (Seoul)	cf-ap12	ap-northeast-2
+
+3.39.57.235, 13.125.0.129, 13.124.63.148, 13.209.63.123
+
+api.cf.ap12.hana.ondemand.com	ap12.hana.ondemand.com	https://apac.cockpit.btp.cloud.sap/
+
+Amazon Web Services
+
+us10	US East (VA)	cf-us10	us-east-1
+
+54.243.29.110, 18.215.92.120, 34.232.200.153, 18.232.247.104, 3.209.189.244, 18.204.158.200, 23.20.221.103, 54.86.32.250, 52.1.255.25
+
+cf-us10: api.cf.us10.hana.ondemand.com
+
+cf-us10-001: api.cf.us10-001.hana.ondemand.com
+
+cf-us10-002: api.cf.us10-002.hana.ondemand.com
+
+cf-us10: us10.hana.ondemand.com
+
+cf-us10-001: us10-001.hana.ondemand.com
+
+cf-us10-002: us10-002.hana.ondemand.com
+
+https://amer.cockpit.btp.cloud.sap/
+
+Amazon Web Services
+
+us11
+
+US West (Oregon)
+
+cf-us11
+
+us-west-2
+
+35.167.112.20, 44.245.184.113, 52.36.59.222, 44.247.175.75
+
+api.cf.us11.hana.ondemand.com
+
+us11.hana.ondemand.com
+
+https://amer.cockpit.btp.cloud.sap/
+
+
+IaaS Provider
+
+Region
+
+Region Name
+
+Technical Key
+
+Technical Key of IaaS Provider
+
+Trial NAT IPs (egress, IPs for requests from a Cloud Foundry app)
+
+API Endpoint
+
+Domain
+
+Cockpit Logon
+
+IaaS Provider
+
+Region
+
+Region Name
+
+Technical Key
+
+Technical Key of IaaS Provider
+
+Trial NAT IPs (egress, IPs for requests from a Cloud Foundry app)
+
+API Endpoint
+
+Domain
+
+Cockpit Logon
+
+Amazon Web Services
+
+us10	US East (VA)	cf-us10	us-east-1
+
+3.218.99.154, 52.72.147.227, 3.218.112.63
+
+api.cf.us10.hana.ondemand.com	us10.hana.ondemand.com
+
+Trial
+
+Microsoft Azure
+
+ap21
+
+Singapore
+
+cf-ap21
+
+southeastasia
+
+20.6.9.203, 20.198.169.36, 20.195.25.14
+
+api.cf.ap21.hana.ondemand.com
+
+ap21.hana.ondemand.com
+
+Trial
+
+
+Note
+
+SAP BTP ABAP Environment is available in other regions than SAP AI Core. To provide access to SAP AI Core services for the available ABAP Environment regions, a mapping between regions might be required, see 3566760 .
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/released-components-and-objects
+Title: Released Components and Objects | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformDevelopmentDevelopment in the ABAP EnvironmentReleased Components and Objects
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Released Components and Objects
+
+To establish lifecycle independence of SAP code and your own applications as well as extensions built in the ABAP environment, you can only use released components and reuse services, together with a cloud-optimized scope of the ABAP language. Those components and reuse services form the public, upgrade-stable interface of the ABAP environment. Any other object or service that is not released can't be used for your own development.
+
+In this chapter, you can learn more about released APIs from the ABAP language, technical APIs, and released services.
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/sap-fiori-apps-in-abap-environment
+Title: SAP Fiori Apps in the ABAP Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformAdministration and OperationsAdministration and Operations in the ABAP EnvironmentSAP Fiori Apps in the ABAP Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+SAP Fiori Apps in the ABAP Environment
+
+In the SAP Fiori launchpad for the ABAP environment, you can use apps to help you with your tasks as administrator and developer.
+
+Apps for the ABAP environment help you with the following, for example:
+
+Manage lifecycle maintenance of business users
+
+Maintain certificate trust lists
+
+Integrate your systems in the ABAP environment with other systems to enable data exchange
+
+Manage software components in your system landscape
+
+Prerequisites
+
+To be able to view and use the apps in the SAP Fiori launchpad, you need a business role with specific business catalogs. You can either use the business roles that are available with the ABAP environment or you can create business roles that include the relevant business catalogs. For more information about the business catalogs and business roles, see Business Catalogs and Business Roles. For more information about creating business roles from available business role templates in the ABAP environment, see also How to Create a Business Role from a Template.
+
+Related Information
+SAP Fiori Launchpad - User Guide
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/setup-of-ui-development-in-sap-business-application-studio-optional
+Title: Setup of UI Development in SAP Business Application Studio (Optional) | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Getting Started with a Customer Account in the ABAP EnvironmentSetup of UI Development in SAP Business Application Studio (Optio…
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Setup of UI Development in SAP Business Application Studio (Optional)
+
+If developers want to use SAP Business Application Studio to create and deploy SAP Fiori application UIs, you need to perform some administrative activities to set it up.
+
+In the Cloud Foundry environment, SAP Business Application Studio is a service that provides a modular development environment, including the development of SAP Fiori applications. As an alternative to SAP Business Application Studio, you can also use SAP Web IDE. We recommend that you use SAP Business Application Studio.
+
+Note
+
+The process for connecting to an ABAP service instance URL when creating a new ABAP Cloud project in ABAP development tools for Eclipse has changed. For more information, see ABAP Service Instance URL.
+
+Prerequisites
+
+For setting up SAP Business Application Studio, you need the following:
+
+You are a member of the global account.
+
+You are an organization manager in your Cloud Foundry subaccount (see also Adding a User as Org Manager for the Cloud Foundry Organization).
+
+You have created an ABAP service instance (see also Creating an ABAP System).
+
+You are a security administrator. If you have created a subaccount for the ABAP environment in the Cloud Foundry environment, your user automatically has the security administration role.
+
+Setting Up SAP Business Application Studio
+Note
+
+If you have run the booster Prepare an Account for ABAP Development, you can skip the first two steps.
+
+This image is interactive. Hover over each area for a description. Click highlighted areas for more information.
+
+To enable the creation and deployment of SAP Fiori application UIs, subscribe to SAP Business Application Studio in the same subaccount in which you've created your ABAP service instance (see Subscribing to SAP Business Application Studio).
+
+To allow developers to develop applications using SAP Business Application Studio, assign developers to the Business_Application_Studio_Developer role collection (see Assigning Permissions for SAP Business Application Studio).
+
+Create a service key for your ABAP system, which you will need to set up a service destination (see Creating a Service Key for the ABAP System).
+
+To connect your ABAP system with SAP Business Application Studio, set up a destination in the same subaccount in which you have subscribed to SAP Business Application Studio (see Creating a Destination to the ABAP System for SAP Business Application Studio).
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/setup-of-ui-development-in-sap-web-ide-optional
+Title: Setup of UI Development in SAP Web IDE (Optional) | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Getting Started with a Customer Account in the ABAP EnvironmentSetup of UI Development in SAP Web IDE (Optional)
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Setup of UI Development in SAP Web IDE (Optional)
+
+If your developers want to use SAP Web IDE as a development tool for creating UIs, you as an administrator need to perform some additional settings.
+
+If your developers want to use SAP Web IDE, which is part of the Neo environment, they need to work in the Cloud Foundry and the Neo environments. To enable an easier authentication of the developers in the Cloud Foundry and Neo environments, set up SAP BTP as a service provider, and Identity Authentication service as an identity provider. For the integration, you must set the trust on both sides and map the identity provider group for developers to its corresponding Neo group.
+
+Recommendation
+
+We recommend that you use SAP Business Application Studio as a UI development environment instead of SAP Web IDE.
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/subscribing-to-web-access-for-abap
+Title: Subscribing to the Web Access for ABAP | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…ABAP Environment: Initial SettingsSubscribing to the Web Access for ABAP
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Subscribing to the Web Access for ABAP
+
+You need to subscribe to the Web access for ABAP SaaS application to get direct browser access to your instances in the ABAP environment, including access to the administration launchpad for ABAP.
+
+Context
+Note
+
+If you have run the booster Prepare an Account for ABAP Development, you can skip this step.
+
+This subscription is required to access the SAP Fiori launchpad for the administrator and to access developed SAP Fiori applications. Subscription is required only once per subaccount (for all systems to be created in all spaces of this subaccount). After subscribing to the application, you have access to the administration launchpad, where you can configure application roles and assign those roles to your users.
+
+Procedure
+Log on to the SAP BTP cockpit in the Cloud Foundry subaccount of the global account for Cloud Foundry as administrator.
+In the navigation area, choose Services  Service Marketplace.
+Choose the SaaS application tile Web access for ABAP.
+If the application is not shown as active, choose Create and wait for the subscription to be provisioned.
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/using-booster-to-automate-setup-of-abap-environment-optional
+Title: Using a Booster to Automate the Setup of the ABAP Environment (Optional) | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Getting Started with a Customer Account in the ABAP EnvironmentUsing a Booster to Automate the Setup of the ABAP Environment (Op…
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Using a Booster to Automate the Setup of the ABAP Environment (Optional)
+
+You can use a booster to automate some of the required steps for setting up the ABAP environment. Automation includes creating a subaccount and space, configuring the required entitlements, and assigning administrators and developers to the subaccount.
+
+Context
+
+A booster is a set of guided interactive steps that enable you to select, configure, and consume services on SAP BTP. For more information, see Boosters.
+
+Caution
+
+The booster is only intended to create development systems. For non-development systems, follow the steps to set up the ABAP environment manually (see Getting Started with a Customer Account in the ABAP Environment).
+
+Procedure
+Log on to the SAP BTP cockpit and choose the global account for the Cloud Foundry environment as administrator.
+From the navigation menu, choose Boosters.
+Choose the booster Prepare an Account for ABAP Development.
+
+The tab pages Overview, Components, and Additional Resources are displayed, where you get more information about the booster.
+
+Choose Start.
+After the booster wizard has successfully checked the prerequisites, choose Next to continue.
+On the Select Scenario dialog, choose whether you'd like the booster to create your ABAP environment service instance in a new, or in an existing subaccount.
+On the Configure Subaccount dialog, entitlements and quotas for the new subaccount are proposed, but you can change them if needed:
+
+For the ABAP environment service, the service plan standard enables you to size ABAP server and persistence independently from each other in 16 GB units. These units are represented in the quota plans abap_compute_unit and hana_compute_unit.
+
+As part of the default quota assignment, you get at least 1 compute unit in the abap_compute_unit service plan and at least 2 compute units in the hana_compute_unit service plan. This corresponds to the minimum configuration for an instance of the ABAP Environment service. You can also choose higher quotas in the dialog of the booster.
+
+For the Web Access to ABAP service, a default plan is chosen that you cannot change. You need the service and the quota for direct browser access to your instances in the ABAP environment, including access to the administration launchpad for ABAP.
+
+Depending on what you have ordered for your account, additional entitlements for the services Cloud Foundry Runtime, SAP Build Work Zone, standard edition, and SAP Business Application Studio might be shown. They are optional; you can remove the entitlements if you don't need them right now and want to add them later:
+
+A quota for the Cloud Foundry runtime is only needed for the ABAP environment if your developers want to deploy their own apps in Cloud Foundry.
+
+The SAP Build Work Zone, standard edition enables organizations to establish a central point of access to SAP, custom-built, and third party applications and extensions, both in the cloud and on premise.
+
+SAP Business Application Studio is a UI development environment.
+
+On the Configure Subaccount dialog, follow the instructions on the screen to enter subaccount name, provider, region, and so on.
+On the Add Users dialog, add the e-mail addresses of new users in the ABAP environment.
+
+This step allows you to quickly create additional administration users for the ABAP environment, if needed, and developer users. In the Origin field, you can see the identity provider for the ABAP environment. By default, this is SAP ID service (sap.ids), but if you have set up a custom identity provider, you can choose this provider from the dropdown list.
+
+Note
+
+If the optional entitlement for SAP Build Work Zone, standard edition is selected in the Configure Subaccounts step, please select a custom identity provider for applications. If you choose the default identity provider, the subscription to the SAP Build Work Zone, standard edition application will fail. Refer to Establish Trust and Federation Between SAP Authorization and Trust Management Service and SAP Cloud Identity Services for more information.
+
+On the Configure ABAP Environment Instance dialog, enter a 3-character ID for your ABAP system.
+Review your settings and finish the booster.
+Results
+
+After the booster has run successfully, the following tasks have been performed automatically:
+
+A new Cloud Foundry subaccount for the ABAP environment is created and enabled.
+
+A space and an organization for the ABAP environment are available.
+
+A service instance for the ABAP environment has been created.
+
+A system ID of your choice has been assigned to the ABAP system.
+
+An identity provider (SAP ID service or a custom identity provider) has been set up for the ABAP environment.
+
+For the ABAP environment service, quotas have been distributed for the ABAP server and the SAP HANA persistence. The quotas that you have chosen are deducted from the available quota for each service in your global account..
+
+If you have entitlements for SAP Build Work Zone, standard edition and SAP Business Application Studio, then you have subscribed to these services and standard quotas have been assigned accordingly. Entitlements for subscription services are assigned to the subaccount.
+
+You’re subscribed to the Web access for ABAP SaaS application and get direct browser access to your instances in the ABAP environment. Entitlements for subscription services are assigned to the subaccount.
+
+Additional users with Cloud Foundry organization manager and space manager roles have been added. If you have ordered the SAP Build Work Zone, standard edition as a service, the additional administration users have also been assigned to the role collection Launchpad_Admin.
+
+Additional users for developers with space developer role have been added. If you have ordered SAP Business Application Studio as a service, the additional developer users have also been assigned to the role collection Business_Application_Studio_Developer.
+
+Note
+
+The booster speeds up the initial setup, but there are still some tasks that you need to perform after the booster has run.
+
+In the following, you can find documentation for all necessary intial tasks, including the tasks that you don't need to perform if you have run the booster successfully. A note at the beginning of each task indicates that you can skip it if you’ve used the booster.
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-fiori-launchpad-for-sap-btp-abap-environment/sap-fiori-launchpad-user-guide
+Title: SAP Fiori Launchpad - User Guide | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Fiori Launchpad for SAP BTP ABAP Environment
+SAP Fiori Launchpad for SAP BTP ABAP EnvironmentEnglish
+Provide feedback on our search
+
+SAP Fiori Launchpad - User Guide
+
+SAP Fiori launchpad is the entry point to SAP Fiori apps on mobile and desktop devices, and gives all the relevant information you need at a glance. The launchpad provides the apps with services such as navigation, personalization, embedded support, and application configuration.
+
+This guide provides you, the user, with information on how to optimally use the SAP Fiori launchpad.
+
+The design of the launchpad displays an intuitive user interface. It allows you to focus on your daily work and still keep track of what's going on in other areas.
+
+This image is interactive and links to the main sections of the user guide. Hover over each area for a description. Click the highlighted areas for more information.
+
+This image is interactive. Hover over each area for a description. Click highlighted areas for more information.
+
+Tutorial
+
+For new users we recommend the SAP Fiori Launchpad tutorial. In this five-minute tutorial you learn how to work with the launchpad and get to know the most important features.
+
+---
+

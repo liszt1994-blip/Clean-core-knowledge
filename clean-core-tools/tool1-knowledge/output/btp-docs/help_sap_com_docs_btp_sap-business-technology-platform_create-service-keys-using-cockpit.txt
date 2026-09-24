@@ -1,0 +1,14 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/create-service-keys-using-cockpit
+Title: Create Service Keys Using the Cockpit | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Creating Service KeysCreate Service Keys Using the Cockpit
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Create Service Keys Using the Cockpit
+
+Note
+
+The content of this page has moved to a new location.
+
+To learn how to create service keys using the cockpit, see Creating Service Keys in Cloud Foundry.

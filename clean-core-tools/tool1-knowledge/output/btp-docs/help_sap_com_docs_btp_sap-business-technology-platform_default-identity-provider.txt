@@ -1,0 +1,113 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/default-identity-provider
+Title: Default Identity Provider | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Trust and Federation with Identity ProvidersDefault Identity Provider
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Default Identity Provider
+
+SAP ID service is the default identity provider for both platform users and business users (in applications) at SAP BTP. You can start using it without further configuration.
+
+Recommendation
+
+We strongly recommend that you configure your custom tenant of SAP Cloud Identity Services as the identity provider and connect SAP Cloud Identity Services to your own corporate identity provider.
+
+For more information, see Trust and Federation with Identity Providers.
+
+Note
+
+For China (Shanghai) region, a different default identity provider is used.
+
+For more information, see this blog article on SAP Community.
+
+For Government Cloud (US) region, a different default identity provider is used.
+
+SAP ID service provides:
+
+A central user store
+
+A Single Sign-On (SSO) service. It enables users to log on once and get access to all your applications.
+
+Use SAP ID service as a preconfigured user store in your starter scenarios or for testing. You can also use the default identity provider as a backup identity provider if access to your custom identity provider fails. SAP ID service is the place where you register to get initial access to SAP BTP.
+
+SAP ID Service Authenticates Users
+
+If you're a new user, you can use the self-service registration option at the SAP Web site The SAP website registers you with your SAP user ID, which also registers you with SAP ID service.
+
+Managing Users
+
+To add users to a subaccount, the users must exist in an identity provider.
+
+For more information about adding users to our default identity providers, see Create SAP User Accounts.
+
+To add new users to a subscribed app or service, such as Web IDE, add those users to your subaccount.
+
+For more information, see Add Users from SAP ID Service for Multi-Environment Subaccounts.
+
+Multifactor Authentication
+
+For SAP ID service, you can ask users hosted by this identity provider to enable multifactor authentication as a self-service. There's no mechanism to enforce users in SAP ID service to use this function.
+
+Recommendation
+
+To enforce multifactor authentication, we recommend that you trust SAP Cloud Identity Services - Identity Authentication and configure enforcement. Optionally, integrate SAP Cloud Identity Services with your corporate identity provider and enforce the policy there.
+
+For more information, see:
+
+Establish Trust and Federation of Custom Identity Providers for Platform Users
+
+Establish Trust and Federation Between SAP Authorization and Trust Management Service and SAP Cloud Identity Services
+
+For more information about your users of SAP ID service can enable multifactor authentication themselves, see How to Enable Multi-Factor Authentication (MFA)  on the SAP Support Portal.
+
+Note
+
+Some user interfaces don't offer an interactive way to support multifactor authentication, such as time-based one time passwords (TOTP). Instead, such tools offer fixed logon ID and password fields. For such tools, enter your password directly followed, without any spaces or dividers, by the TOTP offered by your multifactor device.
+
+User ID: MylogoniD
+
+Password: MystrongpassworDMytotppasscodE
+
+For some tools, this behavior affects log on to the tool itself:
+
+Cloud Foundry command-line interface (cf CLI)
+
+Alternatively, you can log on through a browser instead.
+
+For more information, see Log On Manually With a Custom Identity Provider.
+
+SAP Business Technology Platform command-line interface (btp CLI)
+
+Alternatively, you can log on through a browser instead.
+
+For more information, see Log in with Single Sign-On.
+
+For other tools, this behavior doesn't affect log on to the tool itself, but log on to the platform when establishing connections or deploying software and such. For example:
+
+Cloud Connector
+
+SAP Business Application Studio
+
+SAP Web IDE
+
+Trust and Identity Providers
+
+The system preconfigures trust between your subaccount and SAP ID service by default, so you can start using the service without further configuration.
+
+For web-based access, such as through a browser, you can hide the default trust.
+
+For more information, see Hide Logon Link for Default Identity Provider.
+
+For non-interactive logons, such as with CLI tools or password grant flow, you can make a custom identity provider the default.
+
+For more information, see btp update security/settings.
+
+To use a custom identity provider, establish trust with your custom identity provider. We describe a custom trust configuration using the example of SAP Cloud Identity Services.
+
+For more information, see Trust and Federation with Identity Providers.
+
+Related Information
+Security
+Platform Identity Provider for Tools
+Working with Users

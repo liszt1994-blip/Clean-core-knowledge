@@ -1,0 +1,33 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/download-and-install-cloud-foundry-command-line-interface
+Title: Download and Install the Cloud Foundry Command Line Interface | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Working with the Cloud Foundry Command Line InterfaceDownload and Install the Cloud Foundry Command Line Interface
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Download and Install the Cloud Foundry Command Line Interface
+
+Download and set up the Cloud Foundry Command Line Interface (cf CLI) to start working with the Cloud Foundry environment.
+
+Procedure
+Download the latest version of cf CLI from GitHub at the following URL: https://github.com/cloudfoundry/cli#downloads
+
+For Microsoft Windows, download the Windows 64-bit installer.
+
+For Mac OS, download the PKG file. You can use the Homebrew open source package management software to download the latest available version of the cf CLI.
+
+Install the cf CLI:
+
+For Microsoft Windows, unpack the ZIP file.
+
+For Mac OS, proceed as follows:
+
+Open the PGK file.
+
+In the installation wizard, choose Continue, and then select the destination folder for the cf CLI installation.
+
+Choose Continue, and when prompted, choose Install.
+
+For more information, see http://docs.cloudfoundry.org/devguide/installcf/install-go-cli.html.
+
+(Optional) If you have an HTTP proxy server, configure the proxy settings. For more information, see http://docs.cloudfoundry.org/cf-cli/http-proxy.html.

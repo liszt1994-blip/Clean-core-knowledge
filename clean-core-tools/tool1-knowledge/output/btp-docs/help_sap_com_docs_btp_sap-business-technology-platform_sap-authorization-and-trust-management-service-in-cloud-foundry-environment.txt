@@ -1,0 +1,16 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/sap-authorization-and-trust-management-service-in-cloud-foundry-environment
+Title: SAP Authorization and Trust Management Service | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformSecuritySAP Authorization and Trust Management Service
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+SAP Authorization and Trust Management Service
+
+The global account and subaccounts get their users from identity providers. Administrators make sure that users can only access their dedicated subaccount by making sure that there is a dedicated trust relationship only between the identity providers and the respective subaccounts. Developers configure and deploy application-based security artifacts containing authorizations, and administrators assign these authorizations using the SAP BTP cockpit.
+
+Note
+
+Before you start, make yourself familiar with the sections about authentication and authorization of the SAP BTP Planning and Lifecycle-Management Guide. See the Setting Up Your Security and Compliance Model section.
+
+Hold your pointer over a box for a description. Select a box to display more information.

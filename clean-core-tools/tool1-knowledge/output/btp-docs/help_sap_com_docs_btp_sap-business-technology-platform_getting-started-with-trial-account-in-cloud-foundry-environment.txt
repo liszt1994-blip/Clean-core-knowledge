@@ -1,0 +1,74 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/getting-started-with-trial-account-in-cloud-foundry-environment
+Title: Getting Started with a Trial Account in the Cloud Foundry Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformGetting StartedGetting Started in the Cloud Foundry EnvironmentGetting Started with a Trial Account in the Cloud Foundry Environ…
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Getting Started with a Trial Account in the Cloud Foundry Environment
+
+Quickly get started with a trial account.
+
+1. Getting a Global Account
+
+This image is interactive. Hover over each area for a description. Click highlighted areas for more information.
+
+Before you begin, sign up for a free trial account. See Get a Free Trial Account. For more information about the scope of our trial offering, see Trial Accounts and Free Tier.
+
+If you want to familiarize yourself with the Cloud Foundry environment, see Cloud Foundry Environment.
+
+2. Setting Up Your Account Model
+
+This image is interactive. Hover over each area for a description. Click highlighted areas for more information.
+
+When you register for a trial account, a subaccount and a space are created for you. You can create additional subaccounts and spaces, thereby further breaking down your account model and structuring it according to your development scenario, but first it's important you understand how to navigate to your accounts and spaces using the SAP BTP cockpit. See Navigate to Orgs and Spaces.
+
+If you like, create further subaccounts. See Create a Subaccount. You can also download and use the CLI forSAP BTP to create new subaccounts. See Download and Start Using the btp CLI Client and Working with Global Accounts, Directories, and Subaccounts Using the btp CLI.
+
+If you haven't done so already, now is a good time to download and install the Cloud Foundry Command Line Interface (cf CLI). This tool allows you to administer and configure your environment,enable services, and deploy applications. See Download and Install the Cloud Foundry Command Line Interface. But don't worry, you can also perform all the necessary task using the SAP BTP cockpit, which you don't need to install.
+
+If you'd like to use the cf CLI, log on to your environment. See Log On to the Cloud Foundry Environment Using the Cloud Foundry Command Line Interface.
+
+If you like, create further spaces. See Create Spaces. If you want to learn more about subaccounts, orgs, and spaces, and how they relate to each other, see Account Model.
+
+3. Configuring Your Environment
+
+This image is interactive. Hover over each area for a description. Click highlighted areas for more information.
+
+Now that you've set up your account model, it's time to think about member management. You can add members at different levels. For example, you can add members at the org level. See Add Org Members. For more information about the roles that are available on the different levels, see User and Member Management.
+
+You can also add members at the space level. See Add Space Members.
+
+In a trial account, quotas are automatically assigned to your subaccounts, but you can change that assignment. See Configure Entitlements and Quotas for Subaccounts. To learn more about entitlements and quotas, see Entitlements and Quotas.
+
+You can also assign quotas to different spaces within a subaccount. To do so, first create a space quota plan. See Create Space Quotas or Create Space Quota Plans Using the Cloud Foundry Command Line Interface.
+
+Then assign the quota plan to your space. See Assign Space Quotas to Spaces or Assign Quota Plans to Spaces Using the Cloud Foundry Command Line Interface.
+
+4. Developing and Deploying Applications
+
+This image is interactive. Hover over each area for a description. Click highlighted areas for more information.
+
+Develop your application. Check out the Developer Guide for tutorials and more information. See Development.
+
+Deploy your application. See Deploy Business Applications in the Cloud Foundry Environment.
+
+Integrate your application with a service. To do so, first create a service instance. See Creating Service Instances.
+
+Bind the service instance to your application. See Binding Service Instances to Applications.
+
+Alternatively, you can also create and use service keys. See Creating Service Keys. For more information on using services and creating service keys, see About Services.
+
+You can also create instances of user-provided services. See Creating User-Provided Service Instances.
+
+Tip
+
+Also check out the tutorial Create Your First App on Cloud Foundry to see how you can deploy a pre-bundled set of artifacts using the SAP BTP cockpit, access the app from your web browser, and create an instance of a service available on Cloud Foundry and bind it to your app.
+
+Related Information
+Cloud Foundry Environment
+Trial Accounts and Free Tier
+Account Model
+Entitlements and Quotas
+User and Member Management
+About Services

@@ -1,0 +1,69 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/monitoring-usage-information-using-apis-of-sap-usage-data-management-service
+Title: Monitoring Usage Information Using APIs of the SAP Usage Data Management Service | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Account Administration Using APIsMonitoring Usage Information Using APIs of the SAP Usage Data Man…
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Monitoring Usage Information Using APIs of the SAP Usage Data Management Service
+Provides information about using the Resource Consumption APIs of the SAP Usage Data Management service for SAP BTP for gathering, storing, and making usage information available for all services and applications in all regions in a cloud deployment. This information is for the purpose of central analysis, reporting, and license auditing.
+
+The service accumulates the information and provides reports in SAP BTP cockpit via APIs for resource planning and cross-billing purposes.
+
+Note
+
+The SAP Usage Data Management service is not sold to SAP BTP customers as a service; however, customers can see their usage data in the cockpit, for example, in the Usage Analytics pages.
+
+Accessing the API
+
+For more information about the APIs, including their specifications and endpoints, go to Resource Consumption for the list of all SAP Usage Data Management service APIs in the SAP Business Accelerator Hub.
+
+Remember
+
+To call the core platform API methods, you must obtain an access token. See Configuration for Using the Resource Consumption APIs in the SAP Business Accelerator Hub.
+
+Base URI: https://uas-reporting.cfapps.<landscape domain>/reports/v1
+
+Your global account admin has entitled the service plan for the SAP Usage Data Management service in your subaccount. See SAP Usage Data Management Service - Service Plans.
+
+Methods
+
+HTTP Method
+
+Action
+
+URI
+
+GET
+
+Get the cloud credit data history for a global account.
+
+/cloudCreditsDetails
+
+GET
+
+Get monthly usage reporting data for a directory and a specified time period.
+
+/monthlyDirectoryUsage
+
+GET
+
+Get monthly usage-reporting data for a global account and a specified time period.
+
+/monthlyUsage
+
+GET
+
+Get usage-reporting data for a subaccount.
+
+/subaccountUsage
+
+GET
+
+Get monthly cost reporting data for all subaccounts for the Cloud Platform Enterprise Agreement (CPEA) consumption-based commercial model.
+
+/monthlySubaccountsCost
+
+Related Information
+Configuration for Using the Resource Consumption APIs in the SAP Business Accelerator Hub
+SAP Usage Data Management Service - Service Plans

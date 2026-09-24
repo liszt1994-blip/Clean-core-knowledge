@@ -1,0 +1,76 @@
+URL: https://help.sap.com/docs/btp/sap-btp-security-recommendations-c8a9bb59fe624f0981efa0eff2497d7d/explanation-of-table-headings
+Title: Explanation of Table Headings | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP Security RecommendationsExplanation of Table Headings
+SAP BTP Security RecommendationsEnglish
+Provide feedback on our search
+
+Explanation of Table Headings
+
+Not all the table headings of our recommendations are immediately understandable so we provide an explanation.
+
+Explanation of Table Headings
+
+Component
+
+Priority
+
+Secure Operations Map
+
+Title
+
+Default Setting or Behavior
+
+Recommendation
+
+More Information
+
+Last Update
+
+Index
+
+The name of the service or component to which the setting belongs.
+
+Defines the criticality of the recommendation.
+
+For an explanation of the priority levels, see the following Explanation of Priority table.
+
+The Secure Operations Map is a reference model to structure the broad area of security for content, discussions, and as a basis for a 360° view on security.
+
+For more information about the Secure Operations Map, see Security Overview as part of the SAP Security Optimization Services Portfolio.
+
+A general heading to summarize what the setting is about.
+
+Describes the usage of the security setting, including any context, or default setting behavior (if available).
+
+Defines our recommendation for this configuration.
+
+A link to documentation that explains how you can achieve the recommendation.
+
+Date of the last significant change.
+
+See also What's New.
+
+A stable unique reference to identify the recommendation.
+
+
+Explanation of Priority
+
+Priority
+
+Description
+
+Critical
+
+Exposes the system to significant risk or threatens system reliability.
+
+Recommended
+
+Improves the security of the landscape and significantly reduces the attack surface.
+
+Advanced
+
+Extends the recommendation to a higher standard. The recommendation either extends the security standards to higher level of protection or to additional areas, such as your organization-specific requirements.
+
+Related Information
+SAP BTP Security Recommendations

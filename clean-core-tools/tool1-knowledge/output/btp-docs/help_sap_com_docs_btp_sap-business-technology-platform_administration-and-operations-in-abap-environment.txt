@@ -1,0 +1,87 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/administration-and-operations-in-abap-environment
+Title: Administration and Operations in the ABAP Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformAdministration and OperationsAdministration and Operations in the ABAP Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Administration and Operations in the ABAP Environment
+
+As an administrator in the ABAP environment, you have different tools and features available that support you in your daily work.
+
+Task Examples
+As an administrator in the ABAP environment, you focus on administration and operational tasks that aren't managed by SAP. Such tasks can include, for example:
+
+Account and organization management, including identity and access management for your users
+
+Monitoring of performance issues and exceptions in your own applications
+
+Such a monitoring includes response times of application-related communication endpoints, SQL statements issued by the application, application jobs, or ABAP runtime errors originating from custom code.
+
+System sizing, including a regular review of the overall resource utilization
+
+Such a system sizing can include a daily check of resource utilization peaks and a monthly check of resource utilization trends.
+
+Software lifecycle of custom applications (add-on updates or custom transports)
+
+Tenant management if you manage multi-tenant custom applications
+
+Monitoring of integrations with other cloud or on-premise based services
+
+Tools, Apps, and Functions: Overview
+
+Here's an overview of tools, apps, and functions that are available to you to perform administration and operations tasks, such as the following:
+
+Task	Tools, Apps, or Functions
+
+Managing accounts and organizations
+
+As an administrator in the ABAP environment, you can create additional accounts for users. In addition, you can manage orgs, spaces, and space quota plans to organize your subaccount into smaller units. You use the tools for account and org administration from the Cloud Foundry environment for this purpose.
+
+For more information, see the following:
+
+Account Administration in the Cockpit
+
+Org Administration Using the Cockpit
+
+Org Administration Using the Cloud Foundry CLI
+
+For more information about business roles in the ABAP environment, see Business Catalogs and Business Roles.
+
+Performing administration tasks, such as identity and access management, business configuration, communication management, and more
+
+In the Fiori launchpad, you can find apps that support you as an administrator or developer with various operational tasks. For more information, see SAP Fiori Apps in the ABAP Environment.
+
+Performing technical operations, such as monitoring the performance of your systems as well as the exhaustion of your purchased service volume
+
+You can use tools such as the technical monitoring cockpit, health monitoring, and more. There’s also guidance available for the most common tasks in technical operations and for system sizing. For more information, see Technical Operations.
+
+Operating communications when you integrate your system or solution with other systems to enable data exchange in your ABAP environment
+
+For more information, see Communication Operations.
+
+Performing lifecycle management operations and system administration tasks such as
+
+stopping currently unused systems and scheduling (regularly recurring) stop/starts for a system to save resource usage.
+
+restoring recently deleted tenants that are still in retention time.
+
+monitoring operations.
+
+TheLandscape Portal functions as a central tool for providers to perform lifecycle management operations and system admininistation tasks, seeManage System Hibernation,Restore Consumer Tenants, Operations Dashboard.
+
+Getting notifications about planned maintenance events and about unplanned service outages
+
+Register for the Cloud Availability Center. For more information, see the information about the Cloud Availability Center on SAP Support Portal.
+
+Operating cloud-centric SAP solution landscapes
+
+SAP Cloud ALM is the central entry point to operate cloud-centric SAP solution landscapes. You can use it for the following:
+
+Central monitoring of service level indicators (real user monitoring, job monitoring, exception monitoring)
+
+Central monitoring of key performance indicators for system and applications (health monitoring)
+
+Alert notifications (currently limited to SAP-defined metrics of the health monitoring framework)
+
+For more information about the available metrics for health monitoring, see Central Health Monitoring Using SAP Focused Run and SAP Cloud ALM.

@@ -1,0 +1,36 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/assigning-role-collections-to-users-or-user-groups
+Title: Assigning Role Collections to Users or User Groups | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Working with Role CollectionsAssigning Role Collections to Users or User Groups
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Assigning Role Collections to Users or User Groups
+
+You can assign role collections to users and user groups.
+
+Prerequisites
+
+You have administration rights in this subaccount or global account. For more information, see Security Administration: Managing Authentication and Authorization or Role Collections and Roles in Global Accounts, Directories, and Subaccounts.
+
+The roles defined by your application developers in the application security descriptor are available in the SAP BTP cockpit. For more information, see Adding Authentication and Authorization.
+
+The users are stored in identity providers that are connected to SAP BTP.
+
+Default identity provider (SAP ID service). For more information, see Default Identity Provider.
+
+Custom identity provider. For more information, see User Management in SAP Cloud Identity Services.
+
+You perform the following tasks to assign role collections to users and user groups stored by identity providers. The identity providers are connected to SAP BTP using trust configurations.
+
+Note
+
+Custom identity providers can provide user groups and users whereas default identity providers can only provide individual users.
+
+Assign Users to Role Collections
+
+Delete Users from Role Collections
+
+Assign User Groups to Role Collections
+
+Delete User Groups from Role Collections

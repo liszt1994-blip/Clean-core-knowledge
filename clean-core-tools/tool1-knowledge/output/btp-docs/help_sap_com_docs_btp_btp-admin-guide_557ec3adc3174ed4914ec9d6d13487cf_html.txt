@@ -1,0 +1,912 @@
+URL: https://help.sap.com/docs/btp/btp-admin-guide/557ec3adc3174ed4914ec9d6d13487cf.html
+Title: Regions for the Kyma Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformBasic Platform ConceptsRegionsRegions for the Kyma Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Regions for the Kyma Environment
+
+To work with the Kyma environment, you need to specify the region for both your subaccount and the cluster.
+
+Note
+
+In Kyma, the ingress and egress IP addresses are independent of the subaccount region. For more information, see Ingress and Egress IP Addresses.
+
+Subaccount Regions
+
+The table lists the regions you can choose from when creating a subaccount.
+
+Subaccount Regions for Kyma
+
+Global Account Type
+
+Region
+
+IaaS Provider
+
+Technical Key
+
+Region Name
+
+Plan ID
+
+Enterprise account
+
+Partner Test, Demo, and Development account
+
+Trial account
+
+ap21
+
+Microsoft Azure
+
+cf-ap21
+
+Singapore
+
+azure
+
+azure_lite
+
+trial
+
+build-runtime-azure
+
+Enterprise account
+
+Partner Test, Demo, and Development account
+
+us20
+
+Microsoft Azure
+
+cf-us20
+
+US West (WA)
+
+azure
+
+azure_lite
+
+build-runtime-azure
+
+Enterprise account
+
+Partner Test, Demo, and Development account
+
+jp20
+
+Microsoft Azure
+
+cf-jp20
+
+Japan (Tokyo)
+
+azure
+
+azure_lite
+
+build-runtime-azure
+
+Enterprise account
+
+Partner Test, Demo, and Development account
+
+us21
+
+Microsoft Azure
+
+cf-us21
+
+US East (VA)
+
+azure
+
+azure_lite
+
+build-runtime-azure
+
+Enterprise account
+
+Partner Test, Demo, and Development account
+
+eu20
+
+Microsoft Azure
+
+cf-eu20
+
+Europe (Netherlands)
+
+azure
+
+azure_lite
+
+build-runtime-azure
+
+Enterprise account
+
+Partner Test, Demo, and Development account
+
+eu22
+
+Microsoft Azure
+
+cf-eu22
+
+Europe (Frankfurt)
+
+azure
+
+azure_lite
+
+Enterprise account
+
+Partner Test, Demo, and Development account
+
+uk20
+
+Microsoft Azure
+
+cf-uk20
+
+UK South (London)
+
+azure
+
+azure_lite
+
+Enterprise account
+
+Partner Test, Demo, and Development account
+
+ap20
+
+Microsoft Azure
+
+cf-ap20
+
+Australia (Sydney)
+
+azure
+
+azure_lite
+
+build-runtime-azure
+
+Enterprise account
+
+Partner Test, Demo, and Development account
+
+br20
+
+Microsoft Azure
+
+cf-br20
+
+Brazil (São Paulo)
+
+azure
+
+azure_lite
+
+build-runtime-azure
+
+Enterprise account
+
+Partner Test, Demo, and Development account
+
+ca20
+
+Microsoft Azure
+
+cf-ca20
+
+Canada (Toronto)
+
+azure
+
+azure_lite
+
+Enterprise account
+
+ch20
+
+Microsoft Azure
+
+cf-ch20
+
+Switzerland (Zurich) EU Access
+
+azure
+
+Enterprise account
+
+cn20
+
+Microsoft Azure
+
+cf-cn20
+
+China (North 3) 1
+
+azure
+
+Enterprise account
+
+Trial account
+
+us10
+
+Amazon Web Services
+
+cf-us10
+
+US East (VA)
+
+aws
+
+trial
+
+build-runtime-aws
+
+Enterprise account
+
+Trial account
+
+eu10
+
+Amazon Web Services
+
+cf-eu10
+
+Europe (Frankfurt)
+
+aws
+
+trial
+
+build-runtime-aws
+
+Enterprise account
+
+eu11
+
+Amazon Web Services
+
+cf-eu11
+
+Europe (Frankfurt) EU Access
+
+aws
+
+build-runtime-aws
+
+Enterprise account
+
+eu13
+
+Amazon Web Services
+
+cf-eu13
+
+Europe (Milan)
+
+aws
+
+Enterprise account
+
+br10
+
+Amazon Web Services
+
+cf-br10
+
+Brazil (São Paulo)
+
+aws
+
+build-runtime-aws
+
+Enterprise account
+
+jp10
+
+Amazon Web Services
+
+cf-jp10
+
+Japan (Tokyo)
+
+aws
+
+build-runtime-aws
+
+Enterprise account
+
+ca10
+
+Amazon Web Services
+
+cf-ca10
+
+Canada (Montreal)
+
+aws
+
+build-runtime-aws
+
+Enterprise account
+
+ap12
+
+Amazon Web Services
+
+cf-ap12
+
+South Korea (Seoul)
+
+aws
+
+Enterprise account
+
+ap10
+
+Amazon Web Services
+
+cf-ap10
+
+Australia (Sydney)
+
+aws
+
+build-runtime-aws
+
+Enterprise account
+
+ap11
+
+Amazon Web Services
+
+cf-ap11
+
+Singapore
+
+aws
+
+build-runtime-aws
+
+Enterprise account
+
+us11
+
+Amazon Web Services
+
+cf-us11
+
+US West (Oregon)
+
+aws
+
+Enterprise account
+
+us30
+
+Google Cloud
+
+cf-us30
+
+US Central (IA)
+
+gcp
+
+build-runtime-gcp
+
+Enterprise account
+
+eu30
+
+Google Cloud
+
+cf-eu30
+
+Europe (Frankfurt)
+
+gcp
+
+build-runtime-gcp
+
+Enterprise account
+
+eu31
+
+Google Cloud
+
+cf-eu31
+
+Europe (Netherlands)
+
+gcp
+
+Enterprise account
+
+in30
+
+Google Cloud
+
+cf-in30
+
+India (Mumbai)
+
+gcp
+
+build-runtime-gcp
+
+Enterprise account
+
+jp30
+
+Google Cloud
+
+cf-jp30
+
+Japan (Osaka)
+
+gcp
+
+Enterprise account
+
+jp31
+
+Google Cloud
+
+cf-jp31
+
+Japan (Tokyo)
+
+gcp
+
+Enterprise account
+
+sa30
+
+Google Cloud
+
+cf-sa30
+
+KSA (Dammam) GCP public sector
+
+gcp
+
+Enterprise account
+
+sa31
+
+Google Cloud
+
+cf-sa31
+
+KSA (Dammam)
+
+gcp
+
+Enterprise account
+
+il30
+
+Google Cloud
+
+cf-il30
+
+Israel (Tel Aviv)
+
+gcp
+
+Enterprise account
+
+br30
+
+Google Cloud
+
+cf-br30
+
+Brazil (São Paulo)
+
+gcp
+
+Enterprise account
+
+ap30
+
+Google Cloud
+
+cf-ap30
+
+Australia (Sydney)
+
+gcp
+
+build-runtime-gcp
+
+Enterprise account
+
+ap31
+
+Google Cloud
+
+cf-ap31
+
+Singapore (Jurong West)
+
+gcp
+
+Enterprise account
+
+eu01
+
+SAP Cloud Infrastructure
+
+cf-eu01
+
+Europe (Frankfurt) EU Access
+
+sap-converged-cloud available in the Germany (Frankfurt) (eu-de-2) region
+
+Enterprise account
+
+eu02
+
+SAP Cloud Infrastructure
+
+cf-eu02
+
+Europe (Rot) EU Access
+
+sap-converged-cloud available in the Germany (Rot) (eu-de-1) region
+
+Enterprise account
+
+ap01
+
+SAP Cloud Infrastructure
+
+cf-ap01
+
+Australia (Sydney)
+
+sap-converged-cloud available in the Australia (Sydney) (ap-au-1) region
+
+Enterprise account
+
+ae01
+
+SAP Cloud Infrastructure
+
+cf-ae01
+
+UAE (Dubai)
+
+sap-converged-cloud available in the UAE (Dubai) (ap-ae-1) region
+
+Enterprise account
+
+us01
+
+SAP Cloud Infrastructure
+
+cf-us01
+
+US East (Sterling)
+
+sap-converged-cloud available in the US East (Sterling) (na-us-1) region
+
+Enterprise account
+
+us02
+
+SAP Cloud Infrastructure
+
+cf-us02
+
+US West (Colorado)
+
+sap-converged-cloud available in the US West (Colorado) (na-us-2) region
+
+Enterprise account
+
+jp01
+
+SAP Cloud Infrastructure
+
+cf-jp01
+
+Japan (Tokyo)
+
+sap-converged-cloud available in the Japan (Tokyo) (ap-jp-1) region
+
+Enterprise account
+
+cn40
+
+Alibaba Cloud
+
+cf-cn40
+
+China (Shanghai)
+
+alicloud
+
+Note
+
+1 This region is available only in the BTP region cf-cn20 and is the sole region available within the Microsoft Azure (azure) plan in China.
+
+Cluster Regions
+
+When you enable a Kyma environment for a given subaccount, you must select a plan and region where the cluster is going to be created. Note that there is a number of regions available within each plan. They are all listed in the table:
+
+Cluster Regions
+
+IaaS Provider
+
+Plan ID
+
+Region
+
+Region Name
+
+Microsoft Azure
+
+azure
+
+azure_lite
+
+build-runtime-azure
+
+centralus
+
+US Central (IA)
+
+eastus
+
+US East (VA)
+
+westus2
+
+US West (WA)
+
+northeurope
+
+North EU (Ireland)
+
+uksouth
+
+UK South (London)
+
+germanywestcentral
+
+Europe (Frankfurt)
+
+switzerlandnorth
+
+Switzerland (Zurich)
+
+westeurope
+
+Europe (Netherlands)
+
+southeastasia
+
+Singapore
+
+australiaeast
+
+Australia (Sydney)
+
+japaneast
+
+Japan (Tokyo)
+
+brazilsouth
+
+Brazil (São Paulo)
+
+canadacentral
+
+Canada (Toronto)
+
+chinanorth3 1
+
+China (North 3) 1
+
+Amazon Web Services
+
+aws
+
+build-runtime-aws
+
+eu-central-1
+
+Europe (Frankfurt)
+
+eu-west-2
+
+Europe (London)
+
+eu-south-1
+
+Europe (Milan)
+
+ca-central-1
+
+Canada (Montreal)
+
+sa-east-1
+
+Brazil (São Paulo)
+
+us-east-1
+
+US East (VA)
+
+ap-northeast-1
+
+Japan (Tokyo)
+
+ap-northeast-2
+
+South Korea (Seoul)
+
+ap-south-1
+
+India (Mumbai)
+
+ap-southeast-1
+
+Singapore
+
+ap-southeast-2
+
+Australia (Sydney)
+
+us-west-2
+
+US West (Oregon)
+
+trial
+
+eu-central-1
+
+Europe (Frankfurt)
+
+us-east-1
+
+US East (VA)
+
+ap-southeast-1
+
+Singapore
+
+Google Cloud
+
+gcp
+
+build-runtime-gcp
+
+europe-west3
+
+Europe (Frankfurt)
+
+europe-west4
+
+Europe (Netherlands)
+
+us-central1
+
+US Central (IA)
+
+asia-south1
+
+India (Mumbai)
+
+asia-northeast2
+
+Japan (Osaka)
+
+me-central2
+
+KSA (Dammam)
+
+me-west1
+
+Israel (Tel Aviv)
+
+australia-southeast1
+
+Australia (Sydney)
+
+southamerica-east1
+
+Brazil (São Paulo)
+
+asia-northeast1
+
+Japan (Tokyo)
+
+asia-southeast1
+
+Singapore (Jurong West)
+
+us-west1
+
+North America (Oregon)
+
+us-east4
+
+North America (Virginia)
+
+SAP Cloud Infrastructure
+
+sap-converged-cloud
+
+eu-de-1
+
+Germany (Rot)
+
+eu-de-2
+
+Germany (Frankfurt)
+
+na-us-1
+
+US East (Sterling)
+
+na-us-2
+
+US West (Colorado)
+
+ap-au-1
+
+Australia (Sydney)
+
+ap-jp-1
+
+Japan (Tokyo)
+
+ap-ae-1
+
+UAE (Dubai)
+
+Alibaba Cloud
+
+alicloud
+
+cn-shanghai
+
+China (Shanghai)
+
+Load Balancers
+Depending on the IaaS Provider, the following Load Balancers are provisioned by default:
+Default Load Balancers
+
+IaaS Provider
+
+Default Load Balancer
+
+Microsoft Azure
+
+Standard
+
+Amazon Web Services
+
+Classic Network Load Balancer
+
+Google Cloud
+
+External passthrough Network Load Balancer
+
+For more details on the Load Balancers and their features, check out the official documentation of the respective IaaS provider.
+Related Information
+Creating Kyma Instances
+Available Plans in the Kyma Environment
+Provisioning and Updating Parameters in the Kyma Environment

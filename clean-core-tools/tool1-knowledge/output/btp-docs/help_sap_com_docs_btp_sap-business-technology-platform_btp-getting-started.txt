@@ -1,0 +1,45 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/btp-getting-started
+Title: Getting Started | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformGetting Started
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Getting Started
+
+Once you're familiar with the basic concepts of SAP BTP, you can start your first workflows or check out further resources that help you get started quickly.
+
+Onboarding Guides
+
+The SAP BTP Administrator's Guide helps you plan your development projects on SAP BTP from onboarding to SAP Cloud Identity Services, through setting up the correct organizational structure, to creating an account and security model, to developing and operating applications.
+
+The SAP BTP Developer’s Guide helps you define the correct methodologies and tools for your development project.
+
+Getting Started Workflows
+
+Learn how to get a global account and get started with a trial or an enterprise account on SAP BTP. A trial account lets you try out SAP BTP for free, and within an enterprise account, you can use so-called free tier service plans for free. See Trial Accounts and Free Tier.
+
+Depending on your use case, follow the appropriate workflow:
+
+Getting a Global Account
+
+Getting Started in the Cloud Foundry Environment
+
+Getting Started in the ABAP Environment
+
+Getting Started in the Kyma Environment
+
+Additional Resources
+
+The SAP Developer Center provides further resources to get you started:
+
+SAP Discovery Center
+
+SAP BTP in SAP Developer Center
+
+Start Developing on SAP BTP Tutorials
+
+Related Information
+SAP BTP Administrator's Guide
+SAP BTP Developer's Guide
+Access the Cockpit

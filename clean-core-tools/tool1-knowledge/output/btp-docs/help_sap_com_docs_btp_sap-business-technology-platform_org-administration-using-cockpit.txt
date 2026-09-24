@@ -1,0 +1,21 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/org-administration-using-cockpit
+Title: Org Administration Using the Cockpit | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformAdministration and OperationsAdministration and Operations in the Cloud Foundry EnvironmentOrg Administration Using the Cockpit
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Org Administration Using the Cockpit
+In the Cloud Foundry environment, manage orgs, spaces and space quota plans using the SAP BTP cockpit.
+
+In addition to global accounts and subaccounts, the Cloud Foundry environment includes another hierarchical level represented by orgs and spaces.
+
+When you enable Cloud Foundry in a subaccount, you create a Cloud Foundry org in which you can then create multiple spaces. Each subaccount can contain only one Cloud Foundry org. There is no limit to how many spaces you can have within one org.
+
+In the Cloud Foundry environment, you deploy applications and consume services at space level. Similar to subaccounts, spaces enable you to once again structure and sub-divide quota if you want to. You can do this by managing space quota plans.
+
+Managing Orgs
+
+Managing Spaces
+
+Managing Space Quotas

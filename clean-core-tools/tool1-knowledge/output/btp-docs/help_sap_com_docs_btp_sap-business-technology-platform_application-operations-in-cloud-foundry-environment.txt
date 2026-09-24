@@ -1,0 +1,42 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/application-operations-in-cloud-foundry-environment
+Title: Application Operations in the Cloud Foundry Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformAdministration and OperationsAdministration and Operations in the Cloud Foundry EnvironmentApplication Operations in the Cloud Foundry Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Application Operations in the Cloud Foundry Environment
+
+Learn more about the different application operations that you can perform in the Cloud Foundry environment.
+
+Manage Environment Variables
+
+Deploy an Application
+
+Start, Stop, and Restart Applications
+
+Restage an Application
+
+Manage Application Instances
+
+Bind an Application to a Service
+
+Troubleshoot Applications
+
+Using Application Events
+
+Using Application Logs
+
+Configuring Application URLs in the Cloud Foundry CLI
+
+About Routes in the Cockpit
+
+Create Routes
+
+Map Routes to Applications
+
+Bind Routes to Service Instances
+
+Security Groups
+
+Using Custom Domains

@@ -1,0 +1,23 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/subscribing-to-web-access-for-abap
+Title: Subscribing to the Web Access for ABAP | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…ABAP Environment: Initial SettingsSubscribing to the Web Access for ABAP
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Subscribing to the Web Access for ABAP
+
+You need to subscribe to the Web access for ABAP SaaS application to get direct browser access to your instances in the ABAP environment, including access to the administration launchpad for ABAP.
+
+Context
+Note
+
+If you have run the booster Prepare an Account for ABAP Development, you can skip this step.
+
+This subscription is required to access the SAP Fiori launchpad for the administrator and to access developed SAP Fiori applications. Subscription is required only once per subaccount (for all systems to be created in all spaces of this subaccount). After subscribing to the application, you have access to the administration launchpad, where you can configure application roles and assign those roles to your users.
+
+Procedure
+Log on to the SAP BTP cockpit in the Cloud Foundry subaccount of the global account for Cloud Foundry as administrator.
+In the navigation area, choose Services  Service Marketplace.
+Choose the SaaS application tile Web access for ABAP.
+If the application is not shown as active, choose Create and wait for the subscription to be provisioned.

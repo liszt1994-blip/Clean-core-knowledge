@@ -1,0 +1,53 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/role-based-access-control-rbac-in-kyma
+Title: Role-Based Access Control (RBAC) in Kyma | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP Administrator's Guide…Setting Up AuthorizationRole-Based Access Control (RBAC) in Kyma
+SAP BTP Administrator's GuideEnglish
+Provide feedback on our search
+
+Role-Based Access Control (RBAC) in Kyma
+
+Assigning permissions in Kyma is based on the Kubernetes role-based access control (RBAC). It’s recommended that you start with separating the developers and operators of a cluster. Later, you can refine the role concept as required.
+
+Recommended Role Setup
+
+The goal of the recommended role setup is to implement Kubernetes RBAC best practices, which is a method of regulating access to computer or network resources based on the roles of individual users within your organization.
+
+The role setup separates the operators from the development teams, and day-to-day user accounts from administrative accounts. It enables DevOps while ensuring security on production clusters.
+
+In production clusters and development and test clusters alike, each service, project, or development team should have its own namespace.
+
+Typically, it‘s useful that developers have read access to dedicated resources on cluster level or in other namespaces, such as “Istio” or “Application Connector”. Use the ClusterRole common-resource-viewer for this. Additional modules can bring additional resources. For more information, see Kyma Modules.
+
+The suggested setup uses the Kubernetes objects “ClusterRole”, “RoleBinding”, and “ClusterRoleBinding”. For examples of the required Kubernetes objects, see the suggested manifest templates.
+
+In RoleBindings and ClusterRolebindings, use groups instead of users. For more information about group management in SAP Cloud Identity Services, see Groups.
+
+To reduce the number of accounts directly assigned to powerful roles in the cluster, use Kubernetes impersonation.
+
+Impersonation in Kubernetes
+Role Setup for Operators
+Role Setup for Developers (Dev and Test)
+Role Setup for Developers (Prod)
+Tip
+
+Use the following manifest templates to set up the recommended role concept.
+
+Expand the sections to see the role setup for each purpose, and within the sections, expand the sample code to see the manifest templates.
+
+Kubernetes Manifest Templates for Generic Roles
+View All Resources
+View Common Kyma Objects in the Cluster
+Kubernetes Manifest Templates for Operators
+View Access for All Clusters
+Admin Access for All Clusters
+Kubernetes Manifest Templates for Developers
+Namespace Admin Access for Dev and Test
+Admin Access for Prod
+Read Access to Namespace for Prod
+Related Information
+Kubernetes: Using RBAC Authorization
+Kubernetes: Role Based Access Control Good Practices
+SAP Blogs: Using the Kubernetes-native Role-based access control
+Assign Roles in the Kyma Environment
+Cloud Foundry, Kyma, or Both?

@@ -1,0 +1,38 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/administration-and-operations-in-cloud-foundry-environment
+Title: Administration and Operations in the Cloud Foundry Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformAdministration and OperationsAdministration and Operations in the Cloud Foundry Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Administration and Operations in the Cloud Foundry Environment
+
+Learn about the different account administration and application operation tasks which you can perform in the Cloud Foundry environment.
+
+Account Administration Using the SAP BTP Command Line Interface (btp CLI)
+
+Account Administration in the Cockpit
+
+Account Administration Using APIs of the SAP Cloud Management Service
+
+About Roles in the Cloud Foundry Environment
+
+Org Administration Using the Cockpit
+
+Org Management Using the SAP BTP Command Line Interface (btp CLI)
+
+Org Administration Using the Cloud Foundry CLI
+
+Application Operations in the Cloud Foundry Environment
+
+Log on with a Browser to the Cloud Foundry CLI and Service Dashboards
+
+Accessing Administration Using APIs of the SAP Authorization and Trust Management Service
+
+Audit Logging in the Cloud Foundry Environment
+
+Related Information
+Cloud Foundry Environment
+Getting Started in the Cloud Foundry Environment
+Development in the Cloud Foundry Environment
+Tutorial Navigator: Learn How to Manage Your Cloud Foundry Environment in the SAP BTP Cockpit

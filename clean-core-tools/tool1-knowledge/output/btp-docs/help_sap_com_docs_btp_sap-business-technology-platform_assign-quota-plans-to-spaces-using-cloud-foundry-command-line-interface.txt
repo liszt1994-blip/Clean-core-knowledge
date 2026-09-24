@@ -1,0 +1,24 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/assign-quota-plans-to-spaces-using-cloud-foundry-command-line-interface
+Title: Assign Quota Plans to Spaces Using the Cloud Foundry Command Line Interface | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Org Administration Using the Cloud Foundry CLIAssign Quota Plans to Spaces Using the Cloud Foundry Command Line…
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Assign Quota Plans to Spaces Using the Cloud Foundry Command Line Interface
+
+You use the Cloud Foundry Command Line Interface to assign the quotas available in your global account to your subaccounts.
+
+Prerequisites
+
+The Org Manager role for the org that contains the spaces to which you want to assign quotas.
+
+Download and install the cf CLI and log on to Cloud Foundry. For more information, see Download and Install the Cloud Foundry Command Line Interface and Log On to the Cloud Foundry Environment Using the Cloud Foundry Command Line Interface.
+
+A space quota plan. For more information, see Create Space Quota Plans Using the Cloud Foundry Command Line Interface.
+
+Procedure
+Open a command line and enter the following string:
+
+
+cf set-space-quota SPACE_NAME SPACE_QUOTA_NAME

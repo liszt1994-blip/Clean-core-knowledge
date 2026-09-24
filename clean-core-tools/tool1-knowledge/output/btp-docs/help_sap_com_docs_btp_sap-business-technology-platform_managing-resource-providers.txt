@@ -1,0 +1,140 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/managing-resource-providers
+Title: Managing Resource Providers | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Managing Global Accounts Using the CockpitManaging Resource Providers
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Managing Resource Providers
+
+SAP BTP allows you to connect your global account in the SAP BTP cockpit to your provider account from a non-SAP cloud vendor, and consume remote service resources that you already own and which are supported by SAP through this channel.
+
+Note
+
+The use of this functionality is subject to the availability of the supported non-SAP cloud vendors in your country or region.
+
+Context
+
+For example, if you are subscribed to Amazon Web Services (AWS) and have already purchased services, such as PostgreSQL, you can register the vendor as a resource provider in SAP BTP and consume this service across your subaccounts together with other services offered by SAP.
+
+SAP BTP currently supports the following vendors and their consumable services:
+
+Cloud Vendor
+
+Supported Services
+
+Amazon Web Services
+
+Amazon Relational Database Service (RDS) - PostgreSQL
+
+Microsoft Azure
+
+Azure Database for PostgreSQL
+
+More information: PostgreSQL on SAP BTP - Product Documentation
+
+Configure a New Resource Provider
+Context
+
+To consume the resources provisioned by your provider account, you need to first create a resource provider instance in the cockpit.
+
+Procedure
+Navigate to your global account in the cockpit.
+Choose Resource Providers from the left hand-side navigation panel.
+Choose New Provider.
+Choose the provider from the list of supported vendors.
+Enter a display name for the provider.
+
+You can create more than one instance of a given resource provider, each with its unique configuration properties. In such cases, the display name (and technical name) should be descriptive enough so that you and developers can easily differentiate between each instance.
+
+Enter a unique technical name for the provider.
+
+The technical name can contain only letters (a-z), digits (0-9), and underscore (_) characters.
+
+This name can be used by developers as a parameter when creating service instances from this provider.
+
+Note
+
+After you save the settings for the resource provider, you cannot change its technical name.
+
+Choose either Manually enter provider configuration properties or Add provider configuration properties by JSON file, depending on how you prefer to provide the necessary configuration properties for the given provider.
+Tip
+
+Each supported vendor has its own unique configuration properties. The New Resource Provider form provides a description of each property and indicates whether they are mandatory or optional.
+
+If you choose to configure the properties by uploading a JSON file, which is typically provided by the vendor, make sure that the file contains the required configuration properties for connecting to the provider, and is correctly formatted.
+Sample Code
+
+Sample JSON for configuring Amazon Web Services (AWS) as a resource provider:
+
+
+
+{
+
+"access_key_id": "AWSACCESSKEY",
+
+"secret_access_key": "SECRETKEY",
+
+"vpc_id": "vpc-test",
+
+"region": "eu-central-1"
+}
+
+Save your changes.
+
+The new resource provider is added to the resource providers table.
+
+Results
+
+After you configure a new resource provider, its supported services are added as entitlements in your global account. In the Entitlements page in the cockpit, you can then allocate the required services and quotas to the relevant directories and subaccounts in your global account.
+
+Manage Resource Providers and Service Entitlements
+Context
+
+Follow these steps to manage the resource providers that you have already configured in the cockpit.
+
+Procedure
+Navigate to your global account in the cockpit.
+Open the Resource Providers page.
+
+The page displays the resources providers that you have already configured.
+
+In the Actions columns, you can perform the following for each resource provider:
+Action	Description
+
+
+
+Manage Entitlements and Quotas
+
+View the subaccount entitlements and quotas of services that are consumed from a resource provider.
+
+This action opens the Entitlements  Service Assignments page in the cockpit, and is prefiltered for the selected resource provider.
+
+Tip
+
+Whenever you need to manage assigned entitlements, you can navigate directly to the Service Assignments or Subaccount Assignments pages in the cockpit without going through the Resource Providers page.
+
+
+
+Edit Resource Provider
+
+Edit the display name, description, and configuration properties of a resource provider.
+
+Note
+
+You cannot change the technical name of a resource provider.
+
+
+
+Delete
+
+Delete a resource provider.
+
+When you delete an existing resource provider, all the services offered by this instance of the resource provider will no longer be available on SAP BTP.
+
+Note
+
+You cannot delete a resource provider that already has service entitlements assigned to subaccounts in your global account. To delete the provider, you need to first remove its subaccount assignments in the Subaccount Assignments page.
+
+Related Information
+Configure Entitlements and Quotas for Subaccounts

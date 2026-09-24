@@ -1,0 +1,62 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/45341f37cf6e4738a4b7cd20f18350de.html
+Title: What Is Application Autoscaler? | SAP Help Portal
+
+HomeApplication AutoscalerApplication Autoscaler
+Application AutoscalerEnglish
+Provide feedback on our search
+
+What Is Application Autoscaler?
+
+Automatically scale your applications to meet their dynamic resource needs.
+
+Application Autoscaler lets you automatically increase or decrease the number of your application instances based on the policies you have defined.
+
+Tip
+The English version of this guide is open for contributions and feedback using GitHub. This allows you to get in contact with responsible authors of SAP Help Portal pages and the development team to discuss documentation-related issues. To contribute to this guide, or to provide feedback, choose the corresponding option on SAP Help Portal:
+
+Feedback  Create issue: Provide feedback about a documentation page. This option opens an issue on GitHub.
+
+Feedback  Edit page: Contribute to a documentation page. This option opens a pull request on GitHub.
+
+You need a GitHub account to use these options.
+
+More information:
+
+Contribution Guidelines
+
+Introduction Video
+
+Introduction Blog Post
+
+Features
+Scale applications on CF automatically
+
+Automatically increase or decrease the number of application instances to meet the changing demands of application resources.
+
+Make your scaling resource-specific
+
+Scale your applications on the basis of any standard metric type, such as memory consumed, CPU, response time, or throughput.
+
+Define custom metrics
+
+Scale your applications by defining custom metrics that match their requirements.
+
+Manage your costs effectively
+
+Only consume and pay for the compute resources, which your applications require.
+
+Environment
+
+This service runs in the Cloud Foundry environment.
+
+Regional Availability
+
+For information on the regional availability of Application Autoscaler, see SAP Discovery Center.
+
+For more information, see Regions.
+
+Documentation Feedback Survey
+
+Give Feedback
+
+Help us improve our documentation. Please take this two-minute survey and let us know what you think.

@@ -1,0 +1,40 @@
+URL: https://help.sap.com/docs/btp/btp-admin-guide/55d0b6d8b96846b8ae93b85194df0944.html
+Title: Managing Subaccounts Using the Cockpit | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP, Neo EnvironmentAdministration and Operations, Neo EnvironmentAccount Administration in the CockpitManaging Subaccounts Using the Cockpit
+SAP BTP, Neo EnvironmentEnglish
+Provide feedback on our search
+
+Managing Subaccounts Using the Cockpit
+
+Learn how to structure a global account according to your organization’s and project’s requirements with regard to members, authorizations, and entitlements by managing subaccounts.
+
+Context
+Caution
+
+SAP Business Technology Platform, Neo environment will sunset on December 31, 2028, subject to terms of customer or partner contracts.
+
+For more information, see SAP Note 3351844 .
+
+Tip
+
+This documentation refers to SAP Business Technology Platform, Neo environment. If you are looking for documentation about other environments, see SAP Business Technology Platform .
+
+To learn more about the concept of subaccounts, see Subaccounts.
+
+Procedure
+Learn how to create subaccounts.
+
+Create a Subaccount
+
+Learn how to manage users.
+
+Add Members to Your Subaccount
+
+Learn how to administer your subaccount.
+
+Change Subaccount Details
+
+View Subaccount Usage Analytics
+
+Delete a Subaccount

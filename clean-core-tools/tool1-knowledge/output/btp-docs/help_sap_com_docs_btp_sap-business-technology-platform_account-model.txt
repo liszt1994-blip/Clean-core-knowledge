@@ -1,0 +1,196 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/account-model
+Title: Account Model | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformBasic Platform ConceptsAccount Model
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Account Model
+
+Learn more about the different types of accounts on SAP BTP and how they relate to each other.
+
+Accounts are structured according to global accounts, subaccounts, and directories.
+
+To learn more about managing your account model, see Account Administration.
+
+Global Accounts
+
+A global account is the realization of a contract you or your company has made with SAP.
+
+A global account is used to manage subaccounts, members, entitlements and quotas. You receive entitlements and quotas to use platform resources per global account and then distribute the entitlements and quotas to the subaccount for actual consumption. There are two types of commercial models for global accounts: consumption-based model and subscription-based model. See Commercial Models .
+
+Global accounts are region- and environment-independent. Within a global account, you manage all of your subaccounts, which in turn are specific to one region.
+
+Subaccounts
+
+In subaccounts, you deploy applications, use services, and manage your subscriptions. You can use them to manage members, authorizations, and entitlements.
+
+A global account can contain one or more subaccounts in which you deploy applications, use services, and manage your subscriptions. Subaccounts in a global account are independent from each other. This is important to consider with respect to security, member management, data management, data migration, integration, and so on, when you plan your landscape and overall architecture.
+
+Each subaccount is associated with a region, which is the physical location where applications, data, or services are hosted. The specific region is relevant when you deploy applications and access the SAP BTP cockpit using the corresponding cockpit URL. The region assigned to your subaccount doesn't have to be directly related to your location. You could be located in the United States, for example, but operate your subaccount in Europe.
+
+The entitlements and quotas that have been purchased for a global account have to be assigned to the individual subaccounts.
+
+Global accounts and subaccounts are completely independent of user accounts. For more information, see User and Member Management.
+
+Subaccounts, Cloud Foundry Orgs and Kyma Clusters
+
+When you enable the Cloud Foundry environment in one of your subaccounts, the system automatically creates a Cloud Foundry org for you. The subaccount and the org have a 1:1 relationship and the same navigation level in the cockpit (even though they may have different names). You can create spaces within that Cloud Foundry org. Spaces let you further break down your account model and use services and functions in the Cloud Foundry environment.
+
+For more information about Cloud Foundry orgs and spaces, see the Cloud Foundry documentation at https://docs.cloudfoundry.org/concepts/roles.html.
+
+When you enable the Kyma environment in one of your subaccounts, you can provision one or more Kubernetes clusters equipped with the latest version of the open-source project "Kyma". The subaccount and the Kyma cluster have a 1:n relationship - you can choose to create more than one cluster right away, or add clusters later.
+
+Within each Kyma cluster, you can create namespaces to organize your workloads and control access to resources. Namespaces let you further break down your account model and use services and functions in the Kyma environment. For more information, see the Kubernetes documentation at https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/.
+
+Directories
+
+With directories, you can organize and manage your subaccounts according to your technical and business needs.
+
+A directory can contain directories and subaccounts to create a hierarchy. Using directories to group other directories and subaccounts is optional - you can still create subaccounts directly under your global account.
+
+You can create a hierarchical structure that is up to 7 levels deep. The highest level of a given path is always the global account and the lowest is a subaccount, which means that you can have up to 5 levels of directories between the global account and the lowest level subaccount.
+
+Directories enable you to:
+
+Group and filter directories and subaccounts
+
+Monitor usage and costs for contracts that use the consumption-based commercial model
+
+Optionally, you can also enable the following features in your directories:
+
+Manage Entitlements: Enables the assignment of a quota for services and applications to the directory from the global account quota, for distribution to the directory's subaccounts.
+
+When you assign entitlements to a directory, you express the entitlements and maximum quota that can be distributed across its children subaccounts. You also have the option to choose the auto-assignment of a set amount of quota to all subaccounts created or moved to that directory. Subaccounts that are already in the directory when you select that option will not be auto-assigned quota.
+
+Note
+
+If you've enabled the Manage Entitlements feature for a given directory, you must first assign the necessary entitlements and maximum allowed quota from the global account to that directory. Then you can distribute this "reserved" quota to any of the directory's child subaccounts.
+
+Manage Authorizations: Enables authorization management for the directory. For example, it allows certain users to manage directory entitlements. You can only use this feature in combination with the Manage Entitlements feature.
+
+Related Information
+Manage the Account Explorer Hierarchy
+Configure Entitlements and Quotas for Directories
+Configure Entitlements and Quotas for Subaccounts
+Getting a Global Account
+Setting Up Your Account Model
+Managing Global Accounts Using the Cockpit
+Managing Directories Using the Cockpit
+Managing Subaccounts Using the Cockpit
+Working with Global Accounts, Directories, and Subaccounts Using the btp CLI
+Account Administration Using APIs of the SAP Cloud Management Service
+Relationship Between Global Accounts, Subaccounts, and Directories
+
+A global account can group together different directories and subaccounts that an administrator makes available to users. Administrators can assign the available entitlements and quotas of a global account to its different subaccounts and move it between subaccounts that belong to the same global account.
+
+The hierarchical structure of global accounts, directories, and subaccounts lets you define an account model that accurately fits your business and development needs. For example, if you want to separate development, testing, and productive usage for different departments in your organization, you can create a directory for each department, and within each directory, you group subaccounts for development, testing, and production.
+
+Labels
+
+Labels are user-defined words or phrases that you can assign to various entities in SAP BTP to categorize them in your global account, to identify them more easily.
+
+For example, in the Account Explorer page in the cockpit, you can quickly filter for directories and subaccounts by label.
+
+You can assign labels to these entities when you create or edit them using the SAP BTP cockpit, command line interface (btp CLI), or REST APIs:
+
+Directories
+
+Subaccounts
+
+Multitenant application subscriptions
+
+Service instances
+
+Environment instances
+
+Note
+
+For environment instances, these custom labels are user defined and apply only to SAP BTP. They are not the same labels that might be defined by your environment broker.
+
+Labels are made up of a label name (also referred to as a key) and up to 10 values associated with the label. You can apply label names and values in any way that suits your business and technical needs.
+Types of labels and examples
+
+Types of Labels
+
+Examples
+
+Single-value labels are useful for labels that have an identifier, or for labels with fixed lists.
+
+Label Name: Cost Object
+
+Value: The ID of a cost center number or internal order that is associated with the entity, such as: 000001134789
+
+Label Name: Status
+
+Value: Active or Inactive
+
+Label Name: Landscape
+
+Value: Dev or Test or Production
+
+Multi-value labels make them useful for labels that typically have more than one value assigned to them.
+
+Label Name: Contacts
+
+Value: The e-mail addresses or names of users that are responsible for the entity, such as: admin-1@example.com and admin-2@example.com
+
+Labels can also be assigned with a name only and no value. In such cases, the label behaves like tag.
+
+Note that currently for service instances, labels must have at least value.
+
+Label Name: For demo only
+
+Label Name: Audited
+
+Label Name: Flagged for deletion
+
+Note
+
+Labels replace what were previously called "custom properties". Custom properties supported only single values per label and were available only to directories and subaccounts. As a result of the move to labels, all relevant commands in the SAP BTP command line interface (btp CLI) and in the relevant REST APIs in the SAP Cloud Management service have been updated accordingly. The custom-properties parameter in the btp CLI and the customProperties field in the relevant REST APIs are deprecated.
+
+You can assign labels when you create an entity, and then later add, change, or remove labels by editing the entity.
+
+Tip
+
+In the Account Explorer and Instances and Subscriptions pages in the SAP BTP cockpit, assigned labels are shown in the Labels column. To display the column if it is not shown, click  (Configure Table Columns).
+
+In the Account Explorer page, you can view the labels that are assigned to a directory or subaccount by choosing the More Info option of each directory and subaccount.
+
+Assigned labels are also listed under the Labels tab when you display the Overview page of every directory and subaccount.
+
+In the Account Explorer and Instances and Subscriptions pages, you can filter the displayed entities by their assigned labels in the Search field.
+
+In the Instances and Subscriptions page, you can also view the labels that are assigned to a subscription or instance by expanding its details panel.
+
+When working with labels, consider the following aspects:
+
+In the cockpit, each entity can have up to 10 labels assigned to it.
+
+You cannot add the same label name more than once to the same entity.
+
+Existing label names and values are offered as suggestions when you or anyone else assigns a label to other entities of the same type in your global account.
+
+When you view a subaccount in the cockpit, the subaccount also shows the labels that are assigned to its parent directory and to other directories that are above it in the same path in your account structure. And in the Account Explorer, when you filter by labels that are assigned to a directory, the subaccounts in that directory path are also listed. We refer to these as inherited labels.
+
+Label names and values are case-sensitive, which means you can create variants of the same label name with a different casing; for example, My Label and My label can coexist as separate labels. We recommend that you avoid using different casing or styling to create variants of the same names or values.
+
+Related Links
+
+Create a Subaccount
+
+Change Subaccount Details
+
+Create a Directory
+
+Commands in the btp CLI
+
+Account Administration Using APIs of the SAP Cloud Management Service
+
+Managing Service Resources Using the APIs of the SAP Service Manager
+
+Creating Service Instances
+
+Working with Environment Instances
+
+Subscribe to Multitenant Applications Using the Cockpit

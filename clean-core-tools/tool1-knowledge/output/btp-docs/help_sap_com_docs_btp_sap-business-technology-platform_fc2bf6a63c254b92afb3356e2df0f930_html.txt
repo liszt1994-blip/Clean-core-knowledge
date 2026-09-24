@@ -1,0 +1,76 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/fc2bf6a63c254b92afb3356e2df0f930.html
+Title: Getting Support, Neo Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP, Neo EnvironmentGetting Support, Neo Environment
+SAP BTP, Neo EnvironmentEnglish
+Provide feedback on our search
+
+Getting Support, Neo Environment
+
+To get assistance, use the available support channels provided by SAP for Me.
+
+Caution
+
+SAP Business Technology Platform, Neo environment will sunset on December 31, 2028, subject to terms of customer or partner contracts.
+
+For more information, see SAP Note 3351844 .
+
+Tip
+
+This documentation refers to SAP Business Technology Platform, Neo environment. If you are looking for documentation about other environments, see SAP Business Technology Platform .
+
+Prerequisites
+
+Before you report a case, ensure the following:
+
+Check Platform Status
+
+Visit SAP Trust Center. You can check:
+
+availability by service on the Cloud Status tab page;
+
+availability by region on the Data Center tab page.
+
+Check Tools Versions
+
+Make sure that you've the latest versions of the tools you're using (recommended), or at least the versions you're using are still supported. For more information, see SAP Development Tools.
+
+Try Out Built-In Support Within SAP BTP Cockpit
+
+When using SAP BTP cockpit as an S-user, try Built-In Support to get customer help within the cockpit. See Built-In Support.
+
+Learn the Best Practices and Offerings
+
+Familiarize with the guidelines how to engage with support. See Support from SAP Best Practices and Offerings.
+
+Procedure
+
+To report a case in SAP for Me, proceed as follows:
+
+Open SAP for Me and log on.
+
+Open the Services & Support dashboard.
+
+(Optional) You can use the Knowledge Search tab for existing solutions in:
+
+SAP Notes & KBAs
+
+SAP Community
+
+SAP Support Portal
+
+Product Documentation
+
+Use the Get Support application within SAP for Me to get assistance via the available support channels.
+
+For more information about the specifics of each support channel and to learn how to report problems, see Get Support Application.
+
+Creating a Support User
+
+Sometimes you might need to create a support user to troubleshoot issues in your system. For more information about how and when to create a support user, see 3543065 - Best Practices for Creating Support Users in Your BTP System.
+
+Related Information
+Users and Authorizations for SAP One Support Launchpad
+Getting Support for the Multi-Cloud Environment
+Cloud Availability Center
+Road Map for Neo Environment

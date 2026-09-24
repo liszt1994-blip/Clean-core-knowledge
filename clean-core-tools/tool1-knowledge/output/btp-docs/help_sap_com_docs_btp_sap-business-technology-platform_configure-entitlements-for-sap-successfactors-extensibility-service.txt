@@ -1,0 +1,36 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/configure-entitlements-for-sap-successfactors-extensibility-service
+Title: Configure the Entitlements for the SAP SuccessFactors Extensibility Service | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Extending SAP SuccessFactors in the Cloud Foundry and Kyma Enviro…Configure the Entitlements for the SAP SuccessFactors Extensibili…
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Configure the Entitlements for the SAP SuccessFactors Extensibility Service
+
+Configure the required entitlements to make the SAP SuccessFactors HXM Suite OData APIs of the registered SAP SuccessFactors system accessible in your subaccount in which your extension applications will reside.
+
+Prerequisites
+
+You are an administrator of the global account in SAP BTP.
+
+The subaccount is in the SAP BTP, Cloud Foundry environment with enabled Cloud Foundry, or Kyma, or both capabilities.
+
+You have registered an SAP SuccessFactors system. See Register an SAP SuccessFactors System in a Global Account in SAP BTP.
+
+Context
+
+An entitlement is your right to provision and consume a resource. In other words, the entitlement is the api-access service plan that you're entitled to use, and the sso-configuration service plan that allows you to register an assertion consumer service in SAP SuccessFactors automatically.
+
+Procedure
+In the SAP BTP cockpit, navigate to your global account.
+In the navigation area, choose Entitlements  Entity Assignments.
+On the Entity Assignments screen, select your subaccount in the Subaccounts/Directories field.
+Choose Edit, and then choose Add Service Plans.
+Select the SAP SuccessFactors Extensibility service.
+Note
+
+To have the SAP SuccessFactors Extensibility service in the list, you need to have registered at least one SAP SuccessFactors system.
+
+In the Service Details area, select the system you have registered. In the Available Plans area, select the api-access and sso-configuration service plans, and then choose Add 2 Service Plans.
+Related Information
+Configure Entitlements and Quotas for Subaccounts

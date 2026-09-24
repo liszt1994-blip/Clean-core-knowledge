@@ -1,0 +1,66 @@
+URL: https://help.sap.com/docs/btp/btp-admin-guide/develop-build
+Title: Develop and Build | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP Administrator's GuideDevelop and Build
+SAP BTP Administrator's GuideEnglish
+Provide feedback on our search
+
+Develop and Build
+
+The whole process and details for developing an application are described in the SAP BTP Developer’s Guide.
+
+Based on the experiences of successful business applications, that guide condenses best practices and technologies that can be safely recommended to you. These recommendations are structured following the design-led development phases:
+
+Explore
+
+Identify the business opportunity and set up the roles and responsibilities in your team.
+
+Discover
+
+Identifying Required Use Cases
+
+Understand your end users, their working methods, and their needs in more depth.
+
+Understanding Available Technology
+
+Development Use Cases
+
+Get to know the use case patterns that can be implemented on SAP BTP.
+
+Business Application Services
+
+Explore the comprehensive set of tools and services that allow you to keep the pace when developing your application and at the same time benefit from future innovations in SAP BTP.
+
+Design
+
+User Experience Design
+
+Design the user experience of your application to provide good usability.
+
+Technology Design
+
+Use domain-driven design to create an application that is modularized and has shorter innovation cycles and a clearer focus.
+
+Deliver
+
+Set Up
+
+Before you begin developing your applications, make sure your landscape setup is appropriate for managing their lifecycles.
+
+Develop
+
+Develop your application by following the recommendations outlined in this section about the two programming models, the numerous programming languages, the respective development tools and also about aspects such as multitenancy, security, extensibility and others.
+
+Run and Scale
+
+Get constant feedback from your users, optimize the application based on this feedback, and operate the application using the services and capabilities SAP BTP offers.
+
+Programming Model Specifics
+
+ABAP Cloud
+
+ABAP Cloud reflects the modern way to develop ABAP. It allows you to build lifecycle-stable and cloud-ready business applications, services, and extensions.
+
+SAP Cloud Application Programming Model (CAP)
+
+The SAP Cloud Application Programming Model (CAP) is a framework of languages, libraries, and tools for building enterprise-grade services and applications. It supports Java (with Spring Boot), JavaScript, and TypeScript (with Node.js), which are some of the most widely adopted languages. CAP guides developers along a path of proven best practices and a great wealth of out-of-the-box solutions to recurring tasks.

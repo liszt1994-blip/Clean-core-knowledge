@@ -1,0 +1,28 @@
+URL: https://help.sap.com/docs/btp/btp-admin-guide/0f79436cf43a4785bb5b7ee9dac0c76a.html
+Title: Neo Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformBasic Platform ConceptsEnvironmentsNeo Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Neo Environment
+
+The Neo environment lets you develop HTML5, Java, and SAP HANA extended application services (SAP HANA XS) applications. You can also use the UI Development Toolkit for HTML5 (SAPUI5) to develop rich user interfaces for modern web-based business applications.
+
+See also:
+
+What Is SAP BTP, Neo Environment
+
+Development, Neo Environment
+
+Extensions, Neo Environment
+
+Administration and Operations, Neo Environment
+
+Security, Neo Environment
+
+Getting Support, Neo Environment
+
+Migration from the Neo to the Multi-Cloud Foundation
+
+To learn more about why and how to migrate your scenarios on SAP BTP, see Migrating from the SAP BTP Neo Environment to the Multi-Cloud Foundation.

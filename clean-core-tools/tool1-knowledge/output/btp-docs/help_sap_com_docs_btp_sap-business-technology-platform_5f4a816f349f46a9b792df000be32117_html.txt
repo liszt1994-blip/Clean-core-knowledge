@@ -1,0 +1,30 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/5f4a816f349f46a9b792df000be32117.html
+Title: Free Plan for Cloud Foundry Runtime | SAP Help Portal
+
+HomeSAP BTP, Cloud Foundry RuntimeSAP BTP, Cloud Foundry RuntimeInitial SetupCloud Foundry Runtime in Enterprise AccountsFree Plan for Cloud Foundry Runtime
+SAP BTP, Cloud Foundry RuntimeEnglish
+Provide feedback on our search
+
+Free Plan for Cloud Foundry Runtime
+
+Learn how to set up the free tier plan available for SAP BTP, Cloud Foundry runtime in an enterprise global account that uses the consumption-based commercial model.
+
+Overview
+Caution
+
+Free tier plans have certain usage conditions and restrictions described in Using Free Service Plans.
+
+Setting up the free plan for SAP BTP, Cloud Foundry runtime in the consumption-based model involves two tasks:
+
+A global account administrator assigns the free service plan that includes some runtime memory quota to a subaccount. This runtime memory can then be used by the Cloud Foundry org created using the free plan. For more information about the procedure, see Assigning Free Service Plan with Runtime Memory Quota for Cloud Foundry Runtime.
+
+Note
+
+If the subaccount belongs to a directory with the entitlements management feature enabled, the global account administrator must assign the service plan to this directory first.
+
+A subaccount administrator enables the Cloud Foundry environment with the free plan, creating a Cloud Foundry org. For more information about the procedure, see Enabling Free Plan for Cloud Foundry Runtime.
+
+Only when both of these tasks have been completed consecutively can you start working with your Cloud Foundry org using the free runtime memory quota. Any other configuration may result in unexpected costs.
+
+Related Information
+Trial Accounts and Free Tier

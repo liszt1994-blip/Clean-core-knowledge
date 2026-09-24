@@ -1,0 +1,107 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/create-role-collections-with-predefined-roles
+Title: Create Role Collections with Predefined Roles | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Tasks On DemandCreate Role Collections with Predefined Roles
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Create Role Collections with Predefined Roles
+
+As an application developer, you want to create role collections for immediate use. You want to deliver role collections that administrators can use in the cockpit, and easily assign to users, for example in an onboarding process.
+
+Prerequisites
+
+You have the Space Developer role in this subaccount (see the related link).
+
+Context
+
+You define the role collections in the application security descriptor file (xs-security.json). These role collections reference role templates. As soon as you've deployed your application, the cockpit displays the role collections. They contain predefined roles.
+
+Procedure
+Deploy an application you want to use for creating security artifacts.
+Edit the application descriptor file (xs-security.json) and add the role-collections property. For more information, see Application Security Descriptor Configuration Syntax.
+Sample Code
+
+
+{
+"role-templates": [
+
+{
+
+"name": "Viewer",
+
+"description": "View Users",
+
+"scope-references": [
+
+"$XSAPPNAME.Display"
+
+]
+
+},
+
+{
+
+"name": "Manager",
+
+"description": "Maintain Users",
+
+"scope-references": [
+
+"$XSAPPNAME.Display",
+
+"$XSAPPNAME.Update"
+
+]
+
+}
+
+],
+"role-collections": [
+
+{
+
+"name": "UserManagerRC",
+
+"description": "User Manager Role Collection",
+
+"role-template-references": [
+
+"$XSAPPNAME.Viewer",
+
+"$XSAPPNAME.Manager"
+
+]
+
+}
+
+]
+
+}
+
+Go to the folder where the application security descriptor (xs-security.json) file is stored.
+To deploy the security information, create a service using your xs-security.json file.
+
+cf create-service xsuaa application <service_name> -c xs-security.json
+
+Example
+
+cf create-service xsuaa application rolecoll-serv -c xs-security.json
+
+(If you do not use a manifest file) Bind your application to the service.
+
+cf bind-service <application_name> <service_name>
+
+Example
+
+cf bind-service rcpropertyapp rolecoll-serv
+
+You have created a role collection that is visible in the cockpit. It contains predefined roles. Using the cockpit, administrators can assign this role collection to users.
+
+Related Information
+About Roles in the Cloud Foundry Environment
+Adding Authentication and Authorization
+Deploy Business Applications in the Cloud Foundry Environment
+Mapping Role Collections
+Tutorials for the SAP Authorization and Trust Management Service
+Application Security Descriptor Configuration Syntax

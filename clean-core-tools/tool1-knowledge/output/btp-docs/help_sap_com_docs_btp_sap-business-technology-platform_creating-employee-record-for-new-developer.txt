@@ -1,0 +1,20 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/creating-employee-record-for-new-developer
+Title: Creating an Employee Record for a New Developer | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Creation of Developer UsersCreating an Employee Record for a New Developer
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Creating an Employee Record for a New Developer
+
+Create an employee record for a new developer user for the ABAP environment.
+
+Procedure
+Log on to the administration launchpad of the ABAP environment as administrator (see Logging on to the Administration Launchpad of the ABAP Environment).
+Choose the Maintain Employees tile.
+Choose Create.
+Enter the data for the new developer, including employee ID, name, and e-mail address.
+
+The entered e-mail is important because it represents the mapping between the user in the identity provider and in the ABAP environment.
+
+Choose Save.

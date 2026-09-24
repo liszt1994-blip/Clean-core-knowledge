@@ -1,0 +1,23 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/trigger-registration-in-sap-s-4hana-cloud-tenant
+Title: Trigger the Registration in the SAP S/4HANA Cloud Tenant | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Register an SAP S/4HANA Cloud System in a Global Account in SAP B…Trigger the Registration in the SAP S/4HANA Cloud Tenant
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Trigger the Registration in the SAP S/4HANA Cloud Tenant
+
+Use this procedure to trigger the registration process for an SAP S/4HANA Cloud system that you want to pair with your global account in SAP BTP.
+
+Prerequisites
+
+You are an SAP S/4HANA Cloud tenant administrator.
+
+Procedure
+Log on to the SAP S/4HANA Cloud tenant, go to Home, Communication Management tab and then choose the Maintain Extensions on SAP BTP tile.
+In the Maintain Extensions on SAP BTP screen, in the Extensions section, choose New.
+In the Integration Token field, enter the content of the registration token from the SAP BTP cockpit.
+Choose Save. A new entry in the table appears with status Enabling.
+After the integration has finished successfully, you can refresh the table.
+
+The status of the integration should have changed to Enabled.

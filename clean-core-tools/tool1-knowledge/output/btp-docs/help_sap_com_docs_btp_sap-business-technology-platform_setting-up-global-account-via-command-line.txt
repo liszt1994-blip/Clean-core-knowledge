@@ -1,0 +1,244 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/setting-up-global-account-via-command-line
+Title: Setting Up a Global Account via the Command Line | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Getting Started with an Enterprise Account in the Cloud Foundry E…Setting Up a Global Account via the Command Line
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Setting Up a Global Account via the Command Line
+
+Your global account is the entry point for managing the resources, landscape, and entitlements for your departments and projects in a self-service manner in SAP BTP. You can use the command-line tool btp CLI to set it up, and the cf CLI to manage Cloud Foundry instances.
+
+Set up your account model using the btp CLI by creating subaccounts in your enterprise account. You can create any number of subaccounts in the Cloud Foundry environment and region.
+
+To manage Cloud Foundry, i.e. for managing service instances and members in orgs and spaces, creating spaces, as well as assigning quota to orgs and spaces, you use the cf CLI.
+
+Prerequisites
+
+You have purchased an enterprise global account.
+
+You have downloaded and extracted the following command-line tools:
+
+SAP BTP command line interface (btp CLI). See Download and Start Using the btp CLI Client
+
+Cloud Foundry CLI (cf CLI). See Download and Install the Cloud Foundry Command Line Interface
+
+Procedure
+Tip
+
+In the btp CLI, you can view the command help of each command to get information about how to use the command, its syntax, and input parameters. See Get Help.
+
+Step No.
+
+Task
+
+Performed By
+
+Do This
+
+More Information
+
+1.
+
+Log in to your global account using the URL of the btp CLI server and the subdomain of your global account.
+
+Global account administrator or viewer
+
+Run this command in the btp CLI:
+
+btp login
+
+See Log in.
+
+2.
+
+View details of your global account.
+
+Global account admin or viewer
+
+Run this command in the btp CLI:
+
+btp get accounts/global-account
+
+See Working with Global Accounts, Directories, and Subaccounts Using the btp CLI.
+
+3.
+
+Add admins to your global account.
+
+Global account admin
+
+Assign the role collection Global Account Administrator to a user by running the following command in the btp CLI:
+
+btp assign security/role-collection "Global Account Administrator" --to-user <user> --create-user-if-missing
+
+See Managing Users and Their Authorizations Using the btp CLI and Security Administration: Managing Authentication and Authorization.
+
+4.
+
+View all the regions that are available to your global account and subaccounts.
+
+Global account admin or viewer
+
+Run this command in the btp CLI:
+
+btp list accounts/available-region
+
+This command also provides information about the environments and infrastructure provider of each region.
+
+5.
+
+Create subaccounts in your global account.
+
+Global account admin
+
+Run this command in the btp CLI:
+
+btp create accounts/subaccount --display-name <my-subaccount> --region <my-region> --subdomain <my-subaccount-subdomain>
+
+See Working with Global Accounts, Directories, and Subaccounts Using the btp CLI.
+
+6.
+
+View the details of the subaccounts in your global account.
+
+Global account admin or viewer
+
+Run this command in the btp CLI:
+
+btp get accounts/subaccount <ID of new subaccount>
+
+See Working with Global Accounts, Directories, and Subaccounts Using the btp CLI.
+
+7.
+
+Add admins to your subaccounts.
+
+Subaccount admin
+
+Assign the role collection Subaccount Administrator to the user by running the following command in the btp CLI:
+
+btp assign security/role-collection "Subaccount Administrator" --to-user <user> --create-user-if-missing
+
+See Managing Users and Their Authorizations Using the btp CLI and Security Administration: Managing Authentication and Authorization.
+
+8.
+
+View all the services and applications that are entitled to your global account, including quota information per service plan.
+
+Global account admin or viewer
+
+Run this command in the btp CLI:
+
+btp list accounts/entitlement
+
+See Setting Entitlements Using the btp CLI.
+
+9.
+
+Assign quotas to your subaccounts.
+
+Global account admin
+
+Run this command in the btp CLI:
+
+btp assign accounts/entitlement --to-subaccount <my-subaccount-id> --for-service <my-service> --plan <my-service-plan> --amount <number>
+
+Validate with this command:
+
+btp list accounts/entitlement
+
+See Setting Entitlements Using the btp CLI.
+
+10.
+
+View all the entitlements in your subaccounts.
+
+Subaccount admin or viewer
+
+Run this command in the btp CLI:
+
+btp list accounts/entitlement --subaccount <my-subaccount-id>
+
+See Setting Entitlements Using the btp CLI.
+
+11.
+
+Create a Cloud Foundry org (environment instance) in your subaccounts.
+
+Subaccount admin
+
+Run this command in the btp CLI:
+
+btp create accounts/environment-instance --subaccount <my-subaccount-id> --display-name <my-environment> --environment <cloudfoundry> --plan standard --parameters "{\"instance_name\":\"myOrg\"}"
+
+See Working with Environments Using the btp CLI andOrg Management Using the SAP BTP Command Line Interface (btp CLI) .
+
+12.
+
+View details of the environment instances in your subaccounts.
+
+Subaccount admin or viewer
+
+Run this command in the btp CLI:
+
+btp list accounts/environment-instance --subaccount <my-subaccount-id>
+
+See Working with Environments Using the btp CLI.
+
+13.
+
+Create a Cloud Foundry space.
+
+Org manager
+
+Run these cf CLI commands:
+
+cf login
+
+cf create-space
+
+See Create Spaces Using the Cloud Foundry Command Line Interface.
+
+14.
+
+Add Cloud Foundry org and space members.
+
+Org manager
+
+Run these cf CLI commands:
+
+cf set-org-role <USERNAME> <ORG> <ROLE>
+
+cf set-space-role <USERNAME><ORG><SPACE><ROLE>
+
+See Add Organization Members Using the Cloud Foundry Command Line Interface and Add Space Members Using the Cloud Foundry Command Line Interface.
+
+15.
+
+Display all available services in the Cloud Foundry marketplace.
+
+Org manager
+
+Run this cf CLI command:
+
+
+
+cf marketplace
+
+See Using Services in the Cloud Foundry Environment.
+
+Using the btp CLI, you can perform additional account maintenance tasks, such as updating global account and subaccount details, deleting subaccounts, and deleting environment instances.
+
+Subaccount members can also use the btp CLI to work with multitenant applications. See Working with Multitenant Applications Using the btp CLI.
+
+Next Steps
+
+Org/space members can create service instances, which are entitled to the subaccount, using also the cf create-service <allowed-service-plan> command in the cf CLI. Use the cf CLI command cf services to verify that the service instances exist.
+
+For further documentation about developer tasks, see Development in the Cloud Foundry Environment.
+
+Related Information
+Command Syntax of the btp CLI
+Download and Start Using the btp CLI Client
+btp CLI Command Reference

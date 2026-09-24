@@ -1,0 +1,16 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/managing-org-members
+Title: Managing Org Members | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Org Administration Using the CockpitManaging Org Members
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Managing Org Members
+
+Learn how to add, edit, and delete org members in the SAP BTP cockpit.
+
+Add Org Members
+
+Edit Org Members
+
+Delete Org Members

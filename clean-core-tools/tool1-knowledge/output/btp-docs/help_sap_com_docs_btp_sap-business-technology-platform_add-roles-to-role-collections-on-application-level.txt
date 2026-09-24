@@ -1,0 +1,43 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/add-roles-to-role-collections-on-application-level
+Title: Add Roles to Role Collections on the Application Level | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Building Roles and Role Collections for ApplicationsAdd Roles to Role Collections on the Application Level
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Add Roles to Role Collections on the Application Level
+
+Roles are used to define the type of access granted to an application.
+
+Context
+
+A role is an instance of a role template; you can build a role based on a role template and assign the role to a role collection. Role collections are then assigned to SAML 2.0 groups or users. The role template defines the type of access permitted for an application, for example: the authorization scope, and any attributes that need to be applied. Attributes define information that comes with the respective user, for example 'cost center' or 'country' (see the related link). This information can only be resolved at run time.
+
+Note
+
+The User Account and Authentication service automatically creates default roles for all role templates that do not include attribute references. They have the same name as the role template. You can't delete them. You can recognize them because their description contains Default Instance.
+
+Procedure
+Open the SAP BTP cockpit.
+Go to your global account and subaccount (see Navigate in the Cockpit).
+Choose Security in the navigation pane or go to Cloud Foundry  Spaces  <your_space>  <your_application>.
+Choose Security  Roles in the navigation pane.
+
+Here you see a complete list of all roles sorted by role templates. It also contains information about attributes used in this role and about the role collections the role has been added to. On the right side, you find the action buttons.
+
+Note
+
+You cannot edit or delete predefined roles for default role collections. For this reason, the action buttons are grayed out. For more information, see the related link.
+
+To directly assign a role to role collections, choose the action button  (Add to role collection) in the same row.
+
+A new window shows all role collections that are available in your global account or subaccount.
+
+Select the role collections to which you want to add your role.
+Choose Add.
+
+The number in the role collections column counts up. You have now assigned this role to the role collections you selected earlier.
+
+Related Information
+Attributes
+Role Collections and Roles in Global Accounts, Directories, and Subaccounts

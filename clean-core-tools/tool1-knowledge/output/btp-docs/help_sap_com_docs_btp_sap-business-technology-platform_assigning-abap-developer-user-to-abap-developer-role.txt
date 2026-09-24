@@ -1,0 +1,34 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/assigning-abap-developer-user-to-abap-developer-role
+Title: Assigning the ABAP Developer User to the ABAP Developer Role | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Creation of Developer UsersAssigning the ABAP Developer User to the ABAP Developer Role
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Assigning the ABAP Developer User to the ABAP Developer Role
+
+Add the developer user as business user to the ABAP instance.
+
+You have created an employee record for the new developer user (see Creating an Employee Record for a New Developer).
+
+Caution
+
+The SAP_BR_DEVELOPER role is pre-defined by SAP and only intended for the initial set-up of a system. Please create your own business roles based on the required business role template.
+
+For information about creating a business role based on a development-related business catalog, see Business Catalogs for Development Tasks.
+
+Log on to the administration launchpad of the ABAP environment as administrator (see Logging on to the Administration Launchpad of the ABAP Environment).
+
+On the SAP Fiori launchpad, choose the Maintain Business Users tile.
+
+Choose New.
+
+In the following dialog, choose the employee record of the new developer user from the list.
+
+Confirm the system message that you want to create a new user.
+
+On the Assigned Business Roles tab, choose Add.
+
+Select the checkbox for the ABAP developer role that you have created before (see Prerequisites).
+
+Choose OK and save your entries.

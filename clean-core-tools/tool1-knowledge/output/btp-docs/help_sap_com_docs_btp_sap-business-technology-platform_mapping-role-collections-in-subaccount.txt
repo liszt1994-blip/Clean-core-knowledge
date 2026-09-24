@@ -1,0 +1,46 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/mapping-role-collections-in-subaccount
+Title: Mapping Role Collections | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Working with Role CollectionsMapping Role Collections
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Mapping Role Collections
+
+You've arranged roles in role collections, and now want to assign or map these role collections to business users.
+
+How you assign users to their authorizations depends on the type of trust configuration and on whether or not you prefer to maintain the authorizations of individual users rather in the identity provider or in SAP BTP. The following options are available:
+
+Directly assign role collections to users.
+
+Map role collections to user groups or other user attributes defined in the identity provider. You initially maintain the mapping between user groups or other user attributes and role collections once in SAP BTP, and maintain group memberships or other attributes of users in the identity provider.
+
+Note
+
+If you’re using the default trust configuration with the default identity provider, you directly assign users to role collections. For more information, see Default Identity Provider.
+
+However, if you’re using a custom trust configuration, for example, with SAP Cloud Identity Services, you can use more options. For more information about configuring the trust between your subaccount and a custom identity provider, see Establish Trust and Federation Between SAP Authorization and Trust Management Service and SAP Cloud Identity Services. For more information about configuring the trust between your global account and a custom identity provider, see Establish Trust and Federation of Custom Identity Providers for Platform Users.
+
+If you use the same SAP Cloud Identity Services tenant for both platform and business users, the service saves the mapping once per tenant. The mapping applies to both platform users and business users.
+
+Options for Assignment of Role Collections
+
+Trust Configuration
+
+Assignment Options
+
+Default trust configuration (SAP ID service)
+
+Assign Users to Role Collections
+
+Custom trust configuration (for example: a tenant of SAP Cloud Identity Services)
+
+Assigning Role Collections to Users or User Groups
+
+Map Role Collections to User Groups
+
+Map Role Collections to User Attributes
+
+Related Information
+Working with Role Collections
+Trust and Federation with Identity Providers

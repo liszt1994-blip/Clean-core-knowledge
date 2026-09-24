@@ -1,0 +1,76 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/tutorials-for-sap-authorization-and-trust-management-service
+Title: Tutorials for the SAP Authorization and Trust Management Service | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Adding Authentication and AuthorizationTutorials for the SAP Authorization and Trust Management Service
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Tutorials for the SAP Authorization and Trust Management Service
+
+Follow the tutorials below to get familiar with the SAP Authorization and Trust Management service in the Cloud Foundry environment of SAP BTP.
+
+Tutorials for the SAP Authorization and Trust Management service in the Cloud Foundry environment
+
+Language / Framework
+
+Link
+
+Learn how to secure a basic single-tenant Node.js application. Start with a Node.js application that uses the express framework and SAPUI5 to display a list of products and add the security components step by step.
+
+Node.js
+
+SAP Developers
+
+Learn how to secure a basic java application. This tutorial starts with a Hello World Java application built with SAP Cloud SDK.
+
+Java, SAP Cloud SDK
+
+SAP Developers
+
+Learn how to build a cloud-native Node.js application that features secured service-to-service communication. The application shows you two different ways of securing service-to-service-communication (by propagating a business user or using a technical user).
+
+Node.js
+
+GitHub
+
+Learn how to secure microservices in SAP BTP using spring-xsuaa and Spring security. Furthermore, learn how to test the secured application using the java-security-test utilities.
+
+Spring (Boot)
+
+GitHub
+
+Learn how to add multitenancy to a node.js application and make it available for other subaccounts using the SaaS Provisioning service and the XSUAA.
+
+Node.js
+
+SAP Developers
+
+Learn how to secure microservices in SAP BTP. This sample provides J2EE Configuration using web.xml and uses the SAP Java Buildpack.
+
+J2EE, SAP Java Buildpack
+
+GitHub (SAP Java Buildpack version >=1.26.1)
+
+GitHub (SAP Java Buildpack version <= 1.26.0)
+
+Learn how to use the java-security library to perform JWT Validation as part of your Java application. Furthermore, learn how to test the secured application using the java-security-test utilities.
+
+Java
+
+GitHub
+
+Learn how to validate OAuth tokens using a Python library. Use this library to add authentication in your Python application.
+
+Note
+
+This library isn't part of an SAP BTP license. However, it belongs to a related open source project.
+
+Python
+
+GitHub
+
+Learn in this reference application how the service fits into a complete architecture of microservices that interact with each other propagating user information.
+
+Java
+
+GitHub

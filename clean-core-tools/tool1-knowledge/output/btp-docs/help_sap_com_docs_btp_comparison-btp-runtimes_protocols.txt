@@ -1,0 +1,72 @@
+URL: https://help.sap.com/docs/btp/comparison-btp-runtimes/protocols
+Title: Protocols | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)Comparison: SAP BTP, Kyma Runtime and SAP BTP, Cloud Foundry Runt…Protocols
+Comparison: SAP BTP, Kyma Runtime and SAP BTP, Cloud Foundry RuntimeEnglish
+Provide feedback on our search
+
+Protocols
+
+Compare protocols supported by SAP BTP, Kyma runtime and SAP BTP, Cloud Foundry runtime.
+
+Protocols
+
+Category
+
+SAP BTP, Kyma runtime
+
+SAP BTP, Cloud Foundry runtime
+
+AMQP
+
+Yes
+
+Yes
+
+MQTT
+
+Yes
+
+Yes
+
+gRPC
+
+Yes
+
+Yes
+
+HTTP/1.1
+
+Yes
+
+Yes
+
+HTTP/2
+
+Yes
+
+Yes, see Supported and Unsupported Cloud Foundry Features
+
+OData
+
+Yes
+
+Yes
+
+SOAP
+
+Yes
+
+Yes
+
+WebSockets
+
+Yes
+
+Yes, see Supported and Unsupported Cloud Foundry Features
+
+Streaming endpoints (RTMP, RTSP, WebRTC)
+
+Yes
+
+No

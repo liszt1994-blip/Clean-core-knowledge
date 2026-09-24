@@ -1,0 +1,31 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/managing-subaccounts-using-cockpit
+Title: Managing Subaccounts Using the Cockpit | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Account Administration in the CockpitManaging Subaccounts Using the Cockpit
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Managing Subaccounts Using the Cockpit
+
+Learn how to structure a global account according to your organization’s and project’s requirements with regard to members, authorizations, and entitlements by managing subaccounts.
+
+Context
+
+To learn more about the concept of subaccounts, see Subaccounts.
+
+Procedure
+Learn how to create subaccounts.
+
+Create a Subaccount
+
+Learn how to manage users.
+
+Add Members to Your Subaccount
+
+Learn how to administer your subaccount.
+
+Change Subaccount Details
+
+View Subaccount Usage Analytics
+
+Delete a Subaccount

@@ -1,0 +1,256 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/service-plans-and-metering-for-cloud-foundry-runtime
+Title: Service Plans and Metering for Cloud Foundry Runtime | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Cloud Foundry EnvironmentService Plans and Metering for Cloud Foundry Runtime
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Service Plans and Metering for Cloud Foundry Runtime
+
+This page explains the relationship between the service plans in the SAP Discovery Center and those in the SAP BTP cockpit, and provides information to help you understand how the service is billed.
+
+Service
+Overview
+
+The diagram below shows how the service plans listed in the SAP Discovery Center correspond to the plans you choose in the SAP BTP cockpit, depending on the commercial model of your enterprise global account. For more information about the commercial models offered by SAP, see Commercial Models.
+
+This image is interactive. Hover over rectangles in the diagram to see the description. Choose the highlighted areas for more information.
+
+Diagram captions: Service plans and environment plans in SAP BTP cockpit [Show/Hide]
+Service Plans
+
+The tables below provide details about the plans for SAP BTP, Cloud Foundry runtime. They can give you more context for understanding the diagram in the Overview section.
+
+Table 1: Plans for Consumption-Based Commercial Model [Show/Hide]
+
+Service Plan (SAP Discovery Center)
+
+Service (SAP BTP Cockpit: Entity Assignments)
+
+Service Plan (SAP BTP Cockpit: Entity Assignments)
+
+Environment Plan (SAP BTP Cockpit: Enable Cloud Foundry)
+
+Explanation
+
+Standard
+
+Cloud Foundry Environment (cloudfoundry)
+
+standard
+
+standard
+
+The plans standard and MEMORY are used together to allow you to deploy and run applications in the Cloud Foundry environment.
+
+standard: this plan allows you to create a Cloud Foundry org in a subaccount. By itself, the action of creating a Cloud Foundry org is free. However, when you run applications in it, you pay for the runtime memory that they use.
+
+MEMORY: this plan is used to assign runtime memory quota to a subaccount. The runtime memory can then be consumed by applications that run in the Cloud Foundry org created with the plan standard. The usage of runtime memory by applications is billable according to the commercial model of your enterprise global account.
+
+In the consumption-based commercial model, a default runtime memory quota of 200 GB is automatically assigned to all subaccounts, and the billing is based on the actual runtime memory usage. For more information, see Service Specifics.
+
+For information on how to set up the plan, see Standard Plan for Cloud Foundry Runtime (Consumption-Based).
+
+Cloud Foundry Runtime (APPLICATION_RUNTIME)
+
+MEMORY
+
+Free
+
+Cloud Foundry Environment (cloudfoundry)
+
+free (Environment)
+
+free
+
+This is a free tier plan that allows you to try out and evaluate the service. For more information, see Using Free Service Plans.
+
+When you create a Cloud Foundry org with the free plan, you also get a limited free quota of runtime memory for it. The amount of such orgs that can be created in an enterprise global account is limited.
+
+For information on how to set up the plan, see Free Plan for Cloud Foundry Runtime.
+
+Note
+
+Only community support is available for free tier service plans and these are not subject to SLAs. Use of free tier service plans is subject to additional terms and conditions as provided in the Business Technology Platform Supplemental Terms and Conditions.
+
+-
+
+Cloud Foundry Environment (cloudfoundry)
+
+build-runtime
+
+build-runtime
+
+This plan is only for using the SAP BTP, Cloud Foundry runtime as part of SAP Build. For more information, see What Is SAP Build and Service Plans and Metering.
+
+Note
+
+The plan is not depicted on the diagram in the Overview section.
+
+See SAP Build Code
+
+Cloud Foundry Environment (cloudfoundry)
+
+build-code
+
+build-code
+
+This plan is only for using the SAP BTP, Cloud Foundry runtime as part of SAP Build Code. For more information, see What Is SAP Build Code.
+
+Note
+
+The plan is not depicted on the diagram in the Overview section.
+
+
+Table 2: Plans for Subscription-Based Commercial Model [Show/Hide]
+
+Service Plan (SAP Discovery Center)
+
+Service (SAP BTP Cockpit: Entity Assignments)
+
+Service Plan (SAP BTP Cockpit: Entity Assignments)
+
+Environment Plan (SAP BTP Cockpit: Enable Cloud Foundry)
+
+Explanation
+
+Standard
+
+Cloud Foundry Environment (cloudfoundry)
+
+standard
+
+standard
+
+The plans standard and MEMORY are used together to allow you to deploy and run applications in the Cloud Foundry environment.
+
+standard: this plan allows you to create a Cloud Foundry org in a subaccount. By itself, the action of creating a Cloud Foundry org is free. However, when you run applications in it, you pay for the runtime memory that they use.
+
+MEMORY: this plan is used to assign runtime memory quota to a subaccount. The runtime memory can then be consumed by applications that run in the Cloud Foundry org created with the plan standard. The usage of runtime memory by applications is billable according to the commercial model of your enterprise global account.
+
+In the subscription-based commercial model, a predefined amount of runtime memory is paid for in advance and then gets used. For more information, see Service Specifics.
+
+For information on how to set up the plan, see Standard Plan for Cloud Foundry Runtime (Subscription-Based).
+
+Cloud Foundry Runtime (APPLICATION_RUNTIME)
+
+MEMORY
+
+-
+
+Cloud Foundry Environment (cloudfoundry)
+
+build-runtime
+
+build-runtime
+
+This plan is only for using the SAP BTP, Cloud Foundry runtime as part of SAP Build. For more information, see What Is SAP Build and Service Plans and Metering.
+
+Note
+
+The plan is not depicted on the diagram in the Overview section.
+
+See SAP Build Code
+
+Cloud Foundry Environment (cloudfoundry)
+
+build-code
+
+build-code
+
+This plan is only for using the SAP BTP, Cloud Foundry runtime as part of SAP Build Code. For more information, see What Is SAP Build Code.
+
+Note
+
+The plan is not depicted on the diagram in the Overview section.
+
+
+Metrics
+The table below provides details about the metrics for SAP BTP, Cloud Foundry runtime. It includes the names of services, with which the metrics are associated on the pages Usage or Costs and Usage (accessed from the global account level) and Usage Analytics (accessed from the subaccount level) in the SAP BTP cockpit.
+
+Metric
+
+Service (SAP BTP Cockpit)
+
+Metric (SAP BTP Cockpit)
+
+Definition
+
+Additional Information
+
+GB Memory
+
+Cloud Foundry Runtime
+
+GB Memory
+
+Temporary memory bank where computers store data that needs to be retrieved and processed quickly.
+
+The memory represents the size of the data that can be processed and CPU represents the speed at which the data can be retrieved.
+
+For billing purposes, the GB Memory metric for the Cloud Foundry Runtime service is calculated as the total hourly usage of Cloud Foundry runtime memory across all spaces in the global account over a calendar month, divided by 730 hours and rounded up to the next full GB. For an example of such calculation, see Consumption Monitoring.
+
+Note
+
+In the Cloud Foundry environment, applications get a guaranteed CPU share of ¼ core per GB of runtime memory reserved for an application instance. For more information, see SAP BTP-Specific Configurations.
+
+Capacity Units
+
+SAP Build
+
+GB Memory
+
+In SAP Build, the usage of SAP BTP, Cloud Foundry runtime is measured in capacity units. The GB Memory metric for the SAP Build service in the SAP BTP cockpit is intended only for monitoring the approximate usage of SAP BTP, Cloud Foundry runtime in GB when it's consumed as part of SAP Build. For more information, see What Is SAP Build.
+
+Note
+
+The metric is not depicted on the diagram in Service.
+
+SAP Build Code
+
+CF Runtime
+
+In SAP Build Code, the usage of SAP BTP, Cloud Foundry runtime is measured in capacity units. The CF Runtime metric for the SAP Build Code service in the SAP BTP cockpit is intended only for monitoring the approximate usage of SAP BTP, Cloud Foundry runtime in GB when it's consumed as part of SAP Build Code. For more information, see What Is SAP Build Code and SAP Build Code Capacity Unit Calculator.
+
+Note
+
+The metric is not depicted on the diagram in Service.
+
+Service Specifics
+In the context of SAP BTP, Cloud Foundry runtime, the terms consumption (or consume) and usage (or use) refer to the runtime memory quota reserved by the platform for each application instance. This quota serves as the basis for calculating the billable consumption, as explained in Consumption Monitoring.
+Caution
+
+From a billing standpoint, it doesn't matter how much of the reserved runtime memory quota is utilized when the application is running. Billable consumption is calculated based on the full amount of runtime memory reserved, regardless of how much runtime memory actually gets utilized.
+
+Note
+
+If an application is stopped, it doesn't reserve any runtime memory and, therefore, doesn't contribute to runtime memory consumption.
+
+There are two application settings that define how much runtime memory an application uses at any given time:
+
+Runtime memory quota reserved for each application instance (default: 1024 MB)
+
+Number of running application instances (default: 1)
+
+Note
+
+The total amount of runtime memory used by the application is displayed on the Application Overview page under Current Application Memory Usage.
+
+You can specify custom values for these settings when deploying an application in the Cloud Foundry environment. You can also change them for an application that has already been deployed without having to redeploy it.
+
+How to set runtime memory quota and number of instances when deploying applications
+How to change runtime memory quota and number of instances for already deployed applications
+
+You can use the Application Autoscaler to automatically increase or decrease the number of application instances based on the policies you have defined. For more information, see What Is Application Autoscaler.
+
+Tip
+
+For tips on how to optimize the consumption of runtime memory, see the blog post Optimise your SAP BTP, Cloud Foundry runtime costs. Note that while the general principles outlined in the blog post still apply, some of the UI texts and parameter names may have changed.
+
+Supplemental Terms and Conditions
+
+For more information, see the section SAP BTP, Cloud Foundry Runtime in the SAP Business Technology Platform Service Description Guide.
+
+Glossary
+
+Commercial Information Glossary

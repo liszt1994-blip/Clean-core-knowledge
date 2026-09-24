@@ -1,0 +1,4454 @@
+=== BTP Documentation: cloud-foundry ===
+
+URL: https://help.sap.com/docs/btp/btp-admin-guide/cloudfoundry-kyma-or-both
+Title: Cloud Foundry, Kyma, or Both? | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP Administrator's GuideSet Up and PlanSetting Up Your Account ModelCloud Foundry, Kyma, or Both?
+SAP BTP Administrator's GuideEnglish
+Provide feedback on our search
+
+Cloud Foundry, Kyma, or Both?
+
+You can set up one or more subaccounts that run both Cloud Foundry and Kyma, so that they can share SAP BTP services, such as SAP HANA Cloud. However, if your account model needs more complexity than just development stages, it's recommended to create one or more subaccounts specifically for Kyma, which can be shared between your teams.
+
+Remember
+
+The ABAP environment allows you to create extensions for ABAP-based products, such as SAP S/4HANA Cloud, and develop new cloud applications. You can transform existing ABAP-based custom code or extensions to the cloud.
+
+Regardless of whether you are new to SAP BTP and are trying to pick the runtime that matches your organization's needs (greenfield scenario), or you've been using SAP BTP for a while and looking to use more than your current runtime (brownfield scenario), the following recommendations should help you make the right choice. And don't worry, no matter what you choose now, you can always adjust your landscape later.
+
+Greenfield Scenario: A New Development Landscape
+
+In the cloud (just like on premise), we recommend a staged development process, to qualify changes before bringing them to production. For details, see Setting Up Your Account Model.
+
+Cloud Foundry and Kyma offer parity with regards to non-functionals. Both bring multi-availability-zone infrastructure support and the same SLA levels. The difference and the main decision point is your application architecture, driven by business aspects. For details about the runtimes as well as the required developer skillset, see Comparison: SAP BTP, Kyma Runtime and SAP BTP, Cloud Foundry Runtime.
+
+Recommendation
+
+In Cloud Foundry, we recommend that you create three subaccounts to set up a staged development environment: one subaccount each for development, testing, and production. To do so, you create subaccounts and enable Cloud Foundry, which essentially creates a Cloud Foundry org.
+
+In Kyma, we recommend using at least two separate subaccounts to set up a staged development environment: one for development and testing (separated by using different namespaces), and one for production. Within those clusters, set up namespaces according to your projects or organizational setup, such as for Sales and Logistics. For details, see Sharing Clusters in Kyma. Ideally, you use a separate third cluster for testing. However, if cost-efficiency is important, one subaccount may be enough.
+
+The subaccount and the Cloud Foundry org or Kyma cluster have a 1:1 relationship and the same navigation level in SAP BTP cockpit (even though they may have different names). Enabling Cloud Foundry creates a Cloud Foundry org, and enabling Kyma creates a Kyma cluster.
+
+Typically, some additional systems are also part of the landscape:
+
+Identity provider, like SAP Cloud Identity Services. For details, see Onboard to SAP Cloud Identity Services and Configuring a Custom Identity Provider for Kyma.
+
+Pipeline system, like SAP Continuous Integration and Delivery.
+
+SAP BTP service instances and app subscriptions, for example, SAP HANA, SAP Audit Log, or SAP Destination service.
+
+Brownfield Scenario: Combining Cloud Foundry and Kyma
+
+Maybe you are currently using Cloud Foundry and would like to start using Kyma as well – to use new services, to migrate some services from Cloud Foundry to Kyma, or generally to benefit from the features of the Kubernetes-based runtime, such as higher flexibility.
+
+Such approaches always require finding a balance between flexibility and costs. In some cases, using the same subaccount for Cloud Foundry and Kyma for the same landscape makes sense: This way, you can reuse or share some SAP BTP services, for example, SAP HANA Cloud. In this example, one recommendation could be having the same PROD subaccount for both Cloud Foundry and Kyma. But for DEV and TEST, you might choose to create separate subaccounts.
+
+However, if your existing subaccount landscape is more complex and you have several teams, each with multiple subaccounts, then it's recommended to create a shared subaccount for SAP BTP, Kyma runtime, to which the teams get access. Instead of subaccounts, use namespaces for isolation - for details, see Sharing Clusters in Kyma.
+
+Related Information
+Create Spaces
+Kubernetes Namespaces
+Subaccounts or Spaces/Namespaces?
+
+---
+
+URL: https://help.sap.com/docs/btp/btp-developers-guide/sap-btp-cloud-foundry-and-sap-btp-kyma-runtimes-with-cap
+Title: SAP BTP, Cloud Foundry and SAP BTP, Kyma Runtimes with CAP | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP Developer's GuideStrengths and Benefits of the Runtimes and Their Programming Mode…SAP BTP, Cloud Foundry and SAP BTP, Kyma Runtimes with CAP
+SAP BTP Developer's GuideEnglish
+Provide feedback on our search
+
+SAP BTP, Cloud Foundry and SAP BTP, Kyma Runtimes with CAP
+
+Profiles in CAP: Development, Hybrid, and Production
+
+CAP applications are design agnostic, and developers could focus on domain modeling and services without writing custom code. The development profile enables developers to design and test application prototypes with minimal setup. The mock variants of platform services and data enable developers to test without deploying CAP applications to SAP BTP. This helps customers to realize application prototypes in shorter cycles with low cost and later switch to hybrid/production profile by incrementally adding the required service bindings.
+
+CAP's core strength lies in its focus on domain modeling. It allows developers to define business objects and their relationships using standardized data models, which can then be translated into services and applications.
+
+See:
+
+Developing with CAP in the SAP BTP, Cloud Foundry and SAP BTP, Kyma Runtimes
+
+CAP documentation: Domain Modeling
+
+Multiple IDEs and Runtimes
+
+CAP applications supports custom code development using Node.js or Java. You can choose Node.js or Java as a programming language and develop applications and use your preferred development environment such as:
+
+CDS Command Line Interface (CLI)
+
+CDS Editors and IDEs
+
+SAP Business Application Studio
+
+Visual Studio Code
+
+IntelliJ
+
+Integration with SAP BTP Services
+
+CAP applications benefit out of the box integration to platform services and SAP BTP application services in the SAP Build portfolio, enabling developers to focus on application logic without spending additional effort on integration. Through simple configuration and service bindings, CAP applications seamlessly consume SAP HANA Cloud for persistence, SAP Authorization and Trust Management service for identity and authorization, and the Destination and Connectivity services for calling SAP and third‑party systems.
+
+On the experience side, CAP services and SAP Fiori UIs are easily surfaced in SAP Build Work Zone, exposed as OData/REST APIs that SAP Build Apps can consume, and can trigger or drive SAP Build Process Automation workflows.
+
+See:
+
+CAP Plugins and Enhancements
+
+CAP: cds add command
+
+Microservice Development
+
+CAP supports micro-service development and deployment to the SAP BTP, Cloud Foundry or SAP BTP, Kyma runtimes. You can develop loosely coupled microservices with separate lifecycles and different runtimes to achieve specific scalability requirements. Have in mind that microservices are not suitable for all use cases. Even though they have a lot of benefits, they are accompanied by complexity and performance losses. To decide whether to use microservices or not, see CAP: Late-Cut Microservices.
+
+To deploy your CAP application as microservices, see Microservices in CAP.
+
+Consume Services as REST/OData/BAPI
+
+CAP applications can consume data from other services or external sources:
+
+OData and REST/OpenAPI services (import definitions, mock locally, bind in hybrid/production)
+
+Using services: https://cap.cloud.sap/docs/guides/using-services/
+
+OpenAPI guide: https://cap.cloud.sap/docs/guides/openapi/
+
+SAP Cloud SDK (Java/JavaScript) for calling SAP solutions (SAP S/4HANA, SAP SuccessFactors, and others). See https://sap.github.io/cloud-sdk/.
+
+SAP API Business Hub for API definitions. See https://api.sap.com/.
+
+Multitenancy
+
+Multitenancy in CAP is about building one Software-as-a-Service (SaaS) application (provider) that securely serves many customer accounts (tenants) on SAP BTP, while keeping each tenant’s identity, configuration, and data isolated. CAP provides standardized patterns and tooling that eliminate the need to build typical SaaS integration and operational components by hand.
+
+See CAP: Multitenancy.
+
+Extensibility
+
+Extensibility in CAP is the ability to adapt and enhance a CAP application’s data model, service APIs, and behavior without forking or modifying the core solution. It supports both provider-controlled extensions (delivered by the application team or partner) and tenant-specific extensions in SaaS scenarios.
+
+See CAP: Extensibility.
+
+Community
+
+CAP applications benefit from large ecosystem of developers and community contribution. The large pool of developers with the required skills and packages from npm/Maven will accelerate development and reduce development costs. See:
+
+CAP Community in GitHub
+
+CAP in SAP Community
+
+Multiple Databases
+
+CAP supports multiple databases, and customers can choose PostgreSQL or SAP HANA Cloud for persistence. CAP supports SQLite and H2 for development, which can be later replaced with PostgreSQL or SAP HANA Cloud by changing the development profile to production.
+
+Official: SQLite (development profile) and SAP HANA/SAP HANA Cloud (hybrid and production profiles). See https://cap.cloud.sap/docs/guides/databases/.
+
+Community adapters exist for other SQL databases (for example PostgreSQL). See CAP Community in GitHub.
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/about-user-management-in-cloud-foundry-environment
+Title: About User Management in the Cloud Foundry Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformAdministration and OperationsAdministration and Operations in the Cloud Foundry EnvironmentAbout User Management in the Cloud Foundry Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+About User Management in the Cloud Foundry Environment
+
+The Cloud Foundry environment has its own store for user data within SAP BTP. Understanding the relationship between SAP BTP and the Cloud Foundry environment is useful.
+
+All users of Cloud Foundry and SAP BTP are stored in identity providers. Both require a local copy of the users so that you can assign authorizations to those users. When a user tries to log on, the user is forwarded to the identity provider to authenticate. When you add a user as a member to an org or space, there's no check whether or not this user actually exists in the identity provider you specified.
+
+Org members can only be added by an Org Manager. If you only have the Space Manager role, you can only add space members that are known to the org. To do that, you must first ask your Org Manager to add the users as org members with no roles.
+
+Note
+
+All org members implicitly have the Org User role.
+
+If you’re the Org Manager, you already have the authorizations to add users to the org. When you add a new user as a space member, that user is added automatically as part of the org as well.
+
+Cloud Foundry and Shadow Users
+
+Whenever you add a user at the org or space level with the SAP BTP cockpit, SAP BTP also creates the user at the subaccount level, also known as a shadow user. When you use the SAP BTP cockpit to add a user, SAP BTP assigns at least one Cloud Foundry role to the user, namely Org User if you don't add any other role. SAP BTP checks for Cloud Foundry users with a role and creates corresponding shadow users at the subaccount level if no such user exists. Creating users with the Cloud Foundry CLI or Cloud Foundry APIs doesn't add any Cloud Foundry roles by default. Once you add a role to the user, the system ensures that there's a corresponding user at the subaccount level.
+
+Remember
+
+When you delete a user at the Cloud Foundry level, SAP BTP doesn’t delete the corresponding shadow user at the subaccount level.
+
+When you delete a user at the subaccount level, delete the user at the Cloud Foundry org and space levels, too. Otherwise, the system automatically creates the corresponding user at the subaccount level if the user has a Cloud Foundry role.
+
+For more information about shadow users, see Working with Users.
+
+User Provisioning
+
+For user management of Cloud Foundry organizations, use the provisioning connectors of SAP Cloud Identity Services - Identity Provisioning. For more information, see SAP BTP Integration Scenario.
+
+Restriction
+
+If user provisioning through the Cloud Foundry environment is active in SAP Cloud Identity Services - Identity Provisioning, you can provision a maximum of 1000 platform users.
+
+Related Information
+User and Member Management
+About Roles in the Cloud Foundry Environment
+Add Org Members
+Add Organization Members Using the Cloud Foundry Command Line Interface
+Add Space Members
+Add Space Members Using the Cloud Foundry Command Line Interface
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/add-organization-members-using-cloud-foundry-command-line-interface
+Title: Add Organization Members Using the Cloud Foundry Command Line Interface | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Org Administration Using the Cloud Foundry CLIAdd Organization Members Using the Cloud Foundry Command Line Int…
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Add Organization Members Using the Cloud Foundry Command Line Interface
+
+You can use the Cloud Foundry Command Line Interface (cf CLI) to add organization members and assign roles to them.
+
+Prerequisites
+
+The Cloud Foundry environment is enabled.
+
+Enable it in the SAP BTP cockpit. For more information, see Create a Subaccount.
+
+The Org Manager role for the org in question.
+
+Note
+
+You automatically have the Org Manager role in an org that you created.
+
+The user exists in the UAA.
+
+All users are stored in identity providers, either in the default or in a custom identity provider. Cloud Foundry needs a copy of the user, sometimes called a shadow user. To create the shadow user, choose one of the following options:
+
+The user has been added from the cockpit.
+
+For more information, see Add Org Members.
+
+The user has already logged on to the Cloud Foundry environment.
+
+For example: cf login -a https://api.cf.eu20.hana.ondemand.com
+Note
+
+The landscape the user logs on to must be the same as the landscape where the subaccount is located. See the overview page of your subaccount for the API endpoint.
+
+You have the e-mail addresses of the members that you want to add.
+
+The user must already exist in the connected identity provider. For more information, see Trust and Federation with Identity Providers.
+
+Download and install the cf CLI and log on to Cloud Foundry. For more information, see Download and Install the Cloud Foundry Command Line Interface and Log On to the Cloud Foundry Environment Using the Cloud Foundry Command Line Interface.
+
+Context
+
+This task is meant for the OrgManager and OrgAuditor roles. To add members with the OrgUser role, follow the procedure described in Add Space Members Using the Cloud Foundry Command Line Interface.
+
+Procedure
+Enter the following command, specifying the user name, the name of the organization, and the role:
+
+
+cf set-org-role <USERNAME> <ORG> <ROLE>
+
+
+cf set-org-role julie.armstrong@example.com account_subaccount-47v2w8dj OrgAuditor
+
+Next Steps
+To remove an org role from a user, enter the following string, specifying the user name, the name of the organization, and the role:
+
+
+cf unset-org-role <USERNAME> <ORG> <ROLE> 
+Related Information
+Supported Tools and Services When Using Custom Identity Providers for Platform Users
+About Roles in the Cloud Foundry Environment
+Managing Org Members Using the Cockpit
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/add-space-members-using-cloud-foundry-command-line-interface
+Title: Add Space Members Using the Cloud Foundry Command Line Interface | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Org Administration Using the Cloud Foundry CLIAdd Space Members Using the Cloud Foundry Command Line Interface
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Add Space Members Using the Cloud Foundry Command Line Interface
+
+You can use the Cloud Foundry Command Line Interface (cf CLI) to add space members and assign roles to them.
+
+Prerequisites
+
+The Space Manager role for the space.
+
+The users exist in a trusted platform identity provider.
+
+All users of Cloud Foundry UAA are stored in identity providers, either in the default or in a custom identity provider. UAA needs a copy of the user, sometimes called a shadow user. You assign the shadow user authorizations to access resources in UAA. When a user authenticates, UAA forwards the request to the identity provider.
+
+To specify which identity provider hosts the user, use the --origin option. For more information about finding the origin key, see the trust configuration documentation.
+
+For more information, see Trust and Federation with Identity Providers.
+
+Download and install the cf CLI and log on to Cloud Foundry. For more information, see Download and Install the Cloud Foundry Command Line Interface and Log On to the Cloud Foundry Environment Using the Cloud Foundry Command Line Interface.
+
+Context
+
+Space members are organization members who have specific roles in a space.
+
+Org members can only be added by an Org Manager. This means that if you only have the Space Manager role, you can’t add space members that aren’t known to the org. To do that, you must first ask your Org Manager to add the users as org members with no roles. Once this is done, you can add them as space members following the steps below.
+
+If you’re the Org Manager, you don’t need to first add the users as org members with no roles. Since you have the permissions necessary to add users to the org, when you add a new user as a space member, that user automatically becomes part of the org as well.
+
+Procedure
+Enter the following string, specifying the user name, the name of the organization, the name of the space, and the role:
+
+
+cf set-space-role USERNAME ORG SPACE ROLE 
+Next Steps
+To remove a space role from a user, enter the following string, specifying the user name, the name of the organization, the name of the space, and the role:
+
+
+cf unset-space-role USERNAME ORG SPACE ROLE 
+Related Information
+Supported Tools and Services When Using Custom Identity Providers for Platform Users
+Add Space Members Using the Cockpit
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/adding-user-as-org-manager-for-cloud-foundry-organization
+Title: Adding a User as Org Manager for the Cloud Foundry Organization | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Creation of Additional Administrator Users (Optional)Adding a User as Org Manager for the Cloud Foundry Organization
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Adding a User as Org Manager for the Cloud Foundry Organization
+
+After you have created a Cloud Foundry organization for the ABAP environment, you can add more users as organization managers.
+
+Context
+Note
+
+If you have run the booster Prepare an Account for ABAP Development and entered additional administrators, you can skip these steps.
+
+Procedure
+Log on to the SAP BTP cockpit as administration user for Cloud Foundry.
+Go to your subaccount for the ABAP environment.
+From the navigation area, choose Org Members.
+Choose Add Members.
+Enter the user’s e-mail address in the E-mails field.
+Select the checkbox for org manager.
+Choose OK.
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/adding-user-as-space-manager-for-cloud-foundry-space
+Title: Adding a User as Space Manager for the Cloud Foundry Space | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Creation of Additional Administrator Users (Optional)Adding a User as Space Manager for the Cloud Foundry Space
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Adding a User as Space Manager for the Cloud Foundry Space
+
+After you have created a Cloud Foundry space for the ABAP environment, you can add more users as space managers.
+
+Context
+Note
+
+If you have run the booster Prepare an Account for ABAP Development and entered users as additional administrators, you can skip these steps.
+
+Procedure
+Log on to the SAP BTP cockpit as administration user for Cloud Foundry.
+Go to your subaccount for the ABAP environment.
+Choose Spaces.
+Choose the Cloud Foundry space in the Cloud Foundry org.
+In the navigation area, choose Members.
+Choose Add Members.
+Enter the user’s e-mail address in the E-mails field.
+Select the checkbox for space manager.
+Choose OK.
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/additional-information-about-cloud-foundry
+Title: Additional Information About Cloud Foundry | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Cloud Foundry EnvironmentAdditional Information About Cloud Foundry
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Additional Information About Cloud Foundry
+
+Links to additional information about Cloud Foundry that is useful to know but not necessarily directly connected to the SAP BTP, Cloud Foundry environment.
+
+Content
+
+Location
+
+BOSH
+
+http://bosh.cloudfoundry.org
+
+BOSH documentation
+
+http://bosh.io/docs
+
+Buildpacks
+
+http://docs.cloudfoundry.org/buildpacks
+
+Components of Cloud Foundry
+
+http://docs.cloudfoundry.org/concepts/architecture/
+
+Cloud Foundry Concepts
+
+http://docs.cloudfoundry.org/concepts/
+
+Deployment of Cloud Foundry
+
+http://docs.cloudfoundry.org/deploying
+
+Developer Guide for Cloud Foundry
+
+http://docs.cloudfoundry.org/devguide
+
+Diego Application Process Balancing
+
+https://docs.cloudfoundry.org/concepts/diego/diego-auction.html
+
+Glossary for Cloud Foundry
+
+http://docs.cloudfoundry.org/concepts/glossary.html
+
+Overview of Cloud Foundry
+
+http://docs.cloudfoundry.org/concepts/overview.html
+
+Sample applications for Cloud Foundry
+
+https://github.com/cloudfoundry-samples
+
+Security settings for Cloud Foundry
+
+http://docs.cloudfoundry.org/concepts/security.html
+
+Cloud Foundry Services
+
+http://docs.cloudfoundry.org/services
+
+http://docs.cloudfoundry.org/devguide/services/user-provided.html
+
+Considerations for designing and running an application in the cloud
+
+http://docs.cloudfoundry.org/devguide/deploy-apps/prepare-to-deploy.html
+
+Installing the Cloud Foundry command line interface
+
+http://docs.cloudfoundry.org/devguide/installcf/install-go-cli.html
+
+Blog about Cloud Foundry
+
+http://blog.cloudfoundry.org/
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/administration-and-operations-in-cloud-foundry-environment
+Title: Administration and Operations in the Cloud Foundry Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformAdministration and OperationsAdministration and Operations in the Cloud Foundry Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Administration and Operations in the Cloud Foundry Environment
+
+Learn about the different account administration and application operation tasks which you can perform in the Cloud Foundry environment.
+
+Account Administration Using the SAP BTP Command Line Interface (btp CLI)
+
+Account Administration in the Cockpit
+
+Account Administration Using APIs of the SAP Cloud Management Service
+
+About Roles in the Cloud Foundry Environment
+
+Org Administration Using the Cockpit
+
+Org Management Using the SAP BTP Command Line Interface (btp CLI)
+
+Org Administration Using the Cloud Foundry CLI
+
+Application Operations in the Cloud Foundry Environment
+
+Log on with a Browser to the Cloud Foundry CLI and Service Dashboards
+
+Accessing Administration Using APIs of the SAP Authorization and Trust Management Service
+
+Audit Logging in the Cloud Foundry Environment
+
+Related Information
+Cloud Foundry Environment
+Getting Started in the Cloud Foundry Environment
+Development in the Cloud Foundry Environment
+Tutorial Navigator: Learn How to Manage Your Cloud Foundry Environment in the SAP BTP Cockpit
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/application-operations-in-cloud-foundry-environment
+Title: Application Operations in the Cloud Foundry Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformAdministration and OperationsAdministration and Operations in the Cloud Foundry EnvironmentApplication Operations in the Cloud Foundry Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Application Operations in the Cloud Foundry Environment
+
+Learn more about the different application operations that you can perform in the Cloud Foundry environment.
+
+Manage Environment Variables
+
+Deploy an Application
+
+Start, Stop, and Restart Applications
+
+Restage an Application
+
+Manage Application Instances
+
+Bind an Application to a Service
+
+Troubleshoot Applications
+
+Using Application Events
+
+Using Application Logs
+
+Configuring Application URLs in the Cloud Foundry CLI
+
+About Routes in the Cockpit
+
+Create Routes
+
+Map Routes to Applications
+
+Bind Routes to Service Instances
+
+Security Groups
+
+Using Custom Domains
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/assign-quota-plans-to-spaces-using-cloud-foundry-command-line-interface
+Title: Assign Quota Plans to Spaces Using the Cloud Foundry Command Line Interface | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Org Administration Using the Cloud Foundry CLIAssign Quota Plans to Spaces Using the Cloud Foundry Command Line…
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Assign Quota Plans to Spaces Using the Cloud Foundry Command Line Interface
+
+You use the Cloud Foundry Command Line Interface to assign the quotas available in your global account to your subaccounts.
+
+Prerequisites
+
+The Org Manager role for the org that contains the spaces to which you want to assign quotas.
+
+Download and install the cf CLI and log on to Cloud Foundry. For more information, see Download and Install the Cloud Foundry Command Line Interface and Log On to the Cloud Foundry Environment Using the Cloud Foundry Command Line Interface.
+
+A space quota plan. For more information, see Create Space Quota Plans Using the Cloud Foundry Command Line Interface.
+
+Procedure
+Open a command line and enter the following string:
+
+
+cf set-space-quota SPACE_NAME SPACE_QUOTA_NAME
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/audit-log-retention-for-cloud-foundry-environment
+Title: Audit Log Retention for the Cloud Foundry Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Audit Logging in the Cloud Foundry EnvironmentAudit Log Retention for the Cloud Foundry Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Audit Log Retention for the Cloud Foundry Environment
+
+The audit log data is stored on a subaccount level. The access to the stored audit log data is strictly restricted - only authorized stakeholders can preview, retrieve, and download their audit log data.
+
+Note
+
+Currently, configuring retention period is allowed only on a subaccount level. Configuring custom retention period on a global account level is not available yet.
+
+There are two main categories of retention of audit data, divided by the source of generation:
+
+Retention of Audit Data written from SAP BTP Applications and Services (SAP-generated)
+
+Retention of Audit Data written from Customer’s BTP Applications (Customer-generated)
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/audit-log-retrieval-api-usage-for-subaccounts-in-cloud-foundry-environment
+Title: Audit Log Retrieval API Usage for Subaccounts in the Cloud Foundry Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Audit Logging in the Cloud Foundry EnvironmentAudit Log Retrieval API Usage for Subaccounts in the Cloud Foundr…
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Audit Log Retrieval API Usage for Subaccounts in the Cloud Foundry Environment
+
+The audit log retrieval API allows you to retrieve the audit logs for your SAP BTP Cloud Foundry environment subaccount.
+
+Note
+
+After the audit logs are generated and sent to the Audit Log service, the logs are not immediately accessible for retrieval.Retrieving of audit logs via the Audit Log Retrieval API is limited to the size of the audit logs generated for the subaccount. The audit log results are provided as a collection of JSON entities. The possible request rate is now limited to:
+
+4 requests per second per auth-token/tenant on CF-EU11, CF-EU30, CF-US20, CF-US21, CF-JP10, CF-JP20, CF-BR10. There is also a burst queue that can temporarily allow up to 20 requests per second.
+
+8 requests per second per auth-token/tenant on CF-EU10, CF-EU20, CF-US10, CF-US30. There is also a burst queue that can temporarily allow up to 40 requests per second.
+
+The API returns a HTTP 429 response code when the limits are exceeded.
+
+The audit log retrieval API is protected by OAuth. To consume the audit log retrieval API, you need your system to generate and use a valid OAuth.
+
+Prerequisites
+
+To execute the procedure, you need to have the Space Developer role for the corresponding Space.
+
+Note
+
+For security reasons, we recommend you to re-create the auditlog-management Service-Instance bindings and service keys at least every 90 days.
+
+Create Instance of the auditlog-management Service
+
+Create a Cloud Foundry Org and Space, in case you don't have any. See Create Spaces.
+
+Log in the Cloud Foundry landscape using the corresponding Cloud Foundry API (Infrastructure/Landscape Overview).
+
+
+
+cf login -a <API_URL> -o <ORG> -s <SPACE> -u <USER>
+Create a service instance of the service auditlog-management.
+Note
+
+For security reasons, we strongly recommend you to adopt the provided mutual TLS authentication (mTLS). The mTLS authentication relies on X.509 certificates for the verification of the parties in the network connection. Create the auditlog-managenment service instances with the additional parameters, as explained in the following mTLS points.
+
+(Recommended) For mTLS authentication using X.509 certificates, use:
+
+
+
+cf create-service auditlog-management default <SERVICE_INSTANCE> -c '{
+
+"xs-security": {
+
+"xsappname": "auditlog",
+
+"oauth2-configuration": {
+
+"credential-types": [
+
+"x509"
+
+],
+
+"grant-types": [
+
+"client_credentials"
+
+]
+
+}
+
+}
+}'
+
+Note
+
+The xsappname attribute from the service parameters JSON needs to have unique instance for each service. The xsappname attribute can hold an arbitrary string as value, which is not required to be auditlog. The code block serves only as example.
+
+For non-mTLS authentication, use
+
+cf create-service auditlog-management default <SERVICE_INSTANCE>
+Note
+
+If there's a previously created auditlog-management service instance without the security parameters for mTLS, we recommend you to delete that instance and create a new instance with mTLS authentication using the parameters from the previous (recommended) scenario.
+
+Create a key for the service instance:
+
+For service instances with mTLS, use:
+
+
+
+cf create-service-key <SERVICE_INSTANCE> <SERVICE_KEY> -c '{
+
+"xsuaa": {
+
+"credential-type": "x509",
+
+"x509": {
+
+"key-length": 2048,
+
+"validity": 1,
+
+"validity-type": "DAYS"
+
+}
+
+}
+}'
+
+Note
+
+You can specify the validity period of the service key for each use case. To use the service instance, once the key validity expires, create a new key. By default and for security reasons, the key from this code example is created with a validity of 1 day.
+
+For service instances without mTLS, use:
+
+cf create-service-key <SERVICE_INSTANCE> <SERVICE_KEY>
+
+List the key of the service instance:
+
+cf service-key <SERVICE_INSTANCE> <SERVICE_KEY>
+
+Extract data from the service key.
+
+For mTLS scenario:
+
+Extract the values for uaa.clientid and uaa.certurl of the key of the service instance for access token creation.
+
+Extract the value for url and use it for later request to retrieve audit logs.
+
+Extract the value for uaa.certificate, remove all \n entries from the X.509 certificate, and save it as a file in the .pem format.
+
+Extract the value for uaa.key, remove all \n entries from the RSA private key, and save it as a file in the .pem format.
+
+Note
+
+To extract of the values and avoid errors while copying or removing characters, you can use the sed and jq tools:
+
+
+
+cf service-key <SERVICE_INSTANCE> <SERVICE_KEY> | sed '/Getting key/d' | jq --raw-output .credentials.uaa.certurl
+cf service-key <SERVICE_INSTANCE> <SERVICE_KEY> | sed '/Getting key/d' | jq --raw-output .credentials.uaa.clientid
+cf service-key <SERVICE_INSTANCE> <SERVICE_KEY> | sed '/Getting key/d' | jq --raw-output .credentials.url
+# the following two commands save the output to .pem files on the location, where the command is executed
+cf service-key <SERVICE_INSTANCE> <SERVICE_KEY> | sed '/Getting key/d' | jq --raw-output .credentials.uaa.certificate > mtls-certificate.pem
+cf service-key <SERVICE_INSTANCE> <SERVICE_KEY> | sed '/Getting key/d' | jq --raw-output .credentials.uaa.key > mtls-private-key.pem
+
+
+For non-mTLS scenario:
+
+Extract values for uaa.url, uaa.clientid and uaa.clientsecret of the key of the service instance for access token creation. Extract the url to be used for later request to retrieve audit logs.
+
+Create an OAuth Access Token
+
+Request an OAuth access token
+
+For mTLS scenario
+
+To request the OAuth access token via the mTLS extracted X.509 certificates and RSA private key flow, execute an HTTP POST request with the following parameters:
+
+
+
+URL: <value of "uaa.certurl">/oauth/token?grant_type=client_credentials&client_id=<value of "uaa.clientid">
+Method: POST
+Authentication Method: Client Certificates
+Certificate: <Value of "uaa.certificate">
+Key: <Value of "uaa.key">
+grant_type: client_credentials
+client_id: <Value of "uaa.clientid">
+
+
+Example:
+
+
+
+curl --cert <path to certificate.pem> --key <path to key.pem> --request POST https://<value of "uaa.certurl">/oauth/token -d 'grant_type=client_credentials&client_id=<Value of "uaa.clientid">'
+
+
+For non-mTLS scenario
+
+Request the OAuth access token via the OAuth client credentials flow, by executing an HTTP POST request with the following parameters:
+
+
+
+URL: <value of "uaa.url">/oauth/token?grant_type=client_credentials
+Method: POST
+Authentication Method: Basic Authentication
+Username: <Value of "uaa.clientid">
+Password: <Value of "uaa.clientsecret">
+
+
+
+Extract the value of the access_token attribute from the JSON response.
+
+This token grants access to the audit logs of the subaccount on the landscape where the service instance is created.
+
+Note
+
+The token is valid for 1 hour.
+
+Note
+
+This token grants access to the audit logs of the subaccount on the landscapeThe content of the access token can be displayed using a standard JWT decoder
+
+Audit Log Retrieval
+The Audit Log Retrieval API incorporates server-side paging to address the efficient handling of queries producing substantial result sets.
+Note
+
+The logs are not immediately accessible for retrieval
+
+In instances where the query produces a result with significant size, the API systematically partitions the output into manageable chunks. The response includes an HTTP header featuring a handle, designed to facilitate the retrieval of subsequent result segments. To obtain additional portions of the result, pass the handle as a URL parameter in the subsequent retrieval request. The size of each chunk is predetermined, with a page size fixed at 500.
+Supported request parameters:
+
+time_from and time_to – if no time filter is specified the default timeframe of 30 days back is returned. Use the following format: YYYY-MM-DDTHH:MM:SS, for example 2018-05-11T10:42:00. The time is in UTC.
+
+handle - in case the result set is too large, it's chunked, and a handle is returned for reading the next chunk. The handle is returned as a Response Header in the form: Paging: handle=<value>. Then you can provide handle=<value> as a request parameter in the subsequent retrieval request.
+
+category - this parameter allows you to filter the audit logs by predefined event types. If no event type is specified, all event types are returned. The available event types are:
+
+audit.security-events
+
+audit.configuration
+
+audit.data-access
+
+audit.data-modification
+
+To filter by a specific event type, provide the event type name as the value for this parameter, for example category=audit.data-access. Multiple event types can be specified separated by commas, for example category=audit.data-access,audit.configuration.
+
+Note
+
+Filterning by category doesn't work for custom retention periods and Sovereign cloud. In such case, an error code 501 is returned with the following format and message:
+
+
+
+{
+
+"error": {
+
+"code": "filter_category_not_supported",
+
+"message": "Filtering by category not available for custom retention periods. Remove categories to proceed."
+
+}
+}
+
+Example: Get audit logs for the last 30 days
+Execute the following HTTP GET request:
+
+
+<url_from_service_key>/auditlog/v2/auditlogrecords
+
+Provide the OAuth access token as an "Authorization" header: "Authorization: Bearer <access_token>"
+
+The response is in JSON format, containing the audit log entries, split on pages if needed.
+
+Example: Get audit logs filtering by time
+Execute the following HTTP GET request:
+
+
+<url_from_service_key>/auditlog/v2/auditlogrecords?time_from=2018-05-10T10:42:00&time_to=2018-05-11T10:46:00
+
+Example: Get audit logs filtered by event type
+
+You can query for one of the predefined audit log event types for the category parameter.
+
+Execute the following HTTP GET request:
+
+
+<url_from_service_key>/auditlog/v2/auditlogrecords?time_from=2018-05-10T10:42:00&time_to=2018-05-11T10:46:00&category=audit.data-access
+
+Example: Get audit logs next chunk determined by the server-side paging
+Execute the following HTTP GET request:
+
+
+<url_from_service_key>/auditlog/v2/auditlogrecords?handle=2018-06-14T10:11:18.968<4f932695-8616-4e1f-ac9a-1cdfb758f01d<2018-06-14T10:11:00.000
+
+
+Response codes:
+
+HTTP Codes
+
+HTTP 200 OK
+
+HTTP 204 NO_CONTENT
+
+HTTP 401 UNAUTHORIZED
+
+HTTP 400 BAD_REQUEST
+
+HTTP 403 FORBIDDEN
+
+HTTP 429 Too Many Requests
+
+HTTP 501 NOT_IMPLEMENTED
+
+Results
+
+
+{
+
+"message_uuid": "e3a533c1-57b3-42b5-b514-8934ec5b6a6a",
+
+"time": "2018-10-04T08:12:00.239Z",
+
+"tenant": "c6da83a8-dc72-4374-b8f7-42b37a99XXXX",
+
+"org_id": "82f1da92-e5b3-4cc5-8c90-964165afXXXX",
+
+"space_id": "82f1da92-e5b3-4cc5-8c90-964165aXXXX",
+
+"app_or_service_id": "5fb40c3a-d36a-42c7-adc8-e4abd83dXXXX",
+
+"als_service_id": "c18f9b6d-a8af-431c-a187-749ebc59XXXX",
+
+"user": "test",
+
+"category": "audit.security-events",
+
+"format_version": "",
+
+"message": {
+
+"uuid": " e3a533c1-57b3-42b5-b514-8934ec5b6a6a ",
+
+"user": "test",
+
+"time": "2018-10-04T08:12:00.239Z",
+
+"ip": "10.58.183.15",
+
+"data": "{\"level\":\"INFO\",\"origin\":null,\"msgNo\":1,\"msgId\":\"a2cf08ee-eedd-455b-bbd6-
+
+400d6b611116\",\"message\":\"ClientAuthenticationSuccess ('Client authentication success'): principal=sb-40ae21f3-5034-40dd-ac0d-0c9d3e0ebb06!b3034|auditlog-management!b3034, origin=[remoteAddress=52.58.183.15, clientId=sb-40ae21f3-5034-40dd-ac0d-0c9d3e0ebb06!b3034|auditlog-management!b3034], identityZoneId=[c6da83a8-dc72-4374-b8f7-42b37a99db2b]\",\"user\":null,\"version\":\"1.0\"}",
+
+"id": "cb046a0f-cc23-406b-a1d2-22ee6cf89a4d",
+
+"category": "audit.security-events",
+
+"tenant": "c6da83a8-dc72-4374-b8f7-42b37a99XXXX"
+
+}
+}
+
+
+Related Information
+Audit Log Retrieval API for the Cloud Foundry Environment
+API Documentation
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/audit-log-viewer-for-cloud-foundry-environment
+Title: SAP Help Portal | SAP Online Help
+
+ProductsWhat's NewExplore SAP
+Loading Document…
+
+
+
+PDF
+Favorite
+Share
+
+Table of Contents
+Loading Table of Contents…
+Loading Topic…
+Was this page helpful?
+Yes
+No
+Copyright
+Disclaimer
+Privacy Statement
+Legal Disclosure
+Trademark
+Terms of Use
+Cookie Preferences
+Accessibility & Sustainability
+Ask a Question about the SAP Help Portal
+Find us on
+Share
+
+Your choices regarding cookies on this site
+
+This site uses cookies and related technologies, as described in our Cookie Statement, for purposes that may include site operation, analytics, enhanced user experience, or advertising. You may choose to consent to our use of these technologies, or manage your own preferences.
+
+Privacy Statement | Cookie Statement
+
+Accept All
+Deny All
+Manage Settings
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/audit-logging-in-cloud-foundry-environment
+Title: Audit Logging in the Cloud Foundry Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformAdministration and OperationsAdministration and Operations in the Cloud Foundry EnvironmentAudit Logging in the Cloud Foundry Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Audit Logging in the Cloud Foundry Environment
+
+In this section, you can find information for audit log functionalities in the Cloud Foundry environment.
+
+SAP Audit Log is a core, security, and compliance-based SAP BTP service to provide means for audit purposes. The following features of Audit Log Service are available for SAP BTP Applications and Services:
+With the default features, you have:
+
+Written compliance audit data from SAP BTP services and applications, through oAuth2 service plan.
+
+Audit data securely stored for a default retention time of 90 days with no additional costs applied.
+
+Retrieval of audit data within the default retention period ensured as part of the Auditlog Management Service.
+
+With the advanced features you can:
+
+Write audit data from your owned BTP applications.
+
+Configure the retention period.
+
+The advanced features enable you to comply with the SAP Product Standards and Business Industry regulations you're subject to. To enable the advanced features, you need to enable the premium edition service plan, where additional costs are applied based on the consumed volumes.
+
+Audit logs are a special type of logs. They represent security-relevant chronological records that provide documentary evidence for an event or activity. The following table gives you a better understanding what is the difference between audit logs, activity logs, and application logs. The SAP Audit Log only stores audit logs written by SAP BTP services, when you take action over your account data.
+
+The SAP Audit Log stores audit logs representing different actions taken over your account and/or data. There are predefined audit categories, which represent such kinds of actions:
+Data protection and privacy related
+
+audit.data-access read-access logging records for access to sensitive personal data;
+
+audit.data-modification data modification logging records for sensitive personal data.
+
+Security related
+
+audit.security-events logging of general security events like login, logout, and other;
+
+audit.configuration logging of security critical configuration changes.
+
+See Change Logging and Read-Access Logging.
+
+If your subaccount audit logs contain other log types or information, create a support ticket with component BC-CP-CF-SEC-AUDITLG.
+
+Related Information
+Audit Log Retrieval API Usage for Subaccounts in the Cloud Foundry Environment
+Audit Log Retention for the Cloud Foundry Environment
+SAP Audit Log Viewer service for the Cloud Foundry Environment
+Guided Answers for Audit Logging in the Cloud Foundry Environment
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/availability-zones-in-cloud-foundry-environment
+Title: Availability Zones in the Cloud Foundry Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Cloud Foundry EnvironmentAvailability Zones in the Cloud Foundry Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Availability Zones in the Cloud Foundry Environment
+
+The Cloud Foundry environment follows the recommendations of our partner IaaS providers by leveraging the availability zones (AZ) concept.
+
+About Availability Zones
+
+Availability zones (AZ) are single failure domains within a single geographical region and are separate physical locations with independent power, network, and cooling. Multiple AZs exist in one region and are connected with each other through a low-latency network.
+
+2-AZ and 3-AZ Deployments
+
+To achieve better fault-tolerance, our partners recommend deploying services across multiple AZs, which improves the availability of a service if there are issues with the region infrastructure of one AZ.
+
+High Availability at Platform and Application Level
+
+The SAP BTP Cloud Foundry environment follows these recommendations to support high availability at the platform and application level:
+
+High availability of the platform components:
+
+The building blocks of Cloud Foundry and the virtual machines on which the Cloud Foundry application instances are scheduled run in a high availability setup. These instances are distributed across different AZs.
+
+The technology that manages the deployment of the Cloud Foundry environment monitors the health of the platform. If there are infrastructure failures, it re-creates the faulty components.
+
+High availability on the application level:
+
+We recommend running multiple application instances to increase availability. For more information, see Run Multiple Instances to Increase Availability. On SAP BTP, there are three ways to increase application instances:
+
+Scaling your application using the application manifest. The manifest.yml allows you to make and save configurations for your application. To scale, you can configure the instance count in the manifest and push the application again with the new configuration. See App Manifest Attribute Reference. To avoid downtimes when updating your application configuration, you can also consider using rolling application deployments. See Rolling App Deployments.
+
+Scaling your application using the cf scale command in the Cloud Foundry command line interface (CF CLI). See Scaling an App Using cf scale.
+
+Scaling your application using the SAP BTP cockpit. See Add or Remove Application Instances.
+
+The Cloud Foundry container scheduler takes care of distributing the different instances of one application on virtual machines in different AZs. For more information, see How Diego Balances App Processes.
+
+Cloud Foundry is constantly monitoring the health state of application instances and restarts instances that are considered unhealthy. See Using App Health Checks.
+
+When the number of desired instances doesn't match the number of actually running instances, Cloud Foundry reschedules the missing instances, for example, when the virtual machines that an application instance was initially scheduled on become unresponsive.
+
+For more information on high availability configuration, see High Availability in Cloud Foundry.
+
+For more information on application stability and resilience, see Developing Resilient Applications.
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/bind-service-instances-to-applications-using-cloud-foundry-command-line-interface
+Title: Bind Service Instances to Applications Using the Cloud Foundry Command Line Interface | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Binding Service Instances to ApplicationsBind Service Instances to Applications Using the Cloud Foundry Co…
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Bind Service Instances to Applications Using the Cloud Foundry Command Line Interface
+
+You can bind service instances to applications using the Cloud Foundry Command Line Interface (cf CLI).
+
+Prerequisites
+
+Download and install the cf CLI and log on to Cloud Foundry. For more information, see Download and Install the Cloud Foundry Command Line Interface and Log On to the Cloud Foundry Environment Using the Cloud Foundry Command Line Interface.
+
+Deploy an application in the same space in which you plan to create the service instance. For more information, see Deploy Business Applications in the Cloud Foundry Environment.
+
+Create a service instance. For more information, see Create Service Instances Using the Cloud Foundry Command Line Interface.
+
+Procedure
+Open a command line and enter the following string:
+
+
+cf bind-service APP-NAME SERVICE_INSTANCE [-c PARAMETERS_AS_JSON]
+
+Specify the following parameters:
+
+APP_NAME: Name of the application.
+
+SERVICE_INSTANCE: Name of the service instance.
+
+-c: (Optional) Provide service-specific configuration parameters either in a valid JSON object in-line or in a parameters file. This file reference can be an absolute or relative path to a file.
+
+Related Information
+Creating Service Instances
+Creating Service Keys
+About Services
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/cloud-foundry-environment
+Title: Cloud Foundry Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformBasic Platform ConceptsEnvironmentsCloud Foundry Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Cloud Foundry Environment
+
+The Cloud Foundry environment allows you to create polyglot cloud applications in Cloud Foundry. It contains the SAP BTP, Cloud Foundry runtime service, which is based on the open-source application platform managed by the Cloud Foundry Foundation.
+
+The Cloud Foundry environment enables you to develop new business applications and business services, supporting multiple runtimes, programming languages, libraries, and services. You can leverage a multitude of buildpacks, including community innovations and self-developed buildpacks. It also integrates with SAP HANA extended application services, advanced model.
+
+For more information about Cloud Foundry, see the official Cloud Foundry documentation at https://docs.cloudfoundry.org/.
+
+Supported and Unsupported Cloud Foundry Features
+
+Find out which Cloud Foundry features the Cloud Foundry environment on SAP BTP supports and doesn't support.
+SAP BTP-Specific Configurations
+
+Learn about technical configurations for Cloud Foundry that are specific to SAP BTP.
+Availability Zones in the Cloud Foundry Environment
+
+The Cloud Foundry environment follows the recommendations of our partner IaaS providers by leveraging the availability zones (AZ) concept.
+Additional Information About Cloud Foundry
+
+Links to additional information about Cloud Foundry that is useful to know but not necessarily directly connected to the SAP BTP, Cloud Foundry environment.
+Service Plans and Metering for Cloud Foundry Runtime
+
+This page explains the relationship between the service plans in the SAP Discovery Center and those in the SAP BTP cockpit, and provides information to help you understand how the service is billed.
+Related Information
+Getting Started in the Cloud Foundry Environment
+Development in the Cloud Foundry Environment
+Administration and Operations in the Cloud Foundry Environment
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/create-service-instances-using-cloud-foundry-command-line-interface
+Title: Create Service Instances Using the Cloud Foundry Command Line Interface | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Creating Service InstancesCreate Service Instances Using the Cloud Foundry Command Line Int…
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Create Service Instances Using the Cloud Foundry Command Line Interface
+
+You can use the Cloud Foundry Command Line Interface (cf CLI) to create service instances.
+
+Prerequisites
+
+Download and install the cf CLI and log on to Cloud Foundry.
+
+For more information, see Download and Install the Cloud Foundry Command Line Interface and Log On to the Cloud Foundry Environment Using the Cloud Foundry Command Line Interface.
+
+If you are working in an enterprise account, you need to add quotas to the services you purchased in your subaccount before they appear in the service marketplace. Otherwise, only default free-of-charge services are listed. Quotas are automatically assigned to the resources available in trial accounts.
+
+For more information, see Configure Entitlements and Quotas for Subaccounts.
+
+Procedure
+(Optional) Open a command line and enter the following string to list all services and service plans that are available in your org:
+
+
+cf marketplace
+Run the following command to create a service instance:
+
+
+cf create-service SERVICE PLAN SERVICE_INSTANCE
+Specify the following parameters:
+
+SERVICE: The name of the service you want to create an instance of.
+
+PLAN: The name of the service plan you want to use.
+
+SERVICE_INSTANCE: The new name for your service instance. Use only alphanumeric characters, hyphens, and underscores.
+
+Related Information
+Binding Service Instances to Applications
+Creating User-Provided Service Instances
+About Services
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/create-service-keys-using-cloud-foundry-command-line-interface
+Title: Create Service Keys Using the Cloud Foundry Command Line Interface | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Creating Service KeysCreate Service Keys Using the Cloud Foundry Command Line Interface
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Create Service Keys Using the Cloud Foundry Command Line Interface
+
+Use the Cloud Foundry Command Line Interface to create a service key.
+
+Prerequisites
+
+Download and install the cf CLI and log on to Cloud Foundry. For more information, see Download and Install the Cloud Foundry Command Line Interface and Log On to the Cloud Foundry Environment Using the Cloud Foundry Command Line Interface.
+
+Create a service instance. For more information, see Create Service Instances Using the Cloud Foundry Command Line Interface.
+
+Procedure
+Run the following command to create a service key:
+
+
+cf create-service-key SERVICE_INSTANCE SERVICE_KEY [-c PARAMETERS_AS_JSON]
+
+Specify the following parameters:
+
+SERVICE_INSTANCE: Name of the service instance.
+
+SERVICE_KEY: Name for the service key.
+
+-c: (Optional) Provide service-specific configuration parameters either in a valid JSON object in-line or in a parameters file. This file reference can be an absolute or relative path to a file.
+
+Results
+Local clients, apps in other spaces, or entities outside your deployment can now access your service instance with this key.
+Related Information
+Creating Service Instances
+Binding Service Instances to Applications
+About Services
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/create-space-quota-plans-using-cloud-foundry-command-line-interface
+Title: Create Space Quota Plans Using the Cloud Foundry Command Line Interface | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Org Administration Using the Cloud Foundry CLICreate Space Quota Plans Using the Cloud Foundry Command Line Int…
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Create Space Quota Plans Using the Cloud Foundry Command Line Interface
+
+You can use the Cloud Foundry Command Line Interface to create space quota plans.
+
+Prerequisites
+
+The Org Manager role for the org that contains the spaces to which you want to assign quotas.
+
+Download and install the cf CLI and log on to Cloud Foundry. For more information, see Download and Install the Cloud Foundry Command Line Interface and Log On to the Cloud Foundry Environment Using the Cloud Foundry Command Line Interface.
+
+Procedure
+Open a command line and enter the following string, replacing QUOTA with the name for your space quota plan:
+
+
+cf create-space-quota QUOTA [-i INSTANCE_MEMORY] [-m MEMORY] [-r ROUTES] [-s SERVICE_INSTANCES] [--allow-paid-service-plan | --disallow-paid-service-plans]
+
+
+Specify the following parameters:
+
+-i: Maximum amount of memory an application instance can have (-1 represents an unlimited amount)
+
+-m: Total amount of memory a space can have
+
+-r: Total number of routes
+
+-s: Total number of service instances
+
+--allow-paid-service-plans: Can provision instances of paid service plans
+
+--disallow-paid-service-plans: Can not provision instances of paid service plans
+
+Related Information
+Create Space Quotas
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/create-spaces-using-cloud-foundry-command-line-interface
+Title: Create Spaces Using the Cloud Foundry Command Line Interface | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Org Administration Using the Cloud Foundry CLICreate Spaces Using the Cloud Foundry Command Line Interface
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Create Spaces Using the Cloud Foundry Command Line Interface
+
+Use the cf create-space command to create spaces in your Cloud Foundry organization using the Cloud Foundry Command Line Interface (cf CLI).
+
+Prerequisites
+(Enterprise accounts only) Create at least one subaccount and enable the Cloud Foundry environment in this subaccount. For more information, see Create a Subaccount and Create Orgs.
+Note
+
+In a trial account, the Cloud Foundry environment is automatically activated, and a first space named dev is created.
+
+You have the Org Manager role in the organization in which you want to create a space. For more information about roles and permissions, see https://docs.cloudfoundry.org/concepts/roles.html.
+
+Download and install the cf CLI and log on to Cloud Foundry. For more information, see Download and Install the Cloud Foundry Command Line Interface and Log On to the Cloud Foundry Environment Using the Cloud Foundry Command Line Interface.
+
+Procedure
+Make sure that you are in the Cloud Foundry organization you want to add a space to.
+
+
+cf target -o ORG
+
+To get a list of your organizations, call cf orgs.
+
+Enter the following string, specifying a name for the new space, the name of the organization, and the quota you'd like to assign to it:
+
+
+cf create-space SPACE [-o ORG] [-q SPACE_QUOTA]
+(Optional) Set this space as target by executing: cf target -o ORG -s SPACE
+Note
+
+If you are assigned to only one Cloud Foundry organization and space, the system automatically targets you to the relevant Cloud Foundry organization and space when you log on.
+
+Related Information
+Delete Spaces Using the Cloud Foundry Command Line Interface
+Create Spaces Using the Cockpit
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/create-user-provided-service-instances-using-cloud-foundry-command-line-interface
+Title: Create User-Provided Service Instances Using the Cloud Foundry Command Line Interface | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Creating User-Provided Service InstancesCreate User-Provided Service Instances Using the Cloud Foundry Co…
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Create User-Provided Service Instances Using the Cloud Foundry Command Line Interface
+
+Use the Cloud Foundry Command Line Interface to make a user-provided service instance available to Cloud Foundry applications.
+
+Prerequisites
+
+Download and install the cf CLI and log on to Cloud Foundry. For more information, see Download and Install the Cloud Foundry Command Line Interface and Log On to the Cloud Foundry Environment Using the Cloud Foundry Command Line Interface.
+
+Obtain a URL, port, user name, and password for communicating with a service that is not available in the marketplace.
+
+Context
+
+For more informaton on user-provided service instances, see https://docs.cloudfoundry.org/devguide/services/user-provided.html.
+
+Procedure
+Open a command line and enter the following string to create a user-provided service instance:
+
+
+cf create-user-provided-service SERVICE_INSTANCE [-p CREDENTIALS]
+
+Specify the following parameters:
+
+SERVICE_INSTANCE: The new name for your service instance.
+
+CREDENTIALS: Credentials as JSON
+
+Next Steps
+
+To bind your application to the user-provided service instance, follow the steps described in Bind Service Instances to Applications Using the Cloud Foundry Command Line Interface.
+
+Related Information
+Creating Service Instances
+Creating Service Keys
+About Services
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/creating-cloud-foundry-organization-and-space
+Title: Creating a Cloud Foundry Organization and Space | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…ABAP Environment: Initial SettingsCreating a Cloud Foundry Organization and Space
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Creating a Cloud Foundry Organization and Space
+
+Create a Cloud Foundry organization and Cloud Foundry space that will correspond to the instance of the ABAP environment.
+
+Context
+Note
+
+If you have already created an organization and space for the ABAP environment, you can skip these steps. If you have run the booster Prepare an Account for ABAP Development, you can also skip these steps.
+
+For more information about creating Cloud Foundry spaces, see Create Spaces.
+
+Procedure
+Log on to the SAP BTP cockpit in the global account for the Cloud Foundry environment as administrator.
+Choose the tile of the Cloud Foundry subaccount.
+Check whether Cloud Foundry is enabled: If it's enabled, the Cloud Foundry organization name appears as organization on the screen area Cloud Foundry.
+If Cloud Foundry is not enabled yet, proceed as follows:
+Choose Enable Cloud Foundry.
+On the Create Cloud Foundry Organization dialog, enter a name for the Cloud Foundry organization and choose Create.
+Choose the free or standard plan for the Cloud Foundry runtime according to your needs.
+On the Cloud Foundry screen area, choose the link for spaces.
+If the Cloud Foundry space in the Cloud Foundry organization does not exist yet, proceed as follows:
+Choose New Space.
+On the New Space dialog, enter a name for the new Cloud Foundry space, for example, dev, and leave the checkboxes for space manager and space developer checked.
+Choose Create.
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/creating-cloud-foundry-subaccount-for-abap-environment
+Title: Creating a Cloud Foundry Subaccount for the ABAP Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…ABAP Environment: Initial SettingsCreating a Cloud Foundry Subaccount for the ABAP Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Creating a Cloud Foundry Subaccount for the ABAP Environment
+
+Create a Cloud Foundry subaccount for the ABAP environment in your global account using the cockpit.
+
+Context
+Note
+
+If you have run the booster Prepare an Account for ABAP Development, you can skip these steps.
+
+For the ABAP environment, you need a Cloud Foundry subaccount as a technical environment. If you want to reuse an existing Cloud Foundry subaccount, make sure that it uses the providers and regions that are available for provisioning an ABAP environment. For more information about the providers and regions for ABAP environment, see Regions.
+
+Procedure
+From your global account, choose New Subaccount.
+Specify a display name, for example, ABAP.
+Optional: Enter a description.
+Leave the Neo Environment checkbox deselected.
+Choose the desired infrastructure provider and region for your subaccount.
+
+You can find the available providers and regions for the ABAP environment in Regions.
+
+Enter a subdomain for your subaccount. The subdomain will become part of the URL for accessing applications that you subscribe to from this subaccount.
+Note
+
+You can choose any string of your choice. However, note that the subdomain can contain only letters, digits and hyphens (not allowed in the beginning or at the end), and must be unique across all subaccounts in the same region. Uppercase and lowercase letters can be used, however that alone does not qualify as a means to differentiate subdomains (for example, SUBDOMAIN and subdomain are considered to be the same).
+
+If your subaccount is to be used for production purposes, select the Used for production option.
+Choose Create.
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/deploy-business-applications-in-cloud-foundry-environment
+Title: Deploy Business Applications in the Cloud Foundry Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Deploying to the Cloud Foundry EnvironmentDeploy Business Applications in the Cloud Foundry Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Deploy Business Applications in the Cloud Foundry Environment
+
+When an application for the Cloud Foundry environment resides in a folder on your local machine, you can deploy it and start it by executing the command line interface (CLI) command push. To deploy business applications bundled in a multitarget application archive, you have to use the command deploy-mta.
+
+For more information about developing and deploying applications in the Cloud Foundry environment, see http://docs.cloudfoundry.org/devguide/deploy-apps/deploy-app.html.
+
+For more information developing Multitarget Applications, see Multitarget Applications in the Cloud Foundry Environment. See Multitarget Application Commands for the Cloud Foundry Environment for information about MTA deployment.
+
+Related Information
+Download and Install the Cloud Foundry Command Line Interface
+Log On to the Cloud Foundry Environment Using the Cloud Foundry Command Line Interface
+Multitarget Application Commands for the Cloud Foundry Environment
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/deploying-to-cloud-foundry-environment
+Title: Deploying to the Cloud Foundry Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformDevelopmentDevelopment in the Cloud Foundry EnvironmentDeploying to the Cloud Foundry Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Deploying to the Cloud Foundry Environment
+
+Get an overview of available deployment options.
+
+When deploying applications and services to the cloud, you can choose from a number of different approaches and tools, depending on your development setup.
+
+Multitarget Applications
+
+If you've decided to develop your application or service with the multitarget approach, you can deploy it to SAP BTP using a single .mtar archive file. For more information, see Multitarget Applications in the Cloud Foundry Environment.
+
+Continuous Integration and Delivery
+
+Continuous Integration and Delivery (CI/CD) are two interrelated concepts that can enhance your development process by adding frequent integration, automated testing, and faster delivery. For more information, see Continuous Integration and Delivery .
+
+Cloud Foundry Command Line Interface
+
+If you prefer to develop on your local machine, you can deploy your application from the folder on your computer directly to SAP BTP using the Cloud Foundry Command Line Interface (CF CLI). For more information, see Deploy Business Applications in the Cloud Foundry Environment.
+
+SAP BTP Cockpit
+
+You can also deploy your application with or without a manifest.yml file using the SAP BTP cockpit. For more information, see Deploy an Application.
+
+Docker Images
+
+If you want a higher degree of freedom when realizing your project, you can also deploy your applications and services using Docker images and the Cloud Foundry Command Line Interface (CF CLI). Note that Docker images can't be used in combination with buildpacks. For more information, see Deploy Docker Images in the Cloud Foundry Environment.
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/developing-html5-applications-in-cloud-foundry-environment
+Title: Developing HTML5 Applications in the Cloud Foundry Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Developing User InterfaceDeveloping HTML5 Applications in the Cloud Foundry Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Developing HTML5 Applications in the Cloud Foundry Environment
+
+SAP BTP enables you to access and run HTML5 applications in a cloud environment without the need to maintain your own runtime infrastructure.
+
+HTML5 applications consist of static content that runs on a browser. Then you develop your applications - either in SAP Business Application Studio, or in your own IDE (integrated development environment) - and deploy them to the HTML5 application repository.
+
+Depending on your backend application setup, you either configure the destinations during development, or define them after deploying the application. Finally, to consume the applications, you can create a site using SAP Cloud Portal service or SAP Build Work Zone, build the URL, and define custom domains.
+
+On the Cloud Foundry environment of SAP BTP you can run an application that was uploaded to HTML5 application repository using one of the following options:
+
+Use the application router that is managed by SAP.
+
+For more information, see Managed Application Router.
+
+Set up and maintain your own application router in your own space.
+
+For more information, see Application Router.
+
+Both options allow you to serve static content from HTML5 application repository, authenticate users, rewrite URLs, and forward or proxy requests to other micro services while propagating user information. However, the managed application router brings many benefits, such as:
+
+Simplify and speed up your development and deployment experience
+
+Save resources by running a serverless HTML5 application, which doesn’t require any application runtime
+
+Lower maintenance efforts by leveraging the most up-to-date routing capabilities
+
+Meet the changing demand for HTML5 applications by automatically adjusting the service to maintain consistent and predictable performance
+
+Monitor and run your HTML5 applications from the HTML5 Applications UI in the SAP BTP cockpit
+
+Therefore, we recommend running your own application router only in advanced cases, for example when application router extensibility is required.
+
+Note
+
+When using the managed application router, you can monitor and run your HTML5 applications from the HTML5 Applications UI for your subaccount in the SAP BTP cockpit.
+
+For monitoring and running HTML5 applications served by a standalone application router, you can use the CF HTML5 applications repository CLI plugin.
+
+Related Information
+HTML5 Application Repository
+Application Router
+Managed Application Router
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/developing-java-in-cloud-foundry-environment
+Title: Developing Java in the Cloud Foundry Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Development LanguagesDeveloping Java in the Cloud Foundry Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Developing Java in the Cloud Foundry Environment
+
+Find selected information for Java development on SAP BTP, Cloud Foundry and references to more detailed sources.
+
+Usage
+
+To use a buildpack, specify its name when deploying a Java application to SAP BTP, Cloud Foundry. For example:
+
+
+
+cf push -f <PATH_TO_APP_MANIFEST> -b sap_java_buildpack_jakarta
+
+
+cf push -f <PATH_TO_APP_MANIFEST> -b sap_java_buildpack
+
+
+cf push -f <PATH_TO_APP_MANIFEST> -b java_buildpack
+
+You can also use the buildpack or buildpacks attribute to specify it in the manifest.yml file:
+
+
+
+---
+applications:
+- name: <APP_NAME>
+
+buildpacks:
+
+- sap_java_buildpack_jakarta
+
+...
+
+or in the mtad.yml file of your archive:
+
+
+
+...
+modules:
+
+- name: <APP_NAME>
+
+type: java.tomcat
+
+path: <path_to_archive>
+
+properties:
+
+...
+
+parameters:
+
+...
+
+memory: 512M
+
+buildpack: sap_java_buildpack_jakarta
+...
+What's New
+
+To check the latest news and updates about SAP Java Buildpack, go to its release notes: What's New for SAP Java Buildpack
+
+Troubleshooting
+
+If you encounter an issue while using SAP Java Buildpack, you can create an incident for your specific problem, using support component BC-CP-CF-BLDP.
+
+Related Information
+Buildpacks
+Customizing the JVM Settings
+Logging and Tracing
+Debugging Java Applications
+Bill of Materials (BOM)
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/developing-node-js-in-cloud-foundry-environment
+Title: Developing Node.js in the Cloud Foundry Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Development LanguagesDeveloping Node.js in the Cloud Foundry Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Developing Node.js in the Cloud Foundry Environment
+
+This section offers selected information for Node.js development on SAP BTP, Cloud Foundry and references to more detailed sources.
+
+You'll get information about the buildpack supported by SAP, the Node.js packages, and how to consume them in your application.
+
+There is also a tutorial with an introduction to securing your application, and some tips and tricks for developing and running Node.js applications on SAP BTP, Cloud Foundry.
+
+Node.js Community Buildpack
+
+SAP BTP uses the standard Node.js buildpack provided by the Cloud Foundry community to deploy Node.js applications.
+
+To get familiar with the buildpack and how to deploy applications with it, take a look at the Cloud Foundry Node.js Buildpack documentation.
+
+SAP Node.js Packages
+
+You can download and consume SAP-developed Node.js packages via the SAP NPM Registry. There is an overview of Node.js packages developed by SAP, what they are meant for, and where they are included in the SAP HANA Developer Guide for XS Advanced Model. See:
+
+Download and Consume SAP Node.js Packages
+
+Standard Node.js Packages
+
+The SAP NPM Registry
+
+Buildpack Versioning
+
+The SAP BTP, Cloud Foundry environment provides one recent version of nodejs_buildpack as part of its system buildpacks. To check this version, proceed as follows:
+
+Log in to a particular SAP BTP region and subaccount. For example, if your region is eu10, run:
+
+
+
+cf api https://api.cf.eu10.hana.ondemand.com
+
+Then run:
+
+
+
+cf buildpacks
+
+To learn about changes in the Node.js buildpack's versions and features, regularly check the latest buildpack releases in the GitHub community page.
+
+Usage
+
+To use this buildpack, specify its name when deploying a Node.js application to the SAP BTP, Cloud Foundry environment. You can do it the following ways:
+
+Specify it directly in the cf push command:
+
+
+
+cf push -f <PATH_TO_APP_MANIFEST> -b nodejs_buildpack
+
+Specify it in the manifest.yml file of your application by using the buildpacks attribute:
+
+
+
+---
+applications:
+- name: <APP_NAME>
+
+memory: 512M
+
+buildpacks:
+
+- nodejs_buildpack
+
+...
+
+Then, you can deploy the application like this:
+
+
+
+cf push <app_name>
+
+Specify it in the mtad.yaml deployment descriptor file (for multi-target applications) by using the buildpack attribute:
+
+
+
+...
+modules:
+
+- name: <APP_NAME>
+
+type: nodejs
+
+path: <path_to_archive>
+
+properties:
+
+...
+
+parameters:
+
+...
+
+memory: 512M
+
+buildpack: nodejs_buildpack
+...
+
+Then, you can deploy the application like this:
+
+
+
+cf push <app_name>
+Supported Versions
+
+The nodejs_buildpack running on SAP BTP, Cloud Foundry environment supports the following versions:
+
+Node.js 20 - this version reached end of life on April 30, 2026.
+
+Node.js 22
+
+Node.js 24
+
+Deprecated Versions
+
+Node.js 20
+
+Node.js 20 has reached end of life on April 30, 2026 according to the Node.js Roadmap. It will stay available for a short time on SAP BTP, Cloud Foundry environment but then it will be removed from there as well. When this version disappears, deployment and redeployment of Cloud Foundry applications running on Node.js 20 will fail.
+
+Action: We strongly recommend that you migrate your applications to Node.js 22 as soon as possible.
+
+In exceptional cases (if you haven’t managed to switch to Node.js 22 in time), to avoid application failures during redeployment, you can pin the last buildpack version that contains Node.js 20, as provided by the nodejs-buildpack community. To learn how, see: Specify a buildpack version in manifest.yml
+
+If you are using MTA deployment descriptors, in your mtad.yaml file you need to define module type javascript.nodejs and set parameter buildpack to nodejs_buildpack. For example:
+
+
+
+modules:
+- name: myapp
+
+type: javascript.nodejs
+
+parameters:
+
+memory: 512M
+
+buildpack: nodejs_buildpack
+
+If you want to pin a particular buildpack version (for example, 1.8.39), you can do it the following way:
+
+
+
+modules:
+- name: myapp
+
+type: javascript.nodejs
+
+parameters:
+
+memory: 512M
+
+buildpack: https://github.com/cloudfoundry/nodejs-buildpack.git#v1.8.39
+
+
+
+To learn more, see MTA Module Types.
+
+Remember
+
+SAP does not recommend use of deprecated Node.js versions, as support and security fixes are no longer provided for them.
+
+What's New
+
+To check the latest news and updates about the Node.js buildpack, go to its release notes: What's New for Node.js Buildpack
+
+Note
+
+In May 2023, SAP migrated the root file system used in the Cloud Foundry environment in SAP BTP from the deprecated cflinuxfs3 stack to cflinuxfs4. If you are running Node.js applications on SAP BTP, Cloud Foundry using the Node.js buildpack, we recommend that you update and migrate your applications, as well as the Node.js buildpack. For more information about migration timelines, risks, and consequences, see:
+
+Deprecation of Cloud Foundry Stack cflinuxfs3 and Migration to cflinuxfs4
+
+What's New: cflinuxfs4 becomes the default stack
+
+Troubleshooting
+
+If you encounter an issue while using the Node.js buildpack, you can:
+
+Search for your problem in our Troubleshooting section.
+
+Create an incident for your specific problem, using support component BC-CP-CF-BLDP. To provide the necessary details, use the following template: Initial Problem-Related Data
+
+Node.js Tutorial
+
+The following tutorial will guide you through creating a Node.js application in Cloud Foundry Command Line Interface (cf CLI), consuming a Cloud Foundry service, and setting up authentication and authorization checks. See: Create an Application with Cloud Foundry Node.js Buildpack
+
+Tips and Tricks
+
+For selected tips and tricks for your Node.js development, see Tips and Tricks for Node.js Applications.
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/developing-python-in-cloud-foundry-environment
+Title: Developing Python in the Cloud Foundry Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Development LanguagesDeveloping Python in the Cloud Foundry Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Developing Python in the Cloud Foundry Environment
+
+This section offers selected information for Python development on the SAP BTP, Cloud Foundry environment and references to more detailed sources.
+
+You'll get information about the buildpack supported by SAP, about the Python packages, and how to consume them in your application.
+
+There is also a tutorial with an introduction to securing your application, and some tips and tricks for developing and running Python applications on the SAP BTP, Cloud Foundry environment.
+
+Python Community Buildpack
+
+SAP BTP uses the standard Python buildpack provided by the Cloud Foundry community to deploy Python applications.
+
+To get familiar with the buildpack and how to deploy applications with it, take a look at the Cloud Foundry Python Buildpack documentation.
+
+SAP Python Packages
+
+SAP includes a selection of Python packages, which are available for download and use for customers and partners who have the appropriate access authorization. To download them, log on to SAP Software Download Center and search for software component XS_PYTHON, which is an archive that contains the SAP packages.
+
+The following table lists the SAP Python packages that are currently available. For more details about the contents of each Python package, as well as any configuration tips, see the README file in the corresponding package.
+
+Package
+
+Description
+
+sap_instance_manager
+
+Python package for creating and deleting service instances per tenant within an application at runtime.
+
+sap_audit_logging
+
+Provides audit logging functionalities for Python applications.
+
+sap_xssec
+
+SAP XS Advanced Container Security API for Python.
+
+sap_cf_logging
+
+This is a collection of support libraries for Python applications running on Cloud Foundry that:
+
+provide means to emit structured application log messages
+
+instrument web applications of your application stack to collect request metrics
+
+hdbcli
+
+The SAP HANA Database Client provides means for database connectivity.
+
+Buildpack Versioning
+
+The SAP BTP, Cloud Foundry environment provides one recent version of python_buildpack as part of its system buildpacks. To check this version, proceed as follows:
+
+Log in to a particular SAP BTP region and subaccount. For example, if your region is eu10, run:
+
+
+
+cf api https://api.cf.eu10.hana.ondemand.com
+
+Then run:
+
+
+
+cf buildpacks
+
+To learn about changes in the Python buildpack's versions and features, regularly check the latest buildpack releases in the GitHub community page.
+
+Usage
+
+To use this buildpack, specify its name when deploying a Python application to the SAP BTP, Cloud Foundry environment. You can do that in two ways:
+
+Specify it directly in the cf push command:
+
+
+
+cf push -f <PATH_TO_APP_MANIFEST> -b python_buildpack
+
+Specify it in the manifest.yml file of your application by using the buildpacks attribute:
+
+
+
+---
+applications:
+- name: <APP_NAME>
+
+memory: 512M
+
+buildpacks:
+
+- python_buildpack
+
+...
+
+Then, you can deploy the application like this:
+
+
+
+cf push <app_name>
+Supported Versions
+
+The python_buildpack supports the following versions:
+
+Python 3.9
+
+Python 3.10
+
+Python 3.11
+
+Python 3.12
+
+Python 3.13
+
+Note
+
+Version 3.8 is out of maintenance, as per Python release roadmap. We strongly recommend that you switch to version 3.9 or higher.
+
+You can also decide to deploy your application with a particular buildpack version from the community python-buildpack repository. To learn how, see: Specify a buildpack version in manifest.yml
+
+Remember
+
+SAP does not recommend use of deprecated Python versions, as support and security fixes are no longer provided for them.
+
+What's New
+
+To check the latest news and updates about the Python buildpack, go to its buildpack releases on the GitHub community page.
+
+Note
+
+In May 2023, SAP migrated the root file system used in the Cloud Foundry environment in SAP BTP from the deprecated cflinuxfs3 stack to cflinuxfs4. If you are running Python applications on SAP BTP, Cloud Foundry using the Python buildpack, we recommend that you update and migrate your applications, as well as the Python buildpack. For more information about migration timelines, risks, and consequences, see:
+
+Deprecation of Cloud Foundry Stack cflinuxfs3 and Migration to cflinuxfs4
+
+What's New for SAP BTP, Cloud Foundry Runtime (cflinuxfs)
+
+Troubleshooting
+
+If you encounter an issue while using the Python buildpack, you can:
+
+Search for your problem in our Troubleshooting section.
+
+Create an incident for your specific problem, using support component BC-CP-CF-BLDP. To provide the necessary details, use the following template: Initial Problem-Related Data
+
+Python Tutorial
+
+The following tutorial will guide you through creating a Python application in Cloud Foundry Command Line Interface (cf CLI), consuming Cloud Foundry services, and setting up authentication and authorization checks. See: Create an Application with Cloud Foundry Python Buildpack
+
+Tips and Tricks
+
+Selected tips and tricks for your Python development. See Tips and Tricks for Python Applications.
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/development-in-cloud-foundry-environment
+Title: Development in the Cloud Foundry Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformDevelopmentDevelopment in the Cloud Foundry Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Development in the Cloud Foundry Environment
+
+Learn more about developing applications on the SAP BTP, Cloud Foundry environment.
+
+Overview
+
+SAP BTP, Cloud Foundry environment is an open Platform-as-a-Service (PaaS) targeted at microservice development and orchestration.
+
+Develop polyglot applications
+
+Build on open standards with SAP Java, Node.js, and Python buildpacks or bring your own language with community buildpacks for PHP, Ruby, Go.
+
+Manage the lifecycle of applications
+
+Start, stop, scale, and configure distributed cloud applications using standard Cloud Foundry tools, our web-based administration user interface for SAP BTP, and dev-ops capabilities.
+
+Optimize development and operations
+
+Use the rich set of SAP BTP services including messaging, persistence, and many other capabilities, such as built-in security, compliance, elastic scale, and high-availability setup.
+
+Use the application programming model
+
+Use programming languages, libraries, and APIs tailored for full-stack application development.
+
+Manage Cloud Foundry orgs and spaces
+
+Create and delete Cloud Foundry orgs and spaces and add members. Create, assign, and change space quota plans.
+
+Use built-in cloud-native capabilities
+
+Utilize cloud-native principles built into the platform, such as containerization and multitenancy, to create resilient, portable, and efficient applications.
+
+The following graphic is designed to help you find the information you need for your programming purposes. The bottom row represents the tools, frameworks, services, and deployment options recommended by SAP. If you want full flexibility you can also bring your own development tools and languages, as shown in the top row.
+
+Development Options Overview
+
+This image is interactive. Hover over each area for a description. Click highlighted areas for more information.
+
+The Recommended Path
+
+This development approach offers guidance for important development decisions and features proven best practices recommended by SAP. You can follow a model path for application and service development that is based on the Cloud Application Programming Model (CAP). When working with CAP, we recommend using Java and Node.js because they receive the highest level of tool support and are well suited for most use cases. This path provides you with a list of key aspects to consider, but the order shown in these steps isn't mandatory. You can adapt the steps as you wish to better fit your use case.
+
+Choose Your Own Path
+
+Because of the polyglot nature of the Cloud Foundry environment, you're also free to choose your own approach. You're not forced to use one language exclusively, but can choose between Java, Node.js, and Python. Concerning tools you can either use the Cloud Foundry Command Line Interface (CF CLI) or other tools to develop and deploy your application. You're also free to decide if you want to develop and deploy your applications in the multitarget format (MTA).
+
+For more information on the supported programming languages, see:
+
+Developing Java in the Cloud Foundry Environment
+
+Developing Node.js in the Cloud Foundry Environment
+
+Developing Python in the Cloud Foundry Environment
+
+If you already have monolithic applications running on SAP BTP and are looking for a way to run them in the Cloud Foundry environment, read our migration best practice guide. See Migrating from the Neo Environment to the Multi-Cloud Foundation for SAP BTP (Cloud Foundry and Kyma).
+
+Related Information
+Cloud Foundry Environment
+Troubleshooting App Deployment and Health
+SAP BTP, Cloud Foundry Runtime
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/download-and-install-cloud-foundry-command-line-interface
+Title: Download and Install the Cloud Foundry Command Line Interface | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Working with the Cloud Foundry Command Line InterfaceDownload and Install the Cloud Foundry Command Line Interface
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Download and Install the Cloud Foundry Command Line Interface
+
+Download and set up the Cloud Foundry Command Line Interface (cf CLI) to start working with the Cloud Foundry environment.
+
+Procedure
+Download the latest version of cf CLI from GitHub at the following URL: https://github.com/cloudfoundry/cli#downloads
+
+For Microsoft Windows, download the Windows 64-bit installer.
+
+For Mac OS, download the PKG file. You can use the Homebrew open source package management software to download the latest available version of the cf CLI.
+
+Install the cf CLI:
+
+For Microsoft Windows, unpack the ZIP file.
+
+For Mac OS, proceed as follows:
+
+Open the PGK file.
+
+In the installation wizard, choose Continue, and then select the destination folder for the cf CLI installation.
+
+Choose Continue, and when prompted, choose Install.
+
+For more information, see http://docs.cloudfoundry.org/devguide/installcf/install-go-cli.html.
+
+(Optional) If you have an HTTP proxy server, configure the proxy settings. For more information, see http://docs.cloudfoundry.org/cf-cli/http-proxy.html.
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/extending-sap-marketing-cloud-in-cloud-foundry-and-kyma-environment
+Title: Extending SAP Marketing Cloud in the Cloud Foundry and Kyma Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformExtensions and IntegrationsExtending SAP SolutionsExtending SAP Marketing Cloud in the Cloud Foundry and Kyma Envir…
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Extending SAP Marketing Cloud in the Cloud Foundry and Kyma Environment
+
+Overview
+Note
+
+The SAP S/4HANA Cloud Extensibility service is also availаble for global accounts marked with EU Access. See Regions.
+
+SAP BTP offers a standard way for extending SAP solutions.
+
+You can extend SAP Marketing Cloud in the Cloud Foundry or the Kyma environment without disrupting the performance and the core processes. When building extension applications, you can also benefit from the automation of the integration between the cloud platform and SAP Marketing Cloud.
+
+Note
+
+The content in this section is not relevant for China (Shanghai) and Government Cloud (US) regions.
+
+The following graphic provides a high-level overview of the integration between SAP BTP and SAP Marketing Cloud:
+
+Process Flow
+To integrate SAP BTP and SAP Marketing Cloud so that you can build extension applications, you have to use the SAP S/4HANA Cloud Extensibility service. All the steps are the same from the SAP BTP side. You register an SAP Marketing Cloud system in the SAP BTP cockpit. Then, you take the generated token and use it to configure the connectivity on the SAP Marketing Cloud side. These are the tasks you need to follow:
+Integrating SAP BTP and SAP Marketing Cloud
+
+Process Step
+
+Related Documentation
+
+1. Connect the SAP Marketing Cloud system you want to extend with the corresponding global account in SAP BTP.
+
+During the pairing process you create an registration token which is then used by the SAP Marketing Cloud system tenant administrator to configure the integration on the SAP Marketing Cloud system side.
+
+Register an SAP Marketing Cloud System in a Global Account in SAP BTP
+
+Note
+
+You cannot migrate the registered SAP Marketing Cloud systems between global accounts.
+
+If you want to start using another global account, you will have to register your SAP Marketing Cloud systems again.
+
+2. Make the SAP Marketing Cloud system accessible in the subaccounts in SAP BTP in which you want to build your extension applications.
+
+To do so, you configure the entitlements and assign the corresponding quota and service plans to the subaccounts where the extension applications will reside for the system you registered in the previous step.
+
+Configure the Entitlements for the SAP S/4HANA Cloud Extensibility Service
+
+3. Configure the communication flow.
+
+You have the following options:
+
+Consume the SAP Marketing Cloud APIs (inbound connection) or consume APIs exposed by the extension application from SAP S/4 HANA Cloud (outbound connection)
+
+To do so, you create a service instance of the SAP S/4HANA Cloud Extensibility service using the api-access service plan.
+
+During the service instance creation an HTTP destination on a subaccount level is automatically generated in this subaccount. It contains all instance binding properties which are sufficient to establish connection to the SAP Marketing Cloud system. When creating the service instance, you configure the communication arrangement and the authentication type for the connection. The following authentication scenarios for SAP Marketing Cloud are supported:
+
+Basic Authentication (inbound and outbound connections)
+
+OAuth 2.0 SAML Bearer Assertion (inbound connections)
+
+OAuth 2.0 Client Credentials (outbound Connections)
+
+No Authentication (outbound connections)
+
+Both predefined and custom communication scenarios are supported.
+
+Enable the consumption of SAP Marketing Cloud events.
+
+If you want to create event-based extensions for SAP Marketing Cloud using the SAP Enterprise Messaging service, you have to create a service instance of the SAP S/4HANA Cloud Extensibility service using the messaging service plan.
+
+A combination of both
+
+Creating a Service Instance to Consume the SAP S/4HANA Cloud APIs
+
+Enable the Consumption of SAP S/4HANA Cloud Events
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/extending-sap-s-4hana-cloud-in-cloud-foundry-and-kyma-environment
+Title: Extending SAP S/4HANA Cloud in the Cloud Foundry and Kyma Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformExtensions and IntegrationsExtending SAP SolutionsExtending SAP S/4HANA Cloud in the Cloud Foundry and Kyma Environ…
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Extending SAP S/4HANA Cloud in the Cloud Foundry and Kyma Environment
+
+Extend SAP S/4HANA Cloud with extension applications running on SAP BTP using automated integration configuration.
+
+Overview
+Note
+
+The SAP S/4HANA Cloud Extensibility service is also availаble for global accounts marked with EU Access. See Regions.
+
+Note
+
+This documentation refers to SAP S/4HANA Cloud Public Edition. See Introduction to the Universe of SAP S/4HANA Cloud Public Edition.
+
+The extension capabilities of SAP BTP offer a standard way for extending SAP S/4HANA Cloud and developing event-driven extensions and applications.
+
+You can extend SAP S/4HANA Cloud without disrupting its performance and core processes. When building extension applications, you can also benefit from the automation of the integration between the cloud platform and SAP S/4HANA Cloud.
+
+Note
+
+The content in this section is not relevant for China (Shanghai) and Government Cloud (US) regions.
+
+The following graphic provides a high-level overview of the integration between the cloud platform and SAP S/4HANA Cloud:
+
+Process Flow
+To integrate the cloud platform and SAP S/4HANA Cloud so that you can build extension applications, you need to:
+Integrating SAP BTP and SAP S/4HANA Cloud
+
+Process Step
+
+Related Documentation
+
+1. Connect the SAP S/4HANA Cloud system you want to extend with the corresponding global account in SAP BTP.
+
+During the pairing process you create an registration token which is then used by the SAP S/4HANA Cloud system tenant administrator to configure the integration on the SAP S/4HANA Cloud system side.
+
+Register an SAP S/4HANA Cloud System in a Global Account in SAP BTP
+
+Note
+
+You cannot migrate the registered SAP S/4HANA Cloud systems between global accounts.
+
+If you want to start using another global account, you will have to register your SAP S/4HANA Cloud systems again.
+
+2. Make the SAP S/4HANA Cloud system accessible in the SAP BTP subaccounts in which you want to build your extension applications.
+
+To do so, you configure the entitlements and assign the corresponding quota and service plans to the subaccounts where the extension applications will reside for the system you registered in the previous step.
+
+Configure the Entitlements for the SAP S/4HANA Cloud Extensibility Service
+
+3. Configure the communication flow.
+
+You have the following options:
+
+Consume the SAP S/4HANA Cloud APIs (inbound connection) or consume APIs exposed by the extension application from SAPS/4 HANA Cloud (outbound connection)
+
+To do so, you create a service instance of the SAP S/4HANA Cloud Extensibility service using the api-access service plan.
+
+For communication arrangements with inbound connections, an HTTP destination on a subaccount level is automatically generated in this subaccount during the service instance creation. It contains all instance binding properties which are sufficient to establish connection to the SAP S/4HANA Cloud system. When creating the service instance, you configure the communication arrangement and the authentication type for the connection.
+
+The following authentication scenarios for SAP S/4HANA Cloud are supported:
+
+Basic Authentication (inbound and outbound connections)
+
+OAuth 2.0 SAML Bearer Assertion (inbound connections)
+
+OAuth 2.0 Client Credentials (outbound Connections)
+
+No Authentication (outbound connections)
+
+Both predefined and custom communication scenarios are supported.
+
+Enable the consumption of SAP S/4HANA Cloud events.
+
+If you want to create event-based extensions for SAP S/4HANA Cloud using the SAP Event Mesh, you have to create a service instance of the SAP S/4HANA Cloud Extensibility service using the messaging service plan.
+
+A combination of both
+
+Creating a Service Instance to Consume the SAP S/4HANA Cloud APIs
+
+Enable the Consumption of SAP S/4HANA Cloud Events
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/extending-sap-successfactors-in-cloud-foundry-and-kyma-environment
+Title: Extending SAP SuccessFactors in the Cloud Foundry and Kyma Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformExtensions and IntegrationsExtending SAP SolutionsExtending SAP SuccessFactors in the Cloud Foundry and Kyma Enviro…
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Extending SAP SuccessFactors in the Cloud Foundry and Kyma Environment
+
+Use SAP BTP to extend SAP SuccessFactors with extension applications running on the cloud platform.
+
+Overview
+Note
+
+The SAP SuccessFactors Extensibility service is also availаble for global accounts marked with EU Access. See Regions.
+
+SAP BTP offers a standard way for extending SAP solutions.
+
+You can extend SAP SuccessFactors systems without disrupting the performance and the core processes. When building extension applications, you can also benefit from the automation of the integration between the cloud platform and SAP SuccessFactors.
+
+Note
+
+The content in this section is not relevant for China (Shanghai) and Government Cloud (US) regions.
+
+The following graphic provides a high-level overview of the integration between SAP BTP and SAP SuccessFactors:
+
+Process Flow
+To integrate SAP BTP and SAP SuccessFactors so that you can build extension applications, you need to perform the following tasks:
+Integrating SAP BTP and SAP SuccessFactors
+
+Process Step
+
+Related Documentation
+
+1. Connect the SAP SuccessFactors system that you want to extend with the corresponding global account in SAP BTP.
+
+During the pairing process you create a registration token which is then used by the SAP SuccessFactors system tenant administrator to configure the integration on the SAP SuccessFactors system side.
+
+Register an SAP SuccessFactors System in a Global Account in SAP BTP.
+
+Note
+
+You cannot migrate the registered SAP SuccessFactors systems between global accounts.
+
+If you want to start using another global account, you will have to register your SAP SuccessFactors systems again.
+
+2. Make the SAP SuccessFactors system accessible in the subaccounts in which you want to build your extension applications.
+
+To do so, you configure the entitlements and assign the corresponding quota where the extension applications will reside.
+
+Configure the Entitlements for the SAP SuccessFactors Extensibility Service
+
+3. Configure the communication flow.
+
+To do so, create a service instance of the SAP SuccessFactors Extensibility service using the api-access service plan.
+
+During the service instance creation an HTTP destination on a subaccount level is automatically generated in this subaccount. It contains all instance binding properties which are sufficient to establish connection to the SAP SuccessFactors system.
+
+SAP BTP supports the following authentication scenarios for SAP SuccessFactors:
+
+OData access with OAuth 2.0 SAML bearer assertion
+
+OData access with OAuth 2.0 SAML bearer assertion with technical user
+
+Create a Service Instance to Consume the SAP SuccessFactors HXM Suite OData API
+
+4. Configure the Single-Sign On (SSO) between the subaccount in SAP BTP and the SAP SuccessFactors system.
+
+To ensure the required security for accessing the applications, you need to configure the single sign-on between the subaccount in SAP BTP and the SAP SuccessFactors system using a SAML identity provider.
+
+Single Sign-On Between a Subaccount in SAP BTP and SAP SuccessFactors
+
+5. If you have performed an automated instance refresh or your cloud operators have performed a manual instance refresh, you need to restore some of the extension configuration settings.
+
+Restore Configuration Settings After an Instance Refresh
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/getting-started-in-cloud-foundry-environment
+Title: SAP Help Portal | SAP Online Help
+
+ProductsWhat's NewExplore SAP
+Loading Document…
+
+
+
+PDF
+Favorite
+Share
+
+Table of Contents
+Loading Table of Contents…
+Loading Topic…
+Was this page helpful?
+Yes
+No
+Copyright
+Disclaimer
+Privacy Statement
+Legal Disclosure
+Trademark
+Terms of Use
+Cookie Preferences
+Accessibility & Sustainability
+Ask a Question about the SAP Help Portal
+Find us on
+Share
+
+Your choices regarding cookies on this site
+
+This site uses cookies and related technologies, as described in our Cookie Statement, for purposes that may include site operation, analytics, enhanced user experience, or advertising. You may choose to consent to our use of these technologies, or manage your own preferences.
+
+Privacy Statement | Cookie Statement
+
+Accept All
+Deny All
+Manage Settings
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/getting-started-with-enterprise-account-in-cloud-foundry-environment
+Title: Getting Started with an Enterprise Account in the Cloud Foundry Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformGetting StartedGetting Started in the Cloud Foundry EnvironmentGetting Started with an Enterprise Account in the Cloud Foundry E…
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Getting Started with an Enterprise Account in the Cloud Foundry Environment
+
+Quickly get started with an enterprise account in the Cloud Foundry Environment.
+
+This topic focuses on how to get started with a customer or partner account using the SAP BTP cockpit. However, you can also perform these tasks using the CLI. See Setting Up a Global Account via the Command Line.
+
+1. Setting Up Your Account Model
+
+This image is interactive. Hover over each area for a description. Click highlighted areas for more information.
+
+After you've received your logon data by email, create subaccounts in your global account. This allows you to further break down your account model and structure it according to your business needs. See Create a Subaccount.
+
+If you haven't done so already, now is a good time to download and install the Cloud Foundry Command Line Interface (cf CLI). This tool allows you to administer and configure your environment, enable services, and deploy applications. See Download and Install the Cloud Foundry Command Line Interface. But don't worry, you can also perform all the necessary task using the SAP BTP cockpit, which you don't need to install.
+
+If you'd like to use the cf CLI, log on to your environment. See Log On to the Cloud Foundry Environment Using the Cloud Foundry Command Line Interface.
+
+Create a Cloud Foundry organization in each of your subaccounts. See Create Orgs
+
+Create spaces. See Create Spaces.
+
+2. Configuring Your Environment
+
+You can either use the cockpit or the cf CLI to configure your environment. If you'd like to use the cockpit, it's important you understand how you can navigate to your accounts and spaces. See Navigate to Orgs and Spaces.
+
+It's time to think about member management. You can add members at different levels. For example, you can add members at an org level. See Add Org Members. For more information about roles, see User and Member Management.
+
+You can also add members at a space level. See Add Space Members.
+
+Before you can start using resources such as services or application runtimes, you need to manage your entitlements and add quotas to your subaccounts. See Configure Entitlements and Quotas for Subaccounts. To learn more about entitlements and quotas, see Managing Entitlements and Quotas Using the Cockpit. Note that if you want to try out services for free, you need to select free tier service plans if available. For a list of free services, check the SAP Discovery Center.
+
+You can also assign quotas to different spaces within a subaccount. To do so, first create a space quota plan. See Create Space Quotas or Create Space Quota Plans Using the Cloud Foundry Command Line Interface.
+
+Then assign the quota plan to your space. See Assign Space Quotas to Spaces or Assign Quota Plans to Spaces Using the Cloud Foundry Command Line Interface.
+
+3. Developing and Deploying Applications
+
+This image is interactive. Hover over each area for a description. Click highlighted areas for more information.
+
+Develop your application. Check out the Developer Guide for tutorials and more information. See Development.
+
+Deploy your application. See Deploy Business Applications in the Cloud Foundry Environment.
+
+Integrate your application with a service. To do so, first create a service instance. See Creating Service Instances
+
+Bind the service instance to your application. See Binding Service Instances to Applications.
+
+Alternatively, you can also create and use service keys. See Creating Service Keys. For more information on using services and creating service keys, see About Services.
+
+You can also create instances of user-provided services. See Creating User-Provided Service Instances.
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/getting-started-with-trial-account-in-cloud-foundry-environment
+Title: Getting Started with a Trial Account in the Cloud Foundry Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformGetting StartedGetting Started in the Cloud Foundry EnvironmentGetting Started with a Trial Account in the Cloud Foundry Environ…
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Getting Started with a Trial Account in the Cloud Foundry Environment
+
+Quickly get started with a trial account.
+
+1. Getting a Global Account
+
+This image is interactive. Hover over each area for a description. Click highlighted areas for more information.
+
+Before you begin, sign up for a free trial account. See Get a Free Trial Account. For more information about the scope of our trial offering, see Trial Accounts and Free Tier.
+
+If you want to familiarize yourself with the Cloud Foundry environment, see Cloud Foundry Environment.
+
+2. Setting Up Your Account Model
+
+This image is interactive. Hover over each area for a description. Click highlighted areas for more information.
+
+When you register for a trial account, a subaccount and a space are created for you. You can create additional subaccounts and spaces, thereby further breaking down your account model and structuring it according to your development scenario, but first it's important you understand how to navigate to your accounts and spaces using the SAP BTP cockpit. See Navigate to Orgs and Spaces.
+
+If you like, create further subaccounts. See Create a Subaccount. You can also download and use the CLI forSAP BTP to create new subaccounts. See Download and Start Using the btp CLI Client and Working with Global Accounts, Directories, and Subaccounts Using the btp CLI.
+
+If you haven't done so already, now is a good time to download and install the Cloud Foundry Command Line Interface (cf CLI). This tool allows you to administer and configure your environment,enable services, and deploy applications. See Download and Install the Cloud Foundry Command Line Interface. But don't worry, you can also perform all the necessary task using the SAP BTP cockpit, which you don't need to install.
+
+If you'd like to use the cf CLI, log on to your environment. See Log On to the Cloud Foundry Environment Using the Cloud Foundry Command Line Interface.
+
+If you like, create further spaces. See Create Spaces. If you want to learn more about subaccounts, orgs, and spaces, and how they relate to each other, see Account Model.
+
+3. Configuring Your Environment
+
+This image is interactive. Hover over each area for a description. Click highlighted areas for more information.
+
+Now that you've set up your account model, it's time to think about member management. You can add members at different levels. For example, you can add members at the org level. See Add Org Members. For more information about the roles that are available on the different levels, see User and Member Management.
+
+You can also add members at the space level. See Add Space Members.
+
+In a trial account, quotas are automatically assigned to your subaccounts, but you can change that assignment. See Configure Entitlements and Quotas for Subaccounts. To learn more about entitlements and quotas, see Entitlements and Quotas.
+
+You can also assign quotas to different spaces within a subaccount. To do so, first create a space quota plan. See Create Space Quotas or Create Space Quota Plans Using the Cloud Foundry Command Line Interface.
+
+Then assign the quota plan to your space. See Assign Space Quotas to Spaces or Assign Quota Plans to Spaces Using the Cloud Foundry Command Line Interface.
+
+4. Developing and Deploying Applications
+
+This image is interactive. Hover over each area for a description. Click highlighted areas for more information.
+
+Develop your application. Check out the Developer Guide for tutorials and more information. See Development.
+
+Deploy your application. See Deploy Business Applications in the Cloud Foundry Environment.
+
+Integrate your application with a service. To do so, first create a service instance. See Creating Service Instances.
+
+Bind the service instance to your application. See Binding Service Instances to Applications.
+
+Alternatively, you can also create and use service keys. See Creating Service Keys. For more information on using services and creating service keys, see About Services.
+
+You can also create instances of user-provided services. See Creating User-Provided Service Instances.
+
+Tip
+
+Also check out the tutorial Create Your First App on Cloud Foundry to see how you can deploy a pre-bundled set of artifacts using the SAP BTP cockpit, access the app from your web browser, and create an instance of a service available on Cloud Foundry and bind it to your app.
+
+Related Information
+Cloud Foundry Environment
+Trial Accounts and Free Tier
+Account Model
+Entitlements and Quotas
+User and Member Management
+About Services
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/increasing-quota-for-cloud-foundry-runtime-optional
+Title: Increasing the Quota for the Cloud Foundry Runtime (Optional) | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…ABAP Environment: Initial SettingsIncreasing the Quota for the Cloud Foundry Runtime (Optional)
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Increasing the Quota for the Cloud Foundry Runtime (Optional)
+
+Check if your subaccount has a quota for the Cloud Foundry runtime and increase it, if needed.
+
+Context
+Note
+
+If you have run the booster Prepare an Account for ABAP Development, you can skip this step.
+
+A quota for the Cloud Foundry runtime is optional. It's only needed for the ABAP environment if your developers want to deploy their own apps in Cloud Foundry.
+
+Procedure
+Log on to the SAP BTP cockpit as Cloud Foundry administrator.
+Go to your global account.
+From the navigation area, choose Entitlements  Entity Assignments.
+If there is no entry for the Cloud Foundry runtime, choose Configure Entitlements and Add Service Plans.
+In the following popup, proceed as follows:
+Choose Cloud Foundry Runtime.
+Under Available Service Plans, select the checkbox MEMORY.
+Choose Add 1 Service Plan.
+Choose + to add at least 1 to the subaccount.
+Choose Save.
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/log-on-to-cloud-foundry-environment-using-cloud-foundry-command-line-interface
+Title: Log On to the Cloud Foundry Environment Using the Cloud Foundry Command Line Interface | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Working with the Cloud Foundry Command Line InterfaceLog On to the Cloud Foundry Environment Using the Cloud Foundry C…
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Log On to the Cloud Foundry Environment Using the Cloud Foundry Command Line Interface
+
+Use the Cloud Foundry Command Line Interface (cf CLI) to log on to the Cloud Foundry space.
+
+Prerequisites
+
+The Cloud Foundry environment is enabled. You can enable it in the Cloud Platform Cockpit. For more information, see Create a Subaccount.
+
+(Enterprise accounts only) You have created at least one subaccount and enabled the Cloud Foundry environment in this subaccount. For more information, see Create a Subaccount.
+Note
+
+In a Cloud Foundry trial account, the Cloud Foundry environment has been activated for you automatically and a first space "dev" has been created for you.
+
+Download and install the cf CLI and log on to Cloud Foundry. For more information, see Download and Install the Cloud Foundry Command Line Interface.
+
+Procedure
+Open a command line.
+Set the target API endpoint to the cloud controller.
+Note
+
+There is no specific endpoint for trial accounts. Both enterprise and trial accounts use the same API endpoints.
+
+
+
+cf api https://api.cf.eu10.hana.ondemand.com
+
+For more information, see Regions and API Endpoints Available for the Cloud Foundry Environment.
+
+Log on to the Cloud Foundry environment:
+
+
+cf login
+Note
+
+Log on with the password associated with your account (S-user or P-user) in the default identity provider, SAP ID service. If you have multiple user accounts with the same email address, log on with your user ID (S-user or P-user) instead of your email address.
+
+If you've forgotten your password, reset your password.
+
+For more information, see SAP Note 3085908 .
+
+To log on with a specific identity provider, use the option --origin.
+
+For more information, see Log On as a Technical User With a Custom Identity Provider.
+
+When prompted, enter your user credentials (email and password).
+To view the help for the CLI, execute cf help, which lists the most common CLI commands with a short description, or cf help -a, which lists all commands. To get help for a specific command, execute cf help <command>.
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/log-on-with-browser-to-cloud-foundry-cli-and-service-dashboards
+Title: Log on with a Browser to the Cloud Foundry CLI and Service Dashboards | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Platform UsersLog on with a Browser to the Cloud Foundry CLI and Service Dashbo…
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Log on with a Browser to the Cloud Foundry CLI and Service Dashboards
+
+Platform users of the Cloud Foundry environment have the option to log on with a custom identity provider or the default identity provider.
+
+Prerequisites
+
+You know the origin key of the identity provider.
+
+For more information, see Establish Trust and Federation of Custom Identity Providers for Platform Users.
+
+You don't already have a session with the Cloud Foundry environment.
+
+If you're already authenticated, you skip the logon process and go straight to your application.
+
+Context
+
+When accessing a web application, like a service dashboard (for example logs.cf.eu10.hana.ondemand.com) or you log into your Cloud Foundry account using the CLI with cf login -sso, you’re prompted by a login screen. This method enables you to log on to a custom identity provider or makes it easier to log on when multifactor authentication is required.
+
+Procedure
+Navigate to the URL for your service dashboard or provided by the CF CLI.
+
+The login screen appears.
+
+If this is the first time you're logging on or your browser cache has been cleaned of cookies, you're prompted to provide the origin key of your custom identity provider or choose the default identity provider.
+
+Logon Page Without Cookies
+
+Otherwise, the sign-in page lists your accounts on custom identity providers with which you previously logged on.
+
+Logon Page With Previous Logon
+Choose your identity provider and log on.
+Related Information
+Log On with a Custom Identity Provider to the Cloud Foundry Environment Using the Cloud Foundry Command-Line Interface
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/multitarget-application-commands-for-cloud-foundry-environment
+Title: Multitarget Application Commands for the Cloud Foundry Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Multitarget Application Plugin for Cloud Foundry Command Line Int…Multitarget Application Commands for the Cloud Foundry Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Multitarget Application Commands for the Cloud Foundry Environment
+
+A list of additional commands to deploy multitarget applications (MTA) to the Cloud Foundry environment.
+
+Note
+
+The expiration time for all MTA operations in Cloud Foundry is 3 days. If an operation is still active when the time limit is reached, it is automatically aborted.
+
+Caution
+
+If you are using a version of the MultiApps CF CLI plugin that is older than 3.0.0, you need to make some additional configuration for deployments in regions China (Shanghai) and China (North 3). See MTA Deployment in Regions China (Shanghai) and China (North 3).
+
+Commands for the Cloud Foundry Environment Overview
+
+Command
+
+Alias
+
+Description
+
+deploy
+
+Deploy a new multitarget application (MTA) or synchronize changes to an existing MTA.
+
+bg-deploy
+
+Deploy a multitarget application using “blue-green” (zero-downtime) deployment.
+
+rollback-mta
+
+Roll back to a previously deployed multitarget application (MTA) version with zero downtime.
+
+undeploy
+
+Undeploy a multitarget application (MTA).
+
+mta
+
+Display information about a deployed multitarget application (MTA).
+
+mtas
+
+List all deployed multitarget applications (MTA).
+
+mta-ops
+
+List all active operations for multitarget applications.
+
+download-mta-op-logs
+
+dmol
+
+Download the log files for one or more operations concerning multitarget applications.
+
+purge-mta-config
+
+Purge all configuration entries and subscriptions, which are no longer valid.
+
+Note
+
+By default, large multitarget applications are not uploaded as a single unit, but are split up into smaller chunks of 45 MB that are uploaded separately. Configure the chunk size as described in Configuration.
+
+deploy
+
+Deploy a new MTA or synchronize changes to an existing one. You have the following options for doing this:
+
+Usage
+
+Deployment using a path to a directory
+
+You have the option to deploy or synchronize an MTA, the source of which is contained in a local directory:
+
+
+
+cf deploy MTA_ARCHIVE | DIRECTORY_PATH [-e EXT_DESCRIPTOR[,...]] [-t TIMEOUT] 
+[--version-rule VERSION_RULE] [-u URL] [-f] [--retries RETRIES] [--no-start] [--namespace NAMESPACE] 
+[--apply-namespace-app-names true/false] [--apply-namespace-service-names true/false] 
+[--apply-namespace-app-routes true/false] [--apply-namespace-as-suffix true/false ] 
+[--delete-services] [--delete-service-keys] [--delete-service-brokers] [--keep-files] 
+[--no-restart-subscribed-apps] [--do-not-fail-on-missing-permissions] [--abort-on-error] 
+[--strategy STRATEGY] [--skip-testing-phase] [--skip-idle-start] [--apps-start-timeout TIMEOUT] 
+[--apps-stage-timeout TIMEOUT] [--apps-upload-timeout TIMEOUT] [--apps-task-execution-timeout TIMEOUT]
+
+
+Deployment using a URL to the MTA archive
+
+You have the option to deploy or synchronize an MTA, the source of which is contained at a URL address. When you use this command, the request prompts the backend to download the archive and then deploy it:
+
+
+
+<write MTA archive URL to STDOUT> | cf deploy [-e EXT_DESCRIPTOR[,...]] 
+[-t TIMEOUT] [--version-rule VERSION_RULE] [-u MTA_CONTROLLER_URL] [--retries RETRIES] [--no-start] 
+[--namespace NAMESPACE] [--apply-namespace-app-names true/false] [--apply-namespace-service-names true/false] 
+[--apply-namespace-app-routes true/false] [--apply-namespace-as-suffix true/false ] [--delete-services] 
+[--delete-service-keys] [--delete-service-brokers] [--keep-files] [--no-restart-subscribed-apps] 
+[--do-not-fail-on-missing-permissions] [--abort-on-error] [--strategy STRATEGY] [--skip-testing-phase] 
+[--skip-idle-start] [--apps-start-timeout TIMEOUT] [--apps-stage-timeout TIMEOUT] 
+[--apps-upload-timeout TIMEOUT] [--apps-task-execution-timeout TIMEOUT]
+
+Note
+
+The URL to the MTA archive must include the <https://> prefix.
+
+You can use a locally present extension descriptor along with this deployment method.
+
+Restriction
+The feature has the following limitations:
+
+There is no possibility for you to check if there are any ongoing operations on the MTA that you want to deploy using a URL.
+
+The remote URL must have a standard PKI certificate. It is not possible to use self-signed certificates.
+
+The URL cannot point to a protected GitHub URL, as GitHub does not support Basic authentication.
+
+Deployment from your current directory
+
+You have the option to deploy the content of the directory you are currently in. The MultiApps CLI plugin packages the content in accordance with the deployment descriptor definition, so that the Cloud Deployment service can then upload and deploy the MTA.
+
+
+
+cf deploy [-e <EXT_DESCRIPTOR_1>[,<EXT_DESCRIPTOR_2>]] 
+[-u <URL>] [-t <TIMEOUT>] [-v <VERSION_RULE>]
+[--no-start] [--namespace]
+[--delete-services] [--delete-service-keys] [--delete-service-brokers] 
+[][--keep-files] [--no-restart-subscribed-apps] [--do-not-fail-on-missing-permissions] [--skip-idle-start]
+cf deploy ...[--retries <RETRIES>]
+
+
+In addition to deployment, you can also interact with an active MTA deploy operation, for example, by performing an action:
+
+
+
+cf deploy  [-i <OPERATION_ID>] [-a <ACTION>] 
+Arguments
+
+Based on the contents of the mtad.yaml descriptor, the Cloud Deployment service assembles an MTA archive in that directory before deploying it.
+
+Command Arguments Overview
+
+Argument
+
+Description
+
+<MTA_ARCHIVE>
+
+The path to (and name of) the archive or the directory containing the Multitarget Application to deploy. The application archive must have the format (and file extension) mtar, for example, MTApp1.mtar. If the value of this argument is a directory, the deploy-service checks if an mtad.yaml file exists in that directory, and assembles an MTA archive based on the file before deploying it. If no argument exists, the current directory is used.
+
+<DIRECTORY_PATH>
+
+The Cloud Deployment service also accepts a path to a directory where an mtad.yaml is maintained with path elements, for example, cf deploy ./.
+
+<--retries>
+
+Retry the operation а specified number of times in case a non-content error (default 3).
+
+Options
+Command Options Overview
+
+Option
+
+Description
+
+-e <EXT_DESCRIPTOR_1>[,<EXT_DESCRIPTOR_2>]
+
+Define one or more extensions to the deployment descriptors; multiple extension descriptors must be separated by commas.
+
+-u <URL>
+
+Specify the URL for the deploy-service endpoint that is to be used for the deployment operation.
+
+-t <TIMEOUT>
+
+Specify the maximum amount of time (in seconds) that the service must wait for before starting the deployed application.
+
+-v <VERSION_RULE>
+
+Specify the rule to apply to determine how the application version number is used to trigger an application-update deployment operation, for example: “HIGHER”, “SAME_HIGHER”, or “ALL”.
+
+-i <OPERATION_ID>
+
+Specify the ID of the deploy operation that you want to perform an action on.
+
+-a <ACTION>
+
+Specify the action to perform on the deploy operation, for example, “abort”, “retry”, “monitor”, or “resume”.
+
+-f
+
+Force deployment without requiring any confirmation about aborting any conflicting processes.
+
+--no-start
+
+Do not start the application after deployment.
+
+--apps-upload-timeout <TIMEOUT>
+
+Defines how long, in seconds, you can upload your application binary before the MTA operation times out.
+
+See Application-Specific Timeouts .
+
+Note
+
+This applies to all applications.
+
+--apps-stage-timeout <TIMEOUT>
+
+Defines how long, in seconds, your application can take during staging before the MTA operation times out.
+
+See Application-Specific Timeouts .
+
+Note
+
+This applies to all applications.
+
+--apps-start-timeout <TIMEOUT>
+
+Defines how long, in seconds, your application can take to start before the MTA operation times out.
+
+See Application-Specific Timeouts .
+
+Note
+
+This applies to all applications.
+
+--apps-task-execution-timeout <TIMEOUT>
+
+Defines how long, in seconds, your application can take to execute a task before the MTA operation times out.
+
+See Application-Specific Timeouts .
+
+Note
+
+This applies to all applications.
+
+--delete-services
+
+Re-create changed services and delete discontinued services.
+
+--delete-service-keys
+
+Delete the existing service keys and apply the new ones.
+
+--delete-service-brokers
+
+Delete discontinued service brokers.
+
+--keep-files
+
+Keep the files used for deployment.
+
+--no-restart-subscribed-apps
+
+Do not restart the subscribed applications that are updated during the deployment.
+
+--do-not-fail-on-missing-permissions
+
+Perform the deployment, even if required administrator permissions are missing for some operations (for example, the creation of service brokers).
+
+--abort-on-error
+
+If an operation fails, the corresponding process is automatically aborted and cannot be retried using the option -a retry. However, if you run a new operation for the same MTA, you will not receive an error message that there is an ongoing process for the MTA, and you will not be asked if you want to abort it.
+
+-m <module name>
+
+Deploy only the module with the specified name.
+
+Note
+
+It can be used multiple times.
+
+--all-modules
+
+Deploy all modules.
+
+Note
+
+Any -m options are ignored.
+
+-r <resource name>
+
+Deploy only the resource with the specified name
+
+Note
+
+It can be used multiple times.
+
+--all-resources
+
+Deploy all resources.
+
+Note
+
+Any -r options are ignored.
+
+--strategy
+
+Announce to the platform a special deployment approach, for example when performing a “blue-green” or an “incremental-blue-green” deployment. See Blue-Green Deployment Strategy and Incremental Blue-Green Deployment Strategy.
+
+Using this option, you will not be asked to manually confirm the deletion of the older version of the MTA applications. This means that the deployment process is performed without any interruptions and you are not prompted to confirm the switch of routes to the new version of the MTA applications.
+
+--skip-testing-phase
+
+When using the --strategy option for “blue-green” or “incremental-blue-green” deployment, you can choose to skip the testing phase and you will not be asked to manually confirm the deletion of the older version of the MTA applications. The deployment process is performed without any interruptions and you are not prompted to confirm the switch of routes to the new version of the MTA applications.
+
+Note
+
+This option is equivalent to --no-confirm from “bg-deploy”.
+
+--namespace
+
+Namespace for the MTA. They are also applied to the application and service names. For more information, see Namespaces.
+
+--apply-namespace-app-names true/false
+
+Apply namespace to application names. If the namespace value is not provided in the CLI options, it is not applied.
+
+Note
+
+This applies to all applications.
+
+--apply-namespace-service-names true/false
+
+Apply namespace to service names. If the namespace value is not provided in the CLI options, it is not applied.
+
+Note
+
+This applies to all services.
+
+--apply-namespace-app-routes true/false
+
+Apply namespace to application routes. If the namespace value is not provided in the CLI options, it is not applied.
+
+Note
+
+This applies to all application routes.
+
+--apply-namespace-as-suffix true/false
+
+Apply namespace as suffix. If the namespace value is not provided in the CLI options, it is not applied.
+
+Note
+
+This applies to all applications, services, and application routes.
+
+--skip-idle-start
+
+When using the --strategy option for “blue-green” deployment, you can choose to skip the starting of the newly deployed applications on idle routes. This means that the newly deployed applications will be mapped directly to live routes. Under the hood, this option includes --skip-testing-phase .
+
+--require-secure-parameters
+
+Retrieves sensitive values from locally declared environment variables and ensures their secure handling during MTA deployment. For more information, see Sensitive Data Handling During MTA Deployment.
+
+--dependency-aware-stop-order
+
+When --strategy with "blue-green" or "incremental-blue-green" is used, --dependency-aware-stop-order ensures that during the final phase of the deployment, idle applications are stopped and restarted in a dependency-aware order based on the dependencies defined in the deployed-after attribute.
+
+--disposable-user-provided-service
+
+Determines that a disposable user-provided service with a randomly generated encryption key will be used for sensitive data encryption during MTA deployment. Sensitive Data Handling During MTA Deployment.
+
+Note
+
+If any of the options -m, --all-modules, -r, --all-resources is used, only the specified modules and resources will be deployed. Otherwise, everything will be deployed by default.
+
+If the options for module deployment (-m, --all-modules) are used, the modules need to contain a path element on module level, which points to the content of the module. If the module has some requires dependency section to a resource that needs a configuration file, then the requires section should have a path parameter, which points to the configuration file.
+
+If the options for the resource deployment (-r, --all-resources) are used, then any resources that have some configuration files need to contain a path parameter in their parameters section, which points to the configuration file.
+
+The path element or parameter value should be relative to the MTA directory.
+
+An example of an MTA deployment descriptor, containing all variants of the path elements and parameters can be found at Defining Multitarget Application Deployment Descriptors for Cloud Foundry.
+
+bg-deploy
+
+Deploy a new Multitarget Application (MTA) using “blue-green” (zero-downtime) deployment.
+
+Note
+
+You can also perform this deployment type using the deploy command by using the --strategy blue-green flag. See above for details.
+
+“Blue-green” deployment is a release technique that reduces application downtime and the resulting risk by running two identical target deployment environments called “blue” and “green”. Only one of the two target environments is “live” at any point in time and it is much easier to roll back to a previous version after a failed (or undesired) deployment.
+
+Usage
+
+Deploy a new Multitarget Application using “blue-green” deployment:
+
+
+
+cf bg-deploy <MTA_ARCHIVE>
+
+[-e <EXT_DESCRIPTOR_1>[,<EXT_DESCRIPTOR_2>]] 
+[-u <URL>] [-t <TIMEOUT>] [-v <VERSION_RULE>]
+[--no-start] [--use-namespaces] [--no-namespaces-for-services]
+[--delete-services] [--delete-service-keys] [--delete-service-brokers] 
+[--keep-files] [--no-restart-subscribed-apps] [--no-confirm] [--do-not-fail-on-missing-permissions][--skip-idle-start]
+cf deploy ...[--retries <RETRIES>]
+
+
+Interact with an active MTA deploy operation, for example, by performing an action:
+
+
+
+cf bg-deploy  [-i <OPERATION_ID>] [-a <ACTION>] 
+Arguments
+Command Arguments Overview
+
+Argument
+
+Description
+
+<MTA_ARCHIVE>
+
+or
+
+<DIRECTORY_PATH>
+
+The path to (and name of) the archive or the path to the directory containing the Multitarget Application to deploy. The application archive must have the format (and file extension) mtar, for example, MTApp1.mtar. The directory can be specified as a path (for example, myApp/ or . (current directory)).
+
+<--retries>
+
+Retry the operation а specified number of times in case a non-content error (default 3).
+
+Options
+Command Options Overview
+
+Option
+
+Description
+
+-e <EXT_DESCRIPTOR_1>[,<EXT_DESCRIPTOR_2>]
+
+Define one or more extensions to the deployment descriptors; multiple extension descriptors must be separated by commas.
+
+-u <URL>
+
+Specify the URL for the deploy-service endpoint that is to be used for the deployment operation.
+
+-t <TIMEOUT>
+
+Specify the maximum amount of time (in seconds) that the service must wait for before starting the deployed application.
+
+-v <VERSION_RULE>
+
+Specify the rule to apply to determine how the application version number is used to trigger an application-update deployment operation, for example: “HIGHER”, “SAME_HIGHER”, or “ALL”.
+
+-i <OPERATION_ID>
+
+Specify the ID of the deploy operation that you want to perform an action on.
+
+-a <ACTION>
+
+Specify the action to perform on the deploy operation, for example, “abort”, “retry”, “monitor”, or “resume”.
+
+-f
+
+Force deploy without requiring any confirmation for aborting any conflicting processes.
+
+--no-start
+
+Do not start application after deployment.
+
+--use-namespaces
+
+Use namespaces in application (and service) names during application deployment.
+
+--no-namespaces-for-services
+
+Do not use namespaces in service names.
+
+--delete-services
+
+Re-create changed services and delete discontinued services.
+
+--delete-service-keys
+
+Delete the existing service keys and apply the new ones.
+
+--delete-service-brokers
+
+Delete discontinued service brokers.
+
+--keep-files
+
+Keep the files used for deployment.
+
+--no-restart-subscribed-apps
+
+Do not restart subscribed applications that are updated during the deployment.
+
+--no-confirm
+
+Use this option to turn off the manual confirmation for deleting the older version of the MTA applications. Thus the deployment process is performed from start to finish uninterrupted, and you are not prompted to confirm the switch of routes to the new version of the MTA applications.
+
+--do-not-fail-on-missing-permissions
+
+Perform the deployment, even if required administrator permissions are missing for some operations (for example, the creation of service brokers).
+
+--abort-on-error
+
+If an operation fails, the corresponding process is automatically aborted and cannot be retried using the option -a retry. However, if you run a new operation for the same MTA, you will not receive an error message that there is an ongoing process for the MTA, and you will not be asked if you want to abort it.
+
+-m <module name>
+
+Deploy only the module with the specified name.
+
+Note
+
+It can be used multiple times.
+
+--all-modules
+
+Deploy all modules.
+
+Note
+
+Any -m options are ignored.
+
+-r <resource name>
+
+Deploy only the resource with the specified name.
+
+Note
+
+It can be used multiple times.
+
+--all-resources
+
+Deploy all resources.
+
+Note
+
+Any -r options are ignored.
+
+--skip-idle-start
+
+You can choose to skip the starting of the newly deployed applications on idle routes. This means that the newly deployed applications will be mapped directly to live routes. Under the hood, this option includes --no-confirm.
+
+Note
+
+If any of the options -m, --all-modules, -r, --all-resources is used, only the specified modules and resources will be deployed. Otherwise, everything will be deployed by default.
+
+If the options for the module deploying ( -m, --all-modules) are used, the modules need to contain a path element on an MTA module level, which points to the content of the module. In case the module has some requires dependency section to a resource that needs a configuration file, then the requires section should have a path parameter, which points to the configuration file.
+
+If the options for the resource deploying (-r, --all-resources) are used, then any resources that have some configuration files need to contain a path parameter in their parameters section, which points to the configuration file.
+
+The path element or parameter value should be relative to the MTA directory.
+
+See the complete procedure in section Legacy Blue-Green Deployment.
+
+An example of an MTA deployment descriptor, containing all variants of the path elements and parameters can be found at Defining Multitarget Application Deployment Descriptors for Cloud Foundry.
+
+rollback-mta
+
+Roll back to a previously deployed multitarget application (MTA) version with zero downtime.
+
+Note
+
+The rollback of multitarget applications is currently experimental. We advise you first try it out in a non-productive environment.
+
+Note
+
+If you plan to use the backup and rollback features, make sure you have the MultiApps CLI Plugin version 3.5.0 or higher.
+
+Rollback of MTA aims to quickly switch the productive traffic from the current MTA version to a previously deployed MTA version. For more information, see (Experimental) Rollback of Multitarget Applications.
+
+Usage
+
+Roll back your MTA to a previously deployed version:
+
+
+
+cf rollback-mta MTA_ID [-t TIMEOUT] [-f] [--retries RETRIES] 
+[--namespace NAMESPACE] [--do-not-fail-on-missing-permissions] [--abort-on-error] 
+[--apps-start-timeout TIMEOUT] [--apps-stage-timeout TIMEOUT] [--apps-upload-timeout TIMEOUT] 
+[--apps-task-execution-timeout TIMEOUT]
+
+Options
+Command Options Overview
+
+Option
+
+Description
+
+--process-user-provided-services
+
+Enable processing of user-provided services during rollback.
+
+--namespace
+
+Namespace for the MTA. It is also applied to the application and service names. For more information, see Namespaces.
+
+-u <URL>
+
+Specify the URL for the deploy-service endpoint that is to be used for the deployment operation.
+
+-t <TIMEOUT>
+
+Specify the maximum amount of time (in seconds) that the service must wait for before starting the deployed application.
+
+--apps-stage-timeout <TIMEOUT>
+
+Define how long, in seconds, your application can take during staging before the MTA operation times out. See Application-Specific Timeouts.
+
+Note
+
+This applies to all applications.
+
+--apps-start-timeout <TIMEOUT>
+
+Defines how long, in seconds, your application can take to start before the MTA operation times out. See Application-Specific Timeouts.
+
+Note
+
+This applies to all applications.
+
+--apps-task-execution-timeout <TIMEOUT>
+
+Defines how long, in seconds, your application can take to execute a task before the MTA operation times out. See Application-Specific Timeouts.
+
+Note
+
+This applies to all applications.
+
+-i <OPERATION_ID>
+
+Specify the ID of the deploy operation that you want to perform an action on.
+
+-a <ACTION>
+
+Specify the action to perform on the deploy operation, for example, “abort”, “retry”,  “monitor”, or “resume”.
+
+-f
+
+Force deploy without requiring any confirmation for aborting any conflicting processes.
+
+--do-not-fail-on-missing-permissions
+
+Perform the deployment, even if required administrator permissions are missing for some operations (for example, the creation of service brokers).
+
+--abort-on-error
+
+If an operation fails, the corresponding process is automatically aborted and cannot be retried using the option -a retry.
+
+undeploy
+
+Undeploy a Multitarget Application (MTA), or interact with an undeploy MTA operation.
+
+Usage
+
+Undeploy an MTA.
+
+
+
+cf undeploy <MTA_ID>
+
+[-u <URL>] [-f] 
+[--delete-services] [--delete-service-keys] [--delete-service-brokers] [--no-restart-subscribed-apps] 
+[--do-not-fail-on-missing-permissions]
+cf deploy ...[--retries <RETRIES>]
+
+
+Interact with an undeploy MTA operation, for example, by performing an action.
+
+
+
+cf undeploy [-i <UNDEPLOY_ID>] [-a <ACTION>]
+Arguments
+Command Arguments Overview
+
+Argument
+
+Description
+
+<MTA_ID>
+
+The ID of the MTA you want to undeploy
+
+<--retries>
+
+Retry the operation а specified number of times in case a non-content error (default 3).
+
+Options
+Command Options Overview
+
+Option
+
+Description
+
+-u <URL>
+
+Specify the URL for the service endpoint that is to be used for the undeployment operation.
+
+-i <OPERATION_ID>
+
+Specify the ID of the undeploy operation on which you want to perform an action.
+
+-a <ACTION>
+
+Specify the action to perform on the undeploy operation, for example, “abort”, “retry”, or “monitor”.
+
+-f
+
+Force completion of the undeploy operation without any system prompt or confirmation.
+
+--delete-services
+
+Delete any related services.
+
+--delete-service-brokers
+
+Delete discontinued service brokers.
+
+--no-restart-subscribed-apps
+
+Do not restart subscribed applications that are updated during the undeployment.
+
+--do-not-fail-on-missing-permissions
+
+Perform the undeployment, even if required administrator permissions are missing for some operations (for example, the creation of service brokers).
+
+--abort-on-error
+
+If an operation fails, the corresponding process is automatically aborted and cannot be retried using the option -a retry. However, if you run a new operation for the same MTA, you will not receive an error message that there is an ongoing process for the MTA, and you will not be asked if you want to abort it.
+
+--delete-service-keys
+
+Delete the existing service keys.
+
+mta
+
+Display information about a Multitarget Application (MTA). The information displayed includes the requested state, the number of instances, information about allocated memory and disk space, as well as details regarding the bound service (and service plan).
+
+Usage
+
+
+cf mta MTA_ID
+
+[-u <URL>]
+Arguments
+Command Arguments Overview
+
+Argument
+
+Description
+
+<MTA_ID>
+
+The ID of the MTA whose details you want to display
+
+Options
+Command Options Overview
+
+Option
+
+Description
+
+-u <URL>
+
+Specify the URL for the deploy-service endpoint to use to obtain details of the selected MTA.
+
+mtas
+
+Display information about all available Multitarget Applications (MTA).
+
+Usage
+
+
+cf mtas [-u <URL>]
+Options
+Command Options Overview
+
+Option
+
+Description
+
+-u <URL>
+
+Specify the URL for the deploy-service endpoint to use to obtain details of the selected MTA.
+
+mta-ops
+
+Display information about all active operations for Multitarget Applications (MTA). The information includes the ID, type, status, the time the MTA-related operation started, as well as the name of the user that started the operation.
+
+Usage
+
+
+cf mta-ops [--mta <MTA>] [-u <URL>] [--last <NUM>] [--all]
+Options
+Command Options Overview
+
+Option
+
+Description
+
+-u <URL>
+
+Specify the URL for the deploy-service endpoint to use to obtain details of the selected MTA operations.
+
+--last <NUM>
+
+List the last <NUM> active MTA operations.
+
+--all
+
+List all active MTA operations.
+
+– mta <MTA>
+
+Specify the MTA whose operations you want to list.
+
+download-mta-op-logs
+
+Download the log files for one or more operations concerning Multitarget Applications.
+
+Usage
+
+You have the following usage options:
+
+
+
+cf download-mta-op-logs -i <OPERATION_ID> [-u <URL>] [-d <DIRECTORY>]
+
+
+
+cf download-mta-op-logs --mta <MTA> [ --last <NUM>] [ -u <URL>] [ -d <DIRECTORY>]
+
+Tip
+
+You can use the alias dmol in place of the download-mta-op-logs command.
+
+Options
+Command Options Overview
+
+Option
+
+Description
+
+-u <URL>
+
+Specify the URL for the deploy-service endpoint to use to obtain details of the selected MTA operations.
+
+-i <OPERATION_ID>
+
+Specify the identity (ID) of the MTA operation whose logs you want to download.
+
+-d <DIRECTORY>
+
+Specify the path to the location where you want to save the downloaded MTA operation logs; by default, the location is ./mta-op-<OPERATION_ID>/.
+
+--mta <MTA>
+
+Specify the MTA whose logs you want to download.
+
+Note
+
+This option is not compatible with the -i option.
+
+--last<NUM>
+
+Download the last <NUM> logs for the specified MTA.
+
+purge-mta-config
+
+Purge all configuration entries and subscriptions, which are no longer valid.
+
+Usage
+
+
+cf purge-mta-config
+
+[-u <URL>]
+
+Invalid configuration entries are often produced when the application that is providing configuration entries is deleted by the user without using the deploy-service, for example, the cf delete command. In this case, the configuration remains in the deploy-service database even though the corresponding application is no longer available. This could lead to a failure during subsequent attempts to resolve the configuration entries.
+
+Options
+Command Options Overview
+
+Option
+
+Description
+
+-u <URL>
+
+The URL of the deploy-service
+
+Related Information
+MultiApps CLI Plugin
+Cloud Foundry MTA Examples Repository
+Deploy an MTA archive referenced by a remote URL
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/multitarget-applications-in-cloud-foundry-environment
+Title: Multitarget Applications in the Cloud Foundry Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Deploying to the Cloud Foundry EnvironmentMultitarget Applications in the Cloud Foundry Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Multitarget Applications in the Cloud Foundry Environment
+
+A multitarget application (MTA) is essentially a single application that consists of multiple parts. These parts are created using various technologies and share the same lifecycle.
+
+The MTA developers outline the intended outcomes using the MTA model. This model consists of MTA modules, MTA resources, and the interdependencies between them. Afterward, the SAP Cloud Deployment service validates it, orchestrates the necessary actions, and automates the MTA deployment. The outcome is the formation of Cloud Foundry applications, services, and the generation of SAP specific content. For more information about the Multitarget Application model, see the official specification documents The Multitarget Application Model v.2 and The Multitarget Application Model v.3.
+
+You can create and deploy a multitarget application in the Cloud Foundry environment as described below by following different approaches that can yield the same result:
+
+Using SAP Web IDE Full-Stack as described in Developing Multitarget Applications - both the development descriptor mta.yaml and the deployment descriptor mtad.yaml are created automatically. The mta.yaml is generated when you create the application project, and the mtad.yaml file is created when you build the project.
+
+Note
+
+You may still need to edit the development descriptor.
+
+Development descriptors are used to generate MTA deployment descriptors, which define the required deployment data. That is, the MTA development descriptor data specifies what you want to build, how to build it, while the deployment descriptor data specifies as what and how to deploy it.
+
+Using Business Application Studio - the flow is similar to WebIDE but the development is done from BAS.
+
+Using the Cloud MTA Build Tool. Afterward, you deploy the MTA using the Cloud Foundry Command Line Interface.
+
+Note
+
+An MTA development descriptor mta.yaml is required. You have to create it manually.
+
+Manually - create the required files manually and deploy them using the Cloud Foundry Command Line Interface
+Note
+
+An MTA development descriptor mta.yaml is not explicitly required. In this case, a deployment descriptor is maintained instead.
+
+Create the required files using an IDE of your choice.
+
+To produce your custom artifacts, use a build technology of your choice.
+
+Maintain your deployment descriptor document (mtad.yaml).
+
+(Optional) If you want to have an MTA archive package, use the mbt assemble. For more information, see Cloud MTA Build Tool (MBT).
+
+Use the cf deploy command to deploy the MTA package or directly from the build result directory.
+
+To learn more about
+
+See
+
+Multitarget Application deployment descriptor
+
+Defining Multitarget Application Deployment Descriptors for Cloud Foundry
+
+Multitarget Application archive
+
+Defining Multitarget Application Archives
+
+Multitarget Application extension descriptor
+
+Defining MTA Extension Descriptors
+
+Multitarget Application structure
+
+Multitarget Application Structure
+
+How to deploy the Multitarget Application
+
+Multitarget Application Plugin for Cloud Foundry Command Line Interface
+
+Terms and Concepts
+Terms and Concepts
+
+Term
+
+Description
+
+Multitarget application (MTA)
+
+An application comprised of multiple software modules, which are created with different technologies and deployed to different runtimes.
+
+Development descriptor
+
+A YAML file named mta.yaml that contains a list of all entities, such as modules, resources, and properties that belong to an application or are used by it at runtime, and the dependencies between them. It is automatically generated when an MTA project is created or modified, or when a module is added or removed. The developer needs to edit the descriptor manually to define resources, properties, and dependencies, as well as fill in missing information.
+
+Deployment descriptor
+
+A YAML file named mtad.yaml that contains a list of all entities which is created from either SAP Web IDE Full-Stack, SAP Business Application Studio, Cloud MTA Build Tool or manually. This file is similar to Development Descriptor but is used from the SAP Cloud Deployment service.
+
+Module
+
+A self-contained application of a certain type, which is developed, packaged and deployed.
+
+Module type
+
+A type that defines the structure and the development technology of a module. You can see a list of the module types at Modules.
+
+Resource
+
+Any resource, such as an external service that is required by a module at runtime but not provided by the module itself.
+
+Property
+
+A property (key-value pair) of an application, module, or resource, that is used during deployment or at runtime.
+
+Parameter
+
+A reserved variable belonging to a module or resource, whose value is used during deployment or at runtime.
+
+Dependency
+
+A relationship between a module and another module, resource, or property, such as provides and requires.
+
+provides: indicates the properties or parameters that are provided by a module or resource to other modules.
+
+requires: indicates other modules or resources that are required by a module in order to run.
+
+MTA archive (MTAR)
+
+Archive containing a deployment descriptor, the module and resource binaries, and configuration files. The archive follows the JAR file specification.
+
+Prerequisites and Restrictions
+Prerequisites
+
+You need the Space Developer role to deploy multitarget applications in the Cloud Foundry environment. For more information, see About Roles in the Cloud Foundry Environment.
+
+Restrictions
+You have to consider the following limits for the MTA artifacts, which can be handled by the SAP Cloud Deployment service:
+
+Maximum size of the MTA archive: 4 GB
+
+Maximum size of MTA module content: 1 GB
+
+Maximum size of MTA resource content: 1 MB
+
+Maximum size of MTA descriptors (mtad.yaml and MANIFEST.MF): 1 MB
+
+Limitations for transport scenarios via SAP Cloud Transport Management, where one transport import with multiple transport requests results into a single deployment process in SAP Cloud Deployment service with multiple MTAs:
+
+The total size of all MTA archives in a single import request cannot exceed 20GB.
+
+The maximum number of MTA archives used in a single import request cannot exceed 100.
+
+Limitations for transport scenarios via the Enhanced Change and Transport System (CTS+), where one transport import with multiple transport requests results into a single deployment process in SAP Cloud Deployment service with multiple MTAs:
+
+The total size of all MTA archives in multiple transport requests per one import cannot exceed 4GB.
+
+The maximum number of MTA archives used in a single import request cannot exceed 500.
+
+Unsupported Cloud Foundry Features
+In addition to the features that are not supported by the Cloud Foundry environment on SAP BTP (See Supported and Unsupported Cloud Foundry Features), MTA deployment in Cloud Foundry currently does not support these features as well:
+
+Sidecars. See https://docs.cloudfoundry.org/devguide/sidecars.html.
+
+Route services. See https://docs.cloudfoundry.org/services/route-services.html.
+
+Metadata. See https://docs.cloudfoundry.org/adminguide/metadata.html.
+
+Per-route options. See https://docs.cloudfoundry.org/devguide/custom-per-route-options.html.
+
+Note
+
+These features might be implemented in the future. For the latest information, follow the release notes regarding Multitarget Applications for Cloud Foundry in What’s New for SAP Business Technology Platform.
+
+Related Information
+JAR File Specification
+Cloud MTA Build Tool
+Release Notes for Multitarget Applications for Cloud Foundry
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/org-administration-using-cloud-foundry-cli
+Title: Org Administration Using the Cloud Foundry CLI | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformAdministration and OperationsAdministration and Operations in the Cloud Foundry EnvironmentOrg Administration Using the Cloud Foundry CLI
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Org Administration Using the Cloud Foundry CLI
+
+Use the Cloud Foundry command line interface (CF CLI) for managing subaccounts in the Cloud Foundry environment, such as creating orgs and spaces, or managing quota.
+
+Download and Install the Cloud Foundry Command Line Interface
+
+CF CLI: Plug-ins
+
+Create Spaces Using the Cloud Foundry Command Line Interface
+
+Add Organization Members Using the Cloud Foundry Command Line Interface
+
+Add Space Members Using the Cloud Foundry Command Line Interface
+
+Create Space Quota Plans Using the Cloud Foundry Command Line Interface
+
+Assign Quota Plans to Spaces Using the Cloud Foundry Command Line Interface
+
+Change Space Quota Plans Using the Command Line Interface
+
+Note
+
+If you work with the Cloud Foundry CLI (cf CLI), be aware that you are responsible for all actions performed using the CLI. Also, you won't always be able to mirror the same data in the SAP BTP cockpit.
+
+You must delete an org using only the cockpit or the SAP BTP command line interface (btp CLI).
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/regions-and-api-endpoints-available-for-cloud-foundry-environment
+Title: Regions and API Endpoints Available for the Cloud Foundry Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformBasic Platform ConceptsRegionsRegions and API Endpoints Available for the Cloud Foundry Environ…
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Regions and API Endpoints Available for the Cloud Foundry Environment
+
+Note
+
+If you are using the Cloud Connector and/or the Destination service for connections between your SAP BTP applications and your local network or another (web-based) target system, and you restrict access by allowlisting IP addresses in your firewall rules, you must add connectivity-specific IPs to these rules for the respective SAP BTP region(s).
+
+For the Destination service, both the egress and ingress IPs (NAT and LB IPs) may be relevant.
+
+For more information, see:
+
+Prerequisites: Network (Cloud Connector)
+
+Configure Destination Service IPs in Firewall Rules (Destination service)
+
+IaaS Provider
+
+Region
+
+Region Name
+
+Technical Key
+
+Technical Key of IaaS Provider
+
+NAT IPs (egress, IPs for requests from a Cloud Foundry app)
+
+LB IPs (ingress, for incoming requests)
+
+API Endpoint
+
+Domain
+
+Cockpit Logon
+
+Filter:
+[No selection]
+
+IaaS Provider
+
+Region
+
+Region Name
+
+Technical Key
+
+Technical Key of IaaS Provider
+
+NAT IPs (egress, IPs for requests from a Cloud Foundry app)
+
+LB IPs (ingress, for incoming requests)
+
+API Endpoint
+
+Domain
+
+Cockpit Logon
+
+Alibaba Cloud	cn40	China (Shanghai)	cf-cn40	cn-shanghai
+
+101.132.190.155, 106.14.165.33, 106.14.184.113
+
+139.224.7.71
+
+api.cf.cn40.platform.sapcloud.cn	cn40.platform.sapcloud.cn
+
+Open Cockpit
+
+Amazon Web Services
+
+br10	Brazil (São Paulo)	cf-br10	sa-east-1	52.67.245.111, 18.231.45.151, 54.207.173.126, 18.230.81.234, 18.229.169.29, 54.94.110.127, 18.231.101.158, 177.71.170.199, 54.232.227.140, 52.67.251.43, 54.232.20.181, 54.94.136.11, 52.67.221.224, 18.229.54.222, 54.232.250.83, 18.228.194.102, 18.228.198.142, 177.71.168.150, 3.44.192.224/27	18.229.91.150, 52.67.135.4, 54.232.179.204, 18.228.53.198, 52.67.149.240, 54.94.179.209, 18.96.66.56/29	api.cf.br10.hana.ondemand.com	br10.hana.ondemand.com	Open Cockpit
+
+Amazon Web Services
+
+jp10	Japan (Tokyo)	cf-jp10	ap-northeast-1	54.238.10.97, 54.250.43.250, 52.192.218.156, 35.74.54.33, 18.177.86.79, 35.74.144.49, 3.114.115.232, 18.179.150.168, 54.249.134.63, 18.179.66.68, 54.250.33.48, 54.95.22.24, 52.198.77.221, 35.73.255.50, 54.178.62.192, 3.113.232.224, 52.198.66.114, 13.230.215.218, 3.44.137.192/27	3.114.248.68, 3.113.252.15, 13.114.117.83, 18.178.155.134, 57.180.140.5, 57.180.145.179, 18.99.86.144/29	api.cf.jp10.hana.ondemand.com	jp10.hana.ondemand.com	Open Cockpit
+
+Amazon Web Services
+
+ap10	Australia (Sydney)	cf-ap10	ap-southeast-2	52.62.223.36, 13.55.100.204, 13.54.168.75, 13.55.239.117, 13.210.173.131, 13.54.77.205, 13.237.182.31, 52.65.102.82, 54.79.72.145, 13.236.142.207, 54.79.43.227, 13.54.252.220, 54.79.26.135, 13.54.220.129, 13.236.59.235, 13.238.9.23, 54.153.242.51, 3.105.234.54, 18.98.199.192/27	13.236.220.84, 13.211.73.244, 3.105.95.184, 13.55.188.95, 3.105.212.249, 3.106.45.106, 18.98.199.32/29	api.cf.ap10.hana.ondemand.com	ap10.hana.ondemand.com
+
+Open Cockpit
+
+Amazon Web Services
+
+ap11	Asia Pacific (Singapore)	cf-ap11	ap-southeast-1	13.251.40.148, 13.228.68.14, 13.251.49.36, 52.76.185.92, 13.229.13.240, 54.251.74.134, 52.220.111.202, 54.179.77.154, 52.76.123.164, 54.179.253.138, 13.213.119.83, 3.1.38.48, 52.76.114.209, 13.213.105.43, 13.213.132.88, 13.250.92.77, 18.140.150.56, 18.140.255.164, 18.99.38.96/27	18.139.147.53, 3.0.9.102, 18.140.39.70, 13.229.158.122, 18.140.228.217, 52.74.215.89, 3.44.7.128/29	api.cf.ap11.hana.ondemand.com	ap11.hana.ondemand.com	Open Cockpit
+
+Amazon Web Services
+
+ap12	Asia Pacific (Seoul)	cf-ap12	ap-northeast-2	15.165.116.197, 54.180.53.68, 3.35.252.222, 52.78.49.16, 15.164.33.162, 3.34.19.116, 3.36.2.67, 3.35.57.231, 15.164.254.80, 3.36.165.189, 52.78.38.74, 15.165.249.251, 13.124.251.247, 13.124.16.17, 15.165.83.237, 18.98.130.128/27	3.35.106.215, 3.35.255.45, 3.35.215.12, 13.209.236.215, 43.201.194.105, 43.202.204.5, 18.98.130.112/29	api.cf.ap12.hana.ondemand.com	ap12.hana.ondemand.com	Open Cockpit
+
+Amazon Web Services
+
+ca10	Canada (Montreal)	cf-ca10	ca-central-1	35.182.118.205, 35.182.198.31, 3.98.159.3, 3.96.101.45, 15.222.120.34, 3.96.14.215, 3.97.48.154, 3.97.119.250, 35.182.95.49, 3.97.228.23, 35.182.185.156, 3.98.252.245, 15.223.62.0, 99.79.181.241, 3.98.167.60, 99.79.110.245, 52.60.239.204, 52.60.212.33, 18.99.6.128/27	35.183.74.34, 35.182.75.101, 3.98.102.153, 15.157.88.166, 3.98.202.222, 52.60.210.33, 18.99.6.72/29	api.cf.ca10.hana.ondemand.com	ca10.hana.ondemand.com	Feature Set B
+
+Amazon Web Services
+
+eu10	Europe (Frankfurt)	cf-eu10	eu-central-1
+
+cf-eu10:
+
+52.59.128.222, 52.28.241.88, 18.184.81.94, 3.67.200.70, 3.68.51.135, 3.124.174.204, 3.68.31.37, 3.67.58.183, 3.67.0.172, 3.67.244.62, 3.126.117.58, 3.66.100.105, 3.68.13.226, 3.126.45.133, 3.67.249.135, 18.194.183.183, 3.67.246.74, 3.66.68.201, 3.68.0.70, 52.28.56.202, 3.126.95.250, 3.66.68.127, 18.195.244.40, 3.67.107.121, 3.67.24.253, 18.193.50.255, 3.121.35.143, 18.96.47.192/27
+
+cf-eu10-002:
+
+18.198.196.89, 18.193.21.232, 3.65.9.91, 52.29.190.137, 18.197.134.65, 3.67.182.154, 3.67.255.232, 3.66.249.150, 3.68.44.236, 18.96.47.96/27
+
+cf-eu10-003:
+
+3.64.131.199, 3.64.88.217, 3.64.142.243, 18.198.18.157, 3.68.40.83, 3.67.235.98, 3.68.17.221, 18.198.149.19, 3.68.38.23, 18.96.47.64/27
+
+cf-eu10-004:
+
+3.69.195.103, 3.64.170.167, 3.68.176.248, 3.121.49.211, 18.197.219.60, 3.70.38.84, 5.60.96.176/28
+
+cf-eu10-005:
+
+35.159.192.144/28
+
+cf-eu10:
+
+3.124.208.223, 3.122.209.241, 3.124.222.77, 18.159.31.22, 3.69.186.98, 3.77.195.119, 3.40.3.168/29
+
+cf-eu10-002:
+
+3.126.229.22, 18.193.180.19, 3.64.227.236, 18.153.123.11, 3.121.37.195, 3.73.215.90, 3.40.3.152/29
+
+cf-eu10-003:
+
+3.127.77.3, 3.64.196.58, 18.156.151.247, 18.197.252.154, 3.79.137.29, 52.58.93.50, 3.40.3.160/29
+
+cf-eu10-004:
+
+3.70.38.218, 18.196.206.8, 3.65.185.47, 3.73.109.100, 3.73.8.210, 52.59.18.183, 5.60.96.208/29
+
+cf-eu10-005:
+
+3.78.172.245, 3.122.31.132, 18.193.56.244, 3.40.3.184/29
+
+cf-eu10:
+
+api.cf.eu10.hana.ondemand.com
+
+cf-eu10-002:
+
+api.cf.eu10-002.hana.ondemand.com
+
+cf-eu10-003:
+
+api.cf.eu10-003.hana.ondemand.com
+
+cf-eu10-004:
+
+api.cf.eu10-004.hana.ondemand.com
+
+cf-eu10-005:
+
+api.cf.eu10-005.hana.ondemand.com
+
+cf-eu10:
+
+eu10.hana.ondemand.com
+
+cf-eu10-002:
+
+eu10-002.hana.ondemand.com
+
+cf-eu10-003:
+
+eu10-003.hana.ondemand.com
+
+cf-eu10-004:
+
+eu10-004.hana.ondemand.com
+
+cf-eu10-005:
+
+eu10-005.hana.ondemand.com
+
+Open Cockpit
+
+Amazon Web Services
+
+eu11
+
+Europe (Frankfurt)
+
+cf-eu11
+
+eu-central-1
+
+18.156.140.38, 3.121.55.100, 35.156.198.246, 52.59.77.121, 18.185.57.85, 3.121.79.209, 3.67.237.8, 35.156.31.32, 3.65.63.251, 3.122.176.63, 18.198.13.57, 18.157.114.142, 18.184.172.97, 18.159.180.188, 35.157.5.44, 18.96.47.32/27	18.156.209.198, 18.157.105.117, 3.124.207.41, 3.66.26.249, 3.72.216.204, 3.74.99.245, 3.40.3.136/29
+
+api.cf.eu11.hana.ondemand.com
+
+eu11.hana.ondemand.com
+
+Open Cockpit
+
+Amazon Web Services
+
+eu13
+
+Europe (Milan)
+
+cf-eu13
+
+eu-south-1
+
+15.161.87.249, 15.161.194.156, 18.99.209.0/27, 35.152.224.143	15.161.2.170, 18.102.32.205, 18.102.85.10, 18.99.209.120/29
+
+api.cf.eu13.hana.ondemand.com
+
+eu13.hana.ondemand.com
+
+Open Cockpit
+
+
+IaaS Provider
+
+Region
+
+Region Name
+
+Technical Key
+
+Technical Key of IaaS Provider
+
+Trial NAT IPs (egress, IPs for requests from a Cloud Foundry app)
+
+LB IPs (ingress, for incoming requests)
+
+API Endpoint
+
+Domain
+
+Cockpit Logon
+
+Filter:
+[No selection]
+
+IaaS Provider
+
+Region
+
+Region Name
+
+Technical Key
+
+Technical Key of IaaS Provider
+
+Trial NAT IPs (egress, IPs for requests from a Cloud Foundry app)
+
+LB IPs (ingress, for incoming requests)
+
+API Endpoint
+
+Domain
+
+Cockpit Logon
+
+Amazon Web Services
+
+us10	US East (VA)	cf-us10	us-east-1
+
+3.218.99.154, 52.72.147.227, 3.218.112.63
+
+18.213.242.208, 3.214.110.153, 34.205.56.51
+
+api.cf.us10.hana.ondemand.com	us10.hana.ondemand.com
+
+Trial
+
+Microsoft Azure
+
+ap21	Singapore	cf-ap21	Southeast Asia
+
+52.139.216.172, 20.195.24.178, 20.195.9.169
+
+20.184.61.122
+
+api.cf.ap21.hana.ondemand.com	ap21.hana.ondemand.com	Trial
+
+Note
+
+Trial accounts and subaccounts on trial can no longer be created on eu10, Europe (Frankfurt).
+
+Existing trial accounts and subaccounts are not affected.
+
+Note
+
+In the Cloud Foundry environment, IPs are controlled by the respective IaaS provider (AWS, Azure, or Google Cloud). IPs may change due to network updates on the provider side. Any planned changes will be announced at least four weeks before they take effect. For information on how to subscribe to updates, see Platform Updates and Notifications.
+
+Note
+
+In the Cloud Foundry environment, the region in which a global account was created determines the API endpoint of all subaccounts associated with it. For example, subaccounts created in a global account in region eu10 share the API endpoint URL api.cf.eu10.hana.ondemand.com.
+
+Related Information
+Regions for the Kyma Environment
+Regions and API Endpoints for the ABAP Environment
+Regions and Hosts Available for the Neo Environment
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/service-plans-and-metering-for-cloud-foundry-runtime
+Title: Service Plans and Metering for Cloud Foundry Runtime | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Cloud Foundry EnvironmentService Plans and Metering for Cloud Foundry Runtime
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Service Plans and Metering for Cloud Foundry Runtime
+
+This page explains the relationship between the service plans in the SAP Discovery Center and those in the SAP BTP cockpit, and provides information to help you understand how the service is billed.
+
+Service
+Overview
+
+The diagram below shows how the service plans listed in the SAP Discovery Center correspond to the plans you choose in the SAP BTP cockpit, depending on the commercial model of your enterprise global account. For more information about the commercial models offered by SAP, see Commercial Models.
+
+This image is interactive. Hover over rectangles in the diagram to see the description. Choose the highlighted areas for more information.
+
+Diagram captions: Service plans and environment plans in SAP BTP cockpit [Show/Hide]
+Service Plans
+
+The tables below provide details about the plans for SAP BTP, Cloud Foundry runtime. They can give you more context for understanding the diagram in the Overview section.
+
+Table 1: Plans for Consumption-Based Commercial Model [Show/Hide]
+
+Service Plan (SAP Discovery Center)
+
+Service (SAP BTP Cockpit: Entity Assignments)
+
+Service Plan (SAP BTP Cockpit: Entity Assignments)
+
+Environment Plan (SAP BTP Cockpit: Enable Cloud Foundry)
+
+Explanation
+
+Standard
+
+Cloud Foundry Environment (cloudfoundry)
+
+standard
+
+standard
+
+The plans standard and MEMORY are used together to allow you to deploy and run applications in the Cloud Foundry environment.
+
+standard: this plan allows you to create a Cloud Foundry org in a subaccount. By itself, the action of creating a Cloud Foundry org is free. However, when you run applications in it, you pay for the runtime memory that they use.
+
+MEMORY: this plan is used to assign runtime memory quota to a subaccount. The runtime memory can then be consumed by applications that run in the Cloud Foundry org created with the plan standard. The usage of runtime memory by applications is billable according to the commercial model of your enterprise global account.
+
+In the consumption-based commercial model, a default runtime memory quota of 200 GB is automatically assigned to all subaccounts, and the billing is based on the actual runtime memory usage. For more information, see Service Specifics.
+
+For information on how to set up the plan, see Standard Plan for Cloud Foundry Runtime (Consumption-Based).
+
+Cloud Foundry Runtime (APPLICATION_RUNTIME)
+
+MEMORY
+
+Free
+
+Cloud Foundry Environment (cloudfoundry)
+
+free (Environment)
+
+free
+
+This is a free tier plan that allows you to try out and evaluate the service. For more information, see Using Free Service Plans.
+
+When you create a Cloud Foundry org with the free plan, you also get a limited free quota of runtime memory for it. The amount of such orgs that can be created in an enterprise global account is limited.
+
+For information on how to set up the plan, see Free Plan for Cloud Foundry Runtime.
+
+Note
+
+Only community support is available for free tier service plans and these are not subject to SLAs. Use of free tier service plans is subject to additional terms and conditions as provided in the Business Technology Platform Supplemental Terms and Conditions.
+
+-
+
+Cloud Foundry Environment (cloudfoundry)
+
+build-runtime
+
+build-runtime
+
+This plan is only for using the SAP BTP, Cloud Foundry runtime as part of SAP Build. For more information, see What Is SAP Build and Service Plans and Metering.
+
+Note
+
+The plan is not depicted on the diagram in the Overview section.
+
+See SAP Build Code
+
+Cloud Foundry Environment (cloudfoundry)
+
+build-code
+
+build-code
+
+This plan is only for using the SAP BTP, Cloud Foundry runtime as part of SAP Build Code. For more information, see What Is SAP Build Code.
+
+Note
+
+The plan is not depicted on the diagram in the Overview section.
+
+
+Table 2: Plans for Subscription-Based Commercial Model [Show/Hide]
+
+Service Plan (SAP Discovery Center)
+
+Service (SAP BTP Cockpit: Entity Assignments)
+
+Service Plan (SAP BTP Cockpit: Entity Assignments)
+
+Environment Plan (SAP BTP Cockpit: Enable Cloud Foundry)
+
+Explanation
+
+Standard
+
+Cloud Foundry Environment (cloudfoundry)
+
+standard
+
+standard
+
+The plans standard and MEMORY are used together to allow you to deploy and run applications in the Cloud Foundry environment.
+
+standard: this plan allows you to create a Cloud Foundry org in a subaccount. By itself, the action of creating a Cloud Foundry org is free. However, when you run applications in it, you pay for the runtime memory that they use.
+
+MEMORY: this plan is used to assign runtime memory quota to a subaccount. The runtime memory can then be consumed by applications that run in the Cloud Foundry org created with the plan standard. The usage of runtime memory by applications is billable according to the commercial model of your enterprise global account.
+
+In the subscription-based commercial model, a predefined amount of runtime memory is paid for in advance and then gets used. For more information, see Service Specifics.
+
+For information on how to set up the plan, see Standard Plan for Cloud Foundry Runtime (Subscription-Based).
+
+Cloud Foundry Runtime (APPLICATION_RUNTIME)
+
+MEMORY
+
+-
+
+Cloud Foundry Environment (cloudfoundry)
+
+build-runtime
+
+build-runtime
+
+This plan is only for using the SAP BTP, Cloud Foundry runtime as part of SAP Build. For more information, see What Is SAP Build and Service Plans and Metering.
+
+Note
+
+The plan is not depicted on the diagram in the Overview section.
+
+See SAP Build Code
+
+Cloud Foundry Environment (cloudfoundry)
+
+build-code
+
+build-code
+
+This plan is only for using the SAP BTP, Cloud Foundry runtime as part of SAP Build Code. For more information, see What Is SAP Build Code.
+
+Note
+
+The plan is not depicted on the diagram in the Overview section.
+
+
+Metrics
+The table below provides details about the metrics for SAP BTP, Cloud Foundry runtime. It includes the names of services, with which the metrics are associated on the pages Usage or Costs and Usage (accessed from the global account level) and Usage Analytics (accessed from the subaccount level) in the SAP BTP cockpit.
+
+Metric
+
+Service (SAP BTP Cockpit)
+
+Metric (SAP BTP Cockpit)
+
+Definition
+
+Additional Information
+
+GB Memory
+
+Cloud Foundry Runtime
+
+GB Memory
+
+Temporary memory bank where computers store data that needs to be retrieved and processed quickly.
+
+The memory represents the size of the data that can be processed and CPU represents the speed at which the data can be retrieved.
+
+For billing purposes, the GB Memory metric for the Cloud Foundry Runtime service is calculated as the total hourly usage of Cloud Foundry runtime memory across all spaces in the global account over a calendar month, divided by 730 hours and rounded up to the next full GB. For an example of such calculation, see Consumption Monitoring.
+
+Note
+
+In the Cloud Foundry environment, applications get a guaranteed CPU share of ¼ core per GB of runtime memory reserved for an application instance. For more information, see SAP BTP-Specific Configurations.
+
+Capacity Units
+
+SAP Build
+
+GB Memory
+
+In SAP Build, the usage of SAP BTP, Cloud Foundry runtime is measured in capacity units. The GB Memory metric for the SAP Build service in the SAP BTP cockpit is intended only for monitoring the approximate usage of SAP BTP, Cloud Foundry runtime in GB when it's consumed as part of SAP Build. For more information, see What Is SAP Build.
+
+Note
+
+The metric is not depicted on the diagram in Service.
+
+SAP Build Code
+
+CF Runtime
+
+In SAP Build Code, the usage of SAP BTP, Cloud Foundry runtime is measured in capacity units. The CF Runtime metric for the SAP Build Code service in the SAP BTP cockpit is intended only for monitoring the approximate usage of SAP BTP, Cloud Foundry runtime in GB when it's consumed as part of SAP Build Code. For more information, see What Is SAP Build Code and SAP Build Code Capacity Unit Calculator.
+
+Note
+
+The metric is not depicted on the diagram in Service.
+
+Service Specifics
+In the context of SAP BTP, Cloud Foundry runtime, the terms consumption (or consume) and usage (or use) refer to the runtime memory quota reserved by the platform for each application instance. This quota serves as the basis for calculating the billable consumption, as explained in Consumption Monitoring.
+Caution
+
+From a billing standpoint, it doesn't matter how much of the reserved runtime memory quota is utilized when the application is running. Billable consumption is calculated based on the full amount of runtime memory reserved, regardless of how much runtime memory actually gets utilized.
+
+Note
+
+If an application is stopped, it doesn't reserve any runtime memory and, therefore, doesn't contribute to runtime memory consumption.
+
+There are two application settings that define how much runtime memory an application uses at any given time:
+
+Runtime memory quota reserved for each application instance (default: 1024 MB)
+
+Number of running application instances (default: 1)
+
+Note
+
+The total amount of runtime memory used by the application is displayed on the Application Overview page under Current Application Memory Usage.
+
+You can specify custom values for these settings when deploying an application in the Cloud Foundry environment. You can also change them for an application that has already been deployed without having to redeploy it.
+
+How to set runtime memory quota and number of instances when deploying applications
+How to change runtime memory quota and number of instances for already deployed applications
+
+You can use the Application Autoscaler to automatically increase or decrease the number of application instances based on the policies you have defined. For more information, see What Is Application Autoscaler.
+
+Tip
+
+For tips on how to optimize the consumption of runtime memory, see the blog post Optimise your SAP BTP, Cloud Foundry runtime costs. Note that while the general principles outlined in the blog post still apply, some of the UI texts and parameter names may have changed.
+
+Supplemental Terms and Conditions
+
+For more information, see the section SAP BTP, Cloud Foundry Runtime in the SAP Business Technology Platform Service Description Guide.
+
+Glossary
+
+Commercial Information Glossary
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/supported-and-unsupported-cloud-foundry-features
+Title: Supported and Unsupported Cloud Foundry Features | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Cloud Foundry EnvironmentSupported and Unsupported Cloud Foundry Features
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Supported and Unsupported Cloud Foundry Features
+
+Find out which Cloud Foundry features the Cloud Foundry environment on SAP BTP supports and doesn't support.
+
+Supported Features
+
+Unsupported Features
+
+Diego runtime. See https://docs.cloudfoundry.org/concepts/diego/diego-architecture.html.
+
+SSH. See https://docs.cloudfoundry.org/devguide/deploy-apps/app-ssh-overview.html.
+
+Custom Domains. See https://docs.cloudfoundry.org/devguide/deploy-apps/routes-domains.html#domains.
+
+Docker. See https://docs.cloudfoundry.org/adminguide/docker.html.
+
+Running Tasks. See https://docs.cloudfoundry.org/devguide/using-tasks.html.
+
+Request Tracing
+
+Zipkin Tracing. See https://docs.cloudfoundry.org/adminguide/zipkin_tracing.html.
+
+Websockets. See https://docs.cloudfoundry.org/adminguide/supporting-websockets.html.
+
+Space-Scoped Service Brokers. See https://docs.cloudfoundry.org/services/managing-service-brokers.html.
+
+Route Services (only user-provided and fully-brokered services). See https://docs.cloudfoundry.org/services/route-services.html.
+
+Sharing Service Instances (not all services support instance sharing). See https://docs.cloudfoundry.org/devguide/services/sharing-instances.html.
+
+HTTP/2. See https://docs.cloudfoundry.org/adminguide/supporting-http2.html#application.
+
+Streaming Logs to Log Management Services. See https://docs.cloudfoundry.org/devguide/services/log-management.html.
+
+Configuring per-route options. See https://docs.cloudfoundry.org/devguide/custom-per-route-options.html
+
+Container-to-Container Networking. See https://docs.cloudfoundry.org/concepts/understand-cf-networking.html .
+
+Isolation Segments. See https://docs.cloudfoundry.org/adminguide/isolation-segments.html.
+
+TCP Routing. See https://docs.cloudfoundry.org/adminguide/enabling-tcp-routing.html.
+
+Secure Service Credential Delivery (with Credhub). See https://docs.cloudfoundry.org/credhub/index.html or https://github.com/cloudfoundry/credhub/blob/main/docs/secure-service-credentials.md
+
+
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/using-services-in-cloud-foundry-environment
+Title: Using Services in the Cloud Foundry Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Developing Applications and ServicesUsing Services in the Cloud Foundry Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Using Services in the Cloud Foundry Environment
+
+Learn more about using services in the Cloud Foundry environment, how to create (user-provided) service instances and bind them to applications, and how to create service keys.
+
+About Services
+
+Binding Service Instances to Applications
+
+Creating Service Instances
+
+Creating Service Keys
+
+Creating User-Provided Service Instances
+
+Deleting Service Instances
+
+Updating Service Instances
+
+SAP Service Manager
+
+You can also access services for the Cloud Foundry environment through SAP Service Manager, the central registry for service brokers and platforms. It’s tightly integrated with SAP BTP and allows you to consume services in connected runtime environments and to manage platforms, service brokers, service instances, and service bindings.
+
+For more information, see SAP Service Manager.
+
+To find out if SAP Service Manager is available in your desired region, search for it in the SAP Discovery Center - Service Catalog. In the Pricing tab, choose the globe icon to display a map of available regions for this service.
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/working-with-cloud-foundry-command-line-interface
+Title: Working with the Cloud Foundry Command Line Interface | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Org Administration Using the Cloud Foundry CLIWorking with the Cloud Foundry Command Line Interface
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Working with the Cloud Foundry Command Line Interface
+
+Find out how to get and use the Cloud Foundry command line interface.
+
+Related Information
+Download and Install the Cloud Foundry Command Line Interface
+Log On to the Cloud Foundry Environment Using the Cloud Foundry Command Line Interface
+CF CLI: Plug-ins
+
+---
+

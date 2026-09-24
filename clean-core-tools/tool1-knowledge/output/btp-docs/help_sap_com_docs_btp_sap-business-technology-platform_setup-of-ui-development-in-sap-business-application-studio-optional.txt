@@ -1,0 +1,43 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/setup-of-ui-development-in-sap-business-application-studio-optional
+Title: Setup of UI Development in SAP Business Application Studio (Optional) | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Getting Started with a Customer Account in the ABAP EnvironmentSetup of UI Development in SAP Business Application Studio (Optio…
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Setup of UI Development in SAP Business Application Studio (Optional)
+
+If developers want to use SAP Business Application Studio to create and deploy SAP Fiori application UIs, you need to perform some administrative activities to set it up.
+
+In the Cloud Foundry environment, SAP Business Application Studio is a service that provides a modular development environment, including the development of SAP Fiori applications. As an alternative to SAP Business Application Studio, you can also use SAP Web IDE. We recommend that you use SAP Business Application Studio.
+
+Note
+
+The process for connecting to an ABAP service instance URL when creating a new ABAP Cloud project in ABAP development tools for Eclipse has changed. For more information, see ABAP Service Instance URL.
+
+Prerequisites
+
+For setting up SAP Business Application Studio, you need the following:
+
+You are a member of the global account.
+
+You are an organization manager in your Cloud Foundry subaccount (see also Adding a User as Org Manager for the Cloud Foundry Organization).
+
+You have created an ABAP service instance (see also Creating an ABAP System).
+
+You are a security administrator. If you have created a subaccount for the ABAP environment in the Cloud Foundry environment, your user automatically has the security administration role.
+
+Setting Up SAP Business Application Studio
+Note
+
+If you have run the booster Prepare an Account for ABAP Development, you can skip the first two steps.
+
+This image is interactive. Hover over each area for a description. Click highlighted areas for more information.
+
+To enable the creation and deployment of SAP Fiori application UIs, subscribe to SAP Business Application Studio in the same subaccount in which you've created your ABAP service instance (see Subscribing to SAP Business Application Studio).
+
+To allow developers to develop applications using SAP Business Application Studio, assign developers to the Business_Application_Studio_Developer role collection (see Assigning Permissions for SAP Business Application Studio).
+
+Create a service key for your ABAP system, which you will need to set up a service destination (see Creating a Service Key for the ABAP System).
+
+To connect your ABAP system with SAP Business Application Studio, set up a destination in the same subaccount in which you have subscribed to SAP Business Application Studio (see Creating a Destination to the ABAP System for SAP Business Application Studio).

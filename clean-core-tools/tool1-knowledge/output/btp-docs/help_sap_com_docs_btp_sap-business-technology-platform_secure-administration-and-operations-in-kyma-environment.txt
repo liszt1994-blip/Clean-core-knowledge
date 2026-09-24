@@ -1,0 +1,36 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/secure-administration-and-operations-in-kyma-environment
+Title: Secure Administration and Operations in the Kyma Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformSecuritySecurity in the Kyma EnvironmentSecure Administration and Operations in the Kyma Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Secure Administration and Operations in the Kyma Environment
+
+Secure administration and operations focus on landscape setup, authentication, authorization, and Istio access logs. Learn about the security measures you can take to improve the security of your Kyma environment.
+
+Landscape Setup
+
+While creating a staged development environment is a good idea in any case, there are some considerations specific to Kyma you might want to take into account. For more information, see Cloud Foundry, Kyma, or Both?.
+
+Authentication
+
+SAP BTP, Kyma runtime uses OpenID Connect for authentication. Kyma runtime is configured to use a default shared SAP Cloud Identity Services tenant, SAP ID service, as an identity provider. This is a good starting point for development and testing purposes. However, for production scenarios, it is recommended to get your own SAP Cloud Identity Services tenant. For more information, see Authentication in the Kyma Environment.
+
+Authorization
+Kyma uses Kubernetes Role-Based Access Control (RBAC) and assures during provisioning that a user who creates and owns a particular runtime is given the cluster-admin role. Users with the cluster-admin role can define any additional cluster roles or use those defined in Kyma and bind them to other users from Kyma dashboard or with the kubectl CLI tool. See Assign Roles in the Kyma Environment. For recommendations on setting up roles and permissions in Kyma, see Role-Based Access Control (RBAC) in Kyma.
+Note
+
+For more information about user and member management in the SAP BTP cockpit, see User and Member Management.
+
+Istio Access Logs
+
+Collecting Istio access logs can help indicate the core concepts of monitoring (latency, traffic, errors, and saturation) and capture critical aspects of system behavior. By Configure Observability for the Istio Service Mesh you monitor and analyze the traffic in your Kyma cluster. Then, send the logs to a central platform, for example, a Security Information and Event Management (SIEM) system, for threat detection and incident response.
+
+Related Information
+Kyma Security Concepts
+Secure Development in the Kyma Environment
+Authentication in the Kyma Environment
+Configuring a Custom Identity Provider for Kyma
+Assign Roles in the Kyma Environment
+Auditing and Logging Information in Kyma

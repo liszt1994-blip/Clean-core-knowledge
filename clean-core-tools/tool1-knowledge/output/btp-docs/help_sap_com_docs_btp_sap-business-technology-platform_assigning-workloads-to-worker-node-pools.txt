@@ -1,0 +1,44 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/assigning-workloads-to-worker-node-pools
+Title: Assigning Workloads to Worker Node Pools | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformAdministration and OperationsAdministration and Operations in the Kyma EnvironmentAssigning Workloads to Worker Node Pools
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Assigning Workloads to Worker Node Pools
+
+In addition to the mandatory worker node pool existing in each Kyma runtime, you can add and configure custom worker node pools. These additional worker nodes are reserved for running your workloads with special computing requirements on optimized machines. To ensure your workload runs on the right worker node pool, assign workloads to particular worker nodes.
+
+Prerequisites
+
+You have at least one additional worker node pool in your Kyma runtime. To learn how to add and configure a custom worker node pool, see Additional Worker Node Pools.
+
+Context
+
+Worker node pools are collections of one or more worker nodes. To assign your workloads (Pods) to a particular worker node pool, use the following worker node's label: worker.gardener.cloud/pool=<worker-pool-name>. The label specifies the worker pool to which the node belongs.
+
+You can assign your workloads to worker node pools using one of the following recommended methods:
+
+Set a node selector.
+
+Configure node affinity.
+
+Node affinity offers more flexibility for assigning workloads than node selector. You can define multiple affinity rules and configure them as hard or soft requirements by using one of the following strategies: requiredDuringSchedulingIgnoredDuringExecution or preferredDuringSchedulingIgnoredDuringExecution. You can also invert affinity by setting it as anti-affinity.
+
+You can also assign your workloads to worker node pools using taints with tolerations. This method is useful for strict control over where workloads are placed, ensuring isolation or prioritization of specific workloads. For more information, see Taints and Tolerations.
+
+Procedure
+Use a Node Selector.
+Use Pod Affinity.
+Results
+
+With a node selector or affinity constraint, Pods are only scheduled on nodes that match the defined label conditions.
+
+Troubleshooting
+Pod stuck in the Pending state
+
+Symptom: Your Pod stays in the Pending state.
+
+Cause: There's no suitable node.
+
+Solution: Check the labels used to find matching nodes or use a soft node assignment by applying the node affinity type preferredDuringSchedulingIgnoredDuringExecution.

@@ -1,0 +1,89 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/enabling-events-exchange-between-sap-cloud-systems
+Title: Enabling Events Exchange Between SAP Cloud Systems | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Formations for Services in SAP BTPEnabling Events Exchange Between SAP Cloud Systems
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Enabling Events Exchange Between SAP Cloud Systems
+
+Use
+Note
+
+The content in this section is not relevant for China (Shanghai) and Government Cloud (US) regions.
+
+Systems that are included in Eventing Between SAP Cloud Systems formations on the System Landscape page of the SAP BTP cockpit can publish and consume events. The process of publishing and consuming events is in fact an exchange of event information across the customer system landscape and is driven by the system formations on the one hand side and the SAP Cloud Application Event Hub on the other.
+
+Note
+
+By creating a formation of type Eventing Between SAP Cloud Systems, keep in mind that there may be event distribution charges incurred if you exceed the free quota limit when using SAP Cloud Application Event Hub. To learn more about usage and consumption costs, see Usage and Consumption Costs.
+
+Rules
+
+When creating Eventing Between SAP Cloud Systems formations, keep in mind the following rule:
+
+Every system can be included in at most one Eventing Between SAP Cloud Systems formation.
+
+If you register your SAP S/4HANA Cloud system using the All Communication Scenarios or Eventing Between SAP Cloud Systems communication scenario group when you get the registration token for this SAP S/4HANA Cloud system, the communication scenario SAP_COM_0892 will be enabled automatically after this SAP S/4HANA Cloud system is added to the formation of type Eventing Between SAP Cloud Systems in the Formations page. See Register an SAP S/4HANA Cloud System in a Global Account in SAP BTP.
+
+Prerequisites
+
+You are a global account administrator, or you are a system landscape administrator. See Working with Role Collections.
+
+You have subscribed to the SAP Cloud Application Event Hub application. See Subscribing to SAP Cloud Application Event Hub Application.
+
+Procedure
+
+The following procedure outlines the steps you need to perform to enable the exchange of events across the systems within the system landscape.
+
+In the SAP BTP cockpit, in the System Landscape  Systems page of the SAP BTP cockpit, browse the already added systems in your customer system landscape or manually add and register any missing systems.
+
+Every system you are going to include in this formation must not be part of another formation.
+
+The customer system landscape features systems that are added to the list in one of the following ways:
+
+Auto-discovered
+
+An auto-discovered system is a system (associated with the given global account) that has been discovered and added automatically to the list based on information of the existing system landscape. Any SAP system of the supported system types that is associated with the same customer ID, with which your global account in SAP BTP is associated, will be added automatically in the system landscape list.
+
+Subaccount/<my-subaccount>
+
+A subscription in SAP BTP cockpit associated with a given subaccount. The subscription has been discovered and added automatically through the subaccount. Check the value of the Discovery column to see the subaccount where your system is subscribed.
+
+Manually added
+
+Specifies that the system has been added to the list manually by the global account administrator, using the Add System button and completing the wizard. The system has been associated with the global account in SAP BTP.
+
+Note
+
+If a given SAP system is missing on the Systems page, it may be associated with a different customer ID on the SAP BTP global account you are working in. In this case, you need to add the system manually, and then, register it.
+
+Tip
+
+When you register an SAP S/4HANA Cloud system, you can automate some of the required configuration steps at a later point. To do this, you can use the All Communication Scenarios or Eventing Between SAP Cloud Systems communication scenario groups when you get the registration token for the SAP S/4HANA Cloud system. This allows the automatic enablement of the communication scenario SAP_COM_0892 after the corresponding system is added to the formation of type Eventing Between SAP Cloud Systems.
+
+See Adding, Registering and Deregistering Systems.
+
+Create a formation of type Eventing Between SAP Cloud Systems and include the relevant systems in it.
+
+Add any name that helps you identify your formation.
+
+In the Formation Type dropdown menu, select Eventing Between SAP Cloud Systems.
+
+Select the systems that you want to include in the formation. One of these systems must be of type SAP Cloud Application Event Hub.
+
+Note
+
+Systems can only be added to one formation of type Eventing Between SAP Cloud Systems in a global account.
+
+Also, a formation of type Eventing Between SAP Cloud Systems can contain only one system of type SAP Cloud Application Event Hub.
+
+Review your selections and create the formation.
+
+Next Steps
+
+When the formation is created, navigate to the SAP Cloud Application Event Hub application and enable the event subscriptions. See Enabling SAP Event Subscriptions.
+
+Remove a System from the Formation
+
+If you want to remove an SAP system from a formation of type Eventing Between SAP Cloud Systems, make sure that all active event subscriptions are disabled first in SAP Cloud Application Event Hub. You can check your subscriptions in the SAP Cloud Application Event Hub application on the Subscriptions page. See Disabling SAP Event Subscriptions.

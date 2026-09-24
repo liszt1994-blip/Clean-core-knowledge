@@ -1,0 +1,66 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/troubleshooting-for-sap-authorization-and-trust-management-service
+Title: Troubleshooting for SAP Authorization and Trust Management Service | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Monitoring and TroubleshootingTroubleshooting for SAP Authorization and Trust Management Service
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Troubleshooting for SAP Authorization and Trust Management Service
+
+This section contains troubleshooting information for the Cloud Foundry environment of SAP Business Technology Platform. It provides assistance with issues concerning platform security functions such as business user authentication, authentication of applications, authorization management, trust management, and other security functions.
+
+If you need support or experience issues, please report an incident under component BC-CP-CF-SEC-IAM.
+
+The Security Tab is Missing in the Subaccount
+
+Access Is Denied or Forbidden
+
+Identity Provider Could Not Process Authentication Request
+
+Logon Screen Shows "SAP HANA XS Advanced"
+
+Requested Route Does Not Exist
+
+Subdomain Does Not Map to a Valid Identity Zone
+
+No Client with Requested ID
+
+Login Issues
+
+Cannot Add Role Templates to Predefined Role Collections
+
+409 Error Code on Deleting a Custom Identity Provider
+
+Unexpected AuthnResponse : Existing authentication - <User>
+
+AuthnRequest expired - ID: <RequestId> Destination: <IdPDestination>
+
+InResponseToField of Response Doesn‘t correspond to the Sent Message
+
+Response Issue Time is Either too Old or with Date in the Future. Sync IdP to Match Skew <skew>
+
+Trust Establishment Issues
+
+Token Retrieval Fails With Status Code 401
+
+Cockpit Displays HTTP Status 500 Error on Logon with Custom IdP User
+
+IAS Application Reference isn't Created in Your IAS Tenant
+
+User Base Doesn't Appear in Existing Neo Subaccounts
+
+User from Corporate IdP Cannot Log on to Neo Subaccount
+
+Share Authorization and Trust Management service instances
+
+Invalid "redirect_uri"
+
+400 Error: Call to /oauth/token Was Not Successful
+
+Missing Administrator Access to SAP Business Technology Platform
+
+Unexpected User in Subaccount
+
+There Was an Error When Authenticating Against the External Identity Provider
+
+Common Authorization Issues in SAP Integration Suite

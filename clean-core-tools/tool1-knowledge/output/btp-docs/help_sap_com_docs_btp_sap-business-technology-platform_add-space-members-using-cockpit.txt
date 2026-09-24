@@ -1,0 +1,64 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/add-space-members-using-cockpit
+Title: Add Space Members | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Managing Space MembersAdd Space Members
+SAP Business Technology Platform
+Provide feedback on our search
+
+Add Space Members
+
+You can add space members and assign roles to them at the space level in the SAP BTP cockpit.
+
+Prerequisites
+
+You have the Space Manager or Org Manager role.
+
+If you only have the Space Manager role, the users you want to add to the space must already have the Org User role.
+
+If you have the Org Manager role, you can assign space roles to users even if they're not members of the org yet.
+Note
+
+When you add users who aren't yet members of an org to a space in that org, they get the Org User role by default. This makes them members of the org as well.
+
+The users exist in a trusted platform identity provider.
+
+For more information, see About User Management in the Cloud Foundry Environment.
+
+Procedure
+Navigate to Cloud Foundry  Spaces in the SAP BTP cockpit. For more information, see Navigate to Orgs and Spaces.
+Choose a space to which you'd like to add members. For more information, see Navigate to Orgs and Spaces.
+In the navigation area, choose Space Members.
+The screen displays all members currently assigned to the space in a list.
+Choose Add Members.
+Enter one or more e-mail addresses.
+
+Use commas (,), spaces ( ), semicolons (;), or line breaks to separate members. The changes you make to the roles of a member take effect immediately.
+
+Enter the Origin for the identity provider, which hosts the members you just added.
+
+The default identity provider is sap.ids.
+
+For more information, see Default Identity Provider.
+
+If the new members are platform users from a custom identity provider, enter the origin.
+
+Select the corresponding origin of the Identity Authentication tenant.
+
+For more information about finding the origin, see Establish Trust and Federation of Custom Identity Providers for Platform Users.
+
+Select the space roles you want to assign.
+
+For more information, see About Roles in the Cloud Foundry Environment.
+
+Choose Add.
+Next Steps
+
+You also have the following options:
+
+Edit Space Members
+
+Delete Space Members
+
+Related Information
+Add Org Members Using the Cockpit
+Add Space Members Using the Cloud Foundry Command Line Interface

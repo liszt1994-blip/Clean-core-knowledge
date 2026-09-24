@@ -1,0 +1,58 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/keda-module
+Title: Keda Module | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Kyma ModulesKeda Module
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Keda Module
+
+Learn more about the Keda module. Use it to install and manage the KEDA autoscaler in your Kubernetes cluster.
+
+What Is KEDA?
+
+Kubernetes-based Event Driven Autoscaler (KEDA) is an autoscaler that allows you to easily scale your Kubernetes-based resources. You can scale your applications based on the data of your choice.
+
+KEDA supports a great number of scalers that help you manage your deployments. For the complete list, see the KEDA Scalers documentation.
+
+For more information about KEDA features, see the KEDA documentation.
+
+Features
+
+With the Keda module, you can have a custom event-driven autoscaling for Kubernetes workloads.
+
+Architecture
+
+User configures the Keda custom resource (CR). With the CR you can determine the way the Keda module runs.
+
+Keda Manager watches the Keda CR.
+
+Keda Manager manages the KEDA workloads.
+
+To learn more about the KEDA architecture, see the KEDA architecture diagram.
+
+Keda Manager
+
+Keda Manager helps you to install and manage KEDA in your cluster. It manages the lifecycle of KEDA based on the dedicated Keda CR.
+
+API/Custom Resource Definitions
+
+For the Keda CR conditions, check Keda Custom Resource Conditions.
+
+To learn more about the KEDA CR, see KEDA Custom Resources.
+
+Authorization
+
+To assign access permissions to the Keda module resources, use the following aggregated ClusterRoles:
+
+kyma-keda-view
+
+kyma-keda-edit
+
+Resource Consumption
+
+To learn more about the resources used by the Keda module, see Keda Module's Sizing.
+
+Keda Module Demo Applications
+
+To learn how to scale the Kubernetes workloads using the KEDA API based on a simple CPU consumption case, and how the Keda module can complement other Kyma components, see Demo Applications.

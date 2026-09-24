@@ -1,0 +1,175 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/310f39e504024079933066db8b6c6d00.html
+Title: Principal Propagation to OAuth-Protected Applications | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP, Neo EnvironmentSecurity, Neo EnvironmentOAuth 2.0 ServicePrincipal Propagation to OAuth-Protected Applications
+SAP BTP, Neo EnvironmentEnglish
+Provide feedback on our search
+
+Principal Propagation to OAuth-Protected Applications
+
+Propagate users from external applications with SAML identity federation to OAuth-protected applications running in the Neo environment of SAP BTP. Exchange the user ID and attributes from a SAML assertion for an OAuth access token, and use the access token to access the OAuth-protected application.
+
+Prerequisites
+You have an application external to SAP BTP. The application is integrated with a third-party library or system functioning as a SAML identity provider. That application has a SAML assertion for each authenticated user.
+Note
+
+How the external application and its SAML identity provider work together and communicate is outside the scope of this documentation. They can be separate applications, or the external application may be using a library integrated in it.
+
+Note
+
+If you are using a separate third-party identity provider system for this scenario, make sure you have configured correctly trust between the external application and the identity provider system. Refer to the identity provider vendor's documentation for details.
+
+You have configured SAP BTP for identity federation. See Configure the Local Service Provider.
+
+You have developed an OAuth-protected application. See OAuth 2.0 Authorization Code Grant.
+
+You have deployed the OAuth-protected application at SAP BTP. See Deploying and Updating Java Applications.
+
+Context
+Caution
+
+SAP Business Technology Platform, Neo environment will sunset on December 31, 2028, subject to terms of customer or partner contracts.
+
+For more information, see SAP Note 3351844 .
+
+Tip
+
+This documentation refers to SAP Business Technology Platform, Neo environment. If you are looking for documentation about other environments, see SAP Business Technology Platform .
+
+This scenario follows the SAML 2.0 Profile for OAuth 2.0 Client Authentication and Authorization Grants specification. The scenario is based on exchanging the SAML (bearer) assertion from the third-party identity provider for an OAuth access token from the SAP BTP authorization server. Using the access token, the external application can access the OAuth-protected application.
+
+The graphic below illustrates the scenario implemented in terms of SAP BTP.
+
+An external application has a SAML assertion on behalf of a successfully logged user. The application needs to proparate that user and its relevant information (attributes, privileges, and so on) to the OAuth-protected application running at SAP BTP.
+
+The external application passes the SAML assertion to SAP BTP.
+
+To access the OAuth-protected application at SAP BTP, however, the external application needs an OAuth 2.0 access token, not a SAML assertion.
+
+If the SAML assertion contains all required information (see the procedure below) SAP BTP generates the corresponding access token. In this way, the external application can act on behalf of the user authenticated by the identity provider, within its granted privileges at SAP BTP, and within the time limits of the access token.
+
+The external application passes the received access token to the OAuth-protected application at SAP BTP.
+
+If the access token is correct and the user has the required privileges, the OAuth-protected application returns the requested resources.
+
+Procedure
+Configure SAP BTP for trust with the SAML identity provider. See Configure Trust to the SAML Identity Provider.
+Register the external application as an OAuth client in SAP BTP. See Register an OAuth Client.
+Make sure the SAML (bearer) assertion that the external application presents contains the following information:
+
+SAML Assertion Element
+
+Value Description
+
+Example
+
+Name ID
+
+The authenticated user ID.
+
+
+
+<saml:NameID
+
+Format="urn:oasis:names:tc:SAML:1.1:nameid format:unspecified"
+
+xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">p12356789
+</saml:NameID>
+
+Audience
+
+The local service provider name for your SAP BTP account (in Cockpit  Security  Trust  Local Service Provider  Local Provider Name).
+
+If you are using the default identity provider configuration for your account, take the audience value from the table below.
+
+Region Host
+
+Description
+
+Required Audience Value
+
+hana.ondemand.com
+
+Productive landscape, data center Europe
+
+https://netweaver.ondemand.com
+
+ap1.hana.ondemand.com
+
+Productive landscape, data center Asia-Pasific (Australia)
+
+ap1.hana.ondemand.com
+
+https://us1.hana.ondemand.com
+
+Productive landscape, data center United States (US East)
+
+https://us1.hana.ondemand.com/
+
+See Regions and Hosts Available for the Neo Environment.
+
+
+
+<saml:Audience>myLocalProvider</saml:Audience>
+
+
+<saml:Audience>https://us1.hana.ondemand.com/</saml:Audience>
+
+
+<saml:Audience>ap1.hana.ondemand.com</saml:Audience>
+
+Issuer ID
+
+The issuer must have as value the OAuth client ID registered at SAP BTP (in Cockpit  Security  OAuth  Clients  <your client>  Client ID).
+
+
+
+<saml:Issuer
+
+Format="urn:oasis:names:tc:SAML:2.0:nameid-format:entity"
+
+xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">myClientID 
+</saml:Issuer>
+
+Issuer Certificate
+
+The identity provider signing certificate stored in the trust configuration of SAP BTP for this identity provider (in Cockpit  Security  Trust  Application Identity Provider  <your identity provider  General  Signing Certificate).
+
+Sample Code
+
+
+<ds:X509Certificate> …… </ds:X509Certificate>
+
+(Optional) User Attributes
+
+The attributes that will be assigned to the SAP BTP user.
+
+
+
+<Attribute Name="mail">
+
+<AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+xsi:type="xs:string">test@sap.com
+
+</AttributeValue>
+</Attribute>
+
+<Attribute Name="first_name">
+
+<AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema"
+
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+xsi:type="xs:string">Jon
+
+</AttributeValue>
+</Attribute>
+
+
+
+See the SAML Assertion Format specification for more information.
+
+In the code of the OAuth-protected application, you can retrieve the user attributes using the relevant SAP BTP API. See User Attributes.

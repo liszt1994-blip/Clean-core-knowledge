@@ -1,0 +1,38 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/access-kyma-application-logs
+Title: Access Kyma Application Logs | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformAdministration and OperationsAdministration and Operations in the Kyma EnvironmentAccess Kyma Application Logs
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Access Kyma Application Logs
+
+Get insights into your applications, microservices, and Functions by viewing the respective logs. To check out real-time logs immediately, use the Kubernetes functionalities - either in Kyma dashboard, or with kubectl.
+
+Context
+If you prefer to see the logs in your terminal, replace the placeholders in the following command and run it:
+
+
+kubectl logs <{POD_NAME}> --namespace <{NAMESPACE_NAME}> --container <{CONTAINER_NAME}>
+
+
+
+To see real-time logs in Kyma dashboard, follow these steps:
+
+Procedure
+Open Kyma dashboard and select the namespace.
+Access the Pod.
+Find the container and select View Logs.
+Results
+
+You have access to short-term logs of every container in your Kyma runtime.
+
+Next Steps
+Recommendation
+
+If you want long-term storage of logs with advanced querying, dashboarding, and alerting capabilities, set up SAP Cloud Logging to ingest observability data with Kyma runtime.
+
+Related Information
+Auditing and Logging Information in Kyma
+Create an SAP Cloud Logging Instance through SAP BTP Service Operator
+SAP Cloud Logging: Ingest via Kyma Runtime

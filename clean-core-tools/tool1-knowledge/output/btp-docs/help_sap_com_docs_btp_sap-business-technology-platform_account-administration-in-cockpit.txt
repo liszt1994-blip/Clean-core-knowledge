@@ -1,0 +1,37 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/account-administration-in-cockpit
+Title: Account Administration in the Cockpit | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformAdministration and OperationsAccount AdministrationAccount Administration in the Cockpit
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Account Administration in the Cockpit
+
+Learn about frequent administrative tasks you can perform using the SAP BTP cockpit, such as managing global accounts, directories, subaccounts, entitlements, and members.
+
+Access the Cockpit
+
+Learn how to access the SAP BTP cockpit.
+Navigate in the Cockpit
+
+Learn how to navigate to your global accounts, directories, and subaccounts in the SAP BTP cockpit.
+Managing Global Accounts Using the Cockpit
+
+Your SAP BTP global account is the entry point for managing the resources, landscape, and entitlements for your departments and projects in a self-service manner.
+Managing Directories Using the Cockpit
+
+Learn how to organize and manage your subaccounts according to your technical and business needs by using directories in the SAP BTP cockpit.
+Managing Subaccounts Using the Cockpit
+
+Learn how to structure a global account according to your organization’s and project’s requirements with regard to members, authorizations, and entitlements by managing subaccounts.
+Managing Entitlements and Quotas Using the Cockpit
+
+When you purchase an enterprise account, you are entitled to use a specific set of resources, such as the amount of memory that can be allocated to your applications.
+Subscribe to Multitenant Applications Using the Cockpit
+
+Subscribe to multitenant applications from the Subscriptions page in the SAP BTP cockpit.
+Security Administration: Managing Authentication and Authorization
+
+This section describes the tasks of administrators of SAP BTP. Administrators ensure user authentication and assign authorization information to users and user groups.
+Related Information
+Account Model

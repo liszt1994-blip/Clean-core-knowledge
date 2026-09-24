@@ -1,0 +1,57 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/deploy-application
+Title: Deploy an Application | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Application Operations in the Cloud Foundry EnvironmentDeploy an Application
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Deploy an Application
+
+You can use the SAP BTP cockpit to deploy a new application in the Cloud Foundry environment.
+
+Prerequisites
+
+You have the Space Developer role. For more information, see About Roles in the Cloud Foundry Environment.
+
+You have enough space quota, or enough org quota if no space quota is assigned to the space. For more information, see Managing Space Quotas.
+
+Procedure
+In your Cloud Foundry subaccount, navigate to the space where you would like to deploy your application.
+On the Applications page, choose Deploy Application.
+Choose the location of the file which contains your application.
+(Optional) If you would like to use a manifest, choose the location of your manifest.yml file.
+Note
+
+To avoid any unexpected behavior, specify the attributes of your choice and their respective values in the manifest.yml file. For reference, see https://docs.cloudfoundry.org/devguide/deploy-apps/manifest-attributes.html.
+
+(Optional) If you don't want to use a manifest, select the Custom Settings radio button and enter the application details.
+Enter a name for your application.
+(Optional) Edit the amount of memory and disk space available to each instance of your application, as well as the number of instances.
+
+The amount of memory per instance that you assign, in this step or in the manifest.yml file during deployment, is the value that is metered when using the Cloud Foundry runtime service. For more information, see the examples in Monitoring and Troubleshooting.
+
+Note
+
+By default, each instance of a new application is assigned 1024 MB of memory and 512 MB of disk space, and each application starts with 1 instance. If you require more or less resources, edit the prefilled fields in the form to suit your needs.
+
+(Optional) If you don't need a route for your application, switch off Create Route.
+(Optional) If you would like to create a route for your application, leave Create Route switched on and choose a Host name (if different from your application name) and a Domain for your application.
+Note
+
+When you enter an application name, the Host field is automatically filled with the same name. You can make changes to it or leave it as is. After deciding on a host and domain, you can see a preview of your final Application Route at the bottom of the form.
+
+Choose Deploy.
+Results
+
+The file containing your new application is uploaded and your application is deployed.
+
+Note
+
+If an application is displayed as Started according to the Requested State column, it doesn't automatically mean that the application is started. This is the desired state, but there might be an issue with an application instance. For any warning alerts, check the Instances column.
+
+To get more detailed information about the current state of your application instances, navigate to the Application Overview page.
+
+Related Information
+Deploying to the Cloud Foundry Environment
+About Routes in the Cockpit
+Create Routes

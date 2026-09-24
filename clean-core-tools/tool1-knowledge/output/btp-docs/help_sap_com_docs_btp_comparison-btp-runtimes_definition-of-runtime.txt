@@ -1,0 +1,52 @@
+URL: https://help.sap.com/docs/btp/comparison-btp-runtimes/definition-of-runtime
+Title: Definition of the Runtime | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)Comparison: SAP BTP, Kyma Runtime and SAP BTP, Cloud Foundry Runt…Definition of the Runtime
+Comparison: SAP BTP, Kyma Runtime and SAP BTP, Cloud Foundry RuntimeEnglish
+Provide feedback on our search
+
+Definition of the Runtime
+
+Introduces the SAP BTP, Kyma runtime and SAP BTP, Cloud Foundry runtime, together with aspects such as who interacts with the platform and the provided tenancy model.
+
+Defintion of the Runtime
+
+Category
+
+SAP BTP, Kyma runtime
+
+SAP BTP, Cloud Foundry runtime
+
+Definition
+
+SAP BTP, Kyma runtime is a fully managed Kubernetes runtime based on the open-source project "Kyma". This cloud-native solution allows the developers to extend SAP solutions with serverless Functions and combine them with containerized microservices. The offered functionality ensures smooth consumption of SAP and non-SAP applications, running workloads in a highly scalable environment, and building event- and API-based extensions.
+
+The SAP BTP, Cloud Foundry runtime lets you develop polyglot cloud-native applications and run them on the SAP BTP Cloud Foundry environment.
+
+Consumption and interaction with the runtime
+
+Provisioned in SAP BTP subaccount via SAP BTP cockpit or btp CLI
+
+Access to Technical UI
+
+Access to Kubernetes API
+
+Access control is managed and handled by the runtime by using Kubernetes RBAC (Role Based Access Control)
+
+Commercial integration into SAP BTP subaccount and global account for quota- and entitlement management and cost control
+
+Managed and embedded in SAP BTP subaccount via SAP BTP cockpit or btp CLI. See Getting Started with an Enterprise Account in the Cloud Foundry Environment
+
+Access to Cloud Foundry API
+
+Access control is configurable for Orgs and Spaces
+
+Commercial integration into SAP BTP subaccount and global account for quota- and entitlement management and cost control
+
+Sharing mode
+
+Non-shared cluster based on individual cloud provider subscription.
+
+The cluster is provisioned using the requested virtual machine types from the selected cloud provider in the requested region.
+
+Shared access of cloud provider virtual machines and infrastructure amongst other consumers of the platform in the landscape.

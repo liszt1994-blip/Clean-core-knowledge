@@ -1,0 +1,86 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/about-roles-in-cloud-foundry-environment
+Title: About Roles in the Cloud Foundry Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformAdministration and OperationsAdministration and Operations in the Cloud Foundry EnvironmentAbout Roles in the Cloud Foundry Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+About Roles in the Cloud Foundry Environment
+
+Roles determine which features users can view and access, and which actions they can initiate.
+
+Cloud Foundry includes predefined roles that are specific to the navigation level in the SAP BTP cockpit; for example, the roles at the level of the organization differ from the ones for the space. Each role comes with a set of permissions. Roles apply to all operations that are associated with the organization or the space, irrespective of the tool used (Eclipse-based tools, SAP BTP cockpit, and cf CLI).
+
+The following roles can be assigned to users in the Cloud Foundry environment on SAP BTP:
+
+Level
+
+Role
+
+Role Description
+
+Organization
+
+Org Manager
+
+Manages the organization.
+
+When you create an org, you get the Org Manager role in that org by default.
+
+Org Auditor
+
+Provides read-only access to user information and org quota usage information.
+
+Org User
+
+Provides read-only access to the list of other organization users and their roles.
+
+Note
+When creating an org member, you can choose one or more of the following roles:
+
+Org Manager
+
+Org User
+
+Org Auditor
+
+When creating a space member, they get the Org User role by default.
+
+Space
+
+Space Manager
+
+Manages a space within an organization.
+
+Space Developer
+
+Manages applications, services, and space-scoped service brokers in a space.
+
+Caution
+
+The Space Developer role has broad rights within Cloud Foundry and, in particular, has access to the credentials used in various services and app bindings as well as other sensitive data. For more information, see Giving Access Rights to Platform Users.
+
+Space Auditor
+
+Provides read-only access to a space.
+
+Space Supporter
+
+Allows you to troubleshoot and debug applications and service bindings in a space.
+
+Note
+
+To add the Space Supporter role using the set-space-role command, you need to have installed version 8 of the Cloud Foundry Command Line Interface (cf CLI). See https://docs.cloudfoundry.org/cf-cli/install-go-cli.html.
+
+Note
+
+Managing members and roles for an organization takes place on the navigation level of the subaccount to which the organization is assigned.
+
+For more information about organization and space roles in Cloud Foundry, see https://docs.cloudfoundry.org/concepts/roles.html.
+
+Related Information
+About User Management in the Cloud Foundry Environment
+Add Org Members
+Add Organization Members Using the Cloud Foundry Command Line Interface
+Add Space Members
+Add Space Members Using the Cloud Foundry Command Line Interface

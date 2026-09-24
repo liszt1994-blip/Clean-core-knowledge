@@ -1,0 +1,54 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/enabling-data-ingestion-for-industry-cloud-solutions
+Title: Automating Integrations with Data Ingestion for Industry Cloud Solutions | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Formations for Business ScenariosAutomating Integrations with Data Ingestion for Industry Cloud So…
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Automating Integrations with Data Ingestion for Industry Cloud Solutions
+
+Use
+Note
+
+The content in this section is not relevant for China (Shanghai) and Government Cloud (US) regions.
+
+SAP’s industry cloud provides specialized industry-focused solutions to help you optimize, extend, and transform your core business processes. Developed by SAP and SAP partners and based on SAP Business Technology Platform (SAP BTP), industry cloud solutions integrate with SAP S/4HANA Cloud and SAP Business Network. They help you take advantage of the latest industry-relevant innovations and extend existing capabilities in an efficient way. For a list of all industry cloud solutions published by SAP, see SAP Store.
+
+Data ingestion for industry cloud solutions allows supported industry cloud solutions to consume data from a shared data foundation instead of integrating with the source systems individually. This helps to simplify solution implementation, increase operational visibility, and improve data quality. For a list of all industry cloud solutions published by SAP that support data ingestion, see Data Integration Overview.
+
+To set up on SAP BTP systems that support data ingestion and are part of the industry cloud solutions published by SAP, you need to include them in a formation of type Data Ingestion for Industry Cloud Solutions. When you create a new formation of type Data Ingestion for Industry Cloud Solutions, a system of type Data Ingestion for Industry Cloud Solutions is automatically added to the System Landscape  Systems page and included in this formation.
+
+Rules
+
+When creating Data Ingestion for Industry Cloud Solutions formations, keep in mind the following rules:
+
+Only systems that are part of the industry cloud solutions, support data ingestion, and are provisioned from SAP for Me can be included in formations of type Data Ingestion for Industry Cloud Solutions.
+
+System that is part of the industry cloud solutions published by SAP are included in at most one Data Ingestion for Industry Cloud Solutions formation.
+
+System of type Data Ingestion for Industry Cloud Solutions is automatically registered and included in the Data Ingestion for Industry Cloud Solutions formation.
+
+System of type Data Ingestion for Industry Cloud Solutions cannot be excluded from the Data Ingestion for Industry Cloud Solutions formation. Once you delete this formation, the Data Ingestion for Industry Cloud Solutions system is automatically deleted.
+
+Prerequisites
+
+You are a global account administrator, or you are a system landscape administrator. See Working with Role Collections.
+
+Procedure
+
+In the System Landscape  Systems page of the SAP BTP cockpit, browse the already added systems that are part of the industry cloud solutions published by SAP in your customer system landscape.
+
+The system that is part of the industry cloud solutions published by SAP and that you want to include in this formation must not be part of another formation.
+
+In the System Landscape  Formations page, create a formation of type Data Ingestion for Industry Cloud Solutions and include the relevant systems in it.
+
+Add any name that helps you identify your formation.
+
+In the Formation Type dropdown menu, select Data Ingestion for Industry Cloud Solutions.
+
+Select the systems that you want to include in the formation.
+
+Review your selections and create the formation.
+
+Related Information
+Data Integration Overview

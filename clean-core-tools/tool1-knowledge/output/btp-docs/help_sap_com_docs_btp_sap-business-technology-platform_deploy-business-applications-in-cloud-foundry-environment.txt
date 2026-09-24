@@ -1,0 +1,19 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/deploy-business-applications-in-cloud-foundry-environment
+Title: Deploy Business Applications in the Cloud Foundry Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Deploying to the Cloud Foundry EnvironmentDeploy Business Applications in the Cloud Foundry Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Deploy Business Applications in the Cloud Foundry Environment
+
+When an application for the Cloud Foundry environment resides in a folder on your local machine, you can deploy it and start it by executing the command line interface (CLI) command push. To deploy business applications bundled in a multitarget application archive, you have to use the command deploy-mta.
+
+For more information about developing and deploying applications in the Cloud Foundry environment, see http://docs.cloudfoundry.org/devguide/deploy-apps/deploy-app.html.
+
+For more information developing Multitarget Applications, see Multitarget Applications in the Cloud Foundry Environment. See Multitarget Application Commands for the Cloud Foundry Environment for information about MTA deployment.
+
+Related Information
+Download and Install the Cloud Foundry Command Line Interface
+Log On to the Cloud Foundry Environment Using the Cloud Foundry Command Line Interface
+Multitarget Application Commands for the Cloud Foundry Environment

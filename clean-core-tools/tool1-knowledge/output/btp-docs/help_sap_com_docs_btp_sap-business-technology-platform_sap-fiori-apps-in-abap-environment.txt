@@ -1,0 +1,27 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/sap-fiori-apps-in-abap-environment
+Title: SAP Fiori Apps in the ABAP Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformAdministration and OperationsAdministration and Operations in the ABAP EnvironmentSAP Fiori Apps in the ABAP Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+SAP Fiori Apps in the ABAP Environment
+
+In the SAP Fiori launchpad for the ABAP environment, you can use apps to help you with your tasks as administrator and developer.
+
+Apps for the ABAP environment help you with the following, for example:
+
+Manage lifecycle maintenance of business users
+
+Maintain certificate trust lists
+
+Integrate your systems in the ABAP environment with other systems to enable data exchange
+
+Manage software components in your system landscape
+
+Prerequisites
+
+To be able to view and use the apps in the SAP Fiori launchpad, you need a business role with specific business catalogs. You can either use the business roles that are available with the ABAP environment or you can create business roles that include the relevant business catalogs. For more information about the business catalogs and business roles, see Business Catalogs and Business Roles. For more information about creating business roles from available business role templates in the ABAP environment, see also How to Create a Business Role from a Template.
+
+Related Information
+SAP Fiori Launchpad - User Guide

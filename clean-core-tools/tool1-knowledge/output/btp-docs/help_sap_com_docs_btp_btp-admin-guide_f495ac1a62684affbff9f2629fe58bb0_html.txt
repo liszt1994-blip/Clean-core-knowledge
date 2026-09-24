@@ -1,0 +1,30 @@
+URL: https://help.sap.com/docs/btp/btp-admin-guide/f495ac1a62684affbff9f2629fe58bb0.html
+Title: Managing Directories Using the Cockpit | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP, Neo EnvironmentAdministration and Operations, Neo EnvironmentAccount Administration in the CockpitManaging Directories Using the Cockpit
+SAP BTP, Neo EnvironmentEnglish
+Provide feedback on our search
+
+Managing Directories Using the Cockpit
+
+Learn how to organize and manage your subaccounts according to your technical and business needs by using directories in the SAP BTP cockpit.
+
+Context
+Caution
+
+SAP Business Technology Platform, Neo environment will sunset on December 31, 2028, subject to terms of customer or partner contracts.
+
+For more information, see SAP Note 3351844 .
+
+Tip
+
+This documentation refers to SAP Business Technology Platform, Neo environment. If you are looking for documentation about other environments, see SAP Business Technology Platform .
+
+Procedure
+Learn how to Create a Directory.
+Learn how to Manage the Account Explorer Hierarchy.
+Learn how to Manage Users in Directories.
+Learn how to View Directory Usage Analytics.
+Related Information
+Directories
+Managing Subaccounts Using the Cockpit

@@ -1,0 +1,62 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/2db81f42f5194454beecde6cd4994dda.html
+Title: Setting Up Your Account Model | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP Administrator's GuideSet Up and PlanSetting Up Your Account Model
+SAP BTP Administrator's GuideEnglish
+Provide feedback on our search
+
+Setting Up Your Account Model
+
+Learn how to set up your account model with global accounts and subaccounts, and how to use directories, spaces and namespaces to match your business and development needs.
+
+We want to support you in defining a clean setup matching your company's requirements, with simple naming conventions, based on a clear structure that can be scaled as needed in the future. Your account model can be as simple or as complex as you need. SAP BTP provides a variety of tools that help you managing your landscape and keeping the overview, no matter how complex your chosen account model ends up being.
+
+The hierarchical structure between global accounts, directories, and subaccounts lets you define an account model that accurately fits your business and development needs.
+Remember
+
+A global account is the realization of a contract you or your company has made with SAP.
+
+With directories, you can organize and manage your subaccounts according to your technical and business needs.
+
+In subaccounts, you deploy applications, use services, and manage your subscriptions. You can use them to manage members, authorizations, and entitlements.
+
+For details about the SAP BTP account levels, see Account Model.
+
+The Basic Account Model
+
+In the cloud (just like on premise), we recommend a staged development process to qualify changes before bringing them to production. Typically, this means having one global account and creating one subaccount each for development, testing, and production.
+
+Hover over each shape for a description. Click the shape for more information.
+
+Tip
+
+If you're using SAP BTP, Kyma runtime, you might want to combine DEV and TEST in one subaccount. For details, see Cloud Foundry, Kyma, or Both?
+
+The Basic Account Model in Action
+
+It's very common to set up your account model not only according to development stages: You might also want to reflect another aspect of your company's organization, for example, functional units like HR, Sales, and IT.
+
+In this case, you can choose to create a set of DEV, TEST, and PROD subaccounts for each functional unit.
+
+Additionally, you can set up one or more subaccounts for services that are shared between teams, such as SAP HANA Cloud, SAP Integration Suite, or SAP Build Work Zone. For details, see Sharing SAP BTP Services.
+
+Often, this is also the moment when you decide to introduce directories to keep the overview and simplify administration. For details, see Directories.
+
+Tip
+
+If you're using SAP BTP, Kyma runtime, you could also consider setting up namespaces for each functional area within the clusters of your DEV, TEST, and PROD subaccounts. The idea is the same, but separation happens on namespace level instead of subaccount level. For details, see Sharing Clusters in Kyma.
+
+Design the Account Model Matching Your Needs
+
+There's no need to stop here if you'd like to reflect more criteria than just development stage and functional unit in your account model. For example, if you'd like to separate your accounts also by location or subsidiary, set up the respective sets of subaccounts, ideally grouped with directories.
+
+Tip
+
+Use directories as your primary structuring mechanism. As the term implies, they fulfill the same purpose as a folder hierarchy you'd use to group files. Additionally, you can use directories to manage users and/or entitlements. For details, see Directories.
+
+If you need an additional, flexible grouping and reporting mechanism, assign labels to your subaccounts and directories. For details, see Labels.
+
+Within subaccounts, use spaces (Cloud Foundry) and namespaces (Kyma) for further structuring. For details, see Subaccounts or Spaces/Namespaces?
+
+Related Information
+Checklist: Drafting Your Account Model

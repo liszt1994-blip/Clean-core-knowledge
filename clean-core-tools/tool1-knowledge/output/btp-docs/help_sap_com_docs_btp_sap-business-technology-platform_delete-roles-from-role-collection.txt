@@ -1,0 +1,30 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/delete-roles-from-role-collection
+Title: Delete Roles from a Role Collection | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Define a Role CollectionDelete Roles from a Role Collection
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Delete Roles from a Role Collection
+
+You can delete roles from a role collection.
+
+Context
+
+The roles are derived from role templates that are provided by applications. For more information, see the related links.
+
+Procedure
+Open the SAP BTP cockpit.
+Go to your global account and subaccount (see Navigate in the Cockpit).
+Choose Security  Role Collections.
+To delete roles, choose the role collection name.
+
+To drill down into the role details, choose the chevron on the right side of the row.
+
+Choose Edit.
+Choose the  (Select multiple roles) button.
+Select the roles you want to delete from the role collection.
+Choose Remove.
+Confirm the popup.
+Save your changes.
+Repeat to delete more roles.

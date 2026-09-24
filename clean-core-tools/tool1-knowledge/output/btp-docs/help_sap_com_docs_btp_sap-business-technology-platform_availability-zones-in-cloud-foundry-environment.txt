@@ -1,0 +1,48 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/availability-zones-in-cloud-foundry-environment
+Title: Availability Zones in the Cloud Foundry Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Cloud Foundry EnvironmentAvailability Zones in the Cloud Foundry Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Availability Zones in the Cloud Foundry Environment
+
+The Cloud Foundry environment follows the recommendations of our partner IaaS providers by leveraging the availability zones (AZ) concept.
+
+About Availability Zones
+
+Availability zones (AZ) are single failure domains within a single geographical region and are separate physical locations with independent power, network, and cooling. Multiple AZs exist in one region and are connected with each other through a low-latency network.
+
+2-AZ and 3-AZ Deployments
+
+To achieve better fault-tolerance, our partners recommend deploying services across multiple AZs, which improves the availability of a service if there are issues with the region infrastructure of one AZ.
+
+High Availability at Platform and Application Level
+
+The SAP BTP Cloud Foundry environment follows these recommendations to support high availability at the platform and application level:
+
+High availability of the platform components:
+
+The building blocks of Cloud Foundry and the virtual machines on which the Cloud Foundry application instances are scheduled run in a high availability setup. These instances are distributed across different AZs.
+
+The technology that manages the deployment of the Cloud Foundry environment monitors the health of the platform. If there are infrastructure failures, it re-creates the faulty components.
+
+High availability on the application level:
+
+We recommend running multiple application instances to increase availability. For more information, see Run Multiple Instances to Increase Availability. On SAP BTP, there are three ways to increase application instances:
+
+Scaling your application using the application manifest. The manifest.yml allows you to make and save configurations for your application. To scale, you can configure the instance count in the manifest and push the application again with the new configuration. See App Manifest Attribute Reference. To avoid downtimes when updating your application configuration, you can also consider using rolling application deployments. See Rolling App Deployments.
+
+Scaling your application using the cf scale command in the Cloud Foundry command line interface (CF CLI). See Scaling an App Using cf scale.
+
+Scaling your application using the SAP BTP cockpit. See Add or Remove Application Instances.
+
+The Cloud Foundry container scheduler takes care of distributing the different instances of one application on virtual machines in different AZs. For more information, see How Diego Balances App Processes.
+
+Cloud Foundry is constantly monitoring the health state of application instances and restarts instances that are considered unhealthy. See Using App Health Checks.
+
+When the number of desired instances doesn't match the number of actually running instances, Cloud Foundry reschedules the missing instances, for example, when the virtual machines that an application instance was initially scheduled on become unresponsive.
+
+For more information on high availability configuration, see High Availability in Cloud Foundry.
+
+For more information on application stability and resilience, see Developing Resilient Applications.

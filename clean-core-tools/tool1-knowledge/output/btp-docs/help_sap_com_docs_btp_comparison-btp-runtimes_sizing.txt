@@ -1,0 +1,52 @@
+URL: https://help.sap.com/docs/btp/comparison-btp-runtimes/sizing
+Title: Sizing | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)Comparison: SAP BTP, Kyma Runtime and SAP BTP, Cloud Foundry Runt…Sizing
+Comparison: SAP BTP, Kyma Runtime and SAP BTP, Cloud Foundry RuntimeEnglish
+Provide feedback on our search
+
+Sizing
+
+Compare the sizing for SAP BTP, Kyma runtime and SAP BTP, Cloud Foundry runtime.
+
+Sizing
+
+Category
+
+SAP BTP, Kyma runtime
+
+SAP BTP, Cloud Foundry runtime
+
+Supported CPU architecture
+
+AMD64
+
+AMD64
+
+Max. assignable CPU
+
+Most of the available vCPUs can be assigned to workloads.
+
+CPUs and memory can be defined individually. They are not connected.
+
+Guaranteed CPU share of ¼ core per GB instance memory.
+
+Because the maximum instance memory per application is 16 GB, vertical scaling can go up to 4 CPUs.
+
+See SAP BTP-Specific Configurations.
+
+Max. assignable memory
+
+Up to 90% of the VM size.
+
+For a list of available options, see the Kyma Price Calculator.
+
+Up to 16 GB per single app instance.
+
+See SAP BTP-Specific Configurations.
+
+Minimum infrastructure size
+
+3 Kubernetes Nodes, each 2 CPU and 8 GB memory. Roughly 40% reserved to run the infrastructure.
+
+1 GB Memory with ¼ CPU core

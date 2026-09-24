@@ -1,0 +1,22 @@
+URL: https://help.sap.com/docs/btp/sap-fiori-launchpad-for-sap-btp-abap-environment/sap-fiori-launchpad-user-guide
+Title: SAP Fiori Launchpad - User Guide | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Fiori Launchpad for SAP BTP ABAP Environment
+SAP Fiori Launchpad for SAP BTP ABAP EnvironmentEnglish
+Provide feedback on our search
+
+SAP Fiori Launchpad - User Guide
+
+SAP Fiori launchpad is the entry point to SAP Fiori apps on mobile and desktop devices, and gives all the relevant information you need at a glance. The launchpad provides the apps with services such as navigation, personalization, embedded support, and application configuration.
+
+This guide provides you, the user, with information on how to optimally use the SAP Fiori launchpad.
+
+The design of the launchpad displays an intuitive user interface. It allows you to focus on your daily work and still keep track of what's going on in other areas.
+
+This image is interactive and links to the main sections of the user guide. Hover over each area for a description. Click the highlighted areas for more information.
+
+This image is interactive. Hover over each area for a description. Click highlighted areas for more information.
+
+Tutorial
+
+For new users we recommend the SAP Fiori Launchpad tutorial. In this five-minute tutorial you learn how to work with the launchpad and get to know the most important features.

@@ -1,0 +1,38 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/edit-org-members-using-cockpit
+Title: Edit Org Members | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Managing Org MembersEdit Org Members
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Edit Org Members
+
+Remove existing roles or assign new roles to an org member in the SAP BTP cockpit.
+
+Prerequisites
+You have the Org Manager role for the org in question.
+Note
+
+When you enable Cloud Foundry and the org is created, the Org Manager role is assigned automatically to you.
+
+For more information, see About Roles in the Cloud Foundry Environment.
+
+The users exist in a trusted platform identity provider.
+
+For more information, see About User Management in the Cloud Foundry Environment.
+
+Procedure
+In the navigation area in the cockpit, choose Cloud Foundry  Org Members.
+The screen displays all members currently assigned to the org in a list.
+Find the org member in the list and choose  (Edit).
+Select or unselect the roles you want to assign or remove.
+
+For more information, see About Roles in the Cloud Foundry Environment.
+
+Choose Save.
+
+The changes you make to the roles of a member take effect immediately.
+
+Related Information
+Add Org Members Using the Cockpit
+Delete Org Members Using the Cockpit

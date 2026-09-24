@@ -1,0 +1,167 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/register-sap-s-4hana-cloud-system-in-global-account-in-sap-btp
+Title: Register an SAP S/4HANA Cloud System in a Global Account in SAP BTP | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformExtensions and IntegrationsAdding, Registering and Deregistering SystemsRegister an SAP S/4HANA Cloud System in a Global Account in SAP B…
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Register an SAP S/4HANA Cloud System in a Global Account in SAP BTP
+
+To connect an SAP S/4HANA Cloud Public Edition system with a global account in SAP BTP, you need to register the system in the corresponding global account.
+
+Prerequisites
+
+See Adding, Registering and Deregistering Systems.
+
+You are an administrator of the global account where you want to register your SAP S/4HANA Cloud system.
+
+To configure the integration on the SAP S/4HANA Cloud system side, you need to be an administrator of the SAP S/4HANA Cloud tenant.
+
+Context
+Note
+
+This documentation refers to SAP S/4HANA Cloud Public Edition. See Introduction to the Universe of SAP S/4HANA Cloud Public Edition.
+
+The registration process is based on a registration token that is used for the pairing of the SAP S/4HANA Cloud system and the corresponding global account. You create the token in the global account, and then the tenant administrator of the respective SAP S/4HANA Cloud system uses the token to start the automated registration process on the SAP S/4HANA Cloud system side.
+
+Note
+
+When registering SAP S/4HANA Cloud systems, you can have up to 1000 tokens per global account ready to be used. Tokens that are already used to register an SAP S/4HANA Cloud system are not included in this number.
+
+This means that you cannot have more than 1000 systems in the Systems page of type SAP S/4HANA Cloud with an empty status and generated token that is not used yet.
+
+Note
+
+You cannot migrate the registered SAP S/4HANA Cloud systems between global accounts.
+
+If you want to start using another global account, you will have to register your SAP S/4HANA Cloud systems again.
+
+Note
+
+You can have the same SAP S/4HANA Cloud system registered in two global accounts:
+
+If the two global accounts belong to the same Customer ID, then the SAP S/4HANA Cloud system will be auto discovered in both global accounts.
+
+In this case, if you register the SAP S/4HANA Cloud system in one of the global accounts, it will appear registered in the other global account as well. If the communications scenario group with which the SAP S/4HANA Cloud system has been registered in the first global account works for the use case in the second global account, then you can use the same system in a formation in the second global account as well.
+
+If the use case in the second global account requires a different communication scenario group, you have to add the SAP S/4HANA Cloud system manually in this global account and register it with the necessary communication scenario group.
+
+If the two global accounts belong to different Customer IDs, the SAP S/4HANA Cloud system will be auto discovered in one of the global account and need to be added manually in the other. Then, you register the system for each of the global accounts.
+
+The registration process has the following states displayed in the cockpit:
+
+No status displayed in the Status column - the registration token for an SAP system has been created but the registration on the respective SAP solution system side has not been performed or completed.
+
+Registered - the registration token has been used and the automated registration process has been successfully completed. The system can be assigned to a formation on the Formations page in the cockpit.
+
+Error while Registering - the registration has failed. Remove the system and then add it to the Systems list and try to register it again.
+
+Deregistering - а deregistration process has started in the SAP BTP cockpit. As a result, the connection between the SAP solution system and the global account in SAP BTP is removed. The system remains in the list and you can register it again later on.
+
+Once a system is registered, you can deregister it only after removing it from all entitlement configurations and formations it takes part in.
+
+Note
+
+You will not be able to deregister a system if its status is one of the following:
+
+Error while Registering
+
+Deregistering
+
+Error while Deregistering - the deregistration has failed. Try to deregister the system again. If the problem persists, report a case in the BC-NEO-EXT-S4C component.
+
+Removing - a system removal process has started in the SAP BTP cockpit. As a result, the link between the SAP solution and SAP BTP is destroyed and the system is removed from the list. To register the system again, first you must add it to the list anew, and then initiate the registration procedure.
+
+Once a system is registered, you can only remove it if you first deregister it.
+
+Note
+You will not be able to remove a system if its status is one of the following:
+
+Registered
+
+You first need to deregister the system.
+
+Deregistering
+
+Error while Deregistering
+
+Try to deregister the system again.
+
+Error while Removing - the system removal has failed. Try to removе the system again. If the problem persists, report a case in the BC-NEO-EXT-S4C component.
+
+Note
+
+When registering a system or creating a formation, the data you provide in the given input fields is not encrypted with your customer managed key. The data you enter is only encrypted at rest.
+
+Procedure
+In the cockpit, navigate to your global account, and then choose System Landscape  Systems.
+Check if your SAP S/4HANA Cloud system has been auto-discovered and is already in the Systems page. If yes, then continue with step 3.e. and get the registration token.
+Note
+
+If your SAP S/4HANA Cloud system is auto-discovered and you still add it manually and then finish the registration process with the manually added system, you can merge the two entries. See Mergе SAP Systems.
+
+On the Systems page, choose Add System.
+In the Type dropdown list, select SAP S/4HANA Cloud.
+Enter a name for the system you want to register.
+Note
+
+Use only printable ASCII characters.
+
+Tip
+
+We recommend that you indicate the type of the system when specifying the system name. For example, <mysystem>-S/4HANA-cloud. This helps you identify the system type when assigning systems to a formation.
+
+Choose Add.
+In the Communication Scenario Groups dropdown menu, select one of the following options:
+
+All Communication Scenarios: to create any of the communication scenarios in SAP S/4HANA Cloud.
+
+Eventing Between SAP Cloud Systems: to allow the automatic enablement of the SAP_COM_0892 communication scenario in SAP S/4HANA Cloud.
+
+Integration with SAP Start: to allow the automatic enablement of the SAP_COM_0647 communication scenario in SAP S/4HANA Cloud.
+
+Integration with SAP Ariba Buying: to allow the automatic enablement of the SAP_COM_0545 and SAP_COM_0A00 communication scenarios in SAP S/4HANA Cloud.
+
+Integration with SAP Master Data Integration: to allow the automatic enablement of the SAP_COM_0008, SAP_COM_0091, SAP_COM_0659, and SAP_COM_0594 communication scenarios in SAP S/4HANA Cloud.
+
+Integration with SAP Ariba Central Invoice Management: to allow the automatic enablement of the SAP_COM_0897, SAP_COM_0516, SAP_COM_0531, SAP_COM_0008, SAP_COM_0091, SAP_COM_0659, and SAP_COM_0594 communication scenarios in SAP S/4HANA Cloud.
+
+Integration with SAP Subscription Billing: to allow the automatic enablement of the SAP_COM_0642, SAP_COM_0845, SAP_COM_0861, SAP_COM_0095, SAP_COM_0008, SAP_COM_0009, SAP_COM_0092, SAP_COM_0884, SAP_COM_0892, and SAP_COM_0165 communication scenarios in SAP S/4HANA Cloud.
+
+Integration with SAP Advanced Financial Closing: to allow the automatic enablement of the SAP_COM_0566 communication scenario in SAP S/4HANA Cloud.
+
+Integration with SAP Master Data Governance: to allow the automatic enablement of the SAP_COM_0659 communication scenario in SAP S/4HANA Cloud.
+
+Choose Get Token.
+
+The system generates the registration token.
+
+Copy the registration token and send it to the tenant administrator for the respective SAP S/4HANA Cloud system. You need it for configuring the integration on the extended SAP S/4HANA Cloud system side.
+
+You can also get the registration token later, once the system appears in the list on the Systems page.
+
+The registration token is valid for 7 days after it has been generated. When a token is not used within its validity period, it is no longer valid and cannot be used for registering an SAP S/4HANA Cloud system. If the validity of the token expires before you use it to configure the integration on the SAP S/4HANA Cloud system side and complete the registration, you need to get a new token. You can then copy it and use it to complete the registration.
+Note
+
+A registration token can be used only once, for registering a single SAP S/4HANA Cloud system.
+
+Close the wizard.
+
+The SAP S/4HANA Cloud system appears in the list of systems on the Systems page. Its Status field is empty because the registration process is not yet completed.
+
+Start the automated registration process on the SAP S/4HANA Cloud system side. To do so, proceed as described in as described in Trigger the Registration in the SAP S/4HANA Cloud Tenant.
+Note
+
+You can register a system with the same name only once per global account. Once you have started a registration process for a system with a specified name you can no longer register a system with the same name and connect it with the same global account.
+
+Check the status of the registration process. To do so, in the cockpit navigate to your global account, and on the Systems page, check if the status of the SAP S/4HANA Cloud system has changed to Registered.
+
+If you are already on the Systems page, refresh the page to check if the status has changed.
+
+Next Steps
+
+Trigger the Registration in the SAP S/4HANA Cloud Tenant
+
+Related Information
+Adding, Registering and Deregistering Systems
+Deregister or Removе a System

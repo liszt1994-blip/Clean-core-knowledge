@@ -1,0 +1,30 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/delete-space-members
+Title: Delete Space Members | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Managing Space MembersDelete Space Members
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Delete Space Members
+
+Delete all roles of a space member in the SAP BTP cockpit. As a consequence, the member is removed from the space.
+
+Prerequisites
+
+You have the Space Manager or Org Manager role.
+
+The users exist in a trusted platform identity provider.
+
+For more information, see About User Management in the Cloud Foundry Environment.
+
+Procedure
+Navigate to Cloud Foundry  Spaces in the SAP BTP cockpit. For more information, see Navigate to Orgs and Spaces.
+Choose the space from which you'd like to remove members.
+In the navigation area, choose Space Members.
+The screen displays all members currently assigned to the space in a list.
+To remove all the roles of a member, choose  (Delete).
+
+This action removes the member from the space.
+
+Related Information
+Managing Space Members

@@ -1,0 +1,142 @@
+URL: https://help.sap.com/docs/btp/comparison-btp-runtimes/technical-details
+Title: Technical Details | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)Comparison: SAP BTP, Kyma Runtime and SAP BTP, Cloud Foundry Runt…Technical Details
+Comparison: SAP BTP, Kyma Runtime and SAP BTP, Cloud Foundry RuntimeEnglish
+Provide feedback on our search
+
+Technical Details
+
+Compare the technical details for SAP BTP, Kyma runtime and SAP BTP, Cloud Foundry runtime.
+
+Technical Details
+
+Category
+
+SAP BTP, Kyma runtime
+
+SAP BTP, Cloud Foundry runtime
+
+Based on open source and open standards
+
+Based on Kyma open source, augmented by Istio, Open Telemetry, and SAP proprietary extensions.
+
+Based on Cloud Foundry open source, augmented by HAProxy, BOSH, and SAP proprietary extensions.
+
+Supported buildpacks
+
+Cloud Native Buildpacks
+
+SAP-managed and Cloud Foundry community buildpacks for several development languages
+
+SAP BTP service support
+
+Yes
+
+Yes
+
+Internal network support
+
+Yes
+
+No
+
+See Supported and Unsupported Cloud Foundry Features
+
+CI/CD support
+
+Yes, see Roadmap
+
+Yes
+
+Service mesh support
+
+Yes
+
+No
+
+Elasticity
+
+Yes
+
+Yes
+
+Autoscaling support
+
+Yes
+
+Yes, with the Application Autoscaler service.
+
+See Application Autoscaler and SAP Discovery Center: Application Autoscaler.
+
+Speed of autoscaling
+
+App scaling speed depends on startup time of the workload.
+
+Vertical scale-up (by adding more Kubernetes Nodes to the cluster): < 1 min
+
+App scaling speed depends on startup time of the workload
+
+Partial zone outage detection
+
+Yes
+
+Yes
+
+In-system build & deploy using buildpacks
+
+No
+
+Yes
+
+Platform-as-a-service: MTA support
+
+No
+
+Yes
+
+Identity provisioning support
+
+No
+
+No
+
+Custom domains
+
+Yes
+
+See Set up a custom domain for a workload
+
+Yes
+
+See SAP Custom Domain Service
+
+Transport services
+
+No
+
+For Kyma, use Helm charts and a CI/CD pipeline. See Delivery Options.
+
+Yes
+
+See SAP Cloud Transport Management
+
+Connectivity
+
+Yes
+
+Yes
+
+Task and Jobs support
+
+Yes
+
+Yes
+
+See Supported and Unsupported Cloud Foundry Features
+
+RFC connection support
+
+Yes
+
+Yes

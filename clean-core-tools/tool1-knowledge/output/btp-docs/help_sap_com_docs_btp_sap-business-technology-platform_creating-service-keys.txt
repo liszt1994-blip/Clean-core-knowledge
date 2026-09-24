@@ -1,0 +1,18 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/creating-service-keys
+Title: Creating Service Keys | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Using Services in the Cloud Foundry EnvironmentCreating Service Keys
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Creating Service Keys
+
+You can use service keys to generate credentials to communicate directly with a service instance. Once you configure them for your service, local clients, apps in other spaces, or entities outside your deployment can access your service with these keys.
+
+You can use the SAP BTP cockpit or the Cloud Foundry Command Line Interface to create service keys:
+
+Create Service Keys Using the Cockpit
+
+Create Service Keys Using the Cloud Foundry Command Line Interface
+
+For more information on service keys, see https://docs.cloudfoundry.org/devguide/services/service-keys.html.

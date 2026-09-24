@@ -1,0 +1,93 @@
+URL: https://help.sap.com/docs/btp/sap-btp-security-recommendations-c8a9bb59fe624f0981efa0eff2497d7d/displaying-security-recommendations
+Title: Displaying Security Recommendations | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP Security RecommendationsDisplaying Security Recommendations
+SAP BTP Security RecommendationsEnglish
+Provide feedback on our search
+
+Displaying Security Recommendations
+
+We've numerous recommendations for SAP BTP and it can be hard to see just the ones you want. Here we try to give you some tips on how to display just the information you want to see.
+
+Too Many Columns
+
+On smaller screens, this table is difficult to display. We've the following suggestions that can help:
+
+Hide the side panes of the SAP Help Portal. The side panes enable you to navigate the structure of the documentation or provide feedback. To use more screen real estate for the content, close these panes.
+
+The following figure shows the controls used to close the side panes.
+
+
+Page With Navigation and Comments Panes Open
+
+The following figure shows the table with the side panes closed.
+
+
+Page With Navigation and Comments Panes Closed
+
+Once you find the information you need, hide the columns you don't need.
+
+Control to Show and Hide Table Columns
+Saving and Sharing Searches
+
+The table already provides filters for the table as a whole and within some of the columns. Unfortunately you can't save those searches directly from the SAP Help Portal. However, you can replicate the use of these filters with URL parameters. Then save these filter configurations as URLs and share them.
+
+The table as a whole and the filters have their own names, which you provide in the URL parameters.
+
+List of Filter Parameters
+
+Table or Column
+
+Filter URL Parameter
+
+Complete table
+
+seclist
+
+Service
+
+seclist-service
+
+Priority
+
+seclist-priority
+
+Secure Operations Map
+
+seclist-som
+
+Topic
+
+seclist-topic
+
+Last Update
+
+seclist-last_update
+
+Index
+
+seclist-index
+
+Example
+
+Show all recommendations that refer to certificates:
+
+https://help.sap.com/docs/BTP/c8a9bb59fe624f0981efa0eff2497d7d/531f33def8074ccdb6f1f784a34dafcb.html?seclist=certificates
+
+Example
+
+Show all recommendations for the Cloud Connector service:
+
+https://help.sap.com/docs/BTP/c8a9bb59fe624f0981efa0eff2497d7d/531f33def8074ccdb6f1f784a34dafcb.html?seclist-service=Cloud%20Connector
+
+Example
+
+Show only the recommendation BTP-IAS-0001:
+
+https://help.sap.com/docs/BTP/c8a9bb59fe624f0981efa0eff2497d7d/531f33def8074ccdb6f1f784a34dafcb.html?seclist-index=BTP-IAS-0001
+
+Example
+
+Show all critical recommendations for the Cloud Connector service:
+
+https://help.sap.com/docs/BTP/c8a9bb59fe624f0981efa0eff2497d7d/531f33def8074ccdb6f1f784a34dafcb.html?seclist-service=Cloud%20Connector&seclist-priority=Critical

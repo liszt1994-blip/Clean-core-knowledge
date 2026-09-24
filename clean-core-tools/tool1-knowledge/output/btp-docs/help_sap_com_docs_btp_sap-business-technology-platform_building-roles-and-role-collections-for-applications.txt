@@ -1,0 +1,34 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/building-roles-and-role-collections-for-applications
+Title: Building Roles and Role Collections for Applications | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Security Administration: Managing Authentication and AuthorizationBuilding Roles and Role Collections for Applications
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Building Roles and Role Collections for Applications
+
+As an administrator, you can maintain application roles and role collections which can be used in user management.
+
+The user roles are derived from role templates that are defined in the security description (xs-security.json) of applications that have been registered as OAuth 2.0 clients at the User Account and Authentication service during application deployment. The application security-descriptor file also contains details of the authorization scopes that are used for application access and defines any attributes that need to be applied. The roles you create can be added to role collections.
+
+You can perform the following tasks:
+
+Create and delete user roles
+
+User roles define authorization scopes and are based on the role templates and scopes defined in the application's security descriptor file
+
+Add user roles to one or more “role collections”
+
+Configure and manage role collections
+
+Tip
+
+Using the SAP BTP cockpit, you can assign the role collections to users directly or indirectly over attributes, such as groups.
+
+Related Information
+Add Roles to Role Collections on the Application Level
+Mapping Role Collections
+Protecting Your Application
+Working with Role Collections
+Limits for Technical Artifacts of the SAP Authorization and Trust Management Service
+Adding Authentication and Authorization

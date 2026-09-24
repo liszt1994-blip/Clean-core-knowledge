@@ -1,0 +1,56 @@
+URL: https://help.sap.com/docs/btp/comparison-btp-runtimes/archetypes
+Title: Archetypes | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)Comparison: SAP BTP, Kyma Runtime and SAP BTP, Cloud Foundry Runt…Archetypes
+Comparison: SAP BTP, Kyma Runtime and SAP BTP, Cloud Foundry RuntimeEnglish
+Provide feedback on our search
+
+Archetypes
+
+Compare the archetypes supported by SAP BTP, Kyma runtime and SAP BTP, Cloud Foundry runtime.
+
+Archetypes
+
+Category
+
+SAP BTP, Kyma runtime
+
+SAP BTP, Cloud Foundry runtime
+
+RESTful Web services
+
+Yes
+
+Yes
+
+SOAP Web Services
+
+Yes
+
+Yes
+
+Micro Services
+
+Yes
+
+Yes
+
+CAP Applications
+
+Yes
+
+Yes
+
+Webhooks
+
+Yes
+
+Yes
+
+Custom Docker Container
+
+Yes
+
+Yes
+
+See Deploy Docker Images in the Cloud Foundry Runtime and Understand the Cloud Foundry Application Lifecycle for Docker Applications

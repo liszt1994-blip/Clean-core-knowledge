@@ -1,0 +1,62 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/navigate-in-cockpit
+Title: Navigate in the Cockpit | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Account Administration in the CockpitNavigate in the Cockpit
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Navigate in the Cockpit
+
+Learn how to navigate to your global accounts, directories, and subaccounts in the SAP BTP cockpit.
+
+Prerequisites
+
+Sign up for an enterprise or a trial account and receive your logon data. For more information, see Try Out SAP BTP for Free or Sign up for a Customer Account.
+
+Procedure
+Navigate to a global account.
+
+You have only one global account:
+
+When you log on to the cockpit you’re automatically taken into your global account, to the Account Explorer page.
+
+You have multiple global accounts:
+
+When you log on to the cockpit, a dialog opens up containing the list of all global accounts that you’re part of. In this dialog, select the global account you want to navigate to.
+
+Tip
+
+If you have one global account you usually navigate to, you can choose Remember my selection in the initial dialog. This means you’ll be automatically redirected to your preferred global account after logging on, without seeing the dialog with all the options each time.
+
+If you've chosen a default global account, you can change or remove it anytime. To do so, navigate to the Account Explorer page of any global account, choose Switch Global Account.
+
+To change it, choose the desired new default global account from the list, select Save new selection as default global account and choose Continue. Your new default is savedand you’re redirected to that global account.
+
+To delete the default global account and go back to seeing the selection dialog after each logon, simply choose the  icon next to your default global account name in the dialog and choose Close.
+
+You can see which global account you are in at any time by looking at the first item in the breadcrumbs. It looks like this:  <global account name>
+
+Navigate to a different global account.
+
+Navigate to the Account Explorer page at global account level and choose Switch Global Account.
+
+Use the dropdown menu next to the  <global account name>.
+
+(Optional) Navigate to directories.
+When you enter your global account, you are by default taken to the Account Explorer page of that global account. To navigate to a directory, choose the corresponding entry in one of the views in the Directories & Subaccounts tab.
+Note
+
+If a directory has the user management capability enabled, then you can access this directory (or its subdirectories) only if you are a global account admin or you are assigned as a member of the directory. See Manage Users in Directories.
+
+The  (Locked) icon is shown next to directories that you aren't authorized to access.
+
+Navigate to subaccounts.
+When you enter your global account, you are by default taken to the Account Explorer page of that global account. To navigate to a subaccount, choose the corresponding entry from one of the views.
+
+Once you've entered a subaccount, the breadcrumbs look like this:  <global account name> /  <subaccount name>
+
+Note
+
+To access a subaccount your user must either have authorizations in the subaccount tenant or, in the case of a subaccount that has the Cloud Foundry environment enabled, have authorizations in the Cloud Foundry org or space of the subaccount. See About User Management in the Cloud Foundry Environment.
+
+The  (Locked) icon is shown next to subaccounts that you aren't authorized to access.

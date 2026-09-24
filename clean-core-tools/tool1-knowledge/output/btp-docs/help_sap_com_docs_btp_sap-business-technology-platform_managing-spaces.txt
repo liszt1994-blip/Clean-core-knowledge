@@ -1,0 +1,73 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/managing-spaces
+Title: Managing Spaces | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Org Administration Using the CockpitManaging Spaces
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Managing Spaces
+
+Learn what a Cloud Foundry space is, what type of information you will find on the Spaces page in the SAP BTP cockpit, and what you can do with or within a space.
+
+What Is a Space?
+
+A space is a shared location on the platform in which you can deploy and maintain applications, and connect them to services. You can create multiple spaces within one org. There is no limit to how many spaces you can have in a single org.
+
+By default, a space inherits the org quota. If you don't want your space to consume the entire org quota, you can use space quota instead. For more information, see Managing Space Quotas.
+
+Prerequisites
+
+If you want to see any spaces on the Spaces page in the cockpit, you must have either the Org Manager role or any one of the space roles.
+
+The Org Manager role gives you access to all spaces in an org. A space role gives you access to a specific space.
+
+For more information, see About Roles in the Cloud Foundry Environment.
+
+What Can You Find on the Spaces Page?
+To visit this page in the cockpit:
+
+Navigate to a subaccount of your choice.
+
+Navigate to the Cloud Foundry
+
+Spaces page.
+
+You find the following on this page:
+
+A list of all spaces you have access to.
+
+Details about each space tile, such as:
+
+Number of started and stopped applications in a space
+
+Name of the space quota if a space quota is assigned to the space, or Org Quota if the space is currently using the org quota
+
+To manage these settings, navigate to Cloud Foundry
+
+Space Quotas
+
+Quota Assignments. For more information, see Assign Space Quotas to Spaces and Edit Space Quotas.
+
+Available resources such as memory and services with their upper consumption limit and current usage statuses
+
+What Can You Do With or Within a Space?
+
+Here are some of the space-related actions you can do:
+
+Create Spaces
+
+Managing Space Members
+
+Deploy an Application
+
+Edit Spaces
+
+To edit a space, choose  (Edit) on the space tile. This option lets you change the name of the space.
+
+Org Managers and Space Managers are allowed to rename spaces.
+
+Delete Spaces
+
+Related Information
+Org Administration Using the Cockpit
+Org Administration Using the Cloud Foundry CLI

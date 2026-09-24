@@ -1,0 +1,64 @@
+URL: https://help.sap.com/docs/btp/preparing-and-testing-your-solution-for-third-party-cookie-deprecation/identifying-cookies
+Title: Identifying Cookies | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)Preparing and Testing Your Solution for Third-Party Cookie Phase-…Auditing CookiesIdentifying Cookies
+Preparing and Testing Your Solution for Third-Party Cookie Phase-OutEnglish
+Provide feedback on our search
+
+Identifying Cookies
+
+While going through your critical user journey, watch the Network and Application tabs of the developer tools for cookie usage. If cookies are third-party, they are likely affected by the tracking protection.
+
+The affected cookies could be set by your application or SAP BTP software. SAP will take action to solve the cookie-related issues for cookies set by SAP BTP. For all other cookies, it is your responsibility to adapt your application.
+
+Both SAP-provided software developed on BTP as well as extension scenarios on BTP use SAP technology and thus work with similar cookies. To distinguish between them – and get a high-level understanding of who is responsible for reacting to the third-party cookie pahse-out – consider the hostname that attempts to set or read the cookies.
+
+Below is a table with typical components and examples of their common cookies included with BTP-based software you might encounter during testing, that might be affected by the third-party cookie phase-out. Other cookies that you encounter most likely originate from your application and must be handled by you.
+
+Important are the name of the cookie and the domain. Cookies with the same name can occur for different domains.
+
+Component	Description	Cookie Example
+
+Application Router
+
+Managed: no issue (same domain enforced)
+
+Standalone: must be configured to partition cookie, if on different domains
+
+@sap/approuter - npm (npmjs.com) → Additional Cookie Attributes
+
+locationAfterLogin
+
+fragmentAfterLogin
+
+signature
+
+SAP Cloud Identity Services (SCI)
+
+These will be taken care of by SCI using the Storage Access API.
+
+No further action is required with regards to these cookies
+
+Typical host name conventions: *.accounts.ondemand.com or *.accounts.cloud.sap but customer’s own domain is also possible. In case of own domain, please notice the Use Custom Domain in Identity Authentication details.
+
+JSESSIONID
+
+IDP_USER
+
+SAP Authorization and Trust Management Service (XSUAA)
+
+Typical host naming convention:
+
+*.authentication.*.ondemand.com
+
+*.authentication.*.sapcloud.cn
+
+JSESSIONID
+
+X-Uaa-Csrf
+
+Cloud Foundry (CF)
+
+CF Runtime is used as one of the underlying technical platforms for building apps on BTP. Therefore, you may see CF-related cookies, like the session-stickiness cookie.
+
+__VCAP_ID__

@@ -1,0 +1,16 @@
+URL: https://help.sap.com/docs/btp/btp-developers-guide/mission-implement-observability-in-full-stack-cap-application
+Title: Mission: Implement Observability in a Full-Stack CAP Application | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP Developer's GuideDeveloping with CAP in the SAP BTP, Cloud Foundry and SAP BTP, Ky…Tutorials for SAP Cloud Application Programming ModelMission: Implement Observability in a Full-Stack CAP Application
+SAP BTP Developer's GuideEnglish
+Provide feedback on our search
+
+Mission: Implement Observability in a Full-Stack CAP Application
+
+You can add observability to the Incident Management application. Observability helps make informed decisions using real-time data like logs, metrics, traces, and events. It provides insights into SAP and customer systems to improve efficiency, scalability, resilience, and availability.
+
+For detailed observability data, use SAP Cloud Logging. SAP Cloud Logging allows you to analyze logs, metrics, and traces to understand the performance of your SAP BTP workload in the SAP BTP, Cloud Foundry, and SAP BTP, Kyma environments.
+
+See Implement Observability in a Full-Stack CAP Application Following SAP BTP Developer’s Guide.
+
+This image is interactive. Click the highlighted areas so you open the respective tutorial or mission.

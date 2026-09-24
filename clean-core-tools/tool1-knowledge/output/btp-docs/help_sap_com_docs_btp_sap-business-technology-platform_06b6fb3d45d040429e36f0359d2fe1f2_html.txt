@@ -1,0 +1,99 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/06b6fb3d45d040429e36f0359d2fe1f2.html
+Title: What Is the Multi-Cloud Foundation? | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)Migrating from the Neo Environment to the Multi-Cloud Foundation …What Is the Multi-Cloud Foundation?
+Migrating from the Neo Environment to the Multi-Cloud Foundation (Cloud Foundry and Kyma)English
+Provide feedback on our search
+
+What Is the Multi-Cloud Foundation?
+
+Get to know the multi-cloud foundation and its environments.
+
+The multi-cloud foundation is the basis of SAP BTP, which through its multi-cloud compatibility, lets you choose from different infrastructures, environments, and runtimes.
+
+It comprises three different environments: The Cloud Foundry environment, the Kyma environment, and the ABAP environment.
+
+Environments within the Multi-Cloud Foundation
+For more information about the different environments within the multi-cloud foundation, have a look at the following sections.
+Note
+
+The ABAP environment isn’t part of this guide as it is not possible to migrate from the Neo environment to the ABAP environment.
+
+For more information about the ABAP environment, see ABAP Environment, instead.
+
+Cloud Foundry Environment
+
+The Cloud Foundry environment allows you to create polyglot cloud applications in Cloud Foundry and is based on the Cloud Foundry Open Source Cloud Application Platform.
+
+Cloud Foundry is an open source, industry standard Platform-as-a-Service (PaaS) technology for developing and deploying cloud applications in both private and public cloud environments. It’s designed to run on a variety of Infrastructure-as-a-Service (IaaS) providers, such as Amazon Web Services, Google Cloud Platform, Alibaba Cloud, and Microsoft Azure. It uses a container-based architecture that executes applications in any programming language and lets you choose from different runtimes and backing services. For more information, see Cloud Foundry - Open Source Cloud Application Platform.
+
+SAP is a platinum-level founding member of the Cloud Foundry Foundation, which oversees the development of Cloud Foundry software and its ecosystem. To provide an open and portable platform to run and manage web-based applications and services in a cloud environment, it has adopted the open source Cloud Foundry technology as basis for its SAP BTP Cloud Foundry environment. You can use it to enhance SAP products and integrate business applications, as well as to develop entirely new enterprise applications based on business APIs.
+Caution
+
+Not all features supported by Cloud Foundry open source are automatically also supported by the SAP BTP Cloud Foundry environment. For a list of supported and unsupported features, see Cloud Foundry Environment.
+
+Kyma Environment
+
+SAP BTP, Kyma runtime provides a fully managed cloud-native Kubernetes application runtime based on the open-source project "Kyma". Based on modular building blocks, Kyma runtime includes all the necessary capabilities to simplify the development and to run enterprise-grade cloud-native applications.
+
+Kyma environment permits a native consumption of the Multi-Cloud Foundation Services and smooth consumption of SAP and non-SAP applications. It also supports out-of-the-box CAP, SAP Cloud SDK, application router, and HTML5 deployer.
+
+Kyma implements a dedicated application runtime to deploy highly scalable, robust, and secure containerized microservices.
+
+Every Kyma environment consists of:
+
+A Kubernetes cluster based on project "Gardener" on a cloud provider and region (data center) of your choice. To find out the available regions and providers, see Regions for the Kyma Environment.
+
+The open-source project "Kyma" installed in its latest version on the provisioned cluster.
+
+Every Kyma environment runs on a single Kubernetes cluster created for a specific subaccount. However, the configuration of the Kyma environment allows you to connect it to a multitude of SAP systems.
+
+For all functionalities of the Kyma environment, see the project "Kyma" documentation.
+
+Become Familiar with the Multi-Cloud Foundation
+
+Before migrating your existing scenarios, take your time to get to know the multi-cloud foundation and its components.
+
+Multi-Cloud Foundation
+The following content helps you get a basic understanding of the multi-cloud foundation:
+
+Why You Should Migrate from the Neo Environment to the Multi-Cloud Foundation
+
+Learn how the multi-cloud foundation differs from the Neo environment and why you should migrate to it.
+
+Cloud Foundry Environment
+
+The following links help you become familiar with the Cloud Foundry environment:
+
+Cloud Foundry Environment
+
+Get more detailed information about the Cloud Foundry environment.
+
+Getting Started with a Trial Account in the Cloud Foundry Environment
+
+Use an SAP BTP trial account to get a first practical impression of the Cloud Foundry environment.
+
+Create Your First App on Cloud Foundry
+
+Gain first hands-on experience in the Cloud Foundry environment.
+
+Kyma Environment
+
+The following links help you become familiar with the Kyma environment:
+
+Kyma Environment
+
+Get more detailed information about the Kyma environment.
+
+Getting Started with a Trial Account in the Kyma Environment
+
+Use an SAP BTP trial account to get a first practical impression of the Kyma environment.
+
+Build an Application in the Kyma Runtime
+
+Explore SAP BTP, Kyma runtime by deploying a containerized microservice onto Kubernetes, exposing it via API, and making it consumable with a UI5 frontend.
+
+Related Information
+Environments
+Cloud Foundry Environment
+Kyma Environment

@@ -1,0 +1,14 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/bind-service-instances-to-applications-using-cockpit
+Title: Bind Service Instances to Applications Using the Cockpit | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Binding Service Instances to ApplicationsBind Service Instances to Applications Using the Cockpit
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Bind Service Instances to Applications Using the Cockpit
+
+Note
+
+The content of this page has moved to a new location.
+
+To learn how to bind service instances to applications using the cockpit, see Binding Service Instances to Cloud Foundry Applications.

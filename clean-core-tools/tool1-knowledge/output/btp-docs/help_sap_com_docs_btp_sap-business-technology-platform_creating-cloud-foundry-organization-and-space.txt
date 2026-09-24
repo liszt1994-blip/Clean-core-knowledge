@@ -1,0 +1,31 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/creating-cloud-foundry-organization-and-space
+Title: Creating a Cloud Foundry Organization and Space | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…ABAP Environment: Initial SettingsCreating a Cloud Foundry Organization and Space
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Creating a Cloud Foundry Organization and Space
+
+Create a Cloud Foundry organization and Cloud Foundry space that will correspond to the instance of the ABAP environment.
+
+Context
+Note
+
+If you have already created an organization and space for the ABAP environment, you can skip these steps. If you have run the booster Prepare an Account for ABAP Development, you can also skip these steps.
+
+For more information about creating Cloud Foundry spaces, see Create Spaces.
+
+Procedure
+Log on to the SAP BTP cockpit in the global account for the Cloud Foundry environment as administrator.
+Choose the tile of the Cloud Foundry subaccount.
+Check whether Cloud Foundry is enabled: If it's enabled, the Cloud Foundry organization name appears as organization on the screen area Cloud Foundry.
+If Cloud Foundry is not enabled yet, proceed as follows:
+Choose Enable Cloud Foundry.
+On the Create Cloud Foundry Organization dialog, enter a name for the Cloud Foundry organization and choose Create.
+Choose the free or standard plan for the Cloud Foundry runtime according to your needs.
+On the Cloud Foundry screen area, choose the link for spaces.
+If the Cloud Foundry space in the Cloud Foundry organization does not exist yet, proceed as follows:
+Choose New Space.
+On the New Space dialog, enter a name for the new Cloud Foundry space, for example, dev, and leave the checkboxes for space manager and space developer checked.
+Choose Create.

@@ -1,0 +1,50 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/adding-authentication-and-authorization
+Title: Adding Authentication and Authorization | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformDevelopmentDevelopment in the Cloud Foundry EnvironmentAdding Authentication and Authorization
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Adding Authentication and Authorization
+
+Developers create authorization information for business users in their environment and deploy this information in an application. They make this available to administrators, who complete the authorization setup and assign the authorizations to business users.
+
+Developers store authorization information as design-time role templates in the xs-security.json security descriptor file. Using the cockpit, administrators of the environment assign the authorizations to business users.
+
+The following sections contain the process of adding authentication and authorization checks for protecting your applications, links to a number of associated tutorials, extended tasks for creating authorization artifacts, as well as reference information, including the syntax required to set the properties and values defined in the application security descriptor file.
+
+Using the SAP Authorization and Trust Management service or the SAP Cloud Identity Services
+
+SAP BTP is currently replacing the authorization management done by the SAP Authorization and Trust Management service, with an integrated solution with the SAP Cloud Identity Services – Authorization Management. This service is integrated into the SAP Cloud Identity Services, which offers authentication, authorization, user provisioning and management in one place.
+
+Currently, there are still use cases where the usage of the old model with the SAP Authorization and Trust Management service is simpler when it comes to the technical setup, especially in the administration for business users.
+
+For decision considerations on when to use the SAP Authorization and Trust Management service and when to use the SAP Cloud Identity Services - Authorization Management service as the authorization management system on SAP BTP, you can follow this decision tree that will be regularly updated:
+
+Developers use the Cloud Application Programming model for authorization policies. For more information, see Authorization and Access Control.
+
+Protecting Your Application
+
+Application security is maintained in the application security descriptor file (xs-security.json). You can use this file to define application-based security artifacts, which are the building blocks for authorizations. In this section, you can learn how to create this file and use it to create a service instance of the SAP Authorization and Trust Management service. Following this single tenant scenario, move on in increasing complexity to procedures that depict how to propagate user information between applications or services, add multitenancy to your application, and set up instance-based authorizations.
+
+Tutorials for Authentication and Authorizations
+
+Use tutorials to get familiar with the SAP Authorization and Trust Management service in the Cloud Foundry environment of SAP BTP.
+
+For more information, see Tutorials for the SAP Authorization and Trust Management Service.
+
+Tasks On Demand
+
+Here you can find information regarding accessing the UAA admin APIs for creating XSUAA artifacts, as well as the process of configuring redirect URLs.
+
+In addition, as an application developer, you may want to create role collections for immediate use. For example, to deliver role collections that administrators can use in the SAP BTP cockpit and easily assign to users in an onboarding process.
+
+For more information, see Create Role Collections with Predefined Roles.
+
+Reference Information
+
+For the syntax required to set the properties and values defined in the application security descriptor file (xs-security.json), see Application Security Descriptor Configuration Syntax.
+
+Related Information
+SAP Authorization and Trust Management Service
+Configuring Authorization Policies

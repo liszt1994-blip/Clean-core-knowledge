@@ -1,0 +1,30 @@
+URL: https://help.sap.com/docs/btp/comparison-btp-runtimes/other-technical-capabilities
+Title: Other Information | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)Comparison: SAP BTP, Kyma Runtime and SAP BTP, Cloud Foundry Runt…Other Information
+Comparison: SAP BTP, Kyma Runtime and SAP BTP, Cloud Foundry RuntimeEnglish
+Provide feedback on our search
+
+Other Information
+
+Compare other information for SAP BTP, Kyma runtime and SAP BTP, Cloud Foundry runtime.
+
+Other Information
+
+Category
+
+SAP BTP, Kyma runtime
+
+SAP BTP, Cloud Foundry runtime
+
+Docker container support
+
+Yes
+
+Yes, see Supported and Unsupported Cloud Foundry Features
+
+SSH access into workload
+
+Yes
+
+Yes, see Supported and Unsupported Cloud Foundry Features

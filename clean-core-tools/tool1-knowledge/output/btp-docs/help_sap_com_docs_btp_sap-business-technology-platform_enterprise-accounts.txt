@@ -1,0 +1,85 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/enterprise-accounts
+Title: Enterprise Accounts | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformBasic Platform ConceptsEnterprise Accounts
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Enterprise Accounts
+
+Enterprise accounts are usually associated with SAP customer or partner contracts and contain their purchased entitlements to platform resources and services. However, it's also possible to create an enterprise account for personal exploration.
+
+SAP BTP provides different types of global accounts, enterprise and trial. The type you choose determines pricing, conditions of use, resources, available services, and hosts.
+
+If you want to start out using services for free, you can create an enterprise account and only use free tier service plans: The major benefit of using such an account for exploration purposes is that you can upgrade your services to productive use without losing any of your data. Check out the Free Tier Services in SAP Discovery Center and learn the details about Using Free Service Plans in your enterprise account.
+
+Another way to start out using services for free is to create a trial account. But keep in mind that when you want to use your global account productively, there’s no way to migrate your data from the trial account to a productive enterprise account. For more information, see Trial Accounts and Free Tier.
+
+Enterprise Accounts
+
+The main features of enterprise accounts are described for use by customers and by partners in the following table:
+
+Customer Account
+
+Partner Account
+
+Use case
+
+A global account that enables you to host productive, business-critical applications with 24/7 support.
+
+You can purchase a global account just like any other SAP software. You can upgrade and refine your resources later on. You can also contact your SAP sales representative and opt for a configuration, tailored to your needs.
+
+If you want to start out exploring services for free, you can sign up for a Pay-As-You-Go for SAP BTP global account and make use of the free tier services only. See Using Free Service Plans.
+
+A global account that enables you to build applications and to sell them to your customers.
+
+If you want to start out exploring services for free, you can sign up for a Pay-As-You-Go for SAP BTP global account and make use of the free tier services only. See Using Free Service Plans.
+
+Benefits
+
+Support for productive applications.
+
+Includes SAP Application Development licenses that enable you to get started with scenarios across cloud and on-premise applications.
+
+Offers the opportunity to certify applications and receive SAP partner logo package with usage policies.
+
+Advertise and sell applications via the SAP Store
+
+Services available
+
+Productive services.
+
+Productive and beta services.
+
+Limitations
+
+Resources according to your contract.
+
+Predefined resources according to your partner package. You can purchase additional resources if necessary.
+
+Registration
+
+For more information about SAP Integration Suite and SAP Extension Suite pricing, see https://www.sap.com/products/extension-suite/pricing.html and https://www.sap.com/products/integration-suite/pricing.html.
+
+Contact us on SAP BTP or via an SAP sales representative.
+
+If you’re located in China and want to buy a global account on SAP BTP you need to contact an SAP sales representative: https://www.sap.cn/registration/contact.html.
+
+Sign up to join the SAP Partner Program.
+
+Available Regions
+
+See Regions.
+
+See Regions.
+
+Cancelling a SAP BTP Enterprise Account
+
+As a business user, you can cancel your contract via your account executive. As an individual user with a trial account, you can cancel your account in your SAP for Me account. You can also contact the SAP store via their "Contact Us" function.
+
+For the commercial models available for enterprise accounts, see Commercial Models.
+
+Related Information
+Getting Started in the Kyma Environment
+Getting Started with a Customer Account in the ABAP Environment
+Getting Started with an Enterprise Account in the Cloud Foundry Environment

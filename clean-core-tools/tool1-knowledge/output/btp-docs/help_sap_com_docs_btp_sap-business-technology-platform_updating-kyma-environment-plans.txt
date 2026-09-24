@@ -1,0 +1,38 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/updating-kyma-environment-plans
+Title: Updating Kyma Environment Plans | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Available Plans in the Kyma EnvironmentUpdating Kyma Environment Plans
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Updating Kyma Environment Plans
+
+Update standard enterprise Kyma environment plans to build runtime plans.
+
+Prerequisites
+
+Assign entitlements for Kyma runtime with the build-runtime-aws, build-runtime-gcp, or build-runtime-azure plan to your subaccount. For more information, see Configure Entitlements and Quotas for Subaccounts.
+
+Context
+You can switch from standard enterprise plans to build runtime plans within the same cloud provider. Options include:
+
+aws → build-runtime-aws
+
+gcp → build-runtime-gcp
+
+azure → build-runtime-azure
+
+Note
+
+You can't switch from build runtime plans to standard ones.
+
+To switch plans, you must update your environment instance.
+
+Procedure
+In the SAP BTP cockpit, navigate to your subaccount Instances and Subscriptions.
+Go to Environments, and from the three-dot menu at the end of the Kyma environment row, select Update.
+In the Update Instance window, choose the new plan, and select Update Instance.
+Results
+You have updated your Kyma environment service plan.
+Related Information
+What Is SAP Build?

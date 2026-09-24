@@ -1,0 +1,26 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/assign-users-to-role-collections
+Title: Assign Users to Role Collections | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Assigning Role Collections to Users or User GroupsAssign Users to Role Collections
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Assign Users to Role Collections
+
+You can assign users to role collections by adding them to the desired role collection in the SAP BTP cockpit. Use this function to manage user authorizations and access control within your global account or subaccount in the cloud platform.
+
+Context
+
+You can assign users to a role collection. After having entered the user's user ID, choose the name of the trust configuration and the e-mail address.
+
+Procedure
+Open the SAP BTP cockpit.
+Go to your global account or subaccount (see Navigate in the Cockpit).
+Choose Security  Role Collections.
+Choose the role collection to which you want to assign users.
+Go to the Users section and choose Edit.
+Enter the user ID, identity provider, and e-mail address of the user that you want to assign to the role collection.
+(Optional) To add more users, choose  (Add a user).
+Save your changes.
+
+You've now assigned this user to the role collection. The user has the authorizations of the role collection.

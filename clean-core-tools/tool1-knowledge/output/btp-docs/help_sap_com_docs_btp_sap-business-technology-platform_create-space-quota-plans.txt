@@ -1,0 +1,47 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/create-space-quota-plans
+Title: Create Space Quotas | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Managing Space QuotasCreate Space Quotas
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Create Space Quotas
+
+You can use the SAP BTP cockpit to create space quotas.
+
+Prerequisites
+
+You have the Org Manager role for the org in which you want to create a space quota.
+
+Procedure
+Navigate to the subaccount that contains the spaces to which you want to add quotas.
+In the navigation menu, choose Cloud Foundry  Space Quotas.
+Choose Create Space Quota.
+Enter a name for your space quota and add limits for the following:
+
+Space Memory (MB): Total amount of memory a space can have
+
+Routes: Total number of routes
+
+Service Instances: Total number of service instances
+
+Memory per Instance (MB): Maximum amount of memory an application instance can have
+
+App Instances: Total number of application instances
+
+(Optional) Allow Paid Service: Switch on if you'd like to allow the provisioning of instances of paid service plans.
+
+Note
+
+The value of -1 represents an unlimited amount.
+
+Note
+
+If the space quota limit for a resource exceeds the org quota limit, the org quota limit applies.
+
+Choose Create.
+Example: Creating a Space Quota in the Cockpit
+
+Related Information
+Entitlements and Quotas
+Create Space Quota Plans Using the Cloud Foundry Command Line Interface

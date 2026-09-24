@@ -1,0 +1,40 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/manage-api-snapshots
+Title: Manage API Snapshots | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…ABAP Test CockpitManage API Snapshots
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Manage API Snapshots
+
+With this app you can create API snapshots of your software components. An API snapshot is a snapshot of the external interface of all released objects within a software component. This snapshot should be taken when the released objects within the software component must be kept stable. API snapshots allow you to run compatibility checks for your released objects using the ATC check API Release: Compatibility of Released APIs (API_COMPATIBILITY).
+
+Key Features
+
+You can use this app to:
+
+Create API snapshots to be able to use them in the compatibility check
+
+Set the check-relevance of API snapshots
+
+Regenerate the snapshots of selected APIs
+
+Regenerate the snapshots of all failed APIs
+
+Regenerate already existing API snapshots completely
+
+Download and upload API snapshots
+
+Display the changes made to your API snapshots
+
+Display the included APIs
+
+Supported Device Types
+
+Desktop
+
+Tablet
+
+Component for Customer Incidents
+
+If you need support or experience issues, please report an incident under component BC-SRV-APS-EXT-REL.

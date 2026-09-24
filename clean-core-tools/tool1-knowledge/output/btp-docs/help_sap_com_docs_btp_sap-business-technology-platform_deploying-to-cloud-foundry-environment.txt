@@ -1,0 +1,32 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/deploying-to-cloud-foundry-environment
+Title: Deploying to the Cloud Foundry Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformDevelopmentDevelopment in the Cloud Foundry EnvironmentDeploying to the Cloud Foundry Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Deploying to the Cloud Foundry Environment
+
+Get an overview of available deployment options.
+
+When deploying applications and services to the cloud, you can choose from a number of different approaches and tools, depending on your development setup.
+
+Multitarget Applications
+
+If you've decided to develop your application or service with the multitarget approach, you can deploy it to SAP BTP using a single .mtar archive file. For more information, see Multitarget Applications in the Cloud Foundry Environment.
+
+Continuous Integration and Delivery
+
+Continuous Integration and Delivery (CI/CD) are two interrelated concepts that can enhance your development process by adding frequent integration, automated testing, and faster delivery. For more information, see Continuous Integration and Delivery .
+
+Cloud Foundry Command Line Interface
+
+If you prefer to develop on your local machine, you can deploy your application from the folder on your computer directly to SAP BTP using the Cloud Foundry Command Line Interface (CF CLI). For more information, see Deploy Business Applications in the Cloud Foundry Environment.
+
+SAP BTP Cockpit
+
+You can also deploy your application with or without a manifest.yml file using the SAP BTP cockpit. For more information, see Deploy an Application.
+
+Docker Images
+
+If you want a higher degree of freedom when realizing your project, you can also deploy your applications and services using Docker images and the Cloud Foundry Command Line Interface (CF CLI). Note that Docker images can't be used in combination with buildpacks. For more information, see Deploy Docker Images in the Cloud Foundry Environment.

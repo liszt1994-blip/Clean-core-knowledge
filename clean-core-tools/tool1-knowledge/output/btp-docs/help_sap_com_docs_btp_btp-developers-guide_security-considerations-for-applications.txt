@@ -1,0 +1,76 @@
+URL: https://help.sap.com/docs/btp/btp-developers-guide/security-considerations-for-applications
+Title: Security Considerations for Applications | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP Developer's Guide…DevelopSecurity Considerations for Applications
+SAP BTP Developer's GuideEnglish
+Provide feedback on our search
+
+Security Considerations for Applications
+
+When building applications, use the security features of SAP BTP, such as protection from web attacks. We recommend that your developers configure and deploy application-based security artifacts containing authorizations, and administrators assign these authorizations using the cockpit. SAP BTP offers platform roles that help you ensure a segregation of duties, such as between app development and administration.
+
+It's likely that data protection and privacy influence your architecture and the functions of your application. Consider any implications as early as possible in your development process. Security monitoring is done with audit logging. SAP BTP writes logs for security-relevant events and the written log files are digitally signed to ensure their integrity.
+
+See the following for more information about security best practices:
+
+CAP Security Guide
+
+Giving Access Rights to Platform Users
+
+SAP BTP Security Recommendations
+
+You implement, deploy, and validate your application to ensure it meets both functional and performance requirements. Prioritizing secure deployment and configuration at this stage helps you launch your application with strong protections in place—minimizing vulnerabilities and aligning with enterprise-grade security standards.
+
+Delivering your application marks the transition from development to production, where your application becomes accessible to users. This is a critical point for enforcing security controls. For example, a retail company deploying an e-commerce application must ensure secure payment processing and defend against runtime threats such as:
+
+SQL injection
+
+Cross-site scripting (XSS)
+
+Cross-Site Request Forgery (CSRF)
+
+By applying secure deployment practices—such as hardening configurations, validating inputs, and enabling runtime protection—you reduce the risk of exploitation and ensure compliance with data protection regulations like the GDPR.
+
+By implementing built-in security features offered by the SAP Cloud Application Programming Model (CAP), you can significantly enhance your application defense. This includes leveraging:
+
+Parameterized queries (for example, cds.select, .where) to prevent SQL injection.
+
+CDS constraints (for exampe, @assert.format) for robust input validation.
+
+CSRF protection for UI applications, such as checkout forms.
+
+Furthermore, CAP’s built-in authentication and authorization mechanisms protect user access. Together, these practices help reduce vulnerabilities, support GDPR compliance, and keep user trust.
+
+The following table summarizes the security guidelines you need to be familiar with:
+
+Delivering Secure Applications Deployed to SAP BTP
+
+Security Guideline
+
+Description
+
+Secure Environment Configuration
+
+Configure the SAP BTP runtimes (for example, SAP BTP, Cloud Foundry runtime, SAP BTP, Kyma runtime with secure settings, such as restricted network access. See:
+
+SAP BTP Cloud Foundry Runtime
+
+Secure Development in the Kyma Environment | SAP Help Portal
+
+Validate Security During Testing
+
+Conduct security tests (for example, penetration testing) during validation to identify and fix vulnerabilities before go-live.
+
+Implement Secure Deployment Pipelines
+
+Use CI/CD pipelines with security checks (for example, code scanning, dependency validation) to ensure safe deployments. See:
+
+Introducing Continuous Integration and Delivery (CI/CD)
+
+Get Started with an SAP Cloud Application Programming Model Project in SAP Continuous Integration and Delivery | SAP Tutorials
+
+Secure Application Secrets Management
+
+Use SAP Credential Store to securely manage secrets like API keys or database credentials. See SAP Credential Store.
+
+Following these guidelines will significantly improve the deployment of your application to SAP BTP and enable rigorous validation processes. This approach is critical for safeguarding against potential threats, mitigating vulnerabilities, and ensuring compliance with rule-based standards. For more practical examples on how to implement security in CAP, see CAP Security Guide | capire.

@@ -1,0 +1,74 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/development-in-abap-environment
+Title: Development in the ABAP Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformDevelopmentDevelopment in the ABAP Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Development in the ABAP Environment
+
+Learn more about developing applications in the ABAP environment.
+
+Overview
+
+The ABAP environment is a platform as a service that allows you to extend existing ABAP-based applications and develop ABAP cloud apps decoupled from the digital core. You can leverage your ABAP know-how in the cloud and reuse existing ABAP assets by writing your source code with ABAP Development Tools for Eclipse.
+
+The ABAP environment enables you to expose:
+
+OData services. See ABAP RESTful Application Programming Model.
+
+HTTP services. See Working with the HTTP Service Editor.
+
+SQL services. See Data Federation Using the SQL Service.
+
+RFC function modules. See Providing an RFC Service.
+
+SOAP provider model. See Providing a SOAP Service.
+
+With your ABAP applications, you can consume:
+
+HTTP services (HTTP client). See Outbound HTTP Administration Tasks.
+
+OData services (service consumption model). See Developing a UI Service with Access to a Remote Service.
+
+Remote Function Calls (RFC). See Outbound RFC Administration Tasks.
+
+On-premise systems via Cloud Connector. See Integrating On-Premise Systems.
+
+SOAP-based Web services. See Outbound SOAP Administration Tasks.
+
+Technical Limits and Boundary Conditions for ABAP Applications
+
+For elasticity, operability and protection reasons, the runtime of API or UI requests to ABAP applications is limited. After 10 minutes, running requests are automatically canceled. Tasks requiring longer runtimes have to be executed in Application Jobs, as background processes via the background processing framework (bgPF), or need to be split into smaller work packages. For an optimal user experience, all ABAP applications, including application jobs, have to be prepared to be interrupted and restarted even earlier than the maximum runtime. This allows to provide a continuous application service, unimpacted from scaling operations, maintenance activities or even infrastructure failures.
+
+Development Resources
+
+ABAP RESTful Application Programming Model
+
+ABAP Development Tools for Eclipse: User Guide
+
+ABAP CDS Development User Guide
+
+Generative AI in ABAP Cloud
+
+ABAP Keyword Documentation
+
+ABAP Lifecycle Management
+
+Connect to the ABAP System
+
+Providing an HTTP Service
+
+Integrating On-Premise Systems
+
+Supported Protocols and Authentication Methods
+
+Inbound Communication
+
+Working with abapGit
+
+Related Information
+Eclipse Tool for the ABAP Environment
+Learning Journey
+Manage Software Components
+Video Tutorials

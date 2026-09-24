@@ -1,0 +1,41 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/create-user-provided-service-instances-using-cloud-foundry-command-line-interface
+Title: Create User-Provided Service Instances Using the Cloud Foundry Command Line Interface | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Creating User-Provided Service InstancesCreate User-Provided Service Instances Using the Cloud Foundry Co…
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Create User-Provided Service Instances Using the Cloud Foundry Command Line Interface
+
+Use the Cloud Foundry Command Line Interface to make a user-provided service instance available to Cloud Foundry applications.
+
+Prerequisites
+
+Download and install the cf CLI and log on to Cloud Foundry. For more information, see Download and Install the Cloud Foundry Command Line Interface and Log On to the Cloud Foundry Environment Using the Cloud Foundry Command Line Interface.
+
+Obtain a URL, port, user name, and password for communicating with a service that is not available in the marketplace.
+
+Context
+
+For more informaton on user-provided service instances, see https://docs.cloudfoundry.org/devguide/services/user-provided.html.
+
+Procedure
+Open a command line and enter the following string to create a user-provided service instance:
+
+
+cf create-user-provided-service SERVICE_INSTANCE [-p CREDENTIALS]
+
+Specify the following parameters:
+
+SERVICE_INSTANCE: The new name for your service instance.
+
+CREDENTIALS: Credentials as JSON
+
+Next Steps
+
+To bind your application to the user-provided service instance, follow the steps described in Bind Service Instances to Applications Using the Cloud Foundry Command Line Interface.
+
+Related Information
+Creating Service Instances
+Creating Service Keys
+About Services

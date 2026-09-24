@@ -1,0 +1,581 @@
+=== BTP Documentation: connectivity ===
+
+URL: https://help.sap.com/docs/btp/btp-developers-guide/connecting-to-remote-systems
+Title: Connecting to Remote Systems | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP Developer's Guide…DevelopConnecting to Remote Systems
+SAP BTP Developer's GuideEnglish
+Provide feedback on our search
+
+Connecting to Remote Systems
+
+Overview
+
+The connectivity in SAP BTP provides robust features with which you can establish reliable communication channels, ensuring data flows smoothly and securely across different environments. This capability is essential for enterprise applications, typically complex and needing to consume or push data to a variety of sources or destinations, including systems that are directly accessible, hosted in public or private clouds, or located on customer premises. This connectivity empowers businesses to extend, innovate, and optimize their digital landscapes effectively.
+
+For Kubernetes setups, the SAP BTP transparent proxy serves as the entry point to leverage central and secure connection configuration management (SAP Destination service) along with hybrid technical connectivity (SAP Connectivity service). It provides a unified and seamless connection experience to target systems.
+
+Services and Components
+
+SAP Connectivity Service
+
+The Connectivity service offers a set of services and software components which enable:
+
+Cloud applications to make secure connections to systems hosted on premise or in the private cloud.
+
+The establishment of secure communication channels from the customer's on-premise or private cloud network to cloud applications, keeping full control and auditability of the resources are exposed to the cloud.
+
+The secure exposure of the private systems is ensured by the Cloud Connector. This way, no network ports need to be exposed on the on-premise or private cloud side. On the side of the cloud applications, the secure interconnectivity is ensured by the connectivity proxy, offered as Software-as-a-Service or Software-as-a-Product, depending on the application hosting environment.
+
+Various communication protocols towards the target system are supported.
+
+Cloud Connector
+
+The Cloud Connector serves as a secure link between cloud applications and on-premise systems, allowing controlled access to them. It functions as a reverse invoke proxy within a secured network, providing fine-grained control over both accessible on-premise resources and cloud applications that use it.
+
+The Cloud Connector serves as a secure link between cloud applications and systems hosted in public or private clouds, allowing controlled access to them. It functions as a reverse invoke proxy within a secured network, providing fine-grained control over both accessible on-premise or private cloud resources and cloud applications using it. As а distributed and integral part of the Connectivity service, it pairs with a region in SAP BTP. The SAP BTP domain model (subaccounts) and the optional Cloud Connector Location ID are used to identify a particular Cloud Connector.
+
+Connectivity Proxy
+
+The connectivity proxy serves as a cloud counterpart to which a Cloud Connector technically establishes a secure link. The connectivity proxy is designed to support various runtimes, ensuring secure connectivity.
+
+In SAP BTP, Cloud Foundry runtime, the connectivity proxy is offered as a central and shared feature as part of the Connectivity service.
+
+In the SAP BTP, Kyma runtime, it's offered as a naively-integrated Kyma Module, simplifying the deployment and configuration.
+
+In native Kubernetes environments, the connectivity proxy is offered as a Kubernetes component. The connectivity proxy, as а distributed and integral part of Connectivity service, must be paired with a subaccount in SAP BTP to grant access to the Cloud Connectors paired with that subaccount. See Connectivity Proxy for Kubernetes.
+
+In SAP BTP, ABAP environment, as well as SAP S/4HANA Cloud and SAP Integrated Business Planning systems, it's offered as a local integrated service within the respective product.
+
+SAP Destination Service
+
+The Destination service lets you find the technical information that is required to access a remote service or system from your cloud application. Use the Destination service to:
+
+Manage routing and authentication details, as well as custom scenario-specific parameters. This information is maintained as a destination.
+
+Perform authentication flows based on the configured details, and return the result to the consumer of the service as part of the regular look-up request, that is the Find a Destination REST API.
+
+Connect to an on-premise or private cloud system. In this case, the Destination service goes in combination with the Connectivity service.
+
+Connect to any other remote application, service or system. In this case, the Destination service goes without the Connectivity service.
+
+SAP BTP Transparent Proxy
+
+The transparent proxy streamlines how your Kubernetes workloads connect to remote systems using destinations in SAP BTP. It simplifies the authentication process, while ensuring effective user propagation and seamless integration with the connectivity proxy.
+
+By leveraging Kubernetes services, the transparent proxy exposes target systems directly on the local network, allowing easy, secure, and unified access to solutions, applications, or systems that are remotely accessible via the Internet, as well as to private systems that are securely exposed using the Cloud Connector, with access provided through the connectivity proxy.
+
+In the SAP BTP, Kyma runtime, the transparent proxy is available as a natively integrated Kyma Module.
+
+Recommendations
+
+Use the transparent proxy to simplify and streamline your Kubernetes workloads' connectivity with remote systems using destinations in SAP BTP. It enhances developer experience by simplifying authentication and automating destination retrieval, while ensuring seamless, secure integration with the connectivity proxy.
+
+Use the Destination service to store and manage your connection configuration data (including credentials, certificates, URL, headers, queries, and so on) at design time, and automate the access token retrieval process at runtime for your application.
+
+Use the Connectivity service, more specifically Cloud Connector and the connectivity proxy, to establish a secure connection between cloud applications and on-premise or private cloud systems.
+
+Use Cases
+
+The connectivity use cases include but are not limited to:
+
+Cloud to Cloud
+
+Connecting Kubernetes Applications to Cloud Systems
+
+You can connect to a cloud service or system from your Kubernetes environment. For example:
+
+Developing an application that requires consumption of an SAP HANA database.
+
+Adding new functionality that requires the consumption of an SAP BTP service.
+
+Creating new user interfaces that require consumption of an ODаtа service.
+
+Adding new functionality that requires integration with third-party APIs.
+
+An application requires data exchange or service consumption via a RESTful API.
+
+Cloud to On- Premise or Private Cloud
+
+Connecting Cloud Foundry, Kyma, or Kubernetes Applications to On-Premise or Private Cloud Systems
+
+You can connect to an on-premise or private cloud system from your SAP BTP, Cloud Foundry runtime, SAP BTP, Kyma runtime, or any other Kubernetes environment. For example:
+
+Creating new user interfaces that require consumption of an ODаtа service.
+
+Developing an application that requires data exchange or service consumption via a RESTful API.
+
+Extending an application that requires consumption of APIs in an ABAP system via RFC.
+
+Developing an application that requires interaction with a mail server for e-mail operations.
+
+Developing an application that requires interaction with a relational or non-relational database (for example, SAP HANA, MySQL, PostgreSQL, MongoDB).
+
+Implementing a new functionality in an application that requires user authentication and directory services integration using an LDAP server.
+
+Developing an application that needs to transfer files to and from an FTP server.
+
+Enabling single sign-on (SSO) by forwarding the identity of cloud users to a remote system or service (user propagation).
+
+On-Premise to Cloud (Service Channels)
+
+You can connect to a cloud service from your on-premise or private cloud network using service channels of the Cloud Connector. For example:
+
+Configure an RFC connection from your on-premise or private cloud system to SAP S/4HANA Cloud.
+
+For scenarios that need to connect from on-premise or private cloud systems to the SAP BTP, ABAP environment using RFC, you can establish a connection to an ABAP Cloud tenant host.
+
+Configure a connection to a service in a Kubernetes cluster.
+
+Create a service channel to establish a connection to a service in a Kubernetes cluster that is not directly exposed to external access.
+
+Related Information
+Consuming the Connectivity Service
+Consuming the Destination Service
+Transparent Proxy for Kubernetes
+Connectivity Proxy for Kubernetes
+Cloud Connector
+Using the Transparent Proxy
+Connect DB Tools to SAP HANA via Service Channels
+Configure a Service Channel for RFC
+Configure a Service Channel for a Kubernetes Cluster
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/application-routes-and-destinations
+Title: Application Routes and Destinations | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Application RouterApplication Routes and Destinations
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Application Routes and Destinations
+
+The application router is the single point of entry for an application.
+
+The application router is used to serve static content, propagates user information, and acts as a proxy to forward requests to other microservices. The routing configuration for an application is defined in one or more destinations. The application router configuration is responsible for the following tasks:
+
+Act as the main user-entry point to application service
+
+Serve static content
+
+Serve routes and destinations
+
+Rewrite URLs
+
+Forward requests to other services
+
+Propagate user information
+
+Handle authentication
+
+Manage HTML5 application/browser sessions
+
+Note
+
+The application router doesn’t manage server caching. The server cache must be set (with e-tags) in the server itself. The cache must contain not only static content, but container resources too. For example, relating to OData metadata.
+
+Destinations
+
+A destination defines the back-end connectivity. In its simplest form, a destination is a URL to which requests are forwarded. There has to be a destination for every single app (microservice) that is a part of the business application.
+
+Note
+
+You must not use multiple destinations with the same URL in an application router user session!
+
+The application router stores the session cookies from the backend services in a user session according to the destination URLs for the backend services. If there are multiple destinations with the same URL, the application router cannot correctly send back the cookies to the backend services. Note that to avoid conflicts, the destination URLs must have different domains. For more information, see Sessions.
+
+The destinations configuration can be provided by the destinations environment variable or by the destination service.
+
+Destinations Environment Variable
+
+Destinations can be defined in an environment variable for the approuter application. The destinations are typically specified in the application manifest file (manifest.yml). The router information is added to the env: destinations section of the manifest.yml file, as illustrated in the following example:
+
+Sample Code
+
+Destinations Defined in the Application Manifest (manifest.yml)
+
+
+
+---
+applications:
+- name: node-hello-world
+
+port: <approuter-port>  #the port used for the approuter
+
+memory: 100M
+
+path: web
+
+env:
+
+destinations: >
+
+[
+
+{
+
+"name":"backend",
+
+"url":"http://<hostname>:<node-port>",
+
+"forwardAuthToken": true
+
+}
+
+]
+
+services:
+
+- node-uaa
+
+Note
+
+The "name" and "url" properties are mandatory.
+
+The value of the destination "name":"backend" must match the value of the destinations property configured for a route in the corresponding application-router configuration file (xs-app.json). It’s also possible to define a logout path and method for the destinations property in the xs-app.json file.
+
+Destination Service
+
+Destination configuration can be provided by destination service. The destination service can be consumed by the application router after binding a destination service instance to it.
+
+The following guidelines apply to the configuration of the mandatory properties of a destination:
+
+Mandatory Properties of a Destination
+
+Property
+
+Description
+
+Type
+
+Only HTTP is supported.
+
+Authentication
+
+All authentication types are supported.
+
+Note
+
+When using basic authentication, User and Password are mandatory.
+
+When using principal propagation, the proxy type is on-premise.
+
+When using OAuth2SAMLBearerAssertion, the uaa.user scope in the xs-security.json file is required.
+
+ProxyType
+
+Supported types:
+
+on-premise
+
+If set, binding to SAP Connectivity service is required.
+
+internet
+
+private-link
+
+To check the availability of the private-link proxy type, see SAP Private Link Service in the SAP Discovery Center.
+
+The following guidelines apply to the configuration of the additional properties of a destination:
+
+Additional Properties of a Destination
+
+Property
+
+Description
+
+HTML5.ForwardAuthToken
+
+If true, the OAuth token is sent to the destination. The default value is false. This token contains the user identity, scopes, and other attributes. It’s signed by the UAA so it can be used for user authentication and authorization with back-end services.
+
+Note
+
+If the ProxyType is set to on-premise, don’t set the ForwardAuthToken property to true.
+
+If the Authentication is other than NoAuthentication, don’t set the ForwardAuthToken property to true.
+
+HTML5.Timeout
+
+Positive integer representing the maximum time to wait for a response (in milliseconds) from the destination. The default value is 30000 ms.
+
+Note
+
+The timeout value specified also applies to the destination's log out path (if defined), which belongs to the destination property.
+
+HTML5.PreserveHostHeader
+
+If true, the application router preserves the host header in the back-end request.
+
+This is expected by some back-end systems like AS ABAP, which don’t process x-forwarded-* headers.
+
+HTML5.DynamicDestination
+
+If true, the application router allows this destination to be used dynamically on the host or path level.
+
+HTML5.SetXForwardedHeaders
+
+If true , the application router adds X-Forwarded-(Host, Path, Proto) headers to the back-end request. The default value is true.
+
+sap-client
+
+If true, the application router propagates the sap-client and its value as a header in the back-end request.
+
+This is expected by ABAP back-end systems.
+
+HTML5.IASDependencyName
+
+Configures the name of the Identity Authentication dependency that is used to exchange the Identity Authentication token used for the user authentication at login. If configured, the exchanged token is then also forwarded to the backend application.
+
+HTML5.ForwardAuthCertificates
+
+If true, the certificates and key of the authentication service are added to the HTTP connection to the destination. The default value is false. For more information see: Mutual TLS Authentication (mTLS) and Certificates Handling.
+
+HTML5.StrictConnectionMode
+
+If true, the application router uses strict HTTP agents with conservative connection pooling settings for this destination. These settings include shorter socket timeouts and FIFO (First-In, First-Out) scheduling. This option is recommended for mTLS and certificate-based authentication scenarios. The default value is false.
+
+URL.headers.<header-name>
+
+If you provide this property, the application router propagates the specified attribute as a header in the destination.The application router retrieves the list of headers from the destination API. Existing request headers are not overwritten.
+
+If a destination with the same name is defined both in the environment destination and the destination service, the destination configuration loads the settings from the environment.
+
+If the configuration of a destination is updated in runtime, the changes are reflected automatically to the AppRouter. There’s no need to restart the AppRouter.
+
+The destination service is only available in the Cloud Foundry environment.
+
+You can define destinations at the service instance level. This destination type has a higher priority than the same destination defined on the subaccount level. This enables exposing a specific destination to a specific application instead of to the entire subaccount.
+
+Connectivity
+
+Application Router supports integration with the SAP Connectivity service. The Connectivity service handles proxy access to the Cloud Connector, which tunnels connections to private network systems. In order to use connectivity, a connectivity service instance must be created and bound to the Application Router application. In addition, the relevant destination configurations must contain proxyType=OnPremise and a valid XSUAA login token must be obtained from the login flow.
+
+Configure the IASDependencyName Property to Enable App-to-App Navigation
+
+You can enable an application to consume the APIs of another application. For more information, see: Configure Integration Between Applications and Consume APIs from Other Applications
+
+To enable the technical communication between the applications, the application router must exchange the Identity Authentication token that was used for the user authentication at login to the application with the Identity Authentication token used for the other application. The exchanged token is then forwarded by the application router to the backend applications.
+
+For this, you must configure either a new destination with an HTML5.IASDependencyName property that points to the backend application or a destination environment variable with the IASDependencyName property (see Environment Variables). When the application router has to send a request to the backend destination, the application router uses the IASDependencyName property to trigger the exchange of the token and the exchanged token is then forwarded to the backend application in the Authorization header.
+
+Related Information
+Application Router
+Resource Files
+Consuming the Destination Service
+Consuming the Connectivity Service
+
+---
+
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/e6c7616abb5710148cfcf3e75d96d596.html
+Title: Cloud Connector | SAP Help Portal
+
+HomeSAP BTP ConnectivitySAP BTP ConnectivityCloud Connector
+SAP BTP ConnectivityEnglish
+Provide feedback on our search
+
+Cloud Connector
+
+Learn more about the Cloud Connector: features, scenarios and setup.
+
+Note
+
+This documentation refers to SAP BTP, multi-cloud foundation. If you are looking for information about the Neo environment, see Connectivity for the Neo Environment.
+
+Content
+
+In this Topic
+
+Hover over the elements for a description. Click an element for more information.
+
+In this Guide
+
+Hover over the elements for a description. Click an element for more information.
+
+Context
+
+The Cloud Connector:
+
+Serves as a link between SAP BTP applications and on-premises systems.
+
+Combines an easy setup with a clear configuration of the systems that are exposed to the SAP BTP.
+
+Lets you use existing on-premises assets without exposing the entire internal landscape.
+
+Runs as on-premises agent in a secured network.
+
+Acts as a reverse invoke proxy between the on-premises network and SAP BTP.
+
+Provides fine-grained control over:
+
+On-premises systems and resources that can be accessed by cloud applications.
+
+Cloud applications using the Cloud Connector.
+
+Lets you use the features that are required for business-critical enterprise scenarios.
+
+Recovers broken connections automatically.
+
+Provides audit logging of inbound traffic and configuration changes.
+
+Can be run in a high-availability setup.
+
+Back to Content
+
+Advantages
+
+Compared to the approach of opening ports in the firewall and using reverse proxies in the DMZ to establish access to on-premises systems, the Cloud Connector offers the following benefits:
+
+You don't need to configure the on-premises firewall to allow external access from SAP BTP to internal systems. For allowed outbound connections, no modifications are required.
+
+The Cloud Connector supports HTTP as well as additional protocols. For example, the RFC protocol supports native access to ABAP systems by invoking function modules.
+
+You can use the Cloud Connector to connect on-premises databases or BI tools to SAP HANA databases in the cloud.
+
+The Cloud Connector lets you propagate the identity of cloud users to on-premises systems in a secure way.
+
+Easy installation and configuration, which means that the Cloud Connector comes with a low TCO and is tailored to fit your cloud scenarios.
+
+SAP provides standard support for the Cloud Connector.
+
+Back to Content
+
+Basic Scenarios
+
+Connecting Cloud Applications to On-Premises Systems
+
+Connecting On-Premises Database Tools to SAP HANA Databases
+
+Note
+
+This section refers to the Cloud Connector installation in a standard on-premises network. Find setup options for other system environments in Extended Scenarios.
+
+Connecting Cloud Applications to On-Premises Systems
+
+Install the Cloud Connector: Installation
+
+Set up the connection between Cloud Connector, backend system and your SAP BTP subaccount : Initial Configuration, Adding and Managing Subaccounts
+
+Allow your cloud application to access a backend system on the intranet: Configure Access Control
+
+Connect your cloud application to an on-premises system:
+
+Consuming the Connectivity Service (Cloud Foundry environment)
+
+Connectivity Proxy for Kubernetes (Kubernetes workloads / Kyma environment)
+
+Back to Basic Scenarios
+
+Back to Content
+
+Connecting On-Premises Database Tools to SAP HANA Databases
+
+Restriction
+
+This scenario is only available for the Neo environment.
+
+Install and configure the Cloud Connector: Installation, Initial Configuration, Adding and Managing Subaccounts
+
+Access HANA databases on SAP BTP: Configure a Service Channel for an SAP HANA Database
+
+Connect on-premises database or BI tools to a HANA database on SAP BTP: Connect DB Tools to SAP HANA via Service Channels
+
+Note
+
+You can use service channels also for other purposes:
+
+Connect to a virtual machine on SAP BTP (Neo environment only).
+
+Configure an RFC connection from your on-premises system to S/4HANA Cloud (Neo and multi-cloud environment).
+
+Connect to a service in a Kubernetes cluster (multi-cloud environment only)
+
+See also:
+
+Using Service Channels (multi-cloud environment)
+
+Using Service Channels (Neo environment)
+
+Back to Basic Scenarios
+
+Back to Content
+
+Extended Scenarios
+
+Besides the standard setup: SAP BTP - Cloud Connector - on-premises system/network, you can also use the Cloud Connector to connect SAP BTP applications to other cloud-based environments, as long as they are operated in a way that is comparable to an on-premises network from a functional perspective. This is particularly true for infrastructure (IaaS) hosting solutions.
+
+Here's an overview of all environments in which you can or cannot set up the Cloud Connector:
+
+Cloud Connector
+
+Environment
+
+Examples
+
+Can be set up in:
+
+Note
+
+Within extended scenarios that allow a Cloud Connector setup, special procedures may apply for configuration. If so, they are mentioned in the corresponding configuration steps.
+
+Customer on-premises network (see Basic Scenarios)
+
+SAP ERP, SAP S/4HANA
+
+SAP Hosting
+
+SAP HANA Enterprise Cloud (HEC)
+
+Third-party IaaS providers (hosting)
+
+Amazon Web Services (AWS), Microsoft Azure, Google Cloud
+
+Cannot be set up in:
+
+SAP SaaS solutions
+
+SAP SuccessFactors, SAP Concur, SAP Ariba
+
+SAP cloud-based enterprise solutions
+
+SAP S/4HANA Cloud (public edition), SAP C/4HANA
+
+Third-party PaaS providers
+
+AWS, Azure, Google Cloud
+
+Third-party SaaS providers
+
+Back to Content
+
+Basic Tasks
+
+The following steps are required to connect the Cloud Connector to your SAP BTP subaccount:
+
+Install the Cloud Connector: Installation
+
+Perform the initial configuration for the Cloud Connector: Initial Configuration
+
+Register the Cloud Connector for your SAP BTP subaccount: Adding and Managing Subaccounts
+
+Back to Content
+
+What's New?
+
+Follow the SAP BTP Release Notes to stay informed about Cloud Connector and Connectivity updates.
+
+Back to Content
+
+Related Information
+Installation
+Configuration
+Administration
+Security
+Upgrade
+Update the Java VM
+Uninstallation
+Frequently Asked Questions
+REST APIs
+
+---
+

@@ -1,0 +1,46 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/delete-subaccount
+Title: Delete a Subaccount | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Managing Subaccounts Using the CockpitDelete a Subaccount
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Delete a Subaccount
+Delete subaccounts using the SAP BTP cockpit to clean up your account hierarchy, free up quota used by services in your subaccounts, and to reduce overall costs.
+Delete a Subaccount
+Prerequisites
+
+You're a global account administrator.
+
+Procedure
+In the cockpit, go to the Account Explorer page of your global account.
+In the account hierarchy, locate the subaccount that you want to delete.
+In the Actions ( ) context menu of the subaccount, choose Delete.
+
+The cockpit first checks if the subaccount contains data, such as active subscriptions, service instances, brokers, or platforms.
+
+If the subaccount is empty, then confirm the operation, after which the subaccount is deleted.
+
+If you are a subaccount administrator and the subaccount contains data, such as applications, service instances, spaces, active subscriptions, brokers, and members, then we strongly recommended that you visit the Instances and Subscriptions page to review the content in the subaccount and to manually remove the content from there. Then you can come back and safely delete the subaccount.
+
+Note
+
+If you are not a subaccount administrator, then you won't be able to access the Instances and Subscriptions. Instead, you'll have to ask a subaccount administrator in your organization to review the content in this subaccount and to manually remove the content from there.
+
+Note
+
+The deletion may take up to 12 hours to complete depending on the amount of content in your subaccount. If your subaccount contains service instances, subscriptions, and runtime environments, these need to be deprovisioned as part of the purge operation, which is a timely process. After the subaccount is deleted, it could take a few more days for some related services to be deleted. Note that you won't be charged for any continued usage of these services in the subaccount during the deletion cleanup.
+
+Caution
+
+If the subaccount contains data, you may have the option to force delete it. This option deletes the subaccount and all its data. Force deletion is available only if the force deletion of subaccounts is enabled in the global account settings and if the subaccount isn't marked as used for production.
+
+You must use this option with extreme caution because any data in the subaccount is deleted permanently, including productive data, without any recovery option.
+
+It is your responsibility to confirm that the subaccount is safe to delete before using the force-delete option. If you cannot check the content of the subaccount, you can get the subaccount reviewed by other qualified members of your organization.
+
+When the force deletion of a subaccount has been requested, the subaccount isn't immediately deleted. Instead, a seven-day begins during which access to the subaccount and its services is partially blocked and the subaccount is marked as Pending Deletion. During this waiting period, you can still cancel the scheduled deletion. You can do this on the Account Explorer page in the Actions menu for the subaccount. After the waiting period, the subaccount and all its data will be permanently deleted.
+
+Related Information
+Navigate in the Cockpit
+Relationship Between Global Accounts, Subaccounts, and Directories

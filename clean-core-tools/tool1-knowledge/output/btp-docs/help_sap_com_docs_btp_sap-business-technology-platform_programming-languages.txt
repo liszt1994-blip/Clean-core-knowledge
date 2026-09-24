@@ -1,0 +1,36 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/programming-languages
+Title: Programming Languages | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformBasic Platform ConceptsTools, Programming Models, Programming Languages, and APIsProgramming Languages
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Programming Languages
+
+SAP BTP supports many different programming languages; the availability of each depends on the development environment you're using.
+
+The following programming languages are available in the environments:
+
+Supported Environments and Programming Languages
+
+Environment
+
+Programming Language
+
+Cloud Foundry environment
+
+Java
+
+Node.js
+
+Python
+
+ABAP environment
+
+ABAP
+
+Kyma environment
+
+Serverless Functions: Node.js and Python
+
+Microservices: Any cross-platform programming language

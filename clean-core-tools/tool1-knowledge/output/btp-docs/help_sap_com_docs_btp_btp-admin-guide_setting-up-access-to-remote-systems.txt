@@ -1,0 +1,41 @@
+URL: https://help.sap.com/docs/btp/btp-admin-guide/setting-up-access-to-remote-systems
+Title: Setting Up Access to Remote Systems | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP Administrator's GuideSet Up and PlanSetting Up Your Security and Compliance ModelSetting Up Access to Remote Systems
+SAP BTP Administrator's GuideEnglish
+Provide feedback on our search
+
+Setting Up Access to Remote Systems
+
+Use SAP Connectivity service to enable your SAP BTP applications to access remote services on the Internet or in your on-premise systems. For connecting to Internet services, we recommend that you use APIs with destinations, and for cloud-to-on-premise scenarios, we recommend that you use destinations and the Cloud Connector.
+
+If you use destinations, you achieve a separation between the application and the configuration, which means it's easier to make configuration changes. And you can use the destinations to store credentials and certificates.
+
+You can create destinations on two different levels:
+
+Subaccount level
+
+Service instance level
+
+If a destination should be available for the entire subaccount, you can create it on subaccount level. If it is used for a specific scenario only, we recommend that you create it on service instance level. For security reasons, the rescpective access authorizations should be limited to a minimum for each level.
+
+For more information, see:
+
+Using the Destinations Editor in the Cockpit
+
+Access the Destinations Editor
+
+Multitenancy in the Connectivity Service
+
+The Cloud Connector is a lightweight on-premise agent that establishes a tunnel for connecting your cloud applications to on-premise systems. The Cloud Connector acts as a reverse invoke between the on-premise network and SAP BTP. That means you don't need to open in-bound ports in the firewall for external access from the cloud. The Cloud Connector provides a fine-granular access control mechanism, supports multiple protocols, such as RFC and HTTP, and can forward the cloud user identity using principal propagation. It enables users to log on to on-premise systems without logging in again by forwarding their current identity from the cloud. You can configure the Cloud Connector directly from the subaccount in the SAP BTP cockpit.
+
+For more information about connectivity in ABAP and Kyma environments, see:
+
+Communication Operations for the ABAP environment
+
+Connectivity in the Kyma Environment
+
+Related Information
+Principal Propagation
+SAP Connectivity service
+Cloud Connector

@@ -1,0 +1,194 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/org-management-using-sap-btp-command-line-interface-btp-cli
+Title: Org Management Using the SAP BTP Command Line Interface (btp CLI) | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformAdministration and OperationsAdministration and Operations in the Cloud Foundry EnvironmentOrg Management Using the SAP BTP Command Line Interface (btp CLI)
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Org Management Using the SAP BTP Command Line Interface (btp CLI)
+
+The Cloud Foundry environment allows you to create polyglot cloud applications in Cloud Foundry. To manage the lifecycle of an org in the Cloud Foundry environment, use the accounts/environment-instance command in the btp CLI.
+
+Available Plans
+
+To create a Cloud Foundry org in a subaccount, you use the Cloud Foundry Runtime service. The Cloud Foundry Runtime service offers the following plans for this purpose:
+
+Plan Name
+
+Description
+
+standard
+
+This is an enterprise-grade plan that allows you to create an org in your Cloud Foundry environment to start developing polyglot cloud-native applications.
+
+By default, a Cloud Foundry org that is created with this plan does not have any application runtime. To assign application runtime, the global account admin must assign the Cloud Foundry Runtime service with the MEMORY plan to the subaccount so that the org has memory for its applications.
+
+free
+
+Use this plan to try out the Cloud Foundry environment without an additional charge before switching to the standard plan that supports enterprise-grade productivity.
+
+By default, a Cloud Foundry org that is created with this plan is given a fixed application-runtime quota. There is no need to assign the Cloud Foundry Runtime service with the MEMORY plan to the subaccount as it will have no effect on the org quota.
+
+For more information about the free tier model for SAP BTP and its availability, see Using Free Service Plans.
+
+trial
+
+Use this plan to utilize your trial period.
+
+Note
+
+Your subaccount's type must be trial to use this plan.
+
+For more information, about the features that each plan offers, see Cloud Foundry Runtime on SAP Discovery Center.
+
+Command Reference for CRUD Operations
+
+The btp CLI offers the following environment instance command actions to manage Cloud Foundry orgs in SAP BTP:
+
+Action
+
+Command
+
+Description
+
+Parameters
+
+Additional Info
+
+list
+
+btp list accounts/environment-instance --subaccount <SUBACCOUNT_ID>
+
+List all the Cloud Foundry orgs and other environment instances in a subaccount.
+
+SUBACCOUNT_ID: The ID of the subaccount.
+
+get
+
+btp get accounts/environment-instance <ID> --subaccount <SUBACCOUNT_ID>
+
+Get the details of a specific Cloud Foundry org in a subaccount.
+
+ID: The ID of the environment instance to view.
+
+SUBACCOUNT_ID: The ID of the subaccount.
+
+create
+
+btp create accounts/environment-instance --subaccount <SUBACCOUNT_ID> --display-name <DISPLAY_NAME> --service <SERVICE> --plan <PLAN> --environment cloudfoundry --parameters "{\"instance_name\":\"<ORG_NAME>\"}"
+
+Note
+
+If the logged-in region has multiple landscapes, then you must specify the name of the landscape using the --landscape parameter in the command. You can obtain the valid values using the btp list accounts/available-environment command.
+
+Create a Cloud Foundry org in a subaccount.
+
+SUBACCOUNT_ID: The ID of the subaccount in which to create the Cloud Foundry org.
+
+DISPLAY_NAME: The SAP BTP name of the environment instance.
+
+PLAN: Specify either standard or free as the value.
+
+ORG_NAME: The name of the org in the Cloud Foundry environment. Spaces are not allowed in the org name. Once the org is created, you cannot change its name.
+
+For examples that show how to pass JSON parameters in the command line with different operating systems and shells, see the Passing JSON Parameters on the Command Line.
+
+update
+
+btp update accounts/environment-instance <ID> --subaccount <SUBACCOUNT_ID> --plan <PLAN>
+
+Update an existing Cloud Foundry org in a subaccount.
+
+ID: The ID of the environment instance to update
+
+SUBACCOUNT_ID: The ID of the subaccount.
+
+PLAN: Specify either standard or free as the value.
+
+For the Cloud Foundry environment, you can use this command to change only the plan of an existing Cloud Foundry environment instance. In other words, update an org created with the free plan of the Cloud Foundry Runtime to the standard plan (not vice versa).
+
+Note
+
+Before updating the plan to standard, make sure that the MEMORY plan for the Cloud Foundry Runtime entitlement is assigned to your subaccount, and that you've assigned sufficient application runtime quota to cover the current workload in the subaccount.
+
+delete
+
+btp delete accounts/ environment-instance <ID> --subaccount <SUBACCOUNT_ID>
+
+Delete a Cloud Foundry org created in a subaccount.
+
+ID: The ID of the environment instance to delete.
+
+SUBACCOUNT_ID: The ID of the subaccount where the environment instance exists.
+
+The Cloud Foundry org and all its data will be lost.
+
+Note
+
+You can obtain the subaccount ID by running btp list accounts/subaccount. You can also target the subaccount using btp target --subaccount <ID>, and then omit the subaccount parameter from the rest of the commands.
+
+Adding and Removing Org Managers
+
+You can also use the btp CLI to add or remove org managers.
+
+Action
+
+Command
+
+Description
+
+Parameters
+
+Additional Info
+
+update
+
+For the default identity provider:
+
+btp update accounts/environment-instance <ID> --subaccount <SUBACCOUNT_ID> --plan <PLAN> --parameters "{\"usersToAdd\":[{\"id\":\"myUserID\",\"email\":\"name@example.com\"}]}"
+
+For a custom identity provider:
+
+btp update accounts/environment-instance <ID> --subaccount <SUBACCOUNT_ID> --plan <PLAN> --parameters "{\"usersToAdd\":[{\"id\":\"myUserID\",\"email\":\"name@example.com\",\"origin\":\"<your custom IDP>\"}]}"
+
+Add one or more org managers to a Cloud Foundry org in a subaccount.
+
+usersToAdd adds the OrgManager role to the user, and, if it doesn't exist yet, it creates the user in the org.
+
+ID: The ID of the environment instance for which to add org managers.
+
+SUBACCOUNT_ID: The ID of the subaccount.
+
+PLAN: Specify either standard or free as the value.
+
+For examples that show how to pass JSON parameters in the command line with different operating systems and shells, see the Passing JSON Parameters on the Command Line.
+
+update
+
+For the default identity provider:
+
+btp update accounts/environment-instance <ID> --subaccount <SUBACCOUNT_ID> --plan <PLAN> --parameters "{\"usersToRemove\":[{\"id\":\"myUserID\",\"email\":\"name@example.com\"}]}"
+
+For a custom identity provider:
+
+btp update accounts/environment-instance <ID> --subaccount <SUBACCOUNT_ID> --plan <PLAN> --parameters "{\"usersToRemove\":[{\"id\":\"myUserID\",\"email\":\"name@example.com\",\"origin\":\"<your custom IDP>\"}]}"
+
+Remove one or more org managers from a Cloud Foundry org in a subaccount.
+
+usersToRemove removes the OrgManager role from the user, but it doesn't remove the user from the org.
+
+ID: The ID of the environment instance for which to remove org managers.
+
+SUBACCOUNT_ID: The ID of the subaccount.
+
+PLAN: Specify either standard or free as the value.
+
+To learn how to remove a user from the Cloud Foundry org and the subaccount, see About User Management in the Cloud Foundry Environment.
+
+Related Information
+Account Administration Using the SAP BTP Command Line Interface (btp CLI)
+About Roles in the Cloud Foundry Environment
+Org Administration Using the Cockpit
+Add Org Members
+Managing Spaces
+About User Management in the Cloud Foundry Environment

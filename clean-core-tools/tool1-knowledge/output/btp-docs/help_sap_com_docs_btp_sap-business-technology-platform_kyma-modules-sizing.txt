@@ -1,0 +1,298 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/kyma-modules-sizing
+Title: Kyma Modules' Sizing | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformAdministration and OperationsAdministration and Operations in the Kyma EnvironmentKyma Modules' Sizing
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Kyma Modules' Sizing
+
+The following tables show the resource consumption, such as memory, CPU, and storage, of Kyma modules.
+
+Istio
+Istio Module's Sizing
+
+Infrastructure size
+
+Memory
+
+CPU
+
+Small cluster minimum
+
+352 Mi
+
+0.08
+
+Large cluster minimum
+
+1984 Mi
+
+0.61
+
+API Gateway
+API Gateway Module's Sizing
+
+Infrastructure size
+
+Memory
+
+CPU
+
+Small cluster minimum
+
+212 Mi
+
+0.03
+
+Large cluster minimum
+
+416 Mi
+
+0.34
+
+SAP BTP Operator
+SAP BTP Operator Module's Sizing
+
+Infrastructure size
+
+Memory
+
+CPU
+
+Minimum
+
+53 Mi
+
+0.02
+
+Maximum
+
+1000 Mi
+
+2
+
+Application Connector
+Application Connector Module's Sizing
+
+Infrastructure size
+
+Memory
+
+CPU
+
+Minimum
+
+64-128 Mi
+
+0.2-0.5
+
+Eventing
+Eventing Manager's Sizing
+
+Infrastructure size
+
+Memory
+
+CPU
+
+Minimum
+
+128 Mi
+
+0.01
+
+Maximum
+
+512 Mi
+
+0.5
+
+Eventing Publisher Proxy's Sizing
+
+Infrastructure size
+
+Memory
+
+CPU
+
+Max Publisher instances
+
+Low EPS (up to 200 Events per second)
+
+64-512 Mi
+
+0.04-0.5
+
+2 (second instance for high availability)
+
+High EPS (up to 3000 Events per second)
+
+64-512 Mi
+
+0.04-0.5
+
+3
+
+Keda
+Keda Module's Sizing
+
+Infrastructure size
+
+Memory
+
+CPU
+
+Minimum
+
+692 Mi
+
+0.62
+
+Maximum
+
+928 Mi
+
+1.8
+
+NATS
+
+By default, the NATS module creates a NATS-cluster with three nodes for data safety reasons. The values are given per NATS-cluster node:
+
+NATS Module's Sizing
+
+Infrastructure size
+
+Memory
+
+CPU
+
+Storage
+
+Minimum
+
+64 Mi
+
+0.04
+
+1000 Mi
+
+Maximum
+
+1000 Mi
+
+0.5
+
+1000 Mi
+
+Serverless
+Serverless Module's Sizing
+
+Infrastructure size
+
+Memory
+
+CPU
+
+Storage
+
+Minimum
+
+400 Mi
+
+0.03
+
+Maximum
+
+2300 Mi
+
+1.7
+
+Up to 20000 Mi (for PVC for internal Docker registry)
+
+Telemetry
+
+Resource consumption depends on the APIs (pipelines) you are using. For details, see Telemetry Pipeline API.
+
+Using the Telemetry module without activating any pipelines results in the Telemetry Manager running with the following footprint:
+
+Infrastructure size
+
+Memory
+
+CPU
+
+Minimum
+
+5 Mi
+
+0.01
+
+Maximum
+
+100 Mi
+
+0.1
+
+Activation of the first LogPipeline causes the deployment of the log agent running an instance per node:
+
+Infrastructure size
+
+Memory
+
+CPU
+
+Minimum per node
+
+50 Mi
+
+0.1
+
+Maximum per node
+
+1000 Mi
+
+1
+
+Activation of the first TracePipeline causes the deployment of the trace gateway running with two replicas:
+
+Infrastructure size
+
+Memory
+
+CPU
+
+Minimum
+
+2*32 Mi
+
+2*0.2
+
+Maximum
+
+2*2000 Mi
+
+2*1.2
+
+Activation of the first MetricPipeline causes the deployment of the metric gateway running with two replicas and the metric agent running per node:
+
+Infrastructure size
+
+Memory
+
+CPU
+
+Minimum
+
+2*30 Mi + 50 Mi per node
+
+2*0.01 + 0.01 per node
+
+Maximum
+
+2*1000 Mi + 1200 Mi per node
+
+2*1.00 + 1 per node
+
+Related Information
+Sizing

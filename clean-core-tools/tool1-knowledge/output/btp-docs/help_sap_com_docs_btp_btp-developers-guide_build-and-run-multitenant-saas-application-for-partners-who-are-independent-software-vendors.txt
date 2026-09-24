@@ -1,0 +1,22 @@
+URL: https://help.sap.com/docs/btp/btp-developers-guide/build-and-run-multitenant-saas-application-for-partners-who-are-independent-software-vendors
+Title: Build and Run Multitenant SaaS Applications for Partners Who Are Independent Software Vendors | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP Developer's GuideDeveloping with CAP in the SAP BTP, Cloud Foundry and SAP BTP, Ky…Build and Run Multitenant SaaS Applications for Partners Who Are …
+SAP BTP Developer's GuideEnglish
+Provide feedback on our search
+
+Build and Run Multitenant SaaS Applications for Partners Who Are Independent Software Vendors
+
+If you are an independent software vendor, SAP Business Technology Platform (SAP BTP) offers architecture patterns and development practices for building multitenant SaaS applications, along with operational guidance and tutorials. Utilizing the following resources help you to streamline the development process and ensure scalable and efficient application deployment.
+
+Gain access to a single, comprehensive, and structured resource for partners building multitenant SaaS solutions on SAP BTP. This guide outlines the recommended path, helping you navigate every step - from the initial idea to successful monetization - and makes it easier to fully leverage SAP BTP’s capabilities, including its services, scalability, and go-to-market opportunities. See End-to-End Guide for Multitenant SaaS Solutions on SAP BTP on SAP Partner Portal.
+
+Explore the partner reference application. It provides a comprehensive example to help you build, deploy, and run scalable SaaS solutions. See Tutorials and Reference Sample for Full-Stack Multitenant SaaS Applications for Partners and Partner Reference Application 'Poetry Slam Manager' on GitHub.
+
+Explore the partner reference application extension that provides tutorials and a comprehensive example for customer-specific extensions for multitenant SaaS applications. See Tutorials and Reference Sample for Full-Stack Multitenant SaaS Applications for Partners and Partner Reference Application Extension 'Catering Management' on GitHub.
+
+Estimate your cost-to-serve by calculating the total cost of ownership for multi-tenant SaaS applications built on SAP BTP. See Total cost of ownership calculation of multi-tenant SaaS applications built on SAP BTP on SAP Partner Portal.
+
+Related Information
+Tutorials and Reference Sample for Full-Stack Multitenant SaaS Applications for Partners
+Tutorial and Reference Sample for a Cross-Stack Extension Application

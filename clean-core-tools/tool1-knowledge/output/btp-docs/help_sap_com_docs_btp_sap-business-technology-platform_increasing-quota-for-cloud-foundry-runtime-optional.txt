@@ -1,0 +1,29 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/increasing-quota-for-cloud-foundry-runtime-optional
+Title: Increasing the Quota for the Cloud Foundry Runtime (Optional) | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…ABAP Environment: Initial SettingsIncreasing the Quota for the Cloud Foundry Runtime (Optional)
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Increasing the Quota for the Cloud Foundry Runtime (Optional)
+
+Check if your subaccount has a quota for the Cloud Foundry runtime and increase it, if needed.
+
+Context
+Note
+
+If you have run the booster Prepare an Account for ABAP Development, you can skip this step.
+
+A quota for the Cloud Foundry runtime is optional. It's only needed for the ABAP environment if your developers want to deploy their own apps in Cloud Foundry.
+
+Procedure
+Log on to the SAP BTP cockpit as Cloud Foundry administrator.
+Go to your global account.
+From the navigation area, choose Entitlements  Entity Assignments.
+If there is no entry for the Cloud Foundry runtime, choose Configure Entitlements and Add Service Plans.
+In the following popup, proceed as follows:
+Choose Cloud Foundry Runtime.
+Under Available Service Plans, select the checkbox MEMORY.
+Choose Add 1 Service Plan.
+Choose + to add at least 1 to the subaccount.
+Choose Save.

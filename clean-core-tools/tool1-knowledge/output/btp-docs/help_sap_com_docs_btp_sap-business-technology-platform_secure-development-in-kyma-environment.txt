@@ -1,0 +1,45 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/secure-development-in-kyma-environment
+Title: Secure Development in the Kyma Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformSecuritySecurity in the Kyma EnvironmentSecure Development in the Kyma Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Secure Development in the Kyma Environment
+
+Secure development focuses on Pod security, network traffic restriction, Istio sidecar proxy injection, and workload exposure. Learn about the security measures you can take to improve the security of your Kyma environment .
+
+Pod Security
+
+To learn how to secure your Kubernetes Pods in Kyma, see Kubernetes Pod Security Recommendations.
+
+Restrict and Secure Network Traffic
+
+Set up Kubernetes Network Policies to restrict the network traffic between Pods in your namespaces.
+
+Enabling Istio Sidecar Proxy Injection for your namespaces.
+
+Expose Workloads Securely
+To securely expose workloads in SAP BTP, Kyma runtime, use the Istio and API Gateway modules. As a prerequisite, make sure that you have those two modules added to your Kyma cluster. Then, perform the following tasks:
+
+Set up a custom domain for a workload. See Istio Gateways.
+
+Disable the default gateway. See Kyma Gateway.
+
+Set up your own API gateway with one of the following options:
+
+Configure a TLS Gateway
+
+Configure an mTLS Gateway
+
+Create an APIRule Custom Resource to securely expose your workloads. See Expose and Secure a Workload with a JWT Using SAP Cloud Identity Services.
+
+Module-Specific Security Considerations
+Serverless Module
+
+For more information, see Function Security for the Serveless module.
+
+Related Information
+Kyma Security Concepts
+Secure Administration and Operations in the Kyma Environment
+Kubernetes Pod Security Recommendations

@@ -1,0 +1,69 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/view-directory-usage-analytics
+Title: View Directory Usage Analytics | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Managing Directories Using the CockpitView Directory Usage Analytics
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+View Directory Usage Analytics
+
+You can explore, compare, and analyze all your actual usage data for the services and applications that are available in your directory.
+
+To monitor and track usage in a directory, open your directory from the Account Explorer in the SAP BTP cockpit, and then go to the Usage Analytics page in the navigation area.
+
+Note
+
+This cockpit page is available only for directories that have user management enabled.
+
+You must also be assigned as an admin of the directory. For the more information, see Create a Directory and Manage Users in Directories.
+
+Views in the Directory 'Usage Analytics' Page
+The directory Usage Analytics page contains two views that display the same usage information; however, your entry point is different – either from a service/subscription or a directory/subaccount:
+
+View
+
+Description
+
+Service Usage
+
+Displays high-level usage information for a selected service or business application subscriptions according to the directory from which you accessed the Usage Analytics page. You can also drill down and view usage data for specific subdirectories and subaccounts that are located in this directory.
+
+Directory/Subaccount Usage
+
+Displays high-level usage information for all services and business application subscriptions according to the directory from which you accessed the Usage Analytics page. You can also drill down and view usage data for specific subdirectories and subaccounts that are located in this directory.
+
+Information is shown only for those services and subscriptions whose metered consumption in the directory is greater than zero.
+
+Usage values are updated every 24 hours. Usage data displayed in this cockpit page refers to actual usage, not billed usage.
+
+The Space filter is available only when you've selected a subaccount and the subaccount has the Cloud Foundry environment enabled.
+
+Tip
+
+If your directory is in a global account that uses the consumption-based commercial model, you can view information about your billed usage for billable services in your global acccount's Usage Analytics page. The global account's Usage Analytics page also provides information about cloud-credit usage. For more information, see Monitoring Usage and Consumption Costs in Your Global Account.
+
+You can also view usage information by subaccount directly in a subaccount's Usage Analytics page. For more information, see View Subaccount Usage Analytics.
+
+Working with the Tables and Charts
+
+Both the Service Usage and Directory/Subaccount Usage views display the usage information in tabular and chart formats.
+
+The tables present accumulated usage values based on the aggregation logic of each service plan and its metric over the selected time period. The usage values are broken down by resource.
+
+The charts present usage values for one or more service plans that you select in the adjacent tables.
+
+Select a table row to display the usage information in the chart. You can also compare usage between service plans in the same service by selecting multiple rows. To compare usage, the rows items must also share the same metric.
+
+In the charts, you can view the data as a column chart or as a line chart.
+
+To display a larger view of a chart, choose the  (Zoom) button.
+
+Some rounding or shortening is applied to large values. You can mouse over values in the table to view the exact values as tooltips.
+
+Related Information
+Org Administration Using the Cockpit
+Monitoring Usage and Consumption Costs in Your Global Account
+What Is the Consumption-Based Commercial Model?
+View Subaccount Usage Analytics
+Monitoring Usage Information Using APIs of the SAP Usage Data Management Service
+Manage Users in Directories

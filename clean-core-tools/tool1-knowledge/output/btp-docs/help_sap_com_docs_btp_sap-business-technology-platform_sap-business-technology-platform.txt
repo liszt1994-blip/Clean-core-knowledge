@@ -1,0 +1,95 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/sap-business-technology-platform
+Title: SAP Business Technology Platform | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+SAP Business Technology Platform
+
+SAP Business Technology Platform (SAP BTP) is an offering that integrates the following technology portfolios: application development; process automation; integration; data, analytics, and enterprise planning; artificial intelligence. The platform allows users to turn data into business value, compose end-to-end business processes, connect entire IT landscapes, and personalize, build, and extend SAP applications. This reduces the overall total cost of ownership by maintaining SAP landscapes and third-party software across end-to-end business processes.
+
+SAP BTP in the Intelligent Enterprise
+
+Companies need access to live data to make informed decisions in real time. They also need to apply advanced technologies and best practices within agile, integrated business processes. That’s why a key part of SAP’s strategy is integrating end-to-end processes, whether the solutions come from SAP, partners, or third parties.
+
+SAP drives integration across its solution portfolio in the following business scenarios: lead to cash, source to pay, design to operate, and hire to retire.
+
+SAP Business Technology Platform offers integration capabilities that connect end-to-end business processes across SAP and third-party applications. The following key aspects, known as Suite Qualities, provide a consistent experience across applications:
+
+Seamless User Experience: SAP Fiori gives many SAP solutions a common look and feel. This improves user experience and reduces interruptions.
+
+See: SAP Fiori.
+
+Consistent Security and Identity Management: SAP Cloud Identity services on SAP BTP enable you to manage identities and use the single sign-on capability across selected end-to-end processes.
+
+See: SAP Cloud Identity Services on SAP BTP.
+
+Aligned Domain Models, APIs, and Events: Master Data Integration is a cloud service for master data integration. It provides a consistent view of master data across a hybrid landscape. You can use APIs for process integration among SAP solutions, SAP, and third parties, or by adopting an event-based integration strategy – all based on predefined integration content available on SAP API Business Hub.
+
+See: SAP One Domain Model, SAP Master Data Integration service, SAP Integration Suite on SAP BTP
+
+Embedded Analytics across Solutions: The analytical insights in various SAP solutions help you make informed decisions. Embedded analytics from SAP Analytics Cloud are available, for example, in SAP S/4HANA and SAP SuccessFactors.
+
+See: SAP Analytics Cloud on SAP BTP.
+
+One Workflow Inbox: With the unified view of pending tasks across SAP solutions in both mobile and desktop environments, you can complete tasks faster.
+
+See: SAP Task Center on SAP BTP, SAP Mobile Start. For full workflow modeling and visibility capabilities leverage, see: SAP Process Automation on SAP BTP
+
+Coordinated Lifecycle Management: You can optimize implementation projects and reduce configuration effort because provisioning, setup and operations, and monitoring solutions are harmonized. Automated provisioning and guided integration setup are available for selected scenarios in lead to cash, source to pay, recruit to retire, and design to operate.
+
+See: SAP for Me, SAP CALM
+
+End-to-End Process Blueprints: Process blueprints that follow the Industry Reference Architecture standard can reduce planning effort for implementation projects. They also support architecture decisions.
+
+See: SAP API Business Hub
+
+Related information:
+
+SAP’s vision for the Intelligent Enterprise
+
+SAP’s Integration Strategy whitepaper
+
+SAP Integration Strategy community
+
+About This Guide
+
+Get an overview of the basic platform concepts of SAP BTP and how they relate to each other. Learn how to manage your accounts and how to develop, extend, administer, and secure your cloud setup and applications on the platform.
+
+Tip
+The English version of this guide is open for contributions and feedback using GitHub. This allows you to get in contact with responsible authors of SAP Help Portal pages and the development team to discuss documentation-related issues. To contribute to this guide, or to provide feedback, choose the corresponding option on SAP Help Portal:
+
+Feedback  Create issue: Provide feedback about a documentation page. This option opens an issue on GitHub.
+
+Feedback  Edit page: Contribute to a documentation page. This option opens a pull request on GitHub.
+
+You need a GitHub account to use these options.
+
+More information:
+
+Contribution Guidelines
+
+Introduction Video
+
+Introduction Blog Post
+
+More resources that you might find interesting:
+
+Best Practices
+
+Get onboarded to SAP BTP. Learn about basic concepts and see our best practices for your development projects in setting up the correct organizational structure, creating an account and security model, and developing and operating applications: SAP BTP Administrator's Guide.
+
+Services and Solutions
+
+Get an overview on the availability of SAP BTP solutions and services according to region, infrastructure provider, and license model. Access the service details pages for information on features, service plans, related tools, APIs, and documentation: SAP Discovery Center: Service Catalog.
+
+Neo Environment
+
+For more information about the Neo environment, see SAP BTP, Neo Environment.
+
+To learn more about why and how to migrate your scenarios in the Neo environment, see Migrating from the Neo Environment to the Multi-Cloud Foundation.
+
+All SAP BTP Resources
+
+You can find all of our resources on the product page: SAP Business Technology Platform (SAP BTP).

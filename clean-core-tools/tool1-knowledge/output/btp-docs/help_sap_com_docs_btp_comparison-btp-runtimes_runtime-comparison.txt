@@ -1,0 +1,47 @@
+URL: https://help.sap.com/docs/btp/comparison-btp-runtimes/runtime-comparison
+Title: Comparison: SAP BTP, Kyma Runtime and SAP BTP, Cloud Foundry Runtime | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)Comparison: SAP BTP, Kyma Runtime and SAP BTP, Cloud Foundry Runt…
+Comparison: SAP BTP, Kyma Runtime and SAP BTP, Cloud Foundry RuntimeEnglish
+Provide feedback on our search
+
+Comparison: SAP BTP, Kyma Runtime and SAP BTP, Cloud Foundry Runtime
+
+In SAP BTP, you have the choice between several runtimes.
+
+If you want to run ABAP, you'll choose the SAP BTP ABAP environment. Hence, this document only compares the non-ABAP runtimes SAP BTP, Cloud Foundry runtime and SAP BTP, Kyma runtime.
+
+Both runtimes can be used to host and run your custom code, while at the same time being connected to SAP BTP Multi-Cloud Services and your on-premise systems. Depending on your use case and the skill set of your developers, choose the runtime that fits your needs.
+
+Note
+
+The following pages present features of SAP’s non-ABAP runtimes grouped by category. Compare the features that are relevant for your runtime decision and follow the links to the respective detail documentation.
+
+Last update: July 2025
+
+Business Aspects Drive the Decision
+
+The difference and the main decision point is your application architecture, driven by business aspects. Usually, scaling patterns and economies of scale drive certain requirements towards the implementation of the business logic. That logic can vary from very simplistic pieces down to very complex chains of logic.
+
+Some architectural patterns need more control over the infrastructure. Simple implementations of business logic need less infrastructure control.
+
+No Difference in Non-Functionals
+
+Both non-ABAP runtimes offer parity with regards to non-functionals. Both bring multi-availability-zone infrastructure support and the same SLA levels. Applications do benefit from high availability of the runtime and can run in high availability mode themselves. Both runtimes are managed for you by SAP.
+
+Decide Only When You Have To
+
+Because the runtimes don't differ from a non-functional point of view, you don't have to take the decision up front. If your business grows and your scaling requirements or use cases grow or change, then you can augment your current architecture with more infrastructure by adding certain use cases on either runtime of choice. The decision which runtime to use doesn't need to be binary. It can very well be a combination of the two.
+
+Related Information
+Definition of the Runtime
+Runtime Strategy and Roadmap
+Offerings by the Runtime Service
+Development Skills
+Security and Resilience
+Archetypes
+Protocols
+Observability
+Technical Details
+Sizing
+Other Information

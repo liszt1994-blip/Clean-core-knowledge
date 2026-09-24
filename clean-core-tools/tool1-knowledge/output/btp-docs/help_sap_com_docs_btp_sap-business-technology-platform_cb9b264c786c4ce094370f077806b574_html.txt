@@ -1,0 +1,25 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/cb9b264c786c4ce094370f077806b574.html
+Title: Standard Plan for Cloud Foundry Runtime (Subscription-Based) | SAP Help Portal
+
+HomeSAP BTP, Cloud Foundry RuntimeSAP BTP, Cloud Foundry Runtime…Standard Plan for Cloud Foundry RuntimeStandard Plan for Cloud Foundry Runtime (Subscription-Based)
+SAP BTP, Cloud Foundry RuntimeEnglish
+Provide feedback on our search
+
+Standard Plan for Cloud Foundry Runtime (Subscription-Based)
+
+Learn how to set up the standard plan for SAP BTP, Cloud Foundry runtime in an enterprise global account that uses the subscription-based commercial model.
+
+Overview
+Setting up the standard plan for SAP BTP, Cloud Foundry runtime in the subscription-based model involves two tasks:
+
+A subaccount administrator enables the Cloud Foundry environment with the standard plan, creating a Cloud Foundry org. For more information about the procedure, see Enabling Standard Plan for Cloud Foundry Runtime (Subscription-Based).
+
+A global account administrator assigns some of the pre-purchased runtime memory quota to a subaccount using the service Cloud Foundry Runtime (APPLICATION_RUNTIME) and its service plan MEMORY. This runtime memory can then be used by the applications running in the Cloud Foundry org. For more information about the procedure, see Assigning Runtime Memory Quota for Cloud Foundry Runtime (Subscription-Based).
+Note
+
+If the subaccount belongs to a directory with the entitlements management feature enabled, the global account administrator must assign the service plan MEMORY to this directory first.
+
+These tasks are independent of one another and can be done in any order. However, both of them must be completed before you can run applications in your Cloud Foundry org.
+
+Related Information
+What Is the Subscription-Based Commercial Model?

@@ -1,0 +1,44 @@
+URL: https://help.sap.com/docs/btp/comparison-btp-runtimes/technical-capabilities-security-and-resilience
+Title: Security and Resilience | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)Comparison: SAP BTP, Kyma Runtime and SAP BTP, Cloud Foundry Runt…Security and Resilience
+Comparison: SAP BTP, Kyma Runtime and SAP BTP, Cloud Foundry RuntimeEnglish
+Provide feedback on our search
+
+Security and Resilience
+
+Learn about the security and resilience aspects.
+
+Security and Resilience
+
+Category
+
+SAP BTP, Kyma runtime
+
+SAP BTP, Cloud Foundry runtime
+
+Backup and restore
+
+Yes, but requires continuity planning.
+
+See Kyma environment backup
+
+Yes, but requires continuity planning.
+
+See Resilience, High Availability, and Disaster Recovery
+
+Workload isolation
+
+Can be configured on multiple levels
+
+Can be configured on multiple levels
+
+Multi A-Z support
+
+Offering three availability zones.
+
+See Resilience Best Practices for Kyma runtime.
+
+Offering three availability zones.
+
+See Resilience Best Practices for Cloud Foundry runtime.

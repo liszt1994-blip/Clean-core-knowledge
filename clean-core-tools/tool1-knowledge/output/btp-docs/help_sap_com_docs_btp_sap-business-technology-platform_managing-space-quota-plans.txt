@@ -1,0 +1,104 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/managing-space-quota-plans
+Title: Managing Space Quotas | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Org Administration Using the CockpitManaging Space Quotas
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Managing Space Quotas
+
+Learn what a space quota is, what type of information you will find on the Space Quotas page in the SAP BTP cockpit, and what you can do with a space quota in the Cloud Foundry environment.
+
+What Is a Space Quota?
+A space quota defines the upper consumption limit for all resources in a space, such as:
+
+Space memory
+
+Route
+
+Service instances
+
+Memory per instance
+
+Application instances
+
+Note
+
+Assigning a space quota to a space is optional. A space without an assigned space quota shares the consumption limits defined in the org quota with all the other spaces part of the org.
+
+When working with space quotas, keep in mind the following additional specifics:
+
+You can create unlimited space quotas in an organization (org), but you can assign only one space quota to a space at a time.
+
+If a space quota is larger than the org quota, the org quota limit is applied.
+
+Example: If you create a space quota with space memory of 2048MB but the org quota has a total memory of 1024MB, then the space is going to use the org quota instead.
+
+Also, you can have only one space quota named "dev" in an org, but two orgs can have two separate space quotas with the same name "dev".
+
+When creating a space quota, you can define whether a space quota allows you to use paid services within a space.
+
+Prerequisites
+
+To create, edit, or assign space quotas in an org, you must have the Org Manager role.
+
+What Can You Find on the Space Quotas Page?
+You can switch between the following views on this page:
+
+Space Quotas
+
+You find the following in this view:
+
+A list of all space quotas you have created and whether they are assigned to a space.
+
+Details about each space quota tile related to the space, such as:
+
+Space Memory (MB): Total amount of memory
+
+Routes: Total number of routes
+
+Service Instances: Total number of service instances
+
+Paid Services: Selected if you'd like to allow the provisioning of instances of paid service plans
+
+App Instances: Total number of application instances
+
+Memory per Instance (MB): Maximum amount of memory an application instance can have
+
+Note
+
+The value of -1 represents an unlimited amount.
+
+The option to create a space quota.
+
+For more information, see Create Space Quotas.
+
+The option to edit a space quota.
+
+For more information, see Edit Space Quotas.
+
+The option to delete a space quota.
+
+You can delete a space quota only if it's not assigned to a space.
+
+Quota Assignments
+
+You find the following in this view:
+
+A list of all the available spaces in the subaccount you have access to and whether they have a space quota assigned to them or if they are using the org quota instead.
+
+The option to  (Edit) a quota assignment.
+
+For more information, see Assign Space Quotas to Spaces.
+
+What Can You Do with a Space Quota?
+
+Create Space Quotas
+
+Assign Space Quotas to Spaces
+
+Edit Space Quotas
+
+Related Information
+Managing Spaces
+About Roles in the Cloud Foundry Environment

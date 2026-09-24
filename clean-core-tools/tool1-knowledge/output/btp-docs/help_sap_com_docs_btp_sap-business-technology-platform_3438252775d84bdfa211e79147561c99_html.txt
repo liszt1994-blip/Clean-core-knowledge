@@ -1,0 +1,38 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/3438252775d84bdfa211e79147561c99.html
+Title: Security, Neo Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP, Neo EnvironmentSecurity, Neo Environment
+SAP BTP, Neo EnvironmentEnglish
+Provide feedback on our search
+
+Security, Neo Environment
+
+Authorization and trust management, OAuth, key and certificate management, principal propagation and other security features in the Neo Environment.
+
+Caution
+
+SAP Business Technology Platform, Neo environment will sunset on December 31, 2028, subject to terms of customer or partner contracts.
+
+For more information, see SAP Note 3351844 .
+
+Tip
+
+This documentation refers to SAP Business Technology Platform, Neo environment. If you are looking for documentation about other environments, see SAP Business Technology Platform .
+
+Security Recommendations
+
+We provide a list with our recommendations for the configuration of our services. These recommendations help you to meet your compliance goals and secure your business.
+
+See SAP BTP, Neo Environment Security Recommendations.
+
+Our customer success organization, uses these recommendations as a base to create a security baseline template.
+
+For more information, go to https://support.sap.com/sos and choose Media Library  SAP CoE Security Services - Security Baseline Template.
+
+Transport Layer Security (TLS) Connectivity Support
+
+Neo environment uses encrypted communication channels based on HTTPS/TLS, supporting TLS version 1.2 or higher.
+
+Make sure you use HTTP clients (such as Web browsers) that support TLS version 1.2 or higher for connecting.
+
+In the TLS headers x-scp-tls-version and x-scp-tls-cipher returned by the Neo environment, the application receives information about the TLS version and cipher with which the connection is established.

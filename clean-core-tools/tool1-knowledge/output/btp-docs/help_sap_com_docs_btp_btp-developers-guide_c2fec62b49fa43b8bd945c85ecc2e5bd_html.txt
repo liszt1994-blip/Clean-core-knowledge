@@ -1,0 +1,158 @@
+URL: https://help.sap.com/docs/btp/btp-developers-guide/c2fec62b49fa43b8bd945c85ecc2e5bd.html
+Title: Development | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology PlatformDevelopment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Development
+
+Develop and run business applications on SAP Business Technology Platform (SAP BTP) using our cloud application programming model, APIs, services, tools, and capabilities.
+
+SAP BTP supports multiple environments. It features a number of tools and programming languages that increase your flexibility and freedom when developing applications. You can choose the environment that best suits your use cases and skill set and get to work. You also have the possibility to integrate applications you’ve built with other solutions by SAP.
+
+Environment options
+
+Cloud Foundry
+
+Kyma
+
+ABAP
+
+Benefits
+
+Simplified developer experience for business application development
+
+Large choice of programming languages
+
+Intuitive “code-to-container” packaging and deployment, managed by the platform
+
+Platform-managed application security patching and updates
+
+Automatic application routing, load balancing, health checks, and multilevel self-healing
+
+Support for CAP – an opinionated business app development framework
+
+Take full advantage of the advanced features and rich ecosystem of Kubernetes
+
+Free choice of programming languages and models (containerized deployments)
+
+Combines microservices and serverless functions
+
+Built-in, managed service mesh based on Istio, and other cloud-native open-source modules to reduce the development effort
+
+Built-in, managed event mesh
+
+Managed infrastructure: day-2 operations, security patches, and updates
+
+Full administrator access
+
+Refined horizontal and vertical automatic scalability
+
+Dedicated application runtime
+
+Zero downtime infrastructure setup by default
+
+Support for CAP – an opinionated business app development framework
+
+Support for on-premise connectivity
+
+ABAP programming language
+
+Fast prototyping with ABAP RESTful Programming Model (RAP)
+
+Integrated development lifecycle
+
+Reuse existing on-prem ABAP assets
+
+Additional Information
+
+Comparison: SAP BTP, Kyma Runtime and SAP BTP, Cloud Foundry Runtime
+
+Comparison: SAP BTP, Kyma Runtime and SAP BTP, Cloud Foundry Runtime
+
+Development in the ABAP Environment
+
+Shared Benefits
+
+No infrastructure vendor lock-in
+
+Build scalable multitenancy business applications (SaaS)
+
+Out-of-the-box consumption of SAP and hyperscaler services
+
+Built on industry standards and open technology
+
+Good For
+
+Managed build-on approach
+
+Enterprise-grade business applications and services
+
+Cloud-native web applications and services
+
+Scalable, microservice-based applications
+
+Small to medium extensions built with CAP/low-code tooling
+
+Open build-on approach
+
+Enterprise-grade applications
+
+Cloud-native development of apps and services
+
+Low latency infra-services communication
+
+Reduced infrastructure management effort
+
+Highly scalable, microservice-based applications
+
+Applications built with CAP
+
+User-centric process extensions
+
+Robust, transactional cloud applications
+
+Migrating and adapting add-ons to the cloud
+
+Reusing existing on-premise ABAP code
+
+Enabling ABAP developers to go to the cloud
+
+Skills
+
+Any major programming languages
+
+SAP Fiori/UI5 and SAP HANA
+
+Kubernetes knowledge
+
+Docker
+
+NodeJS or Python for serverless functions
+
+Any major programming language
+
+SAP Fiori/UI5 and SAP HANA
+
+Ability to write modern ABAP code
+
+Core data services
+
+SAP Fiori/UI5 and SAP HANA
+
+We provide detailed information about developing, configuring, and deploying your applications depending on your preferred environment and development approach.
+
+Development in the Cloud Foundry Environment
+
+Learn more about developing applications on the SAP BTP, Cloud Foundry environment.
+Development in the ABAP Environment
+
+Learn more about developing applications in the ABAP environment.
+Development in the Kyma Environment
+
+Learn more about developing applications in SAP BTP, Kyma runtime.
+Related Information
+SAP BTP Administrator's Guide
+Developing with the SAP Cloud Application Programming Model
+Consuming Services in SAP BTP

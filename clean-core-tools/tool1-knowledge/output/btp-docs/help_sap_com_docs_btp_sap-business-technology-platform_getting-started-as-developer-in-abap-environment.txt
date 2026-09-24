@@ -1,0 +1,32 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/getting-started-as-developer-in-abap-environment
+Title: Getting Started as a Developer in the ABAP Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Getting Started with a Customer Account in the ABAP EnvironmentGetting Started as a Developer in the ABAP Environment
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Getting Started as a Developer in the ABAP Environment
+
+Learn about your first steps to get started as a developer in the ABAP environment.
+
+Note
+
+This documentation informs you about the first steps as a developer and assumes that the necessary steps for setting up the ABAP environment are done. For more information about how to set up the ABAP environment and getting started as an administrator, see Getting Started with a Customer Account in the ABAP Environment.
+
+Developing Applications: Overview
+
+This image is interactive. Hover over each area for a description. Click highlighted areas for more information.
+
+Download and install ABAP Development Tools (ADT) from https://tools.hana.ondemand.com/#abap. See Video Tutorial: Configure ABAP Development Tools.
+
+Note
+
+SAP GUI is not supported in the ABAP environment. You can only use ADT as your development environment.
+
+Create an ABAP cloud project with ADT to connect to the ABAP system in the ABAP environment (see Connect to the ABAP System).
+
+Develop your application (see Development in the ABAP Environment). To learn more about how to develop applications, see Tutorial: Create Your First ABAP Console Application and Video Tutorial: Create Application.
+
+More Information About Development in the ABAP Environment
+
+For more information about ABAP development, see Development in the ABAP Environment.

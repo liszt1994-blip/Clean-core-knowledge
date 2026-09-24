@@ -1,0 +1,41 @@
+URL: https://help.sap.com/docs/btp/preparing-and-testing-your-solution-for-third-party-cookie-deprecation/auditing-cookie-usage-using-chrome-devtools
+Title: Auditing Cookie Usage using Chrome DevTools | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)Preparing and Testing Your Solution for Third-Party Cookie Phase-…Auditing CookiesAuditing Cookie Usage using Chrome DevTools
+Preparing and Testing Your Solution for Third-Party Cookie Phase-OutEnglish
+Provide feedback on our search
+
+Auditing Cookie Usage using Chrome DevTools
+
+Auditing cookie usage allows you to identify third-party cookies set by your application.
+
+Make sure to manually go through your entire critical user journey and capture any cookies set or read during this process. For more information, criteria and general guidelines on identifying third-party cookies, see Google's official documentation.
+
+At this stage, we are not yet looking for Google Chrome to block third-party cookies. You can use multiple settings to allow third-party cookies.
+Note
+
+Some organizations set policies with regards to cookies and might allow certain domains to set cookies.
+
+This effectively hinders the investigation, as those cookies will not be reported as affected. To properly audit your cookie usage, make sure that you are using Google Chrome version M124 or higher, and check chrome://policy for any policies set by your application. If there are any,we recommend using a different Google Chrome instance for your testing, inside a virtual machine for example.
+The following tools provided by Chrome help with the analysis:
+
+Chrome DevTools
+
+PSAT Extensions
+
+Chrome DevTools
+
+The Chrome DevTools are quite powerful and have an overwhelming set of features. To help you during your cookie analysis, please consider the following recommendations.
+
+DevTools Panels
+The DevTools panels of interest are:
+
+Console
+
+Network
+
+Application - Identify and inspect third-party cookies
+
+Preserve Logs
+
+If your flow spans across multiple pages or includes redirects, enable the Preserve log option to avoid losing console messages or request logs. This option needs to be enabled separately for different panels. For more information, check Console - Persist messages across page loads and Network - Save requests across page loads.

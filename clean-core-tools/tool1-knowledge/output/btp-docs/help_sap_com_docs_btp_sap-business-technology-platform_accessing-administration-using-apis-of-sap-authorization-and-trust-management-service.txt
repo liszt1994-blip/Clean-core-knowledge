@@ -1,0 +1,48 @@
+URL: https://help.sap.com/docs/btp/sap-business-technology-platform/accessing-administration-using-apis-of-sap-authorization-and-trust-management-service
+Title: Accessing Administration Using APIs of the SAP Authorization and Trust Management Service | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP Business Technology Platform…Account Administration Using APIsAccessing Administration Using APIs of the SAP Authorization and …
+SAP Business Technology PlatformEnglish
+Provide feedback on our search
+
+Accessing Administration Using APIs of the SAP Authorization and Trust Management Service
+
+The REST services of the SAP Authorization and Trust Management service (XSUAA) provide APIs that enable you to manage entities, such as roles, shadow users, and access tokens in global accounts, directories, and multi-environment subaccounts.
+
+Note
+
+To manage Neo subaccounts, use the Neo APIs. For more information, see Using Platform APIs.
+
+API Overview
+
+The following table provides an overview of the APIs. For more information about the APIs and their API endpoints, see SAP Business Accelerator Hub in the related links.
+
+APIs of SAP Authorization and Trust Management Service
+
+API
+
+Description
+
+User Management (System for Cross-domain Identity Management (SCIM))
+
+Provides functions to administrate the SAP Authorization and Trust Management service of the Cloud Foundry environment. Provision users from identity providers and manage roles and role collections. Use this API to manage shadow users; users the service provisions from your identity provider to the subaccount.
+
+See SAP BTP XS Advanced UAA (Cloud Foundry) for more information.
+
+Authorization
+
+Provides functions to administrate the SAP Authorization and Trust Management service of Cloud Foundry environment. Manage service instances of the SAP Authorization and Trust Management service. You can also manage roles, role templates, and role collections of your subaccount.
+
+Identity Provider Management
+
+Provides functions to manage identity providers in in the Cloud Foundry environment.
+
+Security Settings
+
+Provides functions to manage the security settings of an account in Cloud Foundry environment. Use this API to manage access token validity and signing keys.
+
+Related Information
+APIs of SAP Authorization and Trust Management Service service on SAP Business Accelerator Hub
+Using Platform APIs
+Rate Limiting
+Limits for Technical Artifacts of the SAP Authorization and Trust Management Service

@@ -1,0 +1,274 @@
+URL: https://help.sap.com/docs/btp/sap-btp-neo-environment/regions-and-hosts-available-for-neo-environment
+Title: Regions and Hosts Available for the Neo Environment | SAP Help Portal
+
+HomeSAP Business Technology Platform (SAP BTP)SAP BTP, Neo EnvironmentRegions in the Neo EnvironmentRegions and Hosts Available for the Neo Environment
+SAP BTP, Neo EnvironmentEnglish
+Provide feedback on our search
+
+Regions and Hosts Available for the Neo Environment
+
+Each region represents a geographical location (for example, Europe, US East) where applications, data, or services are hosted.
+
+Caution
+
+SAP Business Technology Platform, Neo environment will sunset on December 31, 2028, subject to terms of customer or partner contracts.
+
+For more information, see SAP Note 3351844 .
+
+Tip
+
+This documentation refers to SAP Business Technology Platform, Neo environment. If you are looking for documentation about other environments, see SAP Business Technology Platform .
+
+Tip
+
+Additional IP outbound addresses will soon be used in all regions in the Neo environment. For more information, see Additional IP Addresses Added to SAP BTP, Neo Runtime Regions. To subscribe to such notifications, see SAP Note 3513325 .
+
+To find out about the regions available for multi-environment subaccounts, see Regions .
+
+Regions, Hosts, and IP Ranges Available for the Neo Environment
+
+Region (all operated by SAP)
+
+Technical Key
+
+Host
+
+Cockpit Logon
+
+IP Ranges
+
+Australia (Sydney)
+
+neo-ap1
+
+ap1.hana.ondemand.com
+
+Link
+
+Inbound:
+
+157.133.96.0/23
+
+Outbound:
+
+130.214.148.64/29, 130.214.148.72/29 and 130.214.140.32/27
+
+Brazil (São Paulo)
+
+neo-br1
+
+br1.hana.ondemand.com
+
+Link
+
+Inbound:
+
+130.214.96.128/25
+
+Outbound:
+
+130.214.96.64/29, 130.214.96.72/29 and 130.214.96.96/27
+
+Canada (Toronto)
+
+neo-ca1
+
+ca1.hana.ondemand.com
+
+Link
+
+Inbound:
+
+130.214.174.128/25
+
+Outbound:
+
+130.214.174.64/29, 130.214.174.72/29 and 130.214.239.32/28
+
+China (Shanghai)
+
+neo-cn1
+
+cn1.platform.sapcloud.cn
+
+Link
+
+Inbound:
+
+121.91.109.0/24
+
+Outbound:
+
+121.91.106.72/29, 121.91.106.64/29 and 130.214.219.0/28
+
+Europe (Amsterdam)
+
+neo-eu3
+
+eu3.hana.ondemand.com
+
+Link
+
+Inbound:
+
+130.214.86.0/24 and 130.214.87.0/24
+
+Outbound:
+
+130.214.166.72/29, 130.214.166.64/29 and 130.214.166.80/28
+
+Europe (Frankfurt)
+
+neo-eu2
+
+eu2.hana.ondemand.com
+
+Link
+
+Inbound:
+
+157.133.70.0/24, 157.133.205.0/24, 157.133.204.0/24, and 157.133.206.0/24
+
+Outbound:
+
+130.214.164.64/29, 130.214.190.64/29, 130.214.164.80/29, 130.214.190.80/29, 130.214.253.128/27 and 130.214.48.128/27
+
+Europe (Rot)
+
+neo-eu1
+
+hana.ondemand.com
+
+eu1.hana.ondemand.com
+
+Link
+
+Inbound:
+
+155.56.210.0/24, 155.56.248.0/24, 155.56.228.0/23 and 155.56.227.0/24
+
+Outbound:
+
+130.214.18.64/26, 130.214.160.64/28 and 130.214.160.80/29
+
+Japan (Tokyo)
+
+neo-jp1
+
+jp1.hana.ondemand.com
+
+Link
+
+Inbound:
+
+130.214.112.128/25
+
+Outbound:
+
+130.214.245.40/29, 130.214.245.32/29 and 130.214.245.48/28
+
+Kingdom of Saudi Arabia (Riyadh)
+
+neo-sa1
+
+sa1.hana.ondemand.com
+
+Link
+
+Inbound:
+
+130.214.209.128/25
+
+Outbound:
+
+130.214.223.32/29, 130.214.223.40/29 and 130.214.92.96/27
+
+UAE (Dubai)
+
+neo-ae1
+
+ae1.hana.ondemand.com
+
+Link
+
+Inbound:
+
+130.214.80.128/25
+
+Outbound:
+
+130.214.251.32/29, 130.214.251.40/29 and 130.214.251.48/28
+
+US East (Ashburn)
+
+neo-us1
+
+us1.hana.ondemand.com
+
+Link
+
+Inbound: 130.214.181.0/24
+
+Outbound:
+
+130.214.180.64/29, 130.214.180.72/29 and 130.214.180.96/28
+
+US West (Chandler)
+
+neo-us2
+
+us2.hana.ondemand.com
+
+Link
+
+Inbound:
+
+130.214.128.128/25 and 130.214.129.0/24
+
+Outbound:
+
+130.214.255.40/29, 130.214.255.32/29 and 130.214.119.0/27
+
+US East (Sterling)
+
+neo-us3
+
+us3.hana.ondemand.com
+
+Link
+
+Inbound:
+
+130.214.32.0/24 and 130.214.33.0/24
+
+Outbound:
+
+130.214.178.64/29, 130.214.178.72/29, 130.214.180.88/29, 130.214.180.80/29, 130.214.178.96/27 and 130.214.180.192/27
+
+US West (Colorado Springs)
+
+neo-us4
+
+us4.hana.ondemand.com
+
+Link
+
+Inbound:
+
+130.214.183.0/25
+
+Outbound:
+
+130.214.184.64/29, 130.214.184.72/29 and 130.214.184.80/28
+
+Note
+
+The infrastructure layer for Europe (Rot) runs in SAP Data Centers in Rot and Walldorf.
+
+IP Range Notation
+
+The IP ranges listed here are displayed in the Classless Inter-Domain Routing (CIDR) notation. The CIDR notation is a compact way to specify an IP address and its associated routing prefix. The notation is made up of the IP address, a forward slash character (/), and the number of leading 1-bits in the subnet mask.
+
+For example: The CIDR notation 157.133.246.0/24 consists of the IP ranges between 157.133.246.0 and 157.133.246.255.
+
+For more information about how CIDR ranges represent multiple IP addresses, you can read online about CIDR notation.
